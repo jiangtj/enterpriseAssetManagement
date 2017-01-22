@@ -1,5 +1,7 @@
 package com.jtj.web.interceptor;
 
+import com.jtj.web.common.ResultCode;
+import com.jtj.web.dto.ResultDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -43,7 +45,9 @@ public class SecurityInterceptor implements HandlerInterceptor{
         httpServletResponse.setHeader("Cache-Control", "no-cache");
         httpServletResponse.setDateHeader("Expires", 0);
         PrintWriter out = httpServletResponse.getWriter();
-        out.println("{\"1\":\"2\"}");
+        //out.println("{\"1\":\"2\"}");
+        ResultDto<Object> result = new ResultDto<>(ResultCode.UNAUTHORIZE);
+        out.println(result);
         out.flush();
         out.close();
 

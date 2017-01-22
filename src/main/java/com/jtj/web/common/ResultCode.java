@@ -5,7 +5,8 @@ package com.jtj.web.common;
  * 2017/1/22.
  */
 public enum ResultCode {
-    SUCCESS("000000","成功");
+    SUCCESS("000000","成功"),
+    UNAUTHORIZE("100000","未授权");
 
     private String code;
     private String message;

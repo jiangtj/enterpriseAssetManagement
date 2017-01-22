@@ -1,5 +1,6 @@
 package com.jtj.web.dto;
 
+import com.google.gson.Gson;
 import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 
@@ -16,6 +17,15 @@ public class ResultDto<T> {
     }
 
     public ResultDto(ResultCode resultCode) {
+        this(resultCode,null);
+    }
+
+    public ResultDto(ResultCode resultCode,T object) {
+        setResultCode(resultCode);
+        this.object = object;
+    }
+
+    public void setResultCode(ResultCode resultCode) {
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
     }
@@ -42,5 +52,11 @@ public class ResultDto<T> {
 
     public void setObject(T object) {
         this.object = object;
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
