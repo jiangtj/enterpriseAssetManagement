@@ -1,5 +1,6 @@
 package com.jtj.web.controller;
 
+import com.jtj.web.dto.ResultDto;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user/{id}")
-    public List<User> queryById(@PathVariable("id") long id){
+    public ResultDto<Object> queryById(@PathVariable("id") long id){
         return userService.queryById(id);
     }
 }

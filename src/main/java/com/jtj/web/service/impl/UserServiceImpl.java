@@ -1,6 +1,8 @@
 package com.jtj.web.service.impl;
 
+import com.jtj.web.common.ResultCode;
 import com.jtj.web.dao.UserDao;
+import com.jtj.web.dto.ResultDto;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,10 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public List<User> queryById(long id){
-        return userDao.queryById(id);
+    public ResultDto<Object> queryById(long id){
+        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(userDao.queryById(id));
+        return result;
     }
 
 }

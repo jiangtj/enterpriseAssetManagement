@@ -1,5 +1,6 @@
 package com.jtj.web.service;
 
+import com.jtj.web.dto.ResultDto;
 import com.jtj.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,6 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    List<User> queryById(long id);
+    ResultDto<Object> queryById(long id);
 
 }
