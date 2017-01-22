@@ -1,7 +1,6 @@
 package com.jtj.web.dto;
 
 import com.google.gson.Gson;
-import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 
 /**

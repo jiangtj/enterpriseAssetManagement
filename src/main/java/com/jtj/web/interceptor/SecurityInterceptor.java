@@ -46,7 +46,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
         httpServletResponse.setDateHeader("Expires", 0);
         PrintWriter out = httpServletResponse.getWriter();
         //out.println("{\"1\":\"2\"}");
-        ResultDto<Object> result = new ResultDto<>(ResultCode.UNAUTHORIZE);
+        ResultDto<Object> result = new ResultDto<>(ResultCode.UNAUTHORIZED);
         out.println(result);
         out.flush();
         out.close();
