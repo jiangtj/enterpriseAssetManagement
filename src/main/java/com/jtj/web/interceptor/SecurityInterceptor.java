@@ -1,6 +1,7 @@
 package com.jtj.web.interceptor;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,28 +17,33 @@ public class SecurityInterceptor implements HandlerInterceptor{
 
     private final static String separator = ",";
 
+    @Value("${interceptor.auth.url}")
+    private String authUrlString;
+    @Value("${interceptor.ignore.url}")
+    private String ignoreUrlString;
     @Value("${interceptor.ignore.suffix}")
     private String ignoreSuffixString;
 
-    @Value("${interceptor.ignore.url}")
-    private String ignoreUrlString;
-
-    private String[] ignoreSuffixArr;
-
+    private String[] authUrlArr;
     private String[] ignoreUrlArr;
+    private String[] ignoreSuffixArr;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
 
-        initIgnoreArr();
+        //初始化列表
+        initAuthOrIgnoreArr();
+
+        //过滤验证url
+        String servletPath = httpServletRequest.getServletPath();
+        if (mathAuthUrl(servletPath)) return true;
 
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setHeader("Cache-Control", "no-cache");
         httpServletResponse.setDateHeader("Expires", 0);
         PrintWriter out = httpServletResponse.getWriter();
-        out.println(
-                "{\"1\":\"2\"}");
+        out.println("{\"1\":\"2\"}");
         out.flush();
         out.close();
 
@@ -54,12 +60,39 @@ public class SecurityInterceptor implements HandlerInterceptor{
 
     }
 
-    private void initIgnoreArr() {
-        if (ignoreSuffixArr == null){
-            ignoreSuffixArr = ignoreSuffixString.split(separator);
+    private void initAuthOrIgnoreArr() {
+        if (authUrlArr == null){
+            authUrlArr = authUrlString.split(separator);
         }
         if (ignoreUrlArr == null){
             ignoreUrlArr = ignoreUrlString.split(separator);
         }
+        if (ignoreSuffixArr == null){
+            ignoreSuffixArr = ignoreSuffixString.split(separator);
+        }
+    }
+
+    private boolean mathAuthUrl(String servletPath) {
+        //如果url不需要验证，则不拦截
+        for (String temp : authUrlArr){
+            if (StringUtils.isEmpty(temp) || !servletPath.startsWith(temp)){
+                return true;
+            }
+        }
+
+        //如果url不需要过滤，则不拦截
+        for (String temp : ignoreUrlArr){
+            if (StringUtils.isEmpty(temp) || servletPath.startsWith(temp)){
+                return true;
+            }
+        }
+
+        //部分后缀不拦截
+        for (String temp : ignoreSuffixArr){
+            if (StringUtils.isEmpty(temp) || servletPath.endsWith(temp)){
+                return true;
+            }
+        }
+        return false;
     }
 }
