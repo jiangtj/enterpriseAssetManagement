@@ -1,4 +1,4 @@
-package com.jtj.web.util;
+package com.jtj.web.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

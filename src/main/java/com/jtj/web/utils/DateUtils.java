@@ -1,4 +1,4 @@
-package com.jtj.web.util;
+package com.jtj.web.utils;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;

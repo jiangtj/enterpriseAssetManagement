@@ -2,6 +2,7 @@ package com.jtj.web.dto;
 
 import com.google.gson.Gson;
 import com.jtj.web.common.ResultCode;
+import com.jtj.web.utils.GsonUtils;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -55,7 +56,6 @@ public class ResultDto<T> {
 
     @Override
     public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        return GsonUtils.toJson(this);
     }
 }
