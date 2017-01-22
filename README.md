@@ -1,12 +1,15 @@
 # enterpriseAssetManagement
 企业固定资产管理系统--毕业设计
 
+### 环境
+- 开发环境：jdk 8+
+- 数据库：mysql 5.7.14
+- 服务器：tomcat
+- 系统：window/linux
+
 ### 框架
 - 后台：spring boot : (ssm) spring + spring mvc + mybatis
-- 前段：vue.js/vuex
-
-### 数据库
-mysql 5.7.14
+- 前端：spring thymeleaf + vue.js
 
 ### LICENSE
 ```
