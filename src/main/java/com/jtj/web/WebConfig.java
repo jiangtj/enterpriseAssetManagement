@@ -1,10 +1,6 @@
 package com.jtj.web;
 
-import com.jtj.web.interceptor.SecurityInterceptor;
-import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.web.*;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import com.jtj.web.aspect.SecurityInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

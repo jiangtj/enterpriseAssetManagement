@@ -1,4 +1,4 @@
-package com.jtj.web.entity;
+package com.jtj.web.common;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)

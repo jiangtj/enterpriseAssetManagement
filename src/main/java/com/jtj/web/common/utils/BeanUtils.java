@@ -1,4 +1,4 @@
-package com.jtj.web.utils;
+package com.jtj.web.common.utils;
 
 
 import org.springframework.cglib.beans.BeanCopier;

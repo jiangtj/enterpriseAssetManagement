@@ -1,8 +1,7 @@
-package com.jtj.web.dto;
+package com.jtj.web.common;
 
-import com.google.gson.Gson;
 import com.jtj.web.common.ResultCode;
-import com.jtj.web.utils.GsonUtils;
+import com.jtj.web.common.utils.GsonUtils;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)

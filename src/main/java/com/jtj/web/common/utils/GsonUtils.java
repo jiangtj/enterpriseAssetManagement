@@ -1,4 +1,4 @@
-package com.jtj.web.utils;
+package com.jtj.web.common.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

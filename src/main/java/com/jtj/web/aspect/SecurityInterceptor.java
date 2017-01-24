@@ -1,7 +1,7 @@
-package com.jtj.web.interceptor;
+package com.jtj.web.aspect;
 
 import com.jtj.web.common.ResultCode;
-import com.jtj.web.dto.ResultDto;
+import com.jtj.web.common.ResultDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;

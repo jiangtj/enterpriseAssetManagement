@@ -2,13 +2,10 @@ package com.jtj.web.service.impl;
 
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.dao.UserDao;
-import com.jtj.web.dto.ResultDto;
-import com.jtj.web.entity.User;
+import com.jtj.web.common.ResultDto;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
