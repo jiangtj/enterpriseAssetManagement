@@ -6,4 +6,6 @@ package com.jtj.web.common;
  */
 public class Constant {
 
+    public final static String SESSION_USER = "user";
+
 }

@@ -1,7 +1,9 @@
 package com.jtj.web.aspect;
 
+import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 /**
@@ -39,6 +42,15 @@ public class SecurityInterceptor implements HandlerInterceptor{
         //过滤验证url
         String servletPath = httpServletRequest.getServletPath();
         if (mathAuthUrl(servletPath)) return true;
+
+        //获取session
+        HttpSession session = httpServletRequest.getSession();
+
+        //获取用户信息
+        User user = (User) session.getAttribute(Constant.SESSION_USER);
+        if (user == null){
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/loginPage");
+        }
 
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("UTF-8");
@@ -78,22 +90,28 @@ public class SecurityInterceptor implements HandlerInterceptor{
 
     private boolean mathAuthUrl(String servletPath) {
         //如果url不需要验证，则不拦截
+        boolean tempFlag = true;
         for (String temp : authUrlArr){
-            if (StringUtils.isEmpty(temp) || !servletPath.startsWith(temp)){
-                return true;
+            if (!StringUtils.isEmpty(temp) || servletPath.startsWith(temp)){
+                tempFlag = false;
+                break;
             }
         }
+        if (tempFlag) return true;
 
         //如果url不需要过滤，则不拦截
         for (String temp : ignoreUrlArr){
-            if (StringUtils.isEmpty(temp) || servletPath.startsWith(temp)){
+            /*if (!StringUtils.isEmpty(temp) || servletPath.equals(temp)){
+                return true;
+            }*/
+            if (servletPath.equals(temp)){
                 return true;
             }
         }
 
         //部分后缀不拦截
         for (String temp : ignoreSuffixArr){
-            if (StringUtils.isEmpty(temp) || servletPath.endsWith(temp)){
+            if (!StringUtils.isEmpty(temp) && servletPath.endsWith(temp)){
                 return true;
             }
         }
