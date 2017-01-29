@@ -1,5 +1,7 @@
 # enterpriseAssetManagement
 企业固定资产管理系统--毕业设计
+ 
+> 正在努力开发中， 请稍等待。。。  
 
 ### 环境
 - 开发环境：jdk 8+
