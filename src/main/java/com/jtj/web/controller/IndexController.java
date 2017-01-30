@@ -20,4 +20,9 @@ public class IndexController {
     public String loginPage(){
         return "login";
     }
+
+    @GetMapping("/welcome")
+    public String welcome(){
+        return "welcome";
+    }
 }
