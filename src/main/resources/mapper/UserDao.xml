@@ -7,7 +7,14 @@
 
     <!-- mybatis调用存储过程 -->
     <select id="queryById" resultType="User">
-        SELECT * FROM user WHERE id = #{id}
+        SELECT
+            au.* ,
+            ar.id "role.id",
+            ar.name "role.name",
+            ar.status "role.status"
+        FROM auth_user au
+            LEFT JOIN auth_role ar ON au.role_id = ar.id
+        WHERE au.id = #{id}
     </select>
 
 

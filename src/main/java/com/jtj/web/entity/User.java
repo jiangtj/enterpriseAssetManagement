@@ -8,8 +8,10 @@ import com.jtj.web.common.BaseEntity;
  */
 public class User extends BaseEntity {
 
-    private String name;
-    private String password;
+    private String name;//用户名
+    private String password;//密码
+    private Long roleId;//角色id
+    private Role role;//角色对象
 
     public String getName() {
         return name;
@@ -25,5 +27,21 @@ public class User extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

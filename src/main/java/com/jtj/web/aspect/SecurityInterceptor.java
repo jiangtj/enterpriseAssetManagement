@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 public class SecurityInterceptor implements HandlerInterceptor{
 
     private final static String separator = ",";
+    private final static String wildcard = "/*";
 
     @Value("${interceptor.auth.url}")
     private String authUrlString;
@@ -92,7 +93,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
         //如果url不需要验证，则不拦截
         boolean tempFlag = true;
         for (String temp : authUrlArr){
-            if (!StringUtils.isEmpty(temp) || servletPath.startsWith(temp)){
+            if (temp.length()>0 && servletPath.startsWith(temp)){
                 tempFlag = false;
                 break;
             }
@@ -104,6 +105,13 @@ public class SecurityInterceptor implements HandlerInterceptor{
             /*if (!StringUtils.isEmpty(temp) || servletPath.equals(temp)){
                 return true;
             }*/
+
+            if (temp.endsWith(wildcard)){
+                if (servletPath.startsWith(temp)){
+                    return true;
+                }
+            }
+
             if (servletPath.equals(temp)){
                 return true;
             }
