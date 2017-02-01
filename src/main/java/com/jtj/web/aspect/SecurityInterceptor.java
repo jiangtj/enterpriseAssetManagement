@@ -53,6 +53,9 @@ public class SecurityInterceptor implements HandlerInterceptor{
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/loginPage");
         }
 
+        //如果是首页，则放行
+        if (servletPath.equals("/index")) return true;
+
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setHeader("Cache-Control", "no-cache");
@@ -107,7 +110,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
             }*/
 
             if (temp.endsWith(wildcard)){
-                if (servletPath.startsWith(temp)){
+                if (servletPath.startsWith(temp.substring(0,temp.length()-2))){
                     return true;
                 }
             }

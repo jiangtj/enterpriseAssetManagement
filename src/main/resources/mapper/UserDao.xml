@@ -3,9 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jtj.web.dao.UserDao">
-    <!-- 目的:为DAO接口方法提供sql语句配置-->
 
-    <!-- mybatis调用存储过程 -->
+    <!-- 根据id查询用户 -->
     <select id="queryById" resultType="User">
         SELECT
             au.* ,
@@ -15,6 +14,18 @@
         FROM auth_user au
             LEFT JOIN auth_role ar ON au.role_id = ar.id
         WHERE au.id = #{id}
+    </select>
+
+    <!-- 登陆 -->
+    <select id="login" resultType="User">
+        SELECT
+        au.* ,
+        ar.id "role.id",
+        ar.name "role.name",
+        ar.status "role.status"
+        FROM auth_user au
+        LEFT JOIN auth_role ar ON au.role_id = ar.id
+        WHERE au.name = #{name} AND au.password = #{password}
     </select>
 
 

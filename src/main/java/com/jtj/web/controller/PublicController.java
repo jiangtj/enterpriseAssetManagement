@@ -1,10 +1,13 @@
 package com.jtj.web.controller;
 
+import com.jtj.web.common.ResultDto;
+import com.jtj.web.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 公共接口控制层，该层接口无须权限
@@ -15,10 +18,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/public")
 public class PublicController {
 
+    @Autowired
+    private UserService userService;
+
     @ResponseBody
     @PostMapping("/login")
-    public String login(){
-        return "welcome";
+    public ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response,
+                                   @RequestParam("name") String name, @RequestParam("password") String password){
+
+        return userService.login(request,response,name,password);
     }
 
 }

@@ -6,7 +6,8 @@ package com.jtj.web.common;
  */
 public enum ResultCode {
     SUCCESS("000000","成功"),
-    UNAUTHORIZED("100000","未授权");
+    UN_USER_INFO("100001","不存在该用户"),
+    UNAUTHORIZED("900000","未授权");
 
     private String code;
     private String message;

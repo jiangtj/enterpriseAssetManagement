@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +12,7 @@
 
 <body class="gray-bg">
 
-    <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div id="login-block" class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             <div>
                 <h1 class="logo-name">EA</h1>
@@ -20,14 +20,15 @@
             <h3>Welcome to EnterpriseAsset</h3>
             <p>最好用的企业固定资产管理系统</p>
             <!--<p>Login in. To see it in action.</p>-->
-            <form class="m-t" role="form" action="index.html">
+            <form class="m-t" role="form">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Username" required="" />
+                    <input v-model="username" type="text" class="form-control" placeholder="Username" required="" />
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="" />
+                    <input v-model="password" type="password" class="form-control" placeholder="Password" required="" />
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                <input v-on:click="login" class="btn btn-primary block full-width m-b" type="button" value="Login" />
+                <!--<button v-on:click="login" type="submit" class="btn btn-primary block full-width m-b">Login</button>-->
 
                 <a href="#"><small>Forgot password?</small></a>
 
@@ -42,6 +43,8 @@
     <!-- Mainly scripts -->
     <script th:src="@{js/jquery-2.1.1.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{js/vue.js}"></script>
+    <script th:src="@{js/login.js}"></script>
 
 </body>
 
