@@ -1,6 +1,7 @@
 var loginApp = new Vue({
     el: '#login-block',
     data: {
+        baseUrl:baseUrl,
         username: null,
         password:null
     },
@@ -8,18 +9,18 @@ var loginApp = new Vue({
         login:function () {
             $.ajax({
                 type: "post",
-                url: "/public/login",
+                url: this.baseUrl+"/public/login",
                 data: {name:this.username,password:this.password},
                 dataType: "json",
                 success: function (data) {
                     if (data.code == "000000"){
-                        window.location.href = "/index";
+                        window.location.href = loginApp.baseUrl + "/index";
                     }else {
                         alert('登陆失败！code：'+data.code+",message:"+data.message);
                     }
                 },
                 error: function (msg) {
-                    alert(msg);
+                    alert("失败");
                 }
             });
         }
