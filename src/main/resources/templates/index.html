@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EA | Index</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="css/animate.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 
 <body>
 <div id="wrapper">
 
+    <script th:inline="javascript">
+        var baseUrl = [[${#httpServletRequest.getContextPath()}]];
+        var sessionUser = [[${session.user}]];
+    </script>
+
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
+
+                <!-- 菜单用户 -->
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Mr.J</strong>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{user.name}}</strong>
                              </span> <span class="text-muted text-xs block">Ha Ha !! <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="#">Logout</a></li>
@@ -29,17 +37,32 @@
                         EA
                     </div>
                 </li>
+
+
                 <li class="active">
                     <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
                 </li>
-                <li>
-                    <a href="minor.html"><i class="fa fa-th-large"></i> <span class="nav-label">Minor view</span> </a>
+
+                <!-- 菜单 -->
+                <li v-for="n in menu">
+                    <a><i class="fa" v-bind:class="[n.icon]"></i> <span class="nav-label">{{n.name}}</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li v-for="item in n.list"><a v-bind:href="item.url">{{item.name}}</a></li>
+                        <!--<li>
+                            <a href="#">Third Level <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li><a href="#">Third Level Item</a></li>
+                                <li><a href="#">Third Level Item</a></li>
+                            </ul>
+                        </li>-->
+                    </ul>
                 </li>
             </ul>
 
         </div>
     </nav>
 
+    <!-- 导航条 -->
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
@@ -58,9 +81,10 @@
                         </a>
                     </li>
                 </ul>
-
             </nav>
         </div>
+
+
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
@@ -88,14 +112,18 @@
 </div>
 
 <!-- Mainly scripts -->
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/js/vue.js}"></script>
+<script th:src="@{/js/vue-router.js}"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script>
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/menu.js}"></script>
+<script th:src="@{/js/index.js}"></script>
 
 
 </body>
