@@ -38,16 +38,31 @@
                     </div>
                 </li>
 
-
-                <li class="active">
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
-                </li>
-
                 <!-- 菜单 -->
                 <li v-for="n in menu">
-                    <a><i class="fa" v-bind:class="[n.icon]"></i> <span class="nav-label">{{n.name}}</span><span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li v-for="item in n.list"><a v-bind:href="item.url">{{item.name}}</a></li>
+
+                    <!-- 一级菜单url为空 -->
+                    <a v-if="n.url == null">
+                        <i v-if="n.icon != null" class="fa" v-bind:class="[n.icon]"></i>
+                        <span class="nav-label">{{n.name}}</span>
+                        <span v-if="n.list != null" class="fa arrow"></span>
+                    </a>
+
+                    <!-- 一级菜单url不为空 -->
+                    <router-link v-if="n.url != null" v-bind:to="n.url">
+                        <i v-if="n.icon != null" class="fa" v-bind:class="[n.icon]"></i>
+                        <span class="nav-label">{{n.name}}</span>
+                        <span v-if="n.list != null" class="fa arrow"></span>
+                    </router-link>
+
+                    <!-- 二级菜单 -->
+                    <ul v-if="n.list != null" class="nav nav-second-level collapse">
+                        <li v-for="item in n.list">
+                            <router-link v-bind:to="item.url">
+                                <i v-for="item.icon != null" class="fa" v-bind:class="[item.icon]"></i>{{item.name}}
+                            </router-link>
+                        </li>
+                        <!--<li v-for="item in n.list"><a v-bind:href="item.url">{{item.name}}</a></li>-->
                         <!--<li>
                             <a href="#">Third Level <span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
@@ -56,6 +71,7 @@
                             </ul>
                         </li>-->
                     </ul>
+
                 </li>
             </ul>
 
@@ -84,8 +100,9 @@
             </nav>
         </div>
 
-
-        <div class="wrapper wrapper-content animated fadeInRight">
+        <!-- 内容 -->
+        <router-view></router-view>
+        <!--<div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-center m-t-lg">
@@ -98,7 +115,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+
+
+        <!-- 尾部 -->
         <div class="footer">
             <!--<div class="pull-right">
                 10GB of <strong>250GB</strong> Free.
