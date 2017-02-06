@@ -39,7 +39,7 @@
                 </li>
 
                 <!-- 菜单 -->
-                <li v-for="n in menu">
+                <li v-for="n in menu" v-bind:class="{'active':n.isActive}">
 
                     <!-- 一级菜单url为空 -->
                     <a v-if="n.url == null">
@@ -57,19 +57,11 @@
 
                     <!-- 二级菜单 -->
                     <ul v-if="n.list != null" class="nav nav-second-level collapse">
-                        <li v-for="item in n.list">
+                        <li v-for="item in n.list" v-bind:class="{'active':item.isActive}">
                             <router-link v-bind:to="item.url">
-                                <i v-for="item.icon != null" class="fa" v-bind:class="[item.icon]"></i>{{item.name}}
+                                <i v-if="item.icon != null" class="fa" v-bind:class="[item.icon]"></i>{{item.name}}
                             </router-link>
                         </li>
-                        <!--<li v-for="item in n.list"><a v-bind:href="item.url">{{item.name}}</a></li>-->
-                        <!--<li>
-                            <a href="#">Third Level <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li><a href="#">Third Level Item</a></li>
-                                <li><a href="#">Third Level Item</a></li>
-                            </ul>
-                        </li>-->
                     </ul>
 
                 </li>
@@ -102,20 +94,6 @@
 
         <!-- 内容 -->
         <router-view></router-view>
-        <!--<div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center m-t-lg">
-                        <h1>
-                            Welcome in INSPINIA Static SeedProject
-                        </h1>
-                        <small>
-                            It is an application skeleton for a typical web app. You can use it to quickly bootstrap your webapp projects and dev environment for these projects.
-                        </small>
-                    </div>
-                </div>
-            </div>
-        </div>-->
 
 
         <!-- 尾部 -->

@@ -2,15 +2,22 @@
 const AppMenu = [
     {
         name:"首页",
-        icon:"fa-cogs",
+        icon:"fa-dashboard",
         url:"/",
         staticUrl:"/model/index.vue"
     },
     {
         name:"资源管理",
-        icon:"fa-cogs",
+        icon:"fa-th-large",
         list:[
             {name:"111111111111",url:"/bar",staticUrl:"/model/xxxx/aaa.vue"}
+        ]
+    },
+    {
+        name:"报表分析",
+        icon:"fa-pie-chart",
+        list:[
+            {name:"22222",url:"/bar",staticUrl:"/model/xxxx/aaa.vue"}
         ]
     },
     {
