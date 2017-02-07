@@ -2,16 +2,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Basic Form</h2>
+            <h2>用户管理</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <router-link to="/">Home</router-link>
                 </li>
                 <li>
-                    <a>Forms</a>
+                    <a>System</a>
                 </li>
                 <li class="active">
-                    <strong>Basic Form</strong>
+                    <strong>User</strong>
                 </li>
             </ol>
         </div>
@@ -23,7 +23,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
-                <div class="ibox float-e-margins">
+                <div class="ibox from-table-margins">
                     <!--<div class="ibox-title">
                         <h5>Custom responsive table </h5>
                     </div>-->
@@ -41,6 +41,17 @@
                             </div>
                             <button class="btn btn-white" type="submit">Sign in</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <!--<div class="ibox-title">
+                        <h5>Custom responsive table </h5>
+                    </div>-->
+                    <div class="ibox-content">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
