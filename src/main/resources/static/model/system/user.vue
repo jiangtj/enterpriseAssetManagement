@@ -108,15 +108,8 @@
     </div>
 
     <script type="application/javascript">
-        //todo 移入common.js
-        function beautifyChecks() {
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green'
-            });
-        }
         //美化复选框
-        beautifyChecks();
+        iCheckUtils.beautifyChecks();
     </script>
 
 </div>

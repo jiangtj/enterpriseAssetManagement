@@ -1,3 +1,12 @@
+//json
+const JsonUtils = {
+    isJson:function (data) {
+        return typeof(data) == "object" && Object.prototype.toString.call(data).toLowerCase() == "[object object]"
+            && !data.length;
+    }
+};
+
+//ajax请求
 const Web = {
     //url:"",
     baseUrl:baseUrl,
@@ -16,24 +25,62 @@ const Web = {
             }
         }
         return url;
+    },
+    isCallbackOrOptions:function (data) {
+        if (jQuery.isFunction( data )) return true;
+        if (!JsonUtils.isJson(data)) return false;
+        return (jQuery.isFunction(data.success) || jQuery.isFunction(data.error));
     }
 };
-
 jQuery.each( [ "get", "post" ], function( i, method ) {
-    Web[ method ] = function( url, data, callback, dataType ,type) {
-        url = Web.buildUrl(url);
-        if ( jQuery.isFunction( data ) ) {
-            type = dataType || type;
-            dataType = callback;
-            callback = data;
+    Web[ method ] = function( url, data, callbackOrOptions) {
+
+        //处理回调
+        if ( Web.isCallbackOrOptions( data ) ) {
+            callbackOrOptions = data;
             data = undefined;
         }
-        return jQuery.ajax({
-            url: url,
-            type: method,
-            dataType: dataType,
-            data: data,
-            success: callback
-        });
+        if ( jQuery.isFunction( callbackOrOptions ) ) {
+            callbackOrOptions = {success:callbackOrOptions};
+        }
+
+        //默认配置
+        var options = {
+            url:Web.buildUrl(url),
+            data:data,
+            dataType:"json",
+            defaultHandling:true
+        };
+
+        //深拷贝
+        options = jQuery.extend(true, options, callbackOrOptions);
+
+        //dataType数据类型
+        options.dataType = options.dataType.toLowerCase();
+
+        //默认回调处理
+        if (options.dataType == "json" || options.defaultHandling){
+            options.success = function (response,status,xhr) {
+                if (!JsonUtils.isJson(response)) {
+                    window.location.href = options.url;
+                }
+                if (response.code == "000000"){
+
+                }
+                callbackOrOptions.success(response,status,xhr);
+            };
+            //insideCallback.error = callback.error;
+        }
+        return jQuery.ajax(options);
     };
 });
+
+//iCheck插件
+const iCheckUtils = {
+    beautifyChecks:function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+    }
+};
