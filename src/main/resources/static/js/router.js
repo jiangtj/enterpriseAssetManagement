@@ -9,9 +9,7 @@ function pushRoute(item){
         component: function (resolve) {
             var url = item.staticUrl;//获取url
             var view = "";
-            $.ajax({
-                type: "get",
-                url:url,
+            Web.get(url,{
                 async: false,
                 dataType: "text",
                 success: function (data) {

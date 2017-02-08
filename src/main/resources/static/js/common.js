@@ -29,7 +29,7 @@ const Web = {
     isCallbackOrOptions:function (data) {
         if (jQuery.isFunction( data )) return true;
         if (!JsonUtils.isJson(data)) return false;
-        return (jQuery.isFunction(data.success) || jQuery.isFunction(data.error));
+        return (jQuery.isFunction(data.success) || jQuery.isFunction(data.error) || data.defaultHandling != null);
     }
 };
 jQuery.each( [ "get", "post" ], function( i, method ) {
@@ -47,6 +47,7 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
         //默认配置
         var options = {
             url:Web.buildUrl(url),
+            type:method,
             data:data,
             dataType:"json",
             defaultHandling:true
@@ -59,10 +60,14 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
         options.dataType = options.dataType.toLowerCase();
 
         //默认回调处理
-        if (options.dataType == "json" || options.defaultHandling){
+        if (options.dataType == "json" && options.defaultHandling){
             options.success = function (response,status,xhr) {
                 if (!JsonUtils.isJson(response)) {
-                    window.location.href = options.url;
+                    if (options.url.indexOf(".") == -1){
+                        window.location.href = Web.baseUrl + "/index";
+                        return;
+                    }
+                    return;
                 }
                 if (response.code == "000000"){
 
