@@ -81,7 +81,7 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 });
 
 //iCheck插件
-const iCheckUtils = {
+const ICheckUtils = {
     beautifyChecks:function () {
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',

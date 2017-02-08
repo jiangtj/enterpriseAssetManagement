@@ -109,7 +109,7 @@
 
     <script type="application/javascript">
         //美化复选框
-        iCheckUtils.beautifyChecks();
+        ICheckUtils.beautifyChecks();
     </script>
 
 </div>
