@@ -1,24 +1,17 @@
 <div>
 
-    <div class="row wrapper border-bottom white-bg page-heading">
+    <header-label></header-label>
+    <!--<div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>用户管理</h2>
             <ol class="breadcrumb">
-                <li>
-                    <router-link to="/">Home</router-link>
-                </li>
-                <li>
-                    <a>System</a>
-                </li>
-                <li class="active">
-                    <strong>User</strong>
-                </li>
+                <li><router-link to="/">Home</router-link></li>
+                <li><a>System</a></li>
+                <li class="active"><strong>User</strong></li>
             </ol>
         </div>
-        <div class="col-lg-2">
-
-        </div>
-    </div>
+        <div class="col-lg-2"></div>
+    </div>-->
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -110,6 +103,19 @@
     <script type="application/javascript">
         //美化复选框
         ICheckUtils.beautifyChecks();
+
+        //头部标签数据
+        headerLabel.setData({
+            name:"用户管理",
+            path:{
+                parent:[
+                    {url:"/",name:"Home"},
+                    {name:"System"}
+                ],
+                active:"User"
+            }
+        })
+
     </script>
 
 </div>

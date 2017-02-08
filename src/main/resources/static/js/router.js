@@ -55,7 +55,11 @@ function updateMenuStatus(route,status) {
 
 //路由钩子
 router.beforeEach(function(to, from, next){
+    //更新菜单样式
     updateMenuStatus(from,false);
     updateMenuStatus(to,true);
+    //默认头部标签
+    headerLabel.setDefault();
+    //通过
     next();
 });
