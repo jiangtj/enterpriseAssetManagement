@@ -1,6 +1,16 @@
 //定义路由堆
 const routes = [];
 
+//定义路由数据
+const RouteData={
+    tableDefaultData:[
+        {id:1,name:"ss",password:"s"},
+        {id:1,name:"ss1",password:"s"},
+        {id:1,name:"ss2",password:"s"}
+    ],
+    items:[{text:"wqwd"},{text:"s"}]
+};
+
 //添加路由对象
 function pushRoute(item){
     var object = {
@@ -18,6 +28,9 @@ function pushRoute(item){
             });
             resolve({
                 template:view,
+                data:function () {
+                    return RouteData;
+                }
             });
         }
     };

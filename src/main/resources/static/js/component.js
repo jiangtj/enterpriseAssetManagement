@@ -33,3 +33,29 @@ Vue.component('header-label', {
         return headerLabel;
     }
 });
+
+Vue.component('tt-table', {
+    props: ['data'],
+    template: '<table class="table table-striped">' +
+    /*'<thead><tr>' +
+    '<slot name="table" v-bind:title="true"></slot>' +
+    '</tr></thead>' +*/
+    '<tr v-for="item in data">' +
+    '<slot name="td" v-bind:row="item"></slot>' +
+    '</tr>' +
+    '</table>'
+});
+Vue.component('tt-table-column', {
+    props: ['prop','name'],
+    template: '<td slot="td"><template scope="tableP">' +
+    /*'<span v-if="props.title">{{name}}</span>' +
+    '<slot v-else v-bind:item="props.item">{{props.item[prop]}}</slot>' +*/
+    '<slot v-bind:row="tableP.row">{{tableP.row[prop]}}</slot>' +
+    '</template></td>'
+});
+
+
+Vue.component('my-awesome-list', {
+    props: ['items'],
+    template: '<ul> <slot name="item" v-for="item in items" :text="item.text"> <!-- fallback content here --> </slot> </ul>'
+});
