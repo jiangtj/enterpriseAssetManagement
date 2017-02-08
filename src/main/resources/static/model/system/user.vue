@@ -32,7 +32,8 @@
                                 <input type="password" placeholder="Password" id="exampleInputPassword2"
                                        class="form-control">
                             </div>
-                            <button class="btn btn-white" type="submit">Sign in</button>
+                            <button class="btn btn-white from-button-style" type="submit">Sign in</button>
+                            <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
