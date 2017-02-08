@@ -22,12 +22,12 @@
                     </div>-->
                     <div class="ibox-content">
                         <form role="form" class="form-inline">
-                            <div class="form-group">
+                            <div class="form-group from-input-margins">
                                 <label for="exampleInputEmail2">Email address</label>
                                 <input type="email" placeholder="Enter email" id="exampleInputEmail2"
                                        class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group from-input-margins">
                                 <label for="exampleInputPassword2">Password</label>
                                 <input type="password" placeholder="Password" id="exampleInputPassword2"
                                        class="form-control">

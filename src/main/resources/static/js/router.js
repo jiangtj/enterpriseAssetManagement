@@ -17,8 +17,8 @@ function pushRoute(item){
                 }
             });
             resolve({
-                template:view
-            })
+                template:view,
+            });
         }
     };
     routes.push(object);
