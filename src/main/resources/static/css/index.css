@@ -1,10 +1,15 @@
-.from-table-margins{
+.tt-from-table{
     margin-bottom: 10px;
 }
-.from-input-margins{
-    margin-right: 10px;
-}
-.from-button-style{
-    margin-right: 10px;
+/*.tt-from-button{
     float: right;
+}*/
+@media (min-width: 768px){
+    .tt-from-input{
+        margin-right: 10px;
+    }
+}
+@media (min-width: 992px){
+}
+@media (min-width: 1200px){
 }
