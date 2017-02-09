@@ -34,12 +34,12 @@ Vue.component('header-label', {
     }
 });
 
-Vue.component('tt-table', {
+/*Vue.component('tt-table', {
     props: ['data'],
     template: '<table class="table table-striped">' +
-    /*'<thead><tr>' +
+    /!*'<thead><tr>' +
     '<slot name="table" v-bind:title="true"></slot>' +
-    '</tr></thead>' +*/
+    '</tr></thead>' +*!/
     '<tr v-for="item in data">' +
     '<slot name="td" v-bind:row="item"></slot>' +
     '</tr>' +
@@ -48,12 +48,30 @@ Vue.component('tt-table', {
 Vue.component('tt-table-column', {
     props: ['prop','name'],
     template: '<td slot="td"><template scope="tableP">' +
-    /*'<span v-if="props.title">{{name}}</span>' +
-    '<slot v-else v-bind:item="props.item">{{props.item[prop]}}</slot>' +*/
+    /!*'<span v-if="props.title">{{name}}</span>' +
+    '<slot v-else v-bind:item="props.item">{{props.item[prop]}}</slot>' +*!/
     '<slot v-bind:row="tableP.row">{{tableP.row[prop]}}</slot>' +
     '</template></td>'
+});*/
+Vue.component('tt-table', {
+    props: ['data'],
+    template: '<table class="table table-striped">' +
+    '<thead>' +
+    '<slot name="tt-title">' +
+    '<tr><slot v-for="(value,key) in data.title" v-bind:name="\'tt-title-\'+key"><th>{{value}}</th></slot></tr>' +
+    '</slot>' +
+    '</thead>' +
+    '<tbody>' +
+    '<slot name="tt-body">' +
+    '<tr v-for="(item,index) in data.data"><td v-for="(value,key) in data.title">' +
+    '<slot v-bind:name="\'tt-body-\'+key" v-bind:row="item" v-bind:index="index">' +
+    '{{item[key]}}' +
+    '</slot>' +
+    '</td></tr>' +
+    '</slot>' +
+    '</tbody>' +
+    '</table>'
 });
-
 
 Vue.component('my-awesome-list', {
     props: ['items'],

@@ -8,6 +8,18 @@ const RouteData={
         {id:1,name:"ss1",password:"s"},
         {id:1,name:"ss2",password:"s"}
     ],
+    tableDefaultData2:{
+        title:{
+            id:"id",
+            name:"名称",
+            password:"密码"
+        },
+        data:[
+            {id:1,name:"ss",password:"s"},
+            {id:1,name:"ss1",password:"s"},
+            {id:1,name:"ss2",password:"s"}
+        ]
+    },
     items:[{text:"wqwd"},{text:"s"}]
 };
 

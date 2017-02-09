@@ -1,4 +1,4 @@
-<div>
+<div xmlns:v-bind="http://www.w3.org/1999/XSL/Transform">
 
     <!-- 头部标签 -->
     <header-label></header-label>
@@ -44,13 +44,18 @@
         <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <tt-table v-bind:data="tableDefaultData">
-                    <!--<tt-table v-bind:data="[{id:1,name:'ss',password:'s'}]">-->
+                    <tt-table v-bind:data="tableDefaultData2">
+                        <th slot="tt-title-id">wo</th>
+                        <template slot="tt-body-id" scope="props">
+                            {{props.row.id}}-{{props.index}}
+                        </template>
+                    </tt-table>
+                    <!--<tt-table v-bind:data="tableDefaultData">
                         <tt-table-column prop="id" name="id"></tt-table-column>
                         <tt-table-column prop="name" name="名称"></tt-table-column>
                         <tt-table-column prop="password" name="密码"></tt-table-column>
-                    </tt-table>
-                    <!--<table class="table table-striped">
+                    </tt-table>-->
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th></th>
@@ -95,7 +100,7 @@
                             <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
                         </tr>
                         </tbody>
-                    </table>-->
+                    </table>
                 </div>
             </div>
         </div></div></div>
