@@ -1,33 +1,23 @@
 //定义路由堆
-const routes = [];
-
-//定义路由数据
-const RouteData={
-    tableDefaultData:[
-        {id:1,name:"ss",password:"s"},
-        {id:1,name:"ss1",password:"s"},
-        {id:1,name:"ss2",password:"s"}
-    ],
-    tableDefaultData2:{
-        title:{
-            id:"id",
-            name:"名称",
-            password:"密码"
-        },
-        data:[
-            {id:1,name:"ss",password:"s"},
-            {id:1,name:"ss1",password:"s"},
-            {id:1,name:"ss2",password:"s"}
-        ]
-    },
-    items:[{text:"wqwd"},{text:"s"}]
+const CustomRoutes = {
+    "dsc":{
+        menu: "2",
+        path: "/ll/f",
+        name:"dsc",
+        data:{}
+    }
 };
 
+//定义menu路由
+const MenuRoutes = {};
+
 //添加路由对象
-function pushRoute(item){
+function pushMenuRoute(key,item){
     var object = {
         menu: item,
         path: item.url,
+        name:key,
+        data:{},
         component: function (resolve) {
             var url = item.staticUrl;//获取url
             var view = "";
@@ -41,35 +31,48 @@ function pushRoute(item){
             resolve({
                 template:view,
                 data:function () {
-                    return RouteData;
+                    return object.data;
                 }
             });
         }
     };
-    routes.push(object);
+    MenuRoutes[key] = item;
 }
 
 //通过菜单添加路由
-function getRoutes(items) {
+function pushMenuRoutes(items) {
     for (var i = 0; i < items.length ; i++){
         var item = items[i];
         if (item.list != null){
-            getRoutes(item.list);
+            pushMenuRoutes(item.list);
         }
         if (item.url != null) {
-            pushRoute(item)
+            pushMenuRoute(item.no,item)
         }
     }
 }
-getRoutes(AppMenu);
+pushMenuRoutes(AppMenu);
 
-//配置路由
-const router = new VueRouter({
-    routes:routes
+//路由对象堆
+const Routes = jQuery.extend(true,MenuRoutes,CustomRoutes);
+//路由对象工具类
+const RouteUtils = {
+    get:function (key) {
+        return Routes[key];
+    },
+    set:function (item) {
+        Routes[item.name] = item;
+    }
+};
+
+//路由构造者
+const Router = new VueRouter({
+    routes:Routes
 });
 
 //更新菜单class
-function updateMenuStatus(route,status) {
+function updateMenuStatus(hook,status) {
+    RouteUtils.get(hook.name);
     for (var i = 0 ; i < routes.length ; i++){
         if (routes[i].path == route.fullPath){
             routes[i].menu.isActive = status;

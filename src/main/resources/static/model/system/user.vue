@@ -44,10 +44,10 @@
         <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <tt-table v-bind:data="tableDefaultData2">
+                    <tt-table v-bind:data="tableDefaultData">
                         <th slot="tt-title-id">wo</th>
                         <template slot="tt-body-id" scope="props">
-                            {{props.row.id}}-{{props.index}}
+                            {{props.index}}-{{props.row.id}}
                         </template>
                     </tt-table>
                     <!--<tt-table v-bind:data="tableDefaultData">
@@ -122,11 +122,24 @@
                 active:"User"
             }
         });
-        /*RouteData.tableDefaultData = [
+        RouteData.tableDefaultData.data = [
             {id:1,name:"ss",password:"s"},
-            {id:1,name:"ss1",password:"s"},
-            {id:1,name:"ss2",password:"s"}
-        ]*/
+            {id:2,name:"kk",password:"u"},
+            {id:4,name:"aa",password:"p"},
+            {id:4,name:"aa",password:"p"}
+        ];
+        RouteData.tableDefaultData={
+            title:{
+                id:"id",
+                    name:"名称",
+                    password:"密码"
+            },
+            data:[
+                {id:1,name:"dfbdf",password:"fdg"},
+                {id:22,name:"scvbs1",password:"s"},
+                {id:88,name:"rg",password:"s"}
+            ]
+        };
 
     </script>
 
