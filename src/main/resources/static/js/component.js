@@ -34,28 +34,9 @@ Vue.component('header-label', {
     }
 });
 
-/*Vue.component('tt-table', {
-    props: ['data'],
-    template: '<table class="table table-striped">' +
-    /!*'<thead><tr>' +
-    '<slot name="table" v-bind:title="true"></slot>' +
-    '</tr></thead>' +*!/
-    '<tr v-for="item in data">' +
-    '<slot name="td" v-bind:row="item"></slot>' +
-    '</tr>' +
-    '</table>'
-});
-Vue.component('tt-table-column', {
-    props: ['prop','name'],
-    template: '<td slot="td"><template scope="tableP">' +
-    /!*'<span v-if="props.title">{{name}}</span>' +
-    '<slot v-else v-bind:item="props.item">{{props.item[prop]}}</slot>' +*!/
-    '<slot v-bind:row="tableP.row">{{tableP.row[prop]}}</slot>' +
-    '</template></td>'
-});*/
 Vue.component('tt-table', {
     props: ['data'],
-    template: '<table class="table table-striped">' +
+    template: '<table v-if="data != null" class="table table-striped">' +
     '<thead>' +
     '<slot name="tt-title">' +
     '<tr><slot v-for="(value,key) in data.title" v-bind:name="\'tt-title-\'+key"><th>{{value}}</th></slot></tr>' +

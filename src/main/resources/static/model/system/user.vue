@@ -106,43 +106,6 @@
         </div></div></div>
     </div>
 
-    <script type="application/javascript">
-
-        //美化复选框
-        ICheckUtils.beautifyChecks();
-
-        //头部标签数据
-        headerLabel.setData({
-            name:"用户管理",
-            path:{
-                parent:[
-                    {url:"/",name:"Home"},
-                    {name:"System"}
-                ],
-                active:"User"
-            }
-        });
-        RouteData.tableDefaultData.data = [
-            {id:1,name:"ss",password:"s"},
-            {id:2,name:"kk",password:"u"},
-            {id:4,name:"aa",password:"p"},
-            {id:4,name:"aa",password:"p"}
-        ];
-        RouteData.tableDefaultData={
-            title:{
-                id:"id",
-                    name:"名称",
-                    password:"密码"
-            },
-            data:[
-                {id:1,name:"dfbdf",password:"fdg"},
-                {id:22,name:"scvbs1",password:"s"},
-                {id:88,name:"rg",password:"s"}
-            ]
-        };
-
-    </script>
-
     <my-awesome-list :items="items">
         <!-- 作用域插槽也可以在这里命名 -->
         <template slot="item" scope="props">
@@ -150,4 +113,41 @@
         </template>
     </my-awesome-list>
 
+    <script type="application/javascript">
+        //美化复选框
+        ICheckUtils.beautifyChecks();
+    </script>
+
 </div>
+
+
+<!--
+<script type="application/javascript">
+
+    //头部标签数据
+    headerLabel.setData({
+        name:"用户管理",
+        path:{
+            parent:[
+                {url:"/",name:"Home"},
+                {name:"System"}
+            ],
+            active:"User"
+        }
+    });
+
+    //定义表格数据
+    RouteData.tableDefaultData={
+        title:{
+            id:"id",
+            name:"名称",
+            password:"密码"
+        },
+        data:[
+            {id:1,name:"dfbdf",password:"fdg"},
+            {id:22,name:"scvbs1",password:"s"},
+            {id:88,name:"rg",password:"s"}
+        ]
+    };
+
+</script>-->

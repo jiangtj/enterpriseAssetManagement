@@ -5,14 +5,15 @@ const AppMenu = [
         name:"首页",
         icon:"fa-dashboard",
         url:"/",
-        staticUrl:"/model/index.vue"
+        staticUrl:"/model/index.vue",
+        jsUrl:"/js/sa/xx.js"
     },
     {
         menu:"RRR",
         name:"资源管理",
         icon:"fa-th-large",
         list:[
-            {menu:"ac",name:"111111111111",url:"/bar",staticUrl:"/model/xxxx/aaa.vue"}
+            {menu:"ac",name:"111111111111",url:"/bar",staticUrl:"/model/xxxx/aaa.vue",jsUrl:"/js/sa/xx.js"}
         ]
     },
     {
@@ -20,7 +21,7 @@ const AppMenu = [
         name:"报表分析",
         icon:"fa-pie-chart",
         list:[
-            {menu:"sa",name:"22222",url:"/bar",staticUrl:"/model/xxxx/aaa.vue"}
+            {menu:"sa",name:"22222",url:"/bar",staticUrl:"/model/xxxx/aaa.vue",jsUrl:"/js/sa/xx.js"}
         ]
     },
     {
@@ -28,10 +29,10 @@ const AppMenu = [
         name:"系统管理",
         icon:"fa-cogs",
         list:[
-            {menu:"User",name:"用户管理",url:"/system/user",staticUrl:"/model/system/user.vue"},
-            {menu:"Role",name:"角色管理",url:"/system/role",staticUrl:"/model/system/role.vue"},
+            {menu:"User",name:"用户管理",url:"/system/user",staticUrl:"/model/system/user.vue",jsUrl:"/js/system/user.js"},
+            {menu:"Role",name:"角色管理",url:"/system/role",staticUrl:"/model/system/role.vue",jsUrl:"/js/system/role.js"},
             // {name:"权限菜单",url:"#",staticUrl:"/model/system/aaa.vue"},
-            {menu:"Permission",name:"权限管理",url:"/system/permission",staticUrl:"/model/system/permission.vue"}
+            {menu:"Permission",name:"权限管理",url:"/system/permission",staticUrl:"/model/system/permission.vue",jsUrl:"/js/system/permission.js"}
         ]
     }
 ];

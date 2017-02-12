@@ -4,7 +4,8 @@ const CustomRoutes = {
         menu:"Home",
         name:"思考每次是",
         url:"/sl/sac/sa",
-        staticUrl:"/model/index.vue"
+        staticUrl:"/model/index.vue",
+        jsUrl:"/js/sa/xx.js"
     }
 };
 
@@ -12,6 +13,10 @@ const CustomRoutes = {
 const Routes = jQuery.extend(true,{},MenuRoutes,CustomRoutes);
 //定义app路由,vue内部调用
 const AppRoutes = [];
+//定义全局路由对象
+var RouteData = null;
+var Route = null;
+var RouteConfig = {};
 
 //路由对象工具类
 const RouteUtils = {
@@ -41,12 +46,20 @@ const RouteUtils = {
                         view = data;
                     }
                 });
-                resolve({
+                //动态获取与移除js
+                Web.get(Route.jsUrl, undefined, {
+                    async: false,
+                    dataType:"script",
+                    defaultHandling:false
+                });
+                var option = {
                     template:view,
                     data:function () {
                         return object.data;
                     }
-                });
+                };
+                option = jQuery.extend(true,option,RouteConfig);
+                resolve(option);
             }
         };
         AppRoutes.push(object);
@@ -75,6 +88,9 @@ AppRouter.beforeEach(function(to, from, next){
     //更新菜单样式
     updateMenuStatus(from,false);
     updateMenuStatus(to,true);
+    //更改Route对象
+    Route = Routes[to.name];
+    RouteData = Route.data;
     //默认头部标签
     headerLabel.setDefault();
     //通过
