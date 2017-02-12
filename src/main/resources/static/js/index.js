@@ -1,7 +1,7 @@
 //单页配置
 var App = new Vue({
     el:"#wrapper",
-    router:router,
+    router:AppRouter,
     data:{
         baseUrl:baseUrl,
         user: sessionUser,
