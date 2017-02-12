@@ -114,11 +114,6 @@
             </template>
         </my-awesome-list>
 
-        <script type="application/javascript">
-            //美化复选框
-            //ICheckUtils.beautifyChecks();
-        </script>
-
     </div>
 </template>
 
@@ -161,15 +156,11 @@
                 ]
             }
         },
-        created:function () {
+        mounted:function () {
             //美化复选框
-            //this.beautifyChecks();
+            ICheckUtils.beautifyChecks();
         },
         methods: {
-            beautifyChecks: function () {
-                //美化复选框
-                ICheckUtils.beautifyChecks();
-            }
         }
     };
     /*RouteData.tableDefaultData={

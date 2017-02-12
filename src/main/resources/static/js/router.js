@@ -4,8 +4,7 @@ const CustomRoutes = {
         menu:"Home",
         name:"思考每次是",
         url:"/sl/sac/sa",
-        staticUrl:"/model/index.vue",
-        jsUrl:"/js/sa/xx.js"
+        staticUrl:"/model/index.vue"
     }
 };
 
@@ -64,13 +63,6 @@ const RouteUtils = {
                     eval(js);
                 }
 
-
-                //动态获取js
-                /*Web.get(Route.jsUrl, undefined, {
-                    async: false,
-                    dataType:"script",
-                    defaultHandling:false
-                });*/
                 var option = {
                     template:view,
                     data:function () {
