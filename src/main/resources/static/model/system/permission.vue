@@ -1,1 +1,3 @@
-<div>permission</div>
+<template>
+    <div>permission</div>
+</template>

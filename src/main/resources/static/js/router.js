@@ -38,20 +38,39 @@ const RouteUtils = {
             data:{},
             component: function (resolve) {
                 var url = item.staticUrl;//获取url
-                var view = "";
+                var tempText = "";
+                //动态获取静态模板
                 Web.get(url,{
                     async: false,
                     dataType: "text",
                     success: function (data) {
-                        view = data;
+                        tempText = data;
                     }
                 });
-                //动态获取与移除js
-                Web.get(Route.jsUrl, undefined, {
+
+                //获取view
+                var tempIndex = tempText.indexOf("template");
+                var templateStart = tempText.indexOf(">",tempIndex)+1;
+                var templateEnd = tempText.lastIndexOf("template")-2;
+                var view = tempText.substring(templateStart,templateEnd);
+
+                //获取js]
+                RouteConfig = {};
+                tempIndex = tempText.indexOf("script",templateEnd);
+                if (tempIndex != -1){
+                    var scriptStart = tempText.indexOf(">",tempIndex)+1;
+                    var scriptEnd = tempText.indexOf("script",scriptStart)-2;
+                    var js = tempText.substring(scriptStart,scriptEnd);
+                    eval(js);
+                }
+
+
+                //动态获取js
+                /*Web.get(Route.jsUrl, undefined, {
                     async: false,
                     dataType:"script",
                     defaultHandling:false
-                });
+                });*/
                 var option = {
                     template:view,
                     data:function () {

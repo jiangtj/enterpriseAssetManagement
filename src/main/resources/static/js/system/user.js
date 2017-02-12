@@ -1,4 +1,4 @@
-var RouteConfig = {
+RouteConfig = {
     data:function () {
         return {
             tableDefaultData:{

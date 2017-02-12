@@ -1,1 +1,3 @@
-<div>role</div>
+<template>
+    <div>role</div>
+</template>
