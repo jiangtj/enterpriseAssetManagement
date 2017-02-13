@@ -16,30 +16,30 @@ Vue.component('header-label', {
 });
 
 Vue.component('tt-table', {
-    props: ['data',"selection"],
-    template: '<table v-if="data != null" class="table table-striped">' +
-    '<thead>' +
-    '<slot name="tt-title">' +
-    '<tr>' +
-    '<th v-if="selection"><input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox" class="i-checks icheckbox_square-green" name="input[]" /></th>' +
-    '<slot v-for="(value,key) in data.title" v-bind:name="\'tt-title-\'+key"><th>{{value}}</th></slot>' +
-    '</tr>' +
-    '</slot>' +
-    '</thead>' +
-    '<tbody>' +
-    '<slot name="tt-body">' +
-    '<tr v-for="(item,index) in data.data">' +
-    '<td v-if="selection"><input v-model="checkedData" v-bind:value="item" type="checkbox" class="i-checks icheckbox_square-green" /></td>' +
-    '<td v-for="(value,key) in data.title">' +
-    '<slot v-bind:name="\'tt-body-\'+key" v-bind:row="item" v-bind:index="index">' +
-    '<div v-if="key == \'$index\'">{{index}}</div>' +
-    '<div v-else>{{item[key]}}</div>' +
-    '</slot>' +
-    '</td>' +
-    '</tr>' +
-    '</slot>' +
-    '</tbody>' +
-    '</table>',
+    props: ['value','data','selection'],
+    template: '<table v-if="data != null" class="table table-striped">\
+    <thead>\
+    <slot name="tt-title">\
+    <tr>\
+    <th v-if="selection"><input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox" class="i-checks icheckbox_square-green" name="input[]" /></th>\
+    <slot v-for="(value,key) in data.title" v-bind:name="\'tt-title-\'+key"><th>{{value}}</th></slot>\
+    </tr>\
+    </slot>\
+    </thead>\
+    <tbody>\
+    <slot name="tt-body">\
+    <tr v-for="(item,index) in data.data">\
+    <td v-if="selection"><input v-model="checkedData" v-bind:value="item" v-on:click="updateSelect" type="checkbox" class="i-checks icheckbox_square-green" /></td>\
+    <td v-for="(value,key) in data.title">\
+    <slot v-bind:name="\'tt-body-\'+key" v-bind:row="item" v-bind:index="index">\
+    <div v-if="key == \'$index\'">{{index}}</div>\
+    <div v-else>{{item[key]}}</div>\
+    </slot>\
+    </td>\
+    </tr>\
+    </slot>\
+    </tbody>\
+    </table>',
     data:function () {
         return{
             tableDate:this.data,
@@ -52,16 +52,19 @@ Vue.component('tt-table', {
         }
     },
     mounted:function () {
-        //ICheckUtils.beautifyChecks();
+        this.$emit('input',this.checkedData);
     },
     methods:{
         updateAllSelect:function () {
-            console.log(this.checkedData);
             if (this.allSelected){
                 this.checkedData = [];
             }else {
                 this.checkedData = this.tableDate.data.slice(0);
             }
+            this.$emit('input',this.checkedData)
+        },
+        updateSelect:function () {
+            this.$emit('input',this.checkedData)
         }
     }
 });

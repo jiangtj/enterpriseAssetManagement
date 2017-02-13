@@ -79,13 +79,3 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
         return jQuery.ajax(options);
     };
 });
-
-//iCheck插件
-const ICheckUtils = {
-    beautifyChecks:function () {
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
-    }
-};

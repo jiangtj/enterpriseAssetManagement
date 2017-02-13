@@ -45,7 +45,7 @@
             <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <tt-table v-bind:data="tableDefaultData" :selection = "true">
+                        <tt-table v-bind:data="tableDefaultData" :selection = "true" v-model="tableSelectData">
                             <th slot="tt-title-id">wo</th>
                             <template slot="tt-body-id" scope="props">
                                 {{props.index}}-{{props.row.id}}
@@ -107,6 +107,8 @@
             </div></div></div>
         </div>
 
+        <div>{{tableSelectData}}</div>
+
         <my-awesome-list :items="items">
             <!-- 作用域插槽也可以在这里命名 -->
             <template slot="item" scope="props">
@@ -146,6 +148,7 @@
                         {id:88,name:"rg",password:"s"}
                     ]
                 },
+                tableSelectData:[],
                 items:[
                     {text:"qw"},
                     {text:"ascd"},
