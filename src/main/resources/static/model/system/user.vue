@@ -39,6 +39,9 @@
                             <template slot="tt-body-id" scope="props">
                                 {{props.index}}-{{props.row.id}}
                             </template>
+                            <template slot="tt-body-operation" scope="props">
+                                <button @click="clickButton(props.row)">展示名称</button>
+                            </template>
                         </tt-table>
                     </div>
                 </div>
@@ -78,7 +81,8 @@
                         id:"id",
                         name:"名称",
                         password:"密码",
-                        $index:"序号"
+                        $index:"序号",
+                        operation:"操作"
                     },
                     data:[
                         {id:1,name:"dfbdf",password:"fdg"},
@@ -99,6 +103,9 @@
         mounted:function () {
         },
         methods: {
+            clickButton:function (data) {
+                alert(data.name);
+            }
         }
     };
 
