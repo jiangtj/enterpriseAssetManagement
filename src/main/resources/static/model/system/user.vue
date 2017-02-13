@@ -1,8 +1,8 @@
 <template>
-    <div xmlns:v-bind="http://www.w3.org/1999/XSL/Transform">
+    <div>
 
         <!-- 头部标签 -->
-        <header-label></header-label>
+        <header-label :data="headerLabel"></header-label>
         <!--<div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>用户管理</h2>
@@ -135,6 +135,16 @@
     RouteConfig = {
         data:function () {
             return {
+                headerLabel:{
+                    name:"用户管理",
+                    path:{
+                        parent:[
+                            {url:"/",name:"Home"},
+                            {name:"System"}
+                        ],
+                        active:"User"
+                    }
+                },
                 tableDefaultData:{
                     title:{
                         id:"id",

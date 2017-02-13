@@ -1,21 +1,5 @@
-//头部标签
-const headerLabel = {
-    data:null,
-    setDefault:function () {
-        headerLabel.data = {
-            name:"首页",
-            path:{
-                parent:[],
-                active:"Home"
-            }
-        }
-    },
-    setData:function (data) {
-        headerLabel.data = data;
-    }
-};
-headerLabel.setDefault();
 Vue.component('header-label', {
+    props: ['data'],
     template: '<div v-if="data != null" class="row wrapper border-bottom white-bg page-heading">'
     +'<div class="col-lg-10">'
     +'<h2>{{data.name}}</h2>'
@@ -28,10 +12,7 @@ Vue.component('header-label', {
     +'</ol>'
     +'</div>'
     +'<div class="col-lg-2"></div>'
-    +'</div>',
-    data:function () {
-        return headerLabel;
-    }
+    +'</div>'
 });
 
 Vue.component('tt-table', {

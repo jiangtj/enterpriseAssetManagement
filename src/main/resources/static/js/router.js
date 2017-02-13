@@ -13,7 +13,6 @@ const Routes = jQuery.extend(true,{},MenuRoutes,CustomRoutes);
 //定义app路由,vue内部调用
 const AppRoutes = [];
 //定义全局路由对象
-var RouteData = null;
 var Route = null;
 var RouteConfig = {};
 
@@ -53,7 +52,7 @@ const RouteUtils = {
                 var templateEnd = tempText.lastIndexOf("template")-2;
                 var view = tempText.substring(templateStart,templateEnd);
 
-                //获取js]
+                //获取js
                 RouteConfig = {};
                 tempIndex = tempText.indexOf("script",templateEnd);
                 if (tempIndex != -1){
@@ -101,9 +100,6 @@ AppRouter.beforeEach(function(to, from, next){
     updateMenuStatus(to,true);
     //更改Route对象
     Route = Routes[to.name];
-    RouteData = Route.data;
-    //默认头部标签
-    headerLabel.setDefault();
     //通过
     next();
 });
