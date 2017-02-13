@@ -45,7 +45,7 @@
             <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <tt-table v-bind:data="tableDefaultData">
+                        <tt-table v-bind:data="tableDefaultData" :selection = "true">
                             <th slot="tt-title-id">wo</th>
                             <template slot="tt-body-id" scope="props">
                                 {{props.index}}-{{props.row.id}}
@@ -119,18 +119,6 @@
 
 <script type="application/javascript">
 
-    //头部标签数据
-    headerLabel.setData({
-        name:"用户管理",
-        path:{
-            parent:[
-                {url:"/",name:"Home"},
-                {name:"System"}
-            ],
-            active:"User"
-        }
-    });
-
     //路由配置
     RouteConfig = {
         data:function () {
@@ -149,7 +137,8 @@
                     title:{
                         id:"id",
                         name:"名称",
-                        password:"密码"
+                        password:"密码",
+                        $index:"序号"
                     },
                     data:[
                         {id:1,name:"dfbdf",password:"fdg"},
