@@ -157,7 +157,7 @@
         },
         mounted:function () {
             //美化复选框
-            ICheckUtils.beautifyChecks();
+            //ICheckUtils.beautifyChecks();
         },
         methods: {
         }

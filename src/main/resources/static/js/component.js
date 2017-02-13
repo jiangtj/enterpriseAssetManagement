@@ -21,7 +21,7 @@ Vue.component('tt-table', {
     '<thead>' +
     '<slot name="tt-title">' +
     '<tr>' +
-    '<th v-if="selection"><input type="checkbox"  checked class="i-checks icheckbox_square-green" name="input[]" /></th>' +
+    '<th v-if="selection"><input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox" class="i-checks icheckbox_square-green" name="input[]" /></th>' +
     '<slot v-for="(value,key) in data.title" v-bind:name="\'tt-title-\'+key"><th>{{value}}</th></slot>' +
     '</tr>' +
     '</slot>' +
@@ -29,7 +29,7 @@ Vue.component('tt-table', {
     '<tbody>' +
     '<slot name="tt-body">' +
     '<tr v-for="(item,index) in data.data">' +
-    '<td v-if="selection"><input type="checkbox"  checked class="i-checks icheckbox_square-green" name="input[]" /></td>' +
+    '<td v-if="selection"><input v-model="checkedData" v-bind:value="item" type="checkbox" class="i-checks icheckbox_square-green" /></td>' +
     '<td v-for="(value,key) in data.title">' +
     '<slot v-bind:name="\'tt-body-\'+key" v-bind:row="item" v-bind:index="index">' +
     '<div v-if="key == \'$index\'">{{index}}</div>' +
@@ -38,11 +38,32 @@ Vue.component('tt-table', {
     '</td>' +
     '</tr>' +
     '</slot>' +
+    '<tr><td>Checked datas: {{ checkedData }}</td></tr>' +
     '</tbody>' +
     '</table>',
+    data:function () {
+        return{
+            tableDate:this.data,
+            checkedData:[]
+        }
+    },
+    computed:{
+        allSelected:function () {
+            return this.checkedData.length != 0;
+        }
+    },
     mounted:function () {
-        //美化复选框
-        ICheckUtils.beautifyChecks();
+        //ICheckUtils.beautifyChecks();
+    },
+    methods:{
+        updateAllSelect:function () {
+            console.log(this.checkedData);
+            if (this.allSelected){
+                this.checkedData = [];
+            }else {
+                this.checkedData = this.tableDate.data.slice(0);
+            }
+        }
     }
 });
 
