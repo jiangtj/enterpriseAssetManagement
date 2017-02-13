@@ -38,7 +38,6 @@ Vue.component('tt-table', {
     '</td>' +
     '</tr>' +
     '</slot>' +
-    '<tr><td>Checked datas: {{ checkedData }}</td></tr>' +
     '</tbody>' +
     '</table>',
     data:function () {
