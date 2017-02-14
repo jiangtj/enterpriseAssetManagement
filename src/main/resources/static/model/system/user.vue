@@ -15,14 +15,12 @@
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
                         <div class="form-group tt-from-input">
-                            <label for="exampleInputEmail2">Email address</label>
-                            <input type="email" placeholder="Enter email" id="exampleInputEmail2"
-                                   class="form-control">
+                            <label>Email address</label>
+                            <input type="text" placeholder="Enter email" class="form-control">
                         </div>
                         <div class="form-group tt-from-input">
-                            <label for="exampleInputPassword2">Password</label>
-                            <input type="password" placeholder="Password" id="exampleInputPassword2"
-                                   class="form-control">
+                            <label>Password</label>
+                            <input type="text" placeholder="Password" class="form-control">
                         </div>
                         <button class="btn btn-white pull-right" type="submit">Sign in</button>
                         <div class="clearfix"></div>
