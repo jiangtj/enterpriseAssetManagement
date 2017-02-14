@@ -23,9 +23,9 @@ Vue.component('tt-table', {
     '<tr>' +
     //复选框美化
     '<th v-if="selection">' +
-    '<div class="checkbox checkbox-primary tt-from-checkbox">' +
-    '<input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox" class="tt-from-checkbox-input">' +
-    '<label class="tt-from-checkbox-label"></label>' +
+    '<div class="checkbox checkbox-primary tt-table-checkbox">' +
+    '<input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox">' +
+    '<label></label>' +
     '</div>' +
     '</th>' +
     //标题栏默认样式
@@ -41,9 +41,9 @@ Vue.component('tt-table', {
     '<tr v-for="(item,index) in data.data">' +
     //复选框美化
     '<td v-if="selection">' +
-    '<div class="checkbox checkbox-primary tt-from-checkbox">' +
-    '<input v-model="checkedData" v-bind:value="item" v-on:click="updateSelect" type="checkbox" class="tt-from-checkbox-input">' +
-    '<label class="tt-from-checkbox-label"></label>' +
+    '<div class="checkbox checkbox-primary tt-table-checkbox">' +
+    '<input v-model="checkedData" v-bind:value="item" v-on:click="updateSelect" type="checkbox">' +
+    '<label></label>' +
     '</div>' +
     '</td>' +
     //表格主体默认样式

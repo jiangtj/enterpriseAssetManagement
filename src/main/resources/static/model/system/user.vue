@@ -47,24 +47,24 @@
         </div>
 
         <div>{{tableSelectData}}</div>
-        <div>{{items}}</div>
 
-        <div class="checkbox checkbox-primary">
-            <input id="checkbox2" type="checkbox" checked="">
-            <label for="checkbox2">
-                Primary
-            </label>
-        </div>
-        <div class="checkbox checkbox-success">
-            <input id="checkbox3" type="checkbox">
-            <label for="checkbox3">
-                Success
-            </label>
-        </div>
-        <div class="checkbox checkbox-primary">
-            <input type="checkbox" checked="">
-            <label></label>
-        </div>
+
+        <!-- 表格 -->
+        <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <tt-table v-bind:data="tableDefaultData" :selection = "true" v-model="tableSelectData">
+                        <th slot="tt-title-id">wo</th>
+                        <template slot="tt-body-id" scope="props">
+                            {{props.index}}-{{props.row.id}}
+                        </template>
+                        <template slot="tt-body-operation" scope="props">
+                            <button @click="clickButton(props.row)">展示名称</button>
+                        </template>
+                    </tt-table>
+                </div>
+            </div>
+        </div></div></div>
 
         <div class="clearfix"></div>
 
@@ -102,7 +102,7 @@
                     ]
                 },
                 tableSelectData:[],
-                items:[]
+                items:null
             }
         },
         mounted:function () {

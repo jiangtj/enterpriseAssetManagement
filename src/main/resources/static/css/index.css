@@ -2,19 +2,19 @@
     margin-bottom: 10px;
 }
 
-.tt-from-checkbox{
+.tt-table-checkbox{
     margin-top: 0;
     margin-bottom: 0;
     height: 18px;
 }
 
-.tt-from-checkbox input{
+.tt-table-checkbox input{
     width: 18px;
     height: 18px;
     margin-top: 0;
 }
 
-.tt-from-checkbox label{
+.tt-table-checkbox label{
     height: 18px;
     min-height: 17px;
     padding-left: 0;
