@@ -17,12 +17,15 @@ Vue.component('header-label', {
 
 Vue.component('tt-table', {
     props: ['value','data','selection'],
-    template: '<table v-if="data != null" class="table table-striped">\
+    template: '<table v-if="data != null" class="table table-striped table-hover">\
     <thead>\
     <slot name="tt-title">\
     <tr>\
     <th v-if="selection"><input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox" class="i-checks icheckbox_square-green" name="input[]" /></th>\
-    <slot v-for="(value,key) in data.title" v-bind:name="\'tt-title-\'+key"><th>{{value}}</th></slot>\
+    <slot v-for="(item,key) in data.title" v-bind:name="\'tt-title-\'+key">\
+    <th v-if="isString(item)">{{item}}</th>\
+    <th v-else :width="item.width">{{item.name}}</th>\
+    </slot>\
     </tr>\
     </slot>\
     </thead>\
@@ -55,6 +58,9 @@ Vue.component('tt-table', {
         this.$emit('input',this.checkedData);
     },
     methods:{
+        isString:function (str) {
+            return Object.prototype.toString.call(str) == "[object String]"
+        },
         updateAllSelect:function () {
             if (this.allSelected){
                 this.checkedData = [];
@@ -67,9 +73,4 @@ Vue.component('tt-table', {
             this.$emit('input',this.checkedData)
         }
     }
-});
-
-Vue.component('my-awesome-list', {
-    props: ['items'],
-    template: '<ul> <slot name="item" v-for="item in items" :text="item.text"> <!-- fallback content here --> </slot> </ul>'
 });

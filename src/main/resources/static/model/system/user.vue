@@ -50,13 +50,6 @@
 
         <div>{{tableSelectData}}</div>
 
-        <my-awesome-list :items="items">
-            <!-- 作用域插槽也可以在这里命名 -->
-            <template slot="item" scope="props">
-                <li class="my-fancy-item">{{ props.text }}</li>
-            </template>
-        </my-awesome-list>
-
     </div>
 </template>
 
@@ -82,7 +75,7 @@
                         name:"名称",
                         password:"密码",
                         $index:"序号",
-                        operation:"操作"
+                        operation:{name:"操作",width:"100px"}
                     },
                     data:[
                         {id:1,name:"dfbdf",password:"fdg"},
@@ -90,14 +83,7 @@
                         {id:88,name:"rg",password:"s"}
                     ]
                 },
-                tableSelectData:[],
-                items:[
-                    {text:"qw"},
-                    {text:"ascd"},
-                    {text:"qwvfs"},
-                    {text:"sb"},
-                    {text:"vfbfd"}
-                ]
+                tableSelectData:[]
             }
         },
         mounted:function () {
