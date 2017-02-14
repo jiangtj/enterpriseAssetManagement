@@ -16,11 +16,11 @@
                     <form role="form" class="form-inline">
                         <div class="form-group tt-from-input">
                             <label>Email address</label>
-                            <input type="text" placeholder="Enter email" class="form-control">
+                            <input v-model="items" type="text" placeholder="Enter email" class="form-control">
                         </div>
                         <div class="form-group tt-from-input">
                             <label>Password</label>
-                            <input type="text" placeholder="Password" class="form-control">
+                            <input v-model="items" type="text" placeholder="Password" class="form-control">
                         </div>
                         <button class="btn btn-white pull-right" type="submit">Sign in</button>
                         <div class="clearfix"></div>
@@ -47,6 +47,26 @@
         </div>
 
         <div>{{tableSelectData}}</div>
+        <div>{{items}}</div>
+
+        <div class="checkbox checkbox-primary">
+            <input id="checkbox2" type="checkbox" checked="">
+            <label for="checkbox2">
+                Primary
+            </label>
+        </div>
+        <div class="checkbox checkbox-success">
+            <input id="checkbox3" type="checkbox">
+            <label for="checkbox3">
+                Success
+            </label>
+        </div>
+        <div class="checkbox checkbox-primary">
+            <input type="checkbox" checked="">
+            <label></label>
+        </div>
+
+        <div class="clearfix"></div>
 
     </div>
 </template>
@@ -81,7 +101,8 @@
                         {id:88,name:"rg",password:"s"}
                     ]
                 },
-                tableSelectData:[]
+                tableSelectData:[],
+                items:[]
             }
         },
         mounted:function () {

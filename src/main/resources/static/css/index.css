@@ -1,9 +1,26 @@
 .tt-from-table{
     margin-bottom: 10px;
 }
-/*.tt-from-button{
-    float: right;
-}*/
+
+.tt-from-checkbox{
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 18px;
+}
+
+.tt-from-checkbox input{
+    width: 18px;
+    height: 18px;
+    margin-top: 0;
+}
+
+.tt-from-checkbox label{
+    height: 18px;
+    min-height: 17px;
+    padding-left: 0;
+}
+
+
 @media (min-width: 768px){
     .tt-from-input{
         margin-right: 10px;
