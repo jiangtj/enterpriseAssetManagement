@@ -38,7 +38,9 @@ const ToastrUtils = {
     showResult:function (obj) {
         var level = Number(obj.code.charAt(1));
         ToastrUtils.show(obj.title,obj.message,level);
-        if (level >= 4) console.log(obj.code);
+        if (level >= 4) {
+            console.log("code:"+obj.code+",title:"+obj.title+",message:"+obj.message);
+        }
     }
 };
 ToastrUtils.defaultConfig();
