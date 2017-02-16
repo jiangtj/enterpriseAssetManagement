@@ -29,4 +29,10 @@ public class PublicController {
         return userService.login(request,response,name,password);
     }
 
+    @ResponseBody
+    @PostMapping("/loginOut")
+    public ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response){
+        return userService.loginOut(request,response);
+    }
+
 }

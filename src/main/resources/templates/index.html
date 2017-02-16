@@ -8,6 +8,7 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
     <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet" />
     <link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet" />
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet" />
     <link th:href="@{/css/animate.css}" rel="stylesheet" />
     <link th:href="@{/css/style.css}" rel="stylesheet" />
     <link th:href="@{/css/index.css}" rel="stylesheet" />
@@ -36,7 +37,7 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="#">Logout</a></li>
+                            <li><a v-on:click="loginOut">Logout</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">
@@ -90,7 +91,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <a href="#">
+                        <a v-on:click="loginOut">
                             <i class="fa fa-sign-out"></i> Log out
                         </a>
                     </li>
@@ -125,9 +126,10 @@
 <script th:src="@{/js/main/inspinia.js}"></script>
 
 <!-- plugins -->
-
-<!-- Custom and plugin javascript -->
 <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+
+<!-- Custom javascript -->
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/menu.js}"></script>
 <script th:src="@{/js/component.js}"></script>

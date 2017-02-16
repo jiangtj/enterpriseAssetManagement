@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
         //不存在该用户
         if (user == null) {
             result.setResultCode(ResultCode.UN_USER_INFO);
+            result.setMessage("请重新检测帐号是否输错！");
             return result;
         }
 
@@ -45,6 +46,16 @@ public class UserServiceImpl implements UserService {
         HttpSession session = request.getSession();
         session.setAttribute(Constant.SESSION_USER,user);
 
+        result.setResultCode(ResultCode.SUCCESS);
+        return result;
+    }
+
+    @Override
+    public ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response) {
+        ResultDto<Object> result = new ResultDto<>();
+        //清除session
+        HttpSession session = request.getSession();
+        session.removeAttribute(Constant.SESSION_USER);
         result.setResultCode(ResultCode.SUCCESS);
         return result;
     }

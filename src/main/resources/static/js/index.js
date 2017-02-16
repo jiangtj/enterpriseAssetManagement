@@ -7,5 +7,13 @@ var App = new Vue({
         user: sessionUser,
         menu:AppMenu,
         alwaysTrue:true
+    },
+    methods:{
+        loginOut:function () {
+            debugger;
+            Web.post("/public/loginOut",function () {
+                Web.go("/loginPage");
+            })
+        }
     }
 });

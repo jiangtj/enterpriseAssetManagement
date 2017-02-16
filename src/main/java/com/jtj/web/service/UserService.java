@@ -18,4 +18,5 @@ public interface UserService {
     ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response,
                             String name, String password);
 
+    ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response);
 }

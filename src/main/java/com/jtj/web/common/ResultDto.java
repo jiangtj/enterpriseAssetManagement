@@ -9,6 +9,7 @@ import com.jtj.web.common.utils.GsonUtils;
  */
 public class ResultDto<T> {
     private String code;
+    private String title;
     private String message;
     private T object;
 
@@ -26,7 +27,7 @@ public class ResultDto<T> {
 
     public void setResultCode(ResultCode resultCode) {
         this.code = resultCode.getCode();
-        this.message = resultCode.getMessage();
+        this.title = resultCode.getMessage();
     }
 
     public String getCode() {
@@ -35,6 +36,14 @@ public class ResultDto<T> {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getMessage() {

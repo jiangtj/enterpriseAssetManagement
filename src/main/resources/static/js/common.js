@@ -1,3 +1,48 @@
+//弹出框
+const ToastrUtils = {
+    defaultConfig:function () {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    },
+    show:function (title,msg,level) {
+        level = level||1;
+        var toastrMethod;
+        switch (level){
+            case 0:toastrMethod = "success";break;
+            case 1:
+            case 2:
+            case 3:toastrMethod = "info";break;
+            case 4:
+            case 5:
+            case 6:toastrMethod = "warning";break;
+            case 7:
+            case 8:
+            case 9:toastrMethod = "error";break;
+        }
+        toastr[toastrMethod](msg,title);
+    },
+    showResult:function (obj) {
+        var level = Number(obj.code.charAt(1));
+        ToastrUtils.show(obj.title,obj.message,level);
+        if (level >= 4) console.log(obj.code);
+    }
+};
+ToastrUtils.defaultConfig();
+
 //json
 const JsonUtils = {
     isJson:function (data) {
@@ -30,6 +75,12 @@ const Web = {
         if (jQuery.isFunction( data )) return true;
         if (!JsonUtils.isJson(data)) return false;
         return (jQuery.isFunction(data.success) || jQuery.isFunction(data.error) || data.defaultHandling != null);
+    },
+    isSuccess:function(obj){
+        return obj.code.charAt(1) == "0";
+    },
+    go:function (url) {
+        window.location.href = Web.baseUrl + url;
     }
 };
 jQuery.each( [ "get", "post" ], function( i, method ) {
@@ -50,7 +101,11 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
             type:method,
             data:data,
             dataType:"json",
-            defaultHandling:true
+            defaultHandling:true,
+            error:function (msg) {
+                ToastrUtils.show("系统错误",9);
+                console.log(msg)
+            }
         };
 
         //深拷贝
@@ -64,17 +119,15 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
             options.success = function (response,status,xhr) {
                 if (!JsonUtils.isJson(response)) {
                     if (options.url.indexOf(".") == -1){
-                        window.location.href = Web.baseUrl + "/index";
+                        Web.go("/index");
                         return;
                     }
+                    callbackOrOptions.success(response,status,xhr);
                     return;
                 }
-                if (response.code == "000000"){
-
-                }
+                ToastrUtils.showResult(response);
                 callbackOrOptions.success(response,status,xhr);
             };
-            //insideCallback.error = callback.error;
         }
         return jQuery.ajax(options);
     };
