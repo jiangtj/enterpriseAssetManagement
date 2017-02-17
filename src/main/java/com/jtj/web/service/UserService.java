@@ -16,7 +16,7 @@ public interface UserService {
     ResultDto<Object> queryById(long id);
 
     ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response,
-                            String name, String password);
+                            String name, String password,Long time);
 
     ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response);
 }

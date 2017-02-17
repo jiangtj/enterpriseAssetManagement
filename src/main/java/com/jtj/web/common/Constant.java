@@ -7,5 +7,7 @@ package com.jtj.web.common;
 public class Constant {
 
     public final static String SESSION_USER = "user";
+    public final static String SESSION_LOGIN_TIME = "loginTime";
+    public final static String SESSION_PREVIOUS_PASSWORD = "previousPassword";
 
 }

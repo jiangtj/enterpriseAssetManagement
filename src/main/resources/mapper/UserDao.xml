@@ -19,13 +19,25 @@
     <!-- 登陆 -->
     <select id="login" resultType="User">
         SELECT
+            au.* ,
+            ar.id "role.id",
+            ar.name "role.name",
+            ar.status "role.status"
+        FROM auth_user au
+            LEFT JOIN auth_role ar ON au.role_id = ar.id
+        WHERE au.name = #{name} AND au.password = #{password}
+    </select>
+
+    <!-- 获取用户信息-by name -->
+    <select id="getUserByName" resultType="User">
+        SELECT
         au.* ,
         ar.id "role.id",
         ar.name "role.name",
         ar.status "role.status"
         FROM auth_user au
         LEFT JOIN auth_role ar ON au.role_id = ar.id
-        WHERE au.name = #{name} AND au.password = #{password}
+        WHERE au.name = #{name}
     </select>
 
 

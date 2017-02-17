@@ -10,7 +10,9 @@ package com.jtj.web.common;
  */
 public enum ResultCode {
     SUCCESS("000000","成功"),
-    UN_USER_INFO("190001","不存在该用户"),
+    USER_INFO_NON_EXISTENT("150001","不存在该用户"),
+    USER_TIME_ERROR("190002","请求时间异常"),
+    USER_PASSWORD_ERROR("190003","密码错误"),
     UNAUTHORIZED("960000","未授权");
 
     private String code;

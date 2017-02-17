@@ -23,10 +23,10 @@ public class PublicController {
 
     @ResponseBody
     @PostMapping("/login")
-    public ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response,
-                                   @RequestParam("name") String name, @RequestParam("password") String password){
+    public ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name,
+                                   @RequestParam("password") String password,@RequestParam("time") Long time){
 
-        return userService.login(request,response,name,password);
+        return userService.login(request,response,name,password,time);
     }
 
     @ResponseBody
