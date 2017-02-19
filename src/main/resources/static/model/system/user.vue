@@ -14,17 +14,9 @@
                 </div>-->
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
-                        <tt-simple-input label="label1" v-model="hixx"></tt-simple-input>
-                        <tt-simple-input label="label2" v-model="hixx"></tt-simple-input>
-                        <div class="form-group tt-from-input">
-                            <label>Email address</label>
-                            <input v-model="items" type="text" placeholder="Enter email" class="form-control">
-                        </div>
-                        <div class="form-group tt-from-input">
-                            <label>Password</label>
-                            <input v-model="items" type="text" placeholder="Password" class="form-control">
-                        </div>
-                        <button class="btn btn-white pull-right" type="submit">Sign in</button>
+                        <tt-simple-input label="用户名" v-model="selectModel.username"></tt-simple-input>
+                        <tt-simple-input label="角色" v-model="selectModel.role"></tt-simple-input>
+                        <button class="btn btn-white pull-right" type="submit">搜索</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>
@@ -49,6 +41,7 @@
         </div>
 
         <div>{{tableSelectData}}</div>
+        <div>{{selectModel}}</div>
 
 
         <!-- 表格 -->
@@ -104,15 +97,14 @@
                     ]
                 },
                 tableSelectData:[],
-                items:null,
-                hixx:"ss"
+                selectModel:{}
             }
         },
         mounted:function () {
         },
         methods: {
             clickButton:function (data) {
-                alert(data.name);
+                alert(data.name+this.selectModel.username);
             }
         }
     };
