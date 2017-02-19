@@ -14,6 +14,8 @@
                 </div>-->
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
+                        <tt-simple-input label="label1" v-model="hixx"></tt-simple-input>
+                        <tt-simple-input label="label2" v-model="hixx"></tt-simple-input>
                         <div class="form-group tt-from-input">
                             <label>Email address</label>
                             <input v-model="items" type="text" placeholder="Enter email" class="form-control">
@@ -102,7 +104,8 @@
                     ]
                 },
                 tableSelectData:[],
-                items:null
+                items:null,
+                hixx:"ss"
             }
         },
         mounted:function () {

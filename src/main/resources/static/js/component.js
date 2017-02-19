@@ -88,3 +88,27 @@ Vue.component('tt-table', {
         }
     }
 });
+
+Vue.component('tt-simple-input', {
+    props: ['value','label','type','placeholder'],
+    template: '<div class="form-group tt-from-input">' +
+    '<label>{{label}}</label>' +
+    '<input :value="value" @input="updateValue($event.target.value)" :type="baseType" :placeholder="placeholder" class="form-control">' +
+    '</div>',
+    data:function(){
+        return{
+        }
+    },
+    computed: {
+        baseType: function () {
+            return this.type||"text";
+        }
+    },
+    created:function () {
+    },
+    methods:{
+        updateValue:function (value) {
+            this.$emit('input',value)
+        }
+    }
+});
