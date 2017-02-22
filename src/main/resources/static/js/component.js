@@ -23,7 +23,7 @@ Vue.component('tt-table', {
     '<tr>' +
     //复选框美化
     '<th v-if="selection">' +
-    '<div class="checkbox checkbox-primary tt-table-checkbox">' +
+    '<div class="checkbox checkbox-success tt-table-checkbox">' +
     '<input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox">' +
     '<label></label>' +
     '</div>' +
@@ -41,7 +41,7 @@ Vue.component('tt-table', {
     '<tr v-for="(item,index) in data.data">' +
     //复选框美化
     '<td v-if="selection">' +
-    '<div class="checkbox checkbox-primary tt-table-checkbox">' +
+    '<div class="checkbox checkbox-success tt-table-checkbox">' +
     '<input v-model="checkedData" v-bind:value="item" v-on:click="updateSelect" type="checkbox">' +
     '<label></label>' +
     '</div>' +
@@ -109,6 +109,29 @@ Vue.component('tt-simple-input', {
     methods:{
         updateValue:function (value) {
             this.$emit('input',value)
+        }
+    }
+});
+
+Vue.component('tt-btn-toolbar', {
+    template: '<div class="btn-toolbar" role="toolbar">' +
+    '<slot></slot>' +
+    '</div>'
+});
+Vue.component('tt-btn-group', {
+    template: '<div class="btn-group" role="group">' +
+    '<slot></slot>' +
+    '</div>'
+});
+Vue.component('tt-button', {
+    props: ['value','type'],
+    template: '<button :type="innerType" class="btn">' +
+    '{{value}}' +
+    '<slot></slot>' +
+    '</button>',
+    computed: {
+        innerType: function () {
+            return this.type||"button";
         }
     }
 });

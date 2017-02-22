@@ -14,9 +14,20 @@
                 </div>-->
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
+
                         <tt-simple-input label="用户名" v-model="selectModel.username"></tt-simple-input>
                         <tt-simple-input label="角色" v-model="selectModel.role"></tt-simple-input>
-                        <button class="btn btn-white pull-right" type="submit">搜索</button>
+
+                        <div class="btn-toolbar pull-right" role="toolbar">
+                            <div class="btn-group">
+                                <button class="btn btn-primary" type="button">新增</button>
+                                <button class="btn btn-primary" type="button">修改</button>
+                                <button class="btn btn-danger" type="button">删除</button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" type="submit">搜索</button>
+                            </div>
+                        </div>
                         <div class="clearfix"></div>
                     </form>
                 </div>
@@ -42,24 +53,6 @@
 
         <div>{{tableSelectData}}</div>
         <div>{{selectModel}}</div>
-
-
-        <!-- 表格 -->
-        <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
-            <div class="ibox-content">
-                <div class="table-responsive">
-                    <tt-table v-bind:data="tableDefaultData" :selection = "true" v-model="tableSelectData">
-                        <th slot="tt-title-id">wo</th>
-                        <template slot="tt-body-id" scope="props">
-                            {{props.index}}-{{props.row.id}}
-                        </template>
-                        <template slot="tt-body-operation" scope="props">
-                            <button @click="clickButton(props.row)">展示名称</button>
-                        </template>
-                    </tt-table>
-                </div>
-            </div>
-        </div></div></div>
 
         <div class="clearfix"></div>
 
