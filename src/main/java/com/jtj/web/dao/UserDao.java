@@ -1,5 +1,6 @@
 package com.jtj.web.dao;
 
+import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +19,8 @@ public interface UserDao {
     User login(@Param("name") String name,@Param("password") String password);
 
     User getUserByName(@Param("name") String name);
+
+    List<User> query(UserDto dto);
+
+    int queryNum(UserDto dto);
 }

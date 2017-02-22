@@ -1,10 +1,12 @@
 package com.jtj.web.service.impl;
 
 import com.jtj.web.common.Constant;
+import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.utils.MD5String;
 import com.jtj.web.dao.UserDao;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -77,6 +80,31 @@ public class UserServiceImpl implements UserService {
         HttpSession session = request.getSession();
         session.removeAttribute(Constant.SESSION_USER);
         result.setResultCode(ResultCode.SUCCESS);
+        return result;
+    }
+
+    @Override
+    public ResultDto<Object> add(User user) {
+        return null;
+    }
+
+    @Override
+    public ResultDto<Object> delete(long id) {
+        return null;
+    }
+
+    @Override
+    public ResultDto<Object> update(User user) {
+        return null;
+    }
+
+    @Override
+    public ResultDto<Object> query(UserDto dto) {
+        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+        PageDto<User> page = new PageDto<>();
+        page.setList(userDao.query(dto));
+        page.setCount(userDao.queryNum(dto));
+        result.setObject(page);
         return result;
     }
 

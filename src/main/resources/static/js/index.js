@@ -10,7 +10,6 @@ var App = new Vue({
     },
     methods:{
         loginOut:function () {
-            debugger;
             Web.post("/public/loginOut",function () {
                 Web.go("/loginPage");
             })

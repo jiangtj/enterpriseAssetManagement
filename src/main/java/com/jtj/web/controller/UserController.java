@@ -1,23 +1,45 @@
 package com.jtj.web.controller;
 
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.dao.UserDao;
+import com.jtj.web.dto.UserDto;
+import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2016/12/23 23:25 End.
  */
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/{id}")
+    @PostMapping("/add")
+    public ResultDto<Object> add(User user){
+        return userService.add(user);
+    }
+
+    @PostMapping("/delete")
+    public ResultDto<Object> delete(@RequestParam("id") long id){
+        return userService.delete(id);
+    }
+
+    @PostMapping("/update")
+    public ResultDto<Object> update(User user){
+        return userService.update(user);
+    }
+
+    @PostMapping("/query")
+    public ResultDto<Object> query(UserDto dto){
+        return userService.query(dto);
+    }
+
+    @GetMapping("/query/{id}")
     public ResultDto<Object> queryById(@PathVariable("id") long id){
         return userService.queryById(id);
     }
