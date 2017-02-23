@@ -38,9 +38,8 @@
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableDefaultData" :selection = "true" v-model="tableSelectData">
-                            <th slot="tt-title-id">wo</th>
-                            <template slot="tt-body-id" scope="props">
-                                {{props.index}}-{{props.row.id}}
+                            <template slot="tt-body-roleName" scope="props">
+                                {{props.row.role.name}}
                             </template>
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="clickButton(props.row)">展示名称</button>
@@ -77,10 +76,11 @@
                 },
                 tableDefaultData:{
                     title:{
-                        id:"id",
+                        $index:"序号",
+                        id:"用户id",
                         name:"名称",
                         password:"密码",
-                        $index:"序号",
+                        roleName:"角色名称",
                         operation:{name:"操作",width:"100px"}
                     },
                     data:[]
@@ -89,15 +89,20 @@
                 selectModel:{}
             }
         },
+        created:function () {
+            this.getTableList(false);
+        },
         mounted:function () {
         },
         methods: {
             clickButton:function (data) {
                 alert(data.name+this.selectModel.username);
             },
-            getTableList:function () {
+            getTableList:function (flag) {
+                if (flag == null) flag =true;
                 var tableDefaultData = this.tableDefaultData;
                 Web.post("user/getList",{
+                    defaultHandling:flag,
                     success:function (data) {
                         tableDefaultData.data = data.object.list;
                     }

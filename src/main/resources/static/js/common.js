@@ -106,7 +106,7 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
             defaultHandling:true,
             error:function (XMLHttpRequest, textStatus, errorThrown) {
                 debugger;
-                ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！");
+                ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！",9);
                 console.log(XMLHttpRequest);
                 /*if (textStatus == "parsererror"){
                     Web.go(url);
