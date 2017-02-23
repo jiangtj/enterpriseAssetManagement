@@ -34,13 +34,13 @@ public class UserController {
         return userService.update(user);
     }
 
-    @PostMapping("/query")
-    public ResultDto<Object> query(UserDto dto){
-        return userService.query(dto);
+    @PostMapping("/getList")
+    public ResultDto<Object> getList(UserDto dto){
+        return userService.getList(dto);
     }
 
-    @GetMapping("/query/{id}")
-    public ResultDto<Object> queryById(@PathVariable("id") long id){
-        return userService.queryById(id);
+    @GetMapping("/get/{id}")
+    public ResultDto<Object> getUserById(@PathVariable("id") long id){
+        return userService.getUserById(id);
     }
 }

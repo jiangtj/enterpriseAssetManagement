@@ -82,7 +82,7 @@ const Web = {
         return obj.code.charAt(1) == "0";
     },
     go:function (url) {
-        window.location.href = Web.baseUrl + url;
+        window.location.href = Web.buildUrl(url);
     }
 };
 jQuery.each( [ "get", "post" ], function( i, method ) {
@@ -104,9 +104,13 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
             data:data,
             dataType:"json",
             defaultHandling:true,
-            error:function (msg) {
-                ToastrUtils.show("系统错误",9);
-                console.log(msg)
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                debugger;
+                ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！");
+                console.log(XMLHttpRequest);
+                /*if (textStatus == "parsererror"){
+                    Web.go(url);
+                }*/
             }
         };
 
@@ -121,7 +125,7 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
             options.success = function (response,status,xhr) {
                 if (!JsonUtils.isJson(response)) {
                     if (options.url.indexOf(".") == -1){
-                        Web.go("/index");
+                        Web.go(url);
                         return;
                     }
                     callbackOrOptions.success(response,status,xhr);

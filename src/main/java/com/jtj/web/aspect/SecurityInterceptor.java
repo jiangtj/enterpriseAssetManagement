@@ -51,10 +51,14 @@ public class SecurityInterceptor implements HandlerInterceptor{
         User user = (User) session.getAttribute(Constant.SESSION_USER);
         if (user == null){
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/loginPage");
+            return false;
         }
 
         //如果是首页，则放行
         if (servletPath.equals("/index")) return true;
+
+        //如果是首页，则放行
+        if (user.getId() == 1) return true;
 
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("UTF-8");

@@ -29,9 +29,9 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public ResultDto<Object> queryById(long id){
+    public ResultDto<Object> getUserById(long id){
         ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject(userDao.queryById(id));
+        result.setObject(userDao.getUserById(id));
         return result;
     }
 
@@ -99,11 +99,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultDto<Object> query(UserDto dto) {
+    public ResultDto<Object> getList(UserDto dto) {
         ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+
+        //处理密码
+        List<User> userList = userDao.getList(dto);
+        userList.forEach(item -> item.setPassword("*******"));
+
         PageDto<User> page = new PageDto<>();
-        page.setList(userDao.query(dto));
-        page.setCount(userDao.queryNum(dto));
+        page.setList(userList);
+        page.setCount(userDao.getListNum(dto));
         result.setObject(page);
         return result;
     }

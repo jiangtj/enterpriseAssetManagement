@@ -26,7 +26,7 @@ public interface UserService {
 
     ResultDto<Object> update(User user);
 
-    ResultDto<Object> query(UserDto dto);
+    ResultDto<Object> getList(UserDto dto);
 
-    ResultDto<Object> queryById(long id);
+    ResultDto<Object> getUserById(long id);
 }

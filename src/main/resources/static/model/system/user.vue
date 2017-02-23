@@ -25,7 +25,7 @@
                                 <button class="btn btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
-                                <button class="btn btn-primary" type="submit">搜索</button>
+                                <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -83,11 +83,7 @@
                         $index:"序号",
                         operation:{name:"操作",width:"100px"}
                     },
-                    data:[
-                        {id:1,name:"dfbdf",password:"fdg"},
-                        {id:22,name:"scvbs1",password:"s"},
-                        {id:88,name:"rg",password:"s"}
-                    ]
+                    data:[]
                 },
                 tableSelectData:[],
                 selectModel:{}
@@ -98,6 +94,14 @@
         methods: {
             clickButton:function (data) {
                 alert(data.name+this.selectModel.username);
+            },
+            getTableList:function () {
+                var tableDefaultData = this.tableDefaultData;
+                Web.post("user/getList",{
+                    success:function (data) {
+                        tableDefaultData.data = data.object.list;
+                    }
+                })
             }
         }
     };

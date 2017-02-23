@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 public class UserDto extends BaseDto{
 
-    private String username;
+    private String name;
     private Long roleId;
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getRoleId() {

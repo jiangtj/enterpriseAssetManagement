@@ -14,13 +14,13 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
-    List<User> queryById(@Param("id") long id);
+    List<User> getUserById(@Param("id") long id);
 
     User login(@Param("name") String name,@Param("password") String password);
 
     User getUserByName(@Param("name") String name);
 
-    List<User> query(UserDto dto);
+    List<User> getList(UserDto dto);
 
-    int queryNum(UserDto dto);
+    int getListNum(UserDto dto);
 }

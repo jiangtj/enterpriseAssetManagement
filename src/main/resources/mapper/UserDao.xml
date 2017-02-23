@@ -5,7 +5,7 @@
 <mapper namespace="com.jtj.web.dao.UserDao">
 
     <!-- 根据id查询用户 -->
-    <select id="queryById" resultType="User">
+    <select id="getUserById" resultType="User">
         SELECT
             au.* ,
             ar.id "role.id",
@@ -38,6 +38,45 @@
         FROM auth_user au
         LEFT JOIN auth_role ar ON au.role_id = ar.id
         WHERE au.name = #{name}
+    </select>
+
+    <!-- 用户查询sql -->
+    <sql id="userDtoWhere">
+        <if test="name != null and name != ''">
+            ${alias}.name = #{name}
+        </if>
+        <if test="roleId != null and roleId != ''">
+            ${alias}.role_id = #{roleId}
+        </if>
+    </sql>
+
+    <!-- 获取用户列表 -->
+    <select id="getList" resultType="User">
+        SELECT
+            au.* ,
+            ar.id "role.id",
+            ar.name "role.name",
+            ar.status "role.status"
+        FROM auth_user au
+            LEFT JOIN auth_role ar ON au.role_id = ar.id
+        <where>
+            <include refid="userDtoWhere">
+                <property name="alias" value="au"/>
+            </include>
+        </where>
+    </select>
+
+    <!-- 获取用户数量 -->
+    <select id="getListNum" resultType="int">
+        SELECT
+        count(1)
+        FROM auth_user au
+        LEFT JOIN auth_role ar ON au.role_id = ar.id
+        <where>
+            <include refid="userDtoWhere">
+                <property name="alias" value="au"/>
+            </include>
+        </where>
     </select>
 
 
