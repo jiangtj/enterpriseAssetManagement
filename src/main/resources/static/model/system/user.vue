@@ -20,9 +20,9 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button class="btn btn-primary" type="button">新增</button>
-                                <button class="btn btn-primary" type="button">修改</button>
-                                <button class="btn btn-danger" type="button">删除</button>
+                                <button class="btn btn-outline btn-primary" type="button">新增</button>
+                                <button class="btn btn-outline btn-primary" type="button">修改</button>
+                                <button class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -130,7 +130,7 @@
                 alert(data.name+this.selectModel.username);
             },
             getTableList:function (flag) {
-                if (flag == null) flag =true;
+                //if (flag == null) flag =true;
                 var tableDefaultData = this.tableDefaultData;
                 Web.post("user/getList",{
                     defaultHandling:flag,

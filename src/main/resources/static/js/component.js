@@ -89,6 +89,34 @@ Vue.component('tt-table', {
     }
 });
 
+Vue.component('tt-pagination', {
+    props: ['value','label','type','placeholder'],
+    template: '<div class="btn-group">' +
+    '<button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>' +
+    '<button class="btn btn-white">1</button>' +
+    '<button class="btn btn-white  active">2</button>' +
+    '<button class="btn btn-white">3</button>' +
+    '<button class="btn btn-white">4</button>' +
+    '<button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>' +
+    '</div>',
+    data:function(){
+        return{
+        }
+    },
+    computed: {
+        baseType: function () {
+            return this.type||"text";
+        }
+    },
+    created:function () {
+    },
+    methods:{
+        updateValue:function (value) {
+            this.$emit('input',value)
+        }
+    }
+});
+
 Vue.component('tt-simple-input', {
     props: ['value','label','type','placeholder'],
     template: '<div class="form-group tt-from-input">' +
