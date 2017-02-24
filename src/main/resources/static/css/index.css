@@ -20,6 +20,15 @@
     padding-left: 0;
 }
 
+/*style.css移除样式*/
+/*修改默认样式：去除模态框消失重新页面动画*/
+/*body.modal-open .wrapper-content.animated {
+  -webkit-animation: none;
+}
+body.modal-open .animated {
+  animation-fill-mode: initial;
+  z-index: inherit;
+}*/
 
 @media (min-width: 768px){
     .tt-from-input{

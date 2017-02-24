@@ -4469,13 +4469,17 @@ body.fullscreen-ibox-mode {
 body.modal-open {
   padding-right: inherit !important;
 }
-body.modal-open .wrapper-content.animated {
+
+/*修改默认样式：去除模态框消失重新页面动画*/
+/*body.modal-open .wrapper-content.animated {
   -webkit-animation: none;
 }
 body.modal-open .animated {
   animation-fill-mode: initial;
   z-index: inherit;
-}
+}*/
+
+
 /* Show profile dropdown on fixed sidebar */
 body.mini-navbar.fixed-sidebar .profile-element,
 .block {

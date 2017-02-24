@@ -5,7 +5,7 @@
         <header-label :data="headerLabel"></header-label>
 
         <!-- 动画 -->
-        <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="wrapper wrapper-content animated fadeInRight"><!-- animated -->
 
             <!-- 表单 -->
             <div class="row"><div class="col-lg-12"><div class="ibox tt-from-table">
@@ -20,7 +20,7 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button class="btn btn-outline btn-primary" type="button">新增</button>
+                                <button data-toggle="modal" data-target="#modal-form" class="btn btn-outline btn-primary" type="button">新增</button>
                                 <button class="btn btn-outline btn-primary" type="button">修改</button>
                                 <button class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
