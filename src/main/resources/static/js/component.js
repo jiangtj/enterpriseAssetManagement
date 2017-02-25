@@ -163,3 +163,36 @@ Vue.component('tt-button', {
         }
     }
 });
+
+Vue.component('tt-modal', {
+    props: ['size','close'],
+    template: '<div id="modal-form" class="modal fade" v-bind:class="modalFormClass" aria-hidden="true">' +
+    '<div class="modal-dialog" v-bind:class="modalDialogClass">' +
+    '<div class="modal-content">' +
+    '<div class="modal-body">' +
+    '<button v-if="innerClose" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+    '<slot></slot>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>',
+    computed: {
+        innerClose: function () {
+            var temp = this.close == null?true:this.close;
+            if (temp == "false") temp = false;
+            return temp;
+        },
+        modalFormClass:function () {
+            return {
+                "bs-example-modal-lg":this.size == "lg",
+                "bs-example-modal-sm":this.size == "sm"
+            }
+        },
+        modalDialogClass:function () {
+            return {
+                "modal-lg":this.size == "lg",
+                "modal-sm":this.size == "sm"
+            }
+        }
+    }
+});
