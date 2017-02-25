@@ -54,27 +54,28 @@
         <div>{{selectModel}}</div>
 
         <!-- 添加弹出窗 -->
-        <tt-modal>
+        <tt-modal title="添加新用户">
             <div class="row">
-                <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Sign in</h3>
-
-                    <p>Sign in today for more expirience.</p>
-
+                <div class="col-sm-6 b-r">
+                    <h4 class="m-t-none m-b">基本信息</h4>
+                    <p>这里的信息很重要,不要乱填.</p>
                     <form role="form">
+                        <tt-simple-input label="用户名" v-model="modal.name"></tt-simple-input>
+                        <tt-simple-input label="密码" v-model="modal.password" type="password"></tt-simple-input>
                         <div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control"></div>
                         <div class="form-group"><label>Password</label> <input type="password" placeholder="Password" class="form-control"></div>
-                        <div>
-                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
-                            <label> <input type="checkbox" class="i-checks"> Remember me </label>
-                        </div>
                     </form>
                 </div>
-                <div class="col-sm-6"><h4>Not a member?</h4>
-                    <p>You can create an account:</p>
+                <div class="col-sm-6">
+                    <h4>额外 More</h4>
+                    <p>个性化的介绍,以后填也可以的.</p>
                     <p class="text-center">
                         <a href=""><i class="fa fa-sign-in big-icon"></i></a>
                     </p>
                 </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
             </div>
         </tt-modal>
 
@@ -111,7 +112,8 @@
                     data:[]
                 },
                 tableSelectData:[],
-                selectModel:{}
+                selectModel:{},
+                modal:{}
             }
         },
         created:function () {

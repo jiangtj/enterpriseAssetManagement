@@ -141,36 +141,16 @@ Vue.component('tt-simple-input', {
     }
 });
 
-Vue.component('tt-btn-toolbar', {
-    template: '<div class="btn-toolbar" role="toolbar">' +
-    '<slot></slot>' +
-    '</div>'
-});
-Vue.component('tt-btn-group', {
-    template: '<div class="btn-group" role="group">' +
-    '<slot></slot>' +
-    '</div>'
-});
-Vue.component('tt-button', {
-    props: ['value','type'],
-    template: '<button :type="innerType" class="btn">' +
-    '{{value}}' +
-    '<slot></slot>' +
-    '</button>',
-    computed: {
-        innerType: function () {
-            return this.type||"button";
-        }
-    }
-});
-
 Vue.component('tt-modal', {
-    props: ['size','close'],
+    props: ['size','close','title'],
     template: '<div id="modal-form" class="modal fade" v-bind:class="modalFormClass" aria-hidden="true">' +
     '<div class="modal-dialog" v-bind:class="modalDialogClass">' +
     '<div class="modal-content">' +
     '<div class="modal-body">' +
+    '<div class="row">' +
+    '<div class="col-sm-10"><h3>{{title}}</h3></div>' +
     '<button v-if="innerClose" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+    '</div>' +
     '<slot></slot>' +
     '</div>' +
     '</div>' +
