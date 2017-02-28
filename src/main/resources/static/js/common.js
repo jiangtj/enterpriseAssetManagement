@@ -138,3 +138,15 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
         return jQuery.ajax(options);
     };
 });
+
+const ValidationUtils = {
+    check:function (position) {
+        $(position).each(function(){
+            var item = $(this);
+            item.validate({
+                submitHandler: function(){}
+            });
+            item.submit();
+        });
+    }
+};
