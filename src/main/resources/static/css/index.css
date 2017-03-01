@@ -29,9 +29,6 @@ body.modal-open .animated {
   animation-fill-mode: initial;
   z-index: inherit;
 }*/
-#-error{
-    display: none;
-}
 
 @media (min-width: 768px){
     .form-inline .tt-from-input{
