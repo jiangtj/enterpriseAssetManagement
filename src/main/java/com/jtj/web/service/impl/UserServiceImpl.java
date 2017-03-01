@@ -85,7 +85,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultDto<Object> add(User user) {
-        return null;
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(ResultCode.SUCCESS);
+        return result;
     }
 
     @Override

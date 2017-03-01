@@ -54,7 +54,7 @@
         <div>{{selectModel}}</div>
 
         <!-- 添加弹出窗 -->
-        <tt-modal title="添加新用户">
+        <tt-modal id="modal-form" title="添加新用户">
             <form role="form" class="validation">
                 <div class="row">
                     <div class="col-sm-6 b-r">
@@ -136,7 +136,11 @@
                 })
             },
             put:function () {
-                ValidationUtils.check(".validation");
+                if (ValidationUtils.check(".validation")){
+                    Web.post("/user/add",function () {
+                        $("#modal-form").modal("hide");
+                    })
+                }
             }
         }
     };

@@ -141,6 +141,7 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 
 const ValidationUtils = {
     check:function (position) {
+        var flag = true;
         $(position).each(function(){
             var item = $(this);
             item.validate({
@@ -149,7 +150,9 @@ const ValidationUtils = {
                 }
             });
             item.submit();
+            flag = item.valid() && flag;
         });
+        return flag;
     },
     show:function (position) {
         $(position).each(function(){

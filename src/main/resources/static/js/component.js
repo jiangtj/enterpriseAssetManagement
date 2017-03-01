@@ -147,7 +147,7 @@ Vue.component('tt-simple-input', {
 
 Vue.component('tt-modal', {
     props: ['size','close','title'],
-    template: '<div id="modal-form" class="modal fade" v-bind:class="modalFormClass" aria-hidden="true">' +
+    template: '<div class="modal fade" v-bind:class="modalFormClass" aria-hidden="true">' +
     '<div class="modal-dialog" v-bind:class="modalDialogClass">' +
     '<div class="modal-content">' +
     '<div class="modal-body">' +
