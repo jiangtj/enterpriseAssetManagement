@@ -118,10 +118,11 @@ Vue.component('tt-pagination', {
 });
 
 Vue.component('tt-simple-input', {
-    props: ['value','label','type','placeholder'],
+    props: ['value','label','type','placeholder','required','minlength','maxlength'],
     template: '<div class="form-group tt-from-input">' +
     '<label>{{label}}</label>' +
-    '<input :value="value" @input="updateValue($event.target.value)" :type="baseType" :placeholder="placeholder" class="form-control">' +
+    '<input :value="value" @input="updateValue($event.target.value)" :type="baseType" :placeholder="placeholder" class="form-control"' +
+    ':required="required" :minlength="minlength" :maxlength="maxlength">' +
     '</div>',
     data:function(){
         return{

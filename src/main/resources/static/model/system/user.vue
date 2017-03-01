@@ -60,10 +60,13 @@
                     <div class="col-sm-6 b-r">
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <p>这里的信息很重要,不要乱填.</p>
-                        <tt-simple-input label="用户名" v-model="modal.name"></tt-simple-input>
-                        <tt-simple-input label="密码" v-model="modal.password" type="password"></tt-simple-input>
+                        <!--<tt-simple-input label="用户名" v-model="modal.name" required minlength="5"></tt-simple-input>
+                        <tt-simple-input label="密码" v-model="modal.password" type="password" maxlength="5"></tt-simple-input>
+                        <tt-simple-input label="密码" v-model="modal.password" type="password" required minlength="2"></tt-simple-input>-->
+                        <!--<tt-simple-input label="密码" v-model="modal.password" type="password"></tt-simple-input>-->
                         <div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control" minlength="5" required></div>
                         <div class="form-group"><label>Password</label> <input type="password" placeholder="Password" class="form-control"></div>
+                        <div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control" minlength="5" required></div>
                     </div>
                     <div class="col-sm-6">
                         <h4>额外 More</h4>

@@ -31,7 +31,7 @@ body.modal-open .animated {
 }*/
 
 @media (min-width: 768px){
-    .tt-from-input{
+    .form-inline .tt-from-input{
         margin-right: 10px;
     }
 }
