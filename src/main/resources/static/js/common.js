@@ -144,7 +144,20 @@ const ValidationUtils = {
         $(position).each(function(){
             var item = $(this);
             item.validate({
-                submitHandler: function(){}
+                onkeyup:false,
+                submitHandler: function () {
+                },
+                errorPlacement: function (error, element) {
+                    /*if (element.parent().is("div .form-group")){
+                        error.insertAfter(element.parent());
+                    }*/
+                },
+                showErrors:function(errorMap,errorList) {
+                    if (errorList.length == 0) return;
+                    var temp ='[' + errorList[0].method + ']' + errorList[0].message;
+                    ToastrUtils.show("提醒",temp,5);
+                    this.defaultShowErrors();
+                }
             });
             item.submit();
         });
