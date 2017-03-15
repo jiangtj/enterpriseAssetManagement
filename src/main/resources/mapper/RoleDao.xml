@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.RoleDao">
+
+    <!-- 获取角色列表 -->
+    <select id="getRoleMap" resultType="KeyValue">
+        SELECT
+        ar.id "key",
+        ar.name "value"
+        FROM auth_role ar
+        WHERE ar.status = 1
+    </select>
+
+</mapper>

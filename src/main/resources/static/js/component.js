@@ -118,10 +118,12 @@ Vue.component('tt-pagination', {
 });
 
 Vue.component('tt-simple-input', {
-    props: ['value','name','label','type','placeholder','required','minlength','maxlength'],
+    props: ['value','name','label','type','row','placeholder','required','minlength','maxlength'],
     template: '<div class="form-group tt-from-input">' +
     '<label>{{label}}</label>' +
-    '<input :value="value" :name="innerName" @input="updateValue($event.target.value)" :type="baseType" :placeholder="placeholder" class="form-control"' +
+    '<textarea v-if="baseType == \'textarea\'" class="form-control" :rows="baseRow" :placeholder="placeholder" class="form-control"' +
+    ':required="required" :minlength="minlength" :maxlength="maxlength"></textarea>' +
+    '<input v-else :value="value" :name="innerName" @input="updateValue($event.target.value)" :type="baseType" :placeholder="placeholder" class="form-control"' +
     ':required="required" :minlength="minlength" :maxlength="maxlength">' +
     '</div>',
     data:function(){
@@ -131,6 +133,9 @@ Vue.component('tt-simple-input', {
     computed: {
         baseType: function () {
             return this.type||"text";
+        },
+        baseRow: function () {
+            return this.row||"3";
         },
         innerName:function () {
             return this.name || this.label;

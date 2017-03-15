@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response) {
+    public ResultDto<Object> logout(HttpServletRequest request, HttpServletResponse response) {
         ResultDto<Object> result = new ResultDto<>();
         //清除session
         HttpSession session = request.getSession();

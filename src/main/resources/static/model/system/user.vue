@@ -60,18 +60,16 @@
                     <div class="col-sm-6 b-r">
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <p>这里的信息很重要,不要乱填.</p>
-                        <tt-simple-input label="用户名" v-model="modal.name" required minlength="5"></tt-simple-input>
-                        <tt-simple-input label="密码" name="password" v-model="modal.password" type="password" maxlength="5"></tt-simple-input>
-                        <div class="form-group"><label>Email</label> <input type="email" name="1" placeholder="Enter email" class="form-control" minlength="5" required></div>
-                        <div class="form-group"><label>Password</label> <input type="password" name="2"  placeholder="Password" class="form-control"></div>
-                        <div class="form-group"><label>Email</label> <input type="email" name="3"  placeholder="Enter email" class="form-control" minlength="5" required></div>
+                        <tt-simple-input label="用户名" v-model="modal.name" required></tt-simple-input>
+                        <tt-simple-input label="密码" v-model="modal.password" type="password" required minlength="6"></tt-simple-input>
                     </div>
                     <div class="col-sm-6">
                         <h4>额外 More</h4>
                         <p>个性化的介绍,以后填也可以的.</p>
-                        <p class="text-center">
+                        <tt-simple-input label="描述&简介" v-model="modal.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
+                        <!--<p class="text-center">
                             <a href=""><i class="fa fa-sign-in big-icon"></i></a>
-                        </p>
+                        </p>-->
                     </div>
                 </div>
                 <div class="row">
@@ -80,6 +78,22 @@
             </form>
         </tt-modal>
 
+        <select class="form-control m-b" name="account">
+            <option>option 1</option>
+            <option>option 2</option>
+            <option>option 3</option>
+            <option>option 4</option>
+        </select>
+        <select class="form-control m-b" name="account">
+            <option v-for="item in roleMap" :value="item.key">
+                {{ item.value }}
+            </option>
+        </select>
+        <!--<select class="form-control m-b" name="account">
+            <option v-for="item in App.roleMap" :value="item.key">
+                {{ item.value }}
+            </option>
+        </select>-->
         <div class="clearfix"></div>
 
     </div>
@@ -114,11 +128,13 @@
                 },
                 tableSelectData:[],
                 selectModel:{},
-                modal:{}
+                modal:{},
+                roleMap:[]
             }
         },
         created:function () {
             this.getTableList(false);
+            this.roleMap = App.roleMap;
         },
         mounted:function () {
         },
@@ -137,7 +153,7 @@
             },
             put:function () {
                 if (ValidationUtils.check(".validation")){
-                    Web.post("/user/add",function () {
+                    Web.post("/user/add",this.modal,function () {
                         $("#modal-form").modal("hide");
                     })
                 }

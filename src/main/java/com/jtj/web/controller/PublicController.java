@@ -1,6 +1,7 @@
 package com.jtj.web.controller;
 
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.service.RoleService;
 import com.jtj.web.service.SystemService;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class PublicController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @ResponseBody
     @PostMapping("/login")
@@ -33,7 +36,13 @@ public class PublicController {
     @ResponseBody
     @PostMapping("/logout")
     public ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response){
-        return userService.loginOut(request,response);
+        return userService.logout(request,response);
+    }
+
+    @ResponseBody
+    @GetMapping("/map/role")
+    public ResultDto<Object> getRoleMap(){
+        return roleService.getRoleMap();
     }
 
 }
