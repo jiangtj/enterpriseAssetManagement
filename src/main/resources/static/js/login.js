@@ -1,4 +1,4 @@
-var loginApp = new Vue({
+const loginApp = new Vue({
     el: '#login-block',
     data: {
         baseUrl:baseUrl,

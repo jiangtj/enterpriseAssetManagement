@@ -85,15 +85,10 @@
             <option>option 4</option>
         </select>
         <select class="form-control m-b" name="account">
-            <option v-for="item in roleMap" :value="item.key">
+            <option v-for="item in Map.role" :value="item.key">
                 {{ item.value }}
             </option>
         </select>
-        <!--<select class="form-control m-b" name="account">
-            <option v-for="item in App.roleMap" :value="item.key">
-                {{ item.value }}
-            </option>
-        </select>-->
         <div class="clearfix"></div>
 
     </div>
@@ -128,13 +123,13 @@
                 },
                 tableSelectData:[],
                 selectModel:{},
-                modal:{},
-                roleMap:[]
+                modal:{}
             }
         },
         created:function () {
             this.getTableList(false);
-            this.roleMap = App.roleMap;
+        },
+        beforeMount:function () {
         },
         mounted:function () {
         },

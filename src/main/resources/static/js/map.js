@@ -1,19 +1,11 @@
-//单页配置
-const App = new Vue({
-    el:"#wrapper",
-    router:AppRouter,
-    data:{
-        baseUrl:baseUrl,
-        user: sessionUser,
-        menu:AppMenu,
-        alwaysTrue:true
+//列表
+const Map = new Vue({
+    computed:{
+        role:function () {
+            return this.getMap("/public/map/role");
+        }
     },
     methods:{
-        logout:function () {
-            Web.post("/public/logout",function () {
-                Web.go("/login");
-            })
-        },
         getMap:function (url) {
             var list = [];
             Web.get(url,{
@@ -28,11 +20,6 @@ const App = new Vue({
                 }
             });
             return list;
-        }
-    },
-    computed:{
-        roleMap:function () {
-            return this.getMap("/public/map/role");
         }
     }
 });
