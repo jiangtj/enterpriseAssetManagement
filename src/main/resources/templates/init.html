@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>EA | Welcome</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/animate.css}" rel="stylesheet" />
+    <link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body id="page-top" class="landing-page">
+<div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <a class="navbar-brand" th:href="@{/index}">WEB 控制台</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="page-scroll" href="#page-top">首页</a></li>
+                        <li><a class="page-scroll" href="#features">特征</a></li>
+                        <li><a class="page-scroll" href="#timeline">更新</a></li>
+                        <li><a class="page-scroll" href="#pricing">价格</a></li>
+                        <li><a class="page-scroll" href="#contact">联系我们</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+</div>
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>We wish<br/>
+                        我们希望能做到<br/>
+                        方方面面</h1>
+                    <p>从购置、领用、清理、盘点、借用归还、维修到报废进行全方位准确监管.</p>
+                    <p>
+                        <a class="btn btn-lg btn-primary page-scroll" href="#features" role="button">READ MORE</a>
+                        <a class="caption-link" href="https://github.com/JiangTJ/enterpriseAssetManagement" role="button">Git Clone</a>
+                    </p>
+                </div>
+                <div class="carousel-image wow zoomIn">
+                    <img src="img/landing/laptop.png" alt="laptop"/>
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back one"></div>
+
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-caption blank">
+                    <h1>We create <br/> 我们做的是有意义的事.</h1>
+                    <p>以“快捷”、“精准”和功能全面为优势的管理类系统.</p>
+                    <p><a class="btn btn-lg btn-primary page-scroll" href="#features" role="button">LEARN MORE</a></p>
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back two"></div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+<section id="features" class="container services">
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>基础配置</h2>
+            <p>精确到接口的权限设置、支持资产自定义分类、支持存放地点可自定义配置等.</p>
+        </div>
+        <div class="col-sm-3">
+            <h2>资产日常管理</h2>
+            <p>支持资产录入、借还、报废管理，能自动化生成资产唯一编号等.</p>
+        </div>
+        <div class="col-sm-3">
+            <h2>核查和盘点</h2>
+            <p>支持资产盘点，将数据与数据库中的数据进行核对，并对异常数据做出适当处理.</p>
+        </div>
+        <div class="col-sm-3">
+            <h2>报表统计与查询</h2>
+            <p>自动化分析数据，生成多种报表，队资产有直接的了解.</p>
+        </div>
+    </div>
+</section>
+
+<section class="container features">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1>美妙的特性</h1>
+            <p>轻巧、快速、精致、强大</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-lg-offset-1 features-text">
+            <small>轻巧</small>
+            <h2>轻盈和巧妙的系统框架</h2>
+            <i class="fa fa-leaf big-icon pull-right"></i>
+            <p>EA管理系统采用了spring boot最为其后台架构，简化新Spring应用的初始搭建以及开发过程。同时巧妙的结合后台(thymeleaf)与前台(vue)模板渲染引擎，使网页展现更合理</p>
+        </div>
+        <div class="col-lg-5 features-text">
+            <small>快速</small>
+            <h2>快速到极致的响应</h2>
+            <i class="fa fa-bolt big-icon pull-right"></i>
+            <p>EA管理系统采用了vue作为其主要的模板渲染引擎，从而使服务器与客户端基本以更为轻量的json数据作为交流，动画与展现交由客户端实现，响应更迅捷，更及时</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-lg-offset-1 features-text">
+            <small>精致</small>
+            <h2>精致的系统结构</h2>
+            <i class="fa fa-cogs big-icon pull-right"></i>
+            <p>EA后台系统框架，其核心是SSM，即spring+springMVC+mybatis，三者使系统架构十分精致，分层合理.同时vue前端框架组件化的搭建系统页面</p>
+        </div>
+        <div class="col-lg-5 features-text">
+            <small>强大</small>
+            <h2>强大而全面的系统功能 </h2>
+            <i class="fa fa-users big-icon pull-right"></i>
+            <p>无论是后台还是前端，都充分发挥了各框架极致的功能，例如mybatis动态sql让复杂查询也能极易实现，又如spring贯穿整个系统做了很好的衔接，vue实现响应的数据绑定和组合的视图组件.这些使系统极为强大</p>
+        </div>
+    </div>
+</section>
+
+<section  class="container features">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1>优雅的设计</h1>
+            <p>整体协调的风格，清新的色调，喜欢就是它了. </p>
+        </div>
+    </div>
+    <div class="row features-block">
+        <div class="col-lg-6 features-text wow fadeInLeft">
+            <small>EA EnterpriseAsset</small>
+            <h2>Perfectly designed </h2>
+            <p>EA资产管理平台，采用了最新的css3和html5相关技术，将最优雅，最协调的界面展示在眼前.同时，多种动画效果结合，使用更加舒畅.当然也采用了响应式布局，同时兼容手机端.</p>
+            <p>EA asset management platform, using the latest in CSS3 and HTML5 related technologies, will be the most elegant, the most consistent interface to display in front of us. Meanwhile, the combination of a variety of animation effects the use of more comfortable. Of course, using the response-type layout, and is compatible with mobile phone.</p>
+            <!--<a href="" class="btn btn-primary">Learn more</a>-->
+        </div>
+        <div class="col-lg-6 text-right wow fadeInRight">
+            <img src="img/landing/dashboard.png" alt="dashboard" class="img-responsive pull-right" />
+        </div>
+    </div>
+</section>
+
+<section id="timeline" class="timeline gray-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>更新记录</h1>
+            </div>
+        </div>
+        <div class="row features-block">
+
+            <div class="col-lg-12">
+                <div id="vertical-timeline" class="vertical-container light-timeline center-orientation">
+                    <div class="vertical-timeline-block">
+                        <div class="vertical-timeline-icon navy-bg">
+                            <i class="fa fa-briefcase"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>完善</h2>
+                            <p>产品完善中</p>
+                            <!--<a href="#" class="btn btn-xs btn-primary"> More info</a>-->
+                            <span class="vertical-date"> Today <br/> <small>...</small> </span>
+                        </div>
+                    </div>
+
+                    <div class="vertical-timeline-block">
+                        <div class="vertical-timeline-icon navy-bg">
+                            <i class="fa fa-cogs"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>开始</h2>
+                            <p>产品开始设计</p>
+                            <!--<a href="#" class="btn btn-xs btn-primary"> More info</a>-->
+                            <span class="vertical-date"> Monday <br/> <small>2017/2/1</small> </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section id="pricing" class="pricing">
+    <div class="container">
+        <div class="row m-b-lg">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>价格</h1>
+                <p>您的支持是对我们最大的回报.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 wow zoomIn">
+                <ul class="pricing-plan list-unstyled">
+                    <li class="pricing-title">
+                        Free
+                    </li>
+                    <li class="pricing-desc">
+                        免费、开源，所有的代码都开源在 GitHub 上，免除一切后顾之忧，但请遵守Apache License 2.0
+                    </li>
+                    <li>首页，集中管理</li>
+                    <li>资源借还登记</li>
+                    <li>强大的角色权限管理系统</li>
+                    <li>SpringBoot Vue.js等最新框架</li>
+                    <li>......</li>
+                    <li class="pricing-price">
+                        <span>Free</span> / Forever
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-xs" href="#">支持</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 wow zoomIn">
+                <ul class="pricing-plan list-unstyled selected">
+                    <li class="pricing-title">
+                        技术支持
+                    </li>
+                    <li class="pricing-desc">
+                        当您遇到不能解决的问题时，可以为您提供技术支持
+                    </li>
+                    <li><strong>windows/linux环境部署</strong></li>
+                    <li>角色权限配置</li>
+                    <li>使用教导</li>
+                    <li><strong>7*24/5*8技术支持</strong></li>
+                    <li>定制化微调</li>
+                    <li>......</li>
+                    <li class="pricing-price">
+                        <span>&yen;1000+</span> / month
+                    </li>
+                    <li class="plan-action">
+                        <a class="btn btn-primary btn-xs page-scroll" href="#contact">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 wow zoomIn">
+                <ul class="pricing-plan list-unstyled">
+                    <li class="pricing-title">
+                        定制版
+                    </li>
+                    <li class="pricing-desc">
+                        当目前的功能不能满足您的需求，您可以联系我们，为您定制专属版本。
+                    </li>
+                    <li>添加需求功能</li>
+                    <li>与其他系统对接</li>
+                    <li>为其他系统集成该系统功能</li>
+                    <li>7*24小时技术支持</li>
+                    <li>*定制版，版权归属</li>
+                    <li>......</li>
+                    <li class="pricing-price">
+                        <span>面议</span>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-xs page-scroll" href="#contact">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row m-t-lg">
+            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg">
+                <p>*版权归属，定制版需要提出，否则会将好用功能加入基础版，为更多人提供便捷服务.</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="contact" class="gray-section contact">
+    <div class="container">
+        <div class="row m-b-lg">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>联系我们</h1>
+                <!--<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>-->
+            </div>
+        </div>
+        <div class="row m-b-lg">
+            <div class="col-lg-3 col-lg-offset-3">
+                <address>
+                    <strong><span class="navy">Mr.J Software Developer.</span></strong><br/>
+                    <!--795 Folsom Ave, Suite 600<br/>
+                    San Francisco, CA 94107<br/>-->
+                    <abbr title="Phone">Phone:</abbr> 171-6573-0916
+                </address>
+            </div>
+            <div class="col-lg-4">
+                <p class="text-color">
+                    这是我个人作品，如有需要，请发送邮件或者打电话联系我
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <a href="mailto:jiang.taojie@foxmail.com" class="btn btn-primary">Send e-mail</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+                <p><strong>Mr.J &copy; 2017</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mainly scripts -->
+<script th:src="@{/js/main/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/main/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/js/main/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/plugins/wow/wow.min.js}"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('body').scrollspy({
+            target: '.navbar-fixed-top',
+            offset: 80
+        });
+
+        // Page scrolling feature
+        $('a.page-scroll').bind('click', function(event) {
+            var link = $(this);
+            $('html, body').stop().animate({
+                scrollTop: $(link.attr('href')).offset().top - 50
+            }, 500);
+            event.preventDefault();
+            $("#navbar").collapse('hide');
+        });
+    });
+
+    var cbpAnimatedHeader = (function() {
+        var docElem = document.documentElement,
+                header = document.querySelector( '.navbar-default' ),
+                didScroll = false,
+                changeHeaderOn = 200;
+        function init() {
+            window.addEventListener( 'scroll', function( event ) {
+                if( !didScroll ) {
+                    didScroll = true;
+                    setTimeout( scrollPage, 250 );
+                }
+            }, false );
+        }
+        function scrollPage() {
+            var sy = scrollY();
+            if ( sy >= changeHeaderOn ) {
+                $(header).addClass('navbar-scroll')
+            }
+            else {
+                $(header).removeClass('navbar-scroll')
+            }
+            didScroll = false;
+        }
+        function scrollY() {
+            return window.pageYOffset || docElem.scrollTop;
+        }
+        init();
+
+    })();
+
+    // Activate WOW.js plugin for animation on scrol
+    new WOW().init();
+
+</script>
+
+</body>
+</html>

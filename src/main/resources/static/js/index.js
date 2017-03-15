@@ -9,9 +9,9 @@ var App = new Vue({
         alwaysTrue:true
     },
     methods:{
-        loginOut:function () {
-            Web.post("/public/loginOut",function () {
-                Web.go("/loginPage");
+        logout:function () {
+            Web.post("/public/logout",function () {
+                Web.go("/login");
             })
         }
     }

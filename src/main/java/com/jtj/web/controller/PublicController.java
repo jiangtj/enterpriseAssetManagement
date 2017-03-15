@@ -1,6 +1,7 @@
 package com.jtj.web.controller;
 
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.service.SystemService;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ public class PublicController {
     }
 
     @ResponseBody
-    @PostMapping("/loginOut")
+    @PostMapping("/logout")
     public ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response){
         return userService.loginOut(request,response);
     }
