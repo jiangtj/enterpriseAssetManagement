@@ -28,11 +28,6 @@ public class SystemServiceImpl implements SystemService {
         if (users.size() == 0){
             return "init";
         }
-        try {
-            response.sendRedirect(request.getContextPath()+"/login");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "login";
+        return "redirect:/login";
     }
 }
