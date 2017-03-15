@@ -119,6 +119,64 @@ Vue.component('tt-pagination', {
 
 Vue.component('tt-simple-input', {
     props: ['value','name','label','type','row','placeholder','required','minlength','maxlength'],
+    render: function (createElement) {
+        var self = this;
+        return createElement('div',{
+            class:{
+                'form-group':true,
+                'tt-from-input':true
+            }
+        },[
+            createElement('label',self.label),
+            createElement(self.baseType == 'textarea'?'textarea':'input',{
+                class:{
+                    'form-control':true
+                },
+                attrs:{
+                    type:self.baseType,
+                    name:self.innerName,
+                    placeholder:self.placeholder,
+                    rows:self.baseRow,
+                    required:self.required,
+                    minlength:self.minlength,
+                    maxlength:self.maxlength
+                },
+                domProps:{
+                    value:self.value
+                },
+                on:{
+                    input:function(event){
+                        self.updateValue(event.target.value)
+                    }
+                }
+            })
+        ])
+    },
+    data:function(){
+        return{
+        }
+    },
+    computed: {
+        baseType: function () {
+            return this.type||"text";
+        },
+        baseRow: function () {
+            return this.row||"3";
+        },
+        innerName:function () {
+            return this.name || this.label;
+        }
+    },
+    created:function () {
+    },
+    methods:{
+        updateValue:function (value) {
+            this.$emit('input',value)
+        }
+    }
+});
+/*Vue.component('tt-simple-input', {
+    props: ['value','name','label','type','row','placeholder','required','minlength','maxlength'],
     template: '<div class="form-group tt-from-input">' +
     '<label>{{label}}</label>' +
     '<textarea v-if="baseType == \'textarea\'" class="form-control" :rows="baseRow" :placeholder="placeholder" class="form-control"' +
@@ -148,7 +206,7 @@ Vue.component('tt-simple-input', {
             this.$emit('input',value)
         }
     }
-});
+});*/
 
 Vue.component('tt-modal', {
     props: ['size','close','title'],
