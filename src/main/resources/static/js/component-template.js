@@ -119,39 +119,13 @@ Vue.component('tt-pagination', {
 
 Vue.component('tt-simple-input', {
     props: ['value','name','label','type','row','placeholder','required','minlength','maxlength'],
-    render: function (createElement) {
-        var self = this;
-        return createElement('div',{
-            class:{
-                'form-group':true,
-                'tt-from-input':true
-            }
-        },[
-            createElement('label',self.label),
-            createElement(self.baseType == 'textarea'?'textarea':'input',{
-                class:{
-                    'form-control':true
-                },
-                attrs:{
-                    type:self.baseType,
-                    name:self.innerName,
-                    value:self.value,
-                    placeholder:self.placeholder,
-                    rows:self.baseRow,
-                    required:self.required,
-                    minlength:self.minlength,
-                    maxlength:self.maxlength
-                },
-                domProps:{
-                },
-                on:{
-                    input:function(event){
-                        self.updateValue(event.target.value)
-                    }
-                }
-            })
-        ])
-    },
+    template: '<div class="form-group tt-from-input">' +
+    '<label>{{label}}</label>' +
+    '<textarea v-if="baseType == \'textarea\'" class="form-control" :rows="baseRow" :placeholder="placeholder" class="form-control"' +
+    ':required="required" :minlength="minlength" :maxlength="maxlength"></textarea>' +
+    '<input v-else :value="value" :name="innerName" @input="updateValue($event.target.value)" :type="baseType" :placeholder="placeholder" class="form-control"' +
+    ':required="required" :minlength="minlength" :maxlength="maxlength">' +
+    '</div>',
     data:function(){
         return{
         }
@@ -178,61 +152,36 @@ Vue.component('tt-simple-input', {
 
 Vue.component('tt-modal', {
     props: ['size','close','title'],
-    render:function(createElement){
-        var self = this;
-        //bodyTitle节点
-        var bodyTitleElement = [];
-        bodyTitleElement.push(createElement('div',{ class:{'col-sm-10':true}},[createElement('h3',self.title)]));
-        if (self.innerClose) bodyTitleElement.push(
-            createElement('button',{
-                class:{'close':true},
-                attrs:{
-                    'type':'button',
-                    'data-dismiss':'modal',
-                    'aria-label':'Close'
-                }
-            },[
-                createElement('span',{
-                    attrs:{'aria-hidden':true}
-                },'×'/*&times;*/)
-            ])
-        );
-        //body节点
-        var bodyElement = [];
-        bodyElement.push(createElement('div',{class:{'row':true}},bodyTitleElement));
-        bodyElement.push(self.$slots.default);
-        //根节点创建
-        return createElement('div',{
-            class:{
-                'modal':true,
-                'fade':true,
-                "bs-example-modal-lg":self.size == "lg",
-                "bs-example-modal-sm":self.size == "sm"
-            },
-            attrs:{'aria-hidden':true}
-        },[
-            createElement('div',{
-                class:{
-                    'modal-dialog':true,
-                    "modal-lg":self.size == "lg",
-                    "modal-sm":self.size == "sm"
-                }
-            },[
-                createElement('div',{
-                    class:{'modal-content':true}
-                },[
-                    createElement('div',{
-                        class:{'modal-body':true}
-                    },bodyElement)
-                ])
-            ])
-        ])
-    },
+    template: '<div class="modal fade" v-bind:class="modalFormClass" aria-hidden="true">' +
+    '<div class="modal-dialog" v-bind:class="modalDialogClass">' +
+    '<div class="modal-content">' +
+    '<div class="modal-body">' +
+    '<div class="row">' +
+    '<div class="col-sm-10"><h3>{{title}}</h3></div>' +
+    '<button v-if="innerClose" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+    '</div>' +
+    '<slot></slot>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>',
     computed: {
         innerClose: function () {
             var temp = this.close == null?true:this.close;
             if (temp == "false") temp = false;
             return temp;
+        },
+        modalFormClass:function () {
+            return {
+                "bs-example-modal-lg":this.size == "lg",
+                "bs-example-modal-sm":this.size == "sm"
+            }
+        },
+        modalDialogClass:function () {
+            return {
+                "modal-lg":this.size == "lg",
+                "modal-sm":this.size == "sm"
+            }
         }
     }
 });
