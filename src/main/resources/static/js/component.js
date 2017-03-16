@@ -1,3 +1,9 @@
+const SlotsUtils = {
+    get:function () {
+
+    }
+};
+
 Vue.component('header-label', {
     props: ['data'],
     template: '<div v-if="data != null" class="row wrapper border-bottom white-bg page-heading">'
@@ -29,16 +35,7 @@ Vue.component('tt-table', {
                 'table-hover':true
             }
         },[
-            createElement('thead',{
-                scopedSlots:{
-                    'tt-title':function (props) {
-                        return createElement('th',th)
-                    },
-                    'tt-body':function (props) {
-                        return createElement('th',th)
-                    }
-                }
-            },[self.$scopedSlots['tt-title']]),
+            createElement('thead',[self.$scopedSlots['tt-title']]),
             createElement('tbody',[self.$scopedSlots['tt-body']])
         ]);
     },
