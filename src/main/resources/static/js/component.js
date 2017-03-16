@@ -17,6 +17,31 @@ Vue.component('header-label', {
 
 Vue.component('tt-table', {
     props: ['value','data','selection'],
+    render:function (createElement) {
+        var self = this;
+        if (self.data == null){
+            return createElement('div','请先绑定数据data！');
+        }
+        return createElement('table',{
+            class:{
+                'table':true,
+                'table-striped':true,
+                'table-hover':true
+            }
+        },[
+            createElement('thead',{
+                scopedSlots:{
+                    'tt-title':function (props) {
+                        return createElement('th',th)
+                    },
+                    'tt-body':function (props) {
+                        return createElement('th',th)
+                    }
+                }
+            },[self.$scopedSlots['tt-title']]),
+            createElement('tbody',[self.$scopedSlots['tt-body']])
+        ]);
+    },
     template: '<table v-if="data != null" class="table table-striped table-hover">' +
     '<thead>' +
     '<slot name="tt-title">' +
