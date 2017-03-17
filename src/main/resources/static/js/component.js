@@ -1,6 +1,13 @@
 const SlotsUtils = {
-    get:function () {
-
+    get:function (slots,nodes) {
+        if (slots != null){
+            return [slots];
+        }else {
+            return nodes;
+        }
+    },
+    getItem:function (slots,node) {
+        return slots || node;
     }
 };
 
@@ -28,6 +35,78 @@ Vue.component('tt-table', {
         if (self.data == null){
             return createElement('div','请先绑定数据data！');
         }
+
+        //标题checkbox
+        var checkboxHead = [
+            createElement('div',{class:['checkbox', 'checkbox-success','tt-table-checkbox']},[
+                createElement('input',{
+                    attrs:{
+                        value:self.allSelected,
+                        type:'checkbox'
+                    },
+                    domProps:{
+                        /*checked:self.allSelected*/
+                    },
+                    on:{
+                        click:self.updateAllSelect
+                    }
+                }),
+                createElement('label')
+            ])
+        ];
+
+        //标题tr
+        var tableHeadTr = [];
+        if (self.selection) tableHeadTr.push(createElement('th',checkboxHead));
+        tableHeadTr.push(jQuery.map(self.data.title,function (item,key) {
+            if (self.isString(item)){
+                item = {name:item}
+            }
+            return SlotsUtils.getItem(self.$scopedSlots['tt-title' + key],
+                createElement('th',{
+                    attrs:{width:item.width}
+                },item.name)
+            )
+        }));
+
+
+        var getTableBodyTr = function (item,index) {
+            //复选框
+            self.checkedElement[index] = false;
+            //主体checkbox
+            var checkboxBody = [
+                createElement('div',{class:['checkbox', 'checkbox-success','tt-table-checkbox']},[
+                    createElement('input',{
+                        attrs:{
+                            type:'checkbox',
+                            value:item
+                        },
+                        domProps:{
+                            checked:self.checkedElement[index]
+                        },
+                        on:{
+                            click:function (event) {
+                                self.updateSelect(index,event.target.checked);
+                            }
+                        }
+                    }),
+                    createElement('label')
+                ])
+            ];
+
+            //主体tr
+            var tableBodyTr = [];
+            if (self.selection) tableBodyTr.push(createElement('td',checkboxBody));
+            tableBodyTr.push(jQuery.map(self.data.title,function (value,key) {
+                if (key == '$index') item[key] = index;
+                return createElement('td',SlotsUtils.get(self.$scopedSlots['tt-body' + key],[
+                    createElement('div',item[key])
+                ]));
+            }));
+
+            return createElement('tr',tableBodyTr);
+        };
+
         return createElement('table',{
             class:{
                 'table':true,
@@ -35,59 +114,34 @@ Vue.component('tt-table', {
                 'table-hover':true
             }
         },[
-            createElement('thead',[self.$scopedSlots['tt-title']]),
-            createElement('tbody',[self.$scopedSlots['tt-body']])
+            createElement('thead',SlotsUtils.get(self.$scopedSlots['tt-title'],[
+                createElement('tr',tableHeadTr)
+            ])),
+            createElement('tbody',SlotsUtils.get(self.$scopedSlots['tt-body'],jQuery.map(self.data.data,getTableBodyTr)))
         ]);
     },
-    template: '<table v-if="data != null" class="table table-striped table-hover">' +
-    '<thead>' +
-    '<slot name="tt-title">' +
-    '<tr>' +
-    //复选框美化
-    '<th v-if="selection">' +
-    '<div class="checkbox checkbox-success tt-table-checkbox">' +
-    '<input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox">' +
-    '<label></label>' +
-    '</div>' +
-    '</th>' +
-    //标题栏默认样式
-    '<slot v-for="(item,key) in data.title" v-bind:name="\'tt-title-\'+key">' +
-    '<th v-if="isString(item)">{{item}}</th>' +
-    '<th v-else :width="item.width">{{item.name}}</th>' +
-    '</slot>' +
-    '</tr>' +
-    '</slot>' +
-    '</thead>' +
-    '<tbody>' +
-    '<slot name="tt-body">' +
-    '<tr v-for="(item,index) in data.data">' +
-    //复选框美化
-    '<td v-if="selection">' +
-    '<div class="checkbox checkbox-success tt-table-checkbox">' +
-    '<input v-model="checkedData" v-bind:value="item" v-on:click="updateSelect" type="checkbox">' +
-    '<label></label>' +
-    '</div>' +
-    '</td>' +
-    //表格主体默认样式
-    '<td v-for="(value,key) in data.title">' +
-    '<slot v-bind:name="\'tt-body-\'+key" v-bind:row="item" v-bind:index="index">' +
-    '<div v-if="key == \'$index\'">{{index}}</div>' +
-    '<div v-else>{{item[key]}}</div>' +
-    '</slot>' +
-    '</td>' +
-    '</tr>' +
-    '</slot>' +
-    '</tbody>' +
-    '</table>',
     data:function () {
         return{
             tableDate:this.data,
-            checkedData:[]
+            checkedElement:[]
         }
     },
     computed:{
         allSelected:function () {
             return this.checkedData.length != 0;
+        },
+        checkedData:function () {
+            var temp = [];
+            for (var i in this.checkedElement){
+                if (this.checkedElement[i]) temp.push(this.data.data[i]);
+            }
+            return temp;
+        },
+        count:function () {
+            if (this.data == null){
+                return 0;
+            }
+            return this.data.data.length;
         }
     },
     mounted:function () {
@@ -98,15 +152,24 @@ Vue.component('tt-table', {
             return Object.prototype.toString.call(str) == "[object String]"
         },
         updateAllSelect:function () {
-            if (this.allSelected){
-                this.checkedData = [];
-            }else {
-                this.checkedData = this.tableDate.data.slice(0);
-            }
-            this.$emit('input',this.checkedData)
+            this.changeCheckedStatus(this.allSelected);
+            this.$emit('input',this.getCheckedItem())
         },
-        updateSelect:function () {
-            this.$emit('input',this.checkedData)
+        updateSelect:function (index) {
+            this.checkedElement[index] = !this.checkedElement[index];
+            this.$emit('input',this.getCheckedItem())
+        },
+        changeCheckedStatus:function (flag) {
+            for (var i = 0;i<this.count;i++){
+                this.checkedElement[i] = flag;
+            }
+        },
+        getCheckedItem:function () {
+            var temp = [];
+            for (var i = 0;i<this.count;i++){
+                if (this.checkedElement[i]) temp.push(this.data.data[i]);
+            }
+            return temp;
         }
     }
 });
