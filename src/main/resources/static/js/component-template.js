@@ -17,7 +17,7 @@ Vue.component('header-label', {
 
 Vue.component('tt-table', {
     props: ['value','data','selection'],
-    template: '<table v-if="data != null" class="table table-striped table-hover">' +
+    template: '<table class="table table-striped table-hover">' +
     '<thead>' +
     '<slot name="tt-title">' +
     '<tr>' +
@@ -29,16 +29,15 @@ Vue.component('tt-table', {
     '</div>' +
     '</th>' +
     //标题栏默认样式
-    '<slot v-for="(item,key) in data.title" v-bind:name="\'tt-title-\'+key">' +
-    '<th v-if="isString(item)">{{item}}</th>' +
-    '<th v-else :width="item.width">{{item.name}}</th>' +
+    '<slot v-for="(item,key) in innerTableDate.title" v-bind:name="\'tt-title-\'+key">' +
+    '<th :width="item.width">{{item.name}}</th>' +
     '</slot>' +
     '</tr>' +
     '</slot>' +
     '</thead>' +
     '<tbody>' +
     '<slot name="tt-body">' +
-    '<tr v-for="(item,index) in data.data">' +
+    '<tr v-for="(item,index) in innerTableDate.data">' +
     //复选框美化
     '<td v-if="selection">' +
     '<div class="checkbox checkbox-success tt-table-checkbox">' +
@@ -47,10 +46,9 @@ Vue.component('tt-table', {
     '</div>' +
     '</td>' +
     //表格主体默认样式
-    '<td v-for="(value,key) in data.title">' +
+    '<td v-for="(value,key) in innerTableDate.title">' +
     '<slot v-bind:name="\'tt-body-\'+key" v-bind:row="item" v-bind:index="index">' +
-    '<div v-if="key == \'$index\'">{{index}}</div>' +
-    '<div v-else>{{item[key]}}</div>' +
+    '<div>{{item[key]}}</div>' +
     '</slot>' +
     '</td>' +
     '</tr>' +
@@ -59,14 +57,32 @@ Vue.component('tt-table', {
     '</table>',
     data:function () {
         return{
-            tableDate:this.data,
             checkedData:[]
         }
     },
     computed:{
         allSelected:function () {
             return this.checkedData.length != 0;
+        },
+        innerTableDate:function () {
+            var self = this;
+            var temp = self.data || {};
+            temp.title = temp.title || {error:{name:"data不能为空",width:null}};
+            temp.data = temp.data || [];
+            jQuery.each(temp.title,function (key,value) {
+                if (self.isString(value)){
+                    temp.title[key] = {name:value}
+                }
+                if (key == "$index"){
+                    jQuery.each(temp.data,function (index,item) {
+                        item[key] = index;
+                    });
+                }
+            });
+            return temp;
         }
+    },
+    created:function () {
     },
     mounted:function () {
         this.$emit('input',this.checkedData);
@@ -79,7 +95,7 @@ Vue.component('tt-table', {
             if (this.allSelected){
                 this.checkedData = [];
             }else {
-                this.checkedData = this.tableDate.data.slice(0);
+                this.checkedData = this.innerTableDate.data.slice(0);
             }
             this.$emit('input',this.checkedData)
         },
