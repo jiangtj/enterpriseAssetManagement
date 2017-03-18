@@ -43,7 +43,7 @@ const Web = {
                     return;
                 }
                 ToastrUtils.showResult(response);
-                customsOptions.success(response,status,xhr);
+                customsOptions[Web.isSuccess(response)?"success":"fail"](response,status,xhr);
             };
         }
         return jQuery.ajax(options);
@@ -114,6 +114,18 @@ jQuery.extend(true,WebBuilder.prototype,{
         this.options.async = async;
         return this;
     },
+    setSuccess:function (callback) {
+        this.options.success = callback;
+        return this;
+    },
+    setFail:function (callback) {
+        this.options.fail = callback;
+        return this;
+    },
+    setError:function (callback) {
+        this.options.error = callback;
+        return this;
+    },
     setDefaultHandling:function (flag) {
         this.options.defaultHandling = flag;
         return this;
@@ -124,8 +136,7 @@ jQuery.each(['get','post'],function (i,method) {
         if (jQuery.isFunction(callback)){
             this.options.success = callback;
         }else {
-            this.options.success = callback.success;
-            this.options.error = callback.error;
+            this.options = jQuery.extend(true,this.options,callback);
         }
         this.options.type = method;
         return Web.submit(this.options);

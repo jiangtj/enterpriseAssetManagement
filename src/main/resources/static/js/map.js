@@ -11,7 +11,7 @@ const Map = new Vue({
             new WebBuilder(url)
                 .setDefaultHandling(false)
                 .setAsync(false)
-                .post(function (data) {
+                .get(function (data) {
                     if (Web.isSuccess(data)){
                         list = data.object;
                     }else {
