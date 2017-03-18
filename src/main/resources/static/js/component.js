@@ -36,7 +36,7 @@ Vue.component('tt-table', {
     '<tr>' +
     //复选框美化
     '<th v-if="selection">' +
-    '<div class="checkbox checkbox-success tt-table-checkbox">' +
+    '<div class="checkbox checkbox-table tt-table-checkbox">' +
     '<input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox">' +
     '<label></label>' +
     '</div>' +
@@ -53,7 +53,7 @@ Vue.component('tt-table', {
     '<tr v-for="(item,index) in innerTableDate.data">' +
     //复选框美化
     '<td v-if="selection">' +
-    '<div class="checkbox checkbox-success tt-table-checkbox">' +
+    '<div class="checkbox checkbox-table tt-table-checkbox">' +
     '<input v-model="checkedData" v-bind:value="item" v-on:click="updateSelect" type="checkbox">' +
     '<label></label>' +
     '</div>' +
