@@ -17,7 +17,7 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button data-toggle="modal" data-target="#modal-form" class="btn btn-outline btn-primary" type="button">新增</button>
+                                <button @click="showMore(null)"  class="btn btn-outline btn-primary" type="button">新增</button>
                                 <button v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">修改</button>
                                 <button @click="showMore(tableSelectData[0])" v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">详情</button>
                                 <button v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
@@ -52,19 +52,19 @@
         <div>{{selectModel}}</div>
 
         <!-- 添加弹出窗 -->
-        <tt-modal id="modal-form" title="添加新用户">
+        <tt-modal id="form-modal" title="添加新用户">
             <form role="form" class="validation">
                 <div class="row">
                     <div class="col-sm-6 b-r">
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <p>这里的信息很重要,不要乱填.</p>
-                        <tt-simple-input label="用户名" v-model="model.name" required></tt-simple-input>
-                        <tt-simple-input label="密码" v-model="model.password" type="password" required minlength="6"></tt-simple-input>
+                        <tt-simple-input label="用户名" v-model="fromModalData.name" required></tt-simple-input>
+                        <tt-simple-input label="密码" v-model="fromModalData.password" type="password" required minlength="6"></tt-simple-input>
                     </div>
                     <div class="col-sm-6">
                         <h4>额外 More</h4>
                         <p>个性化的介绍,以后填也可以的.</p>
-                        <tt-simple-input label="描述&简介" v-model="model.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
+                        <tt-simple-input label="描述&简介" v-model="fromModalData.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
@@ -118,7 +118,7 @@
                 },
                 tableSelectData:[],
                 selectModel:{},
-                model:{}
+                fromModalData:{}
             }
         },
         computed:{
@@ -127,6 +127,9 @@
             },
             hasCheckedOne:function () {
                 return this.tableSelectData.length == 1;
+            },
+            fromModal:function () {
+                return new ModalBuilder("#form-modal");
             }
         },
         created:function () {
@@ -139,26 +142,24 @@
         methods: {
             getTableList:function (flag) {
                 var tableDefaultData = this.tableDefaultData;
-                Web.post("/user/getList",{
-                    defaultHandling:flag,
-                    success:function (data) {
-                        tableDefaultData.data = data.object.list;
-                    }
-                });
                 /*new WebBuilder("/user/getList").setDefaultHandling(flag).post(function (data) {
                     tableDefaultData.data = data.object.list;
                 });*/
+                Server.user.getList.setDefaultHandling(flag).post(function (data) {
+                    tableDefaultData.data = data.object.list;
+                })
             },
             put:function () {
+                var self = this;
                 if (ValidationUtils.check(".validation")){
-                    Web.post("/user/add",this.modal,function () {
-                        $("#modal-form").modal("hide");
+                    Server.user.add.setData(self.fromModalData).post(function () {
+                        self.fromModal.hide();
                     })
                 }
             },
             showMore:function (obj) {
-                this.model = JsonUtils.copy(obj);
-                new ModalBuilder("#modal-form").show();
+                this.fromModalData = obj?JsonUtils.copy(obj):{};
+                this.fromModal.show();
             }
         }
     };

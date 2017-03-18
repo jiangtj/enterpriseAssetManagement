@@ -164,7 +164,6 @@ Vue.component('tt-simple-input', {
                 attrs:{
                     type:self.baseType,
                     name:self.innerName,
-                    value:self.value,
                     placeholder:self.placeholder,
                     rows:self.baseRow,
                     required:self.required,
@@ -172,6 +171,7 @@ Vue.component('tt-simple-input', {
                     maxlength:self.maxlength
                 },
                 domProps:{
+                    value:self.value
                 },
                 on:{
                     input:function(event){
@@ -211,7 +211,6 @@ Vue.component('tt-modal', {
         var self = this;
         //bodyTitle节点
         var bodyTitleElement = [];
-        bodyTitleElement.push(createElement('div',{ class:{'col-sm-10':true}},[createElement('h3',self.title)]));
         if (self.innerClose) bodyTitleElement.push(
             createElement('button',{
                 class:{'close':true},
@@ -226,6 +225,7 @@ Vue.component('tt-modal', {
                 },'×'/*&times;*/)
             ])
         );
+        bodyTitleElement.push(createElement('div',{ class:{'col-sm-10':true}},[createElement('h3',self.title)]));
         //body节点
         var bodyElement = [];
         bodyElement.push(createElement('div',{class:{'row':true}},bodyTitleElement));
