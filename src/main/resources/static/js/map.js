@@ -8,17 +8,16 @@ const Map = new Vue({
     methods:{
         getMap:function (url) {
             var list = [];
-            Web.get(url,{
-                defaultHandling:false,
-                async: false,
-                success:function (data) {
+            new WebBuilder(url)
+                .setDefaultHandling(false)
+                .setAsync(false)
+                .post(function (data) {
                     if (Web.isSuccess(data)){
                         list = data.object;
                     }else {
                         ToastrUtils.showResult(data);
                     }
-                }
-            });
+                });
             return list;
         }
     }

@@ -9,9 +9,6 @@
 
             <!-- 表单 -->
             <div class="row"><div class="col-lg-12"><div class="ibox tt-from-table">
-                <!--<div class="ibox-title">
-                    <h5>Custom responsive table </h5>
-                </div>-->
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
 
@@ -21,8 +18,9 @@
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
                                 <button data-toggle="modal" data-target="#modal-form" class="btn btn-outline btn-primary" type="button">新增</button>
-                                <button class="btn btn-outline btn-primary" type="button">修改</button>
-                                <button class="btn btn-outline btn-danger" type="button">删除</button>
+                                <button v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">修改</button>
+                                <button @click="showMore(tableSelectData[0])" v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">详情</button>
+                                <button v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -42,7 +40,7 @@
                                 {{props.row.role.name}}
                             </template>
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="clickButton(props.row)">展示名称</button>
+                                <button @click="showMore(props.row)" class="btn btn-table btn-primary" type="button">More</button>
                             </template>
                         </tt-table>
                     </div>
@@ -60,16 +58,13 @@
                     <div class="col-sm-6 b-r">
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <p>这里的信息很重要,不要乱填.</p>
-                        <tt-simple-input label="用户名" v-model="modal.name" required></tt-simple-input>
-                        <tt-simple-input label="密码" v-model="modal.password" type="password" required minlength="6"></tt-simple-input>
+                        <tt-simple-input label="用户名" v-model="model.name" required></tt-simple-input>
+                        <tt-simple-input label="密码" v-model="model.password" type="password" required minlength="6"></tt-simple-input>
                     </div>
                     <div class="col-sm-6">
                         <h4>额外 More</h4>
                         <p>个性化的介绍,以后填也可以的.</p>
-                        <tt-simple-input label="描述&简介" v-model="modal.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
-                        <!--<p class="text-center">
-                            <a href=""><i class="fa fa-sign-in big-icon"></i></a>
-                        </p>-->
+                        <tt-simple-input label="描述&简介" v-model="model.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
@@ -123,7 +118,15 @@
                 },
                 tableSelectData:[],
                 selectModel:{},
-                modal:{}
+                model:{}
+            }
+        },
+        computed:{
+            hasChecked:function () {
+                return this.tableSelectData.length != 0;
+            },
+            hasCheckedOne:function () {
+                return this.tableSelectData.length == 1;
             }
         },
         created:function () {
@@ -134,17 +137,17 @@
         mounted:function () {
         },
         methods: {
-            clickButton:function (data) {
-                alert(data.name+this.selectModel.username);
-            },
             getTableList:function (flag) {
                 var tableDefaultData = this.tableDefaultData;
-                Web.post("user/getList",{
+                Web.post("/user/getList",{
                     defaultHandling:flag,
                     success:function (data) {
                         tableDefaultData.data = data.object.list;
                     }
-                })
+                });
+                /*new WebBuilder("/user/getList").setDefaultHandling(flag).post(function (data) {
+                    tableDefaultData.data = data.object.list;
+                });*/
             },
             put:function () {
                 if (ValidationUtils.check(".validation")){
@@ -152,6 +155,10 @@
                         $("#modal-form").modal("hide");
                     })
                 }
+            },
+            showMore:function (obj) {
+                this.model = JsonUtils.copy(obj);
+                new ModalBuilder("#modal-form").show();
             }
         }
     };

@@ -50,95 +50,36 @@ const JsonUtils = {
     isJson:function (data) {
         return typeof(data) == "object" && Object.prototype.toString.call(data).toLowerCase() == "[object object]"
             && !data.length;
+    },
+    copy:function (obj) {
+        return jQuery.extend(true,{},obj);
     }
 };
 
-//ajax请求
-const Web = {
-    //url:"",
-    baseUrl:baseUrl,
-    get:null,
-    post:null,
-    buildUrl:function (url) {
-        if (url.charAt(0) == "/"){
-            if (url.charAt(1) == "/"){
-                return "http:" + url;
-            }
-            return Web.baseUrl + url;
-        }
-        if (url.charAt(0) == "~"){
-            if (url.charAt(1) == "/"){
-                return url.substring(1);
-            }
-        }
-        return url;
-    },
-    isCallbackOrOptions:function (data) {
-        if (jQuery.isFunction( data )) return true;
-        if (!JsonUtils.isJson(data)) return false;
-        return (jQuery.isFunction(data.success) || jQuery.isFunction(data.error) || data.defaultHandling != null);
-    },
-    isSuccess:function(obj){
-        return obj.code.charAt(1) == "0";
-    },
-    go:function (url) {
-        window.location.href = Web.buildUrl(url);
+//Modal
+function ModalBuilder(position) {
+    this.obj = $(position);
+    if (this.option != null){
+        this.obj.modal(this.option);
     }
+}
+ModalBuilder.option = {
+    keyboard: false
 };
-jQuery.each( [ "get", "post" ], function( i, method ) {
-    Web[ method ] = function( url, data, callbackOrOptions) {
+ModalBuilder.prototype.show = function () {
+    this.obj.modal("show");
+    return this;
+};
+ModalBuilder.prototype.hide = function () {
+    this.obj.modal("hide");
+    return this;
+};
+ModalBuilder.prototype.set = function (option) {
+    this.obj.modal(option);
+    return this;
+};
 
-        //处理回调
-        if ( Web.isCallbackOrOptions( data ) ) {
-            callbackOrOptions = data;
-            data = undefined;
-        }
-        if ( jQuery.isFunction( callbackOrOptions ) ) {
-            callbackOrOptions = {success:callbackOrOptions};
-        }
-
-        //默认配置
-        var options = {
-            url:Web.buildUrl(url),
-            type:method,
-            data:data,
-            dataType:"json",
-            defaultHandling:true,
-            error:function (XMLHttpRequest, textStatus, errorThrown) {
-                debugger;
-                ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！",9);
-                console.log(XMLHttpRequest);
-                /*if (textStatus == "parsererror"){
-                    Web.go(url);
-                }*/
-            }
-        };
-
-        //深拷贝
-        options = jQuery.extend(true, options, callbackOrOptions);
-
-        //dataType数据类型
-        options.dataType = options.dataType.toLowerCase();
-
-        //默认回调处理
-        if (options.dataType == "json" && options.defaultHandling){
-            options.success = function (response,status,xhr) {
-                if (!JsonUtils.isJson(response)) {
-                    if (options.url.indexOf(".") == -1){
-                        Web.go(url);
-                        return;
-                    }
-                    callbackOrOptions.success(response,status,xhr);
-                    return;
-                }
-                ToastrUtils.showResult(response);
-                callbackOrOptions.success(response,status,xhr);
-            };
-        }
-        return jQuery.ajax(options);
-    };
-});
-
+//校验
 const ValidationUtils = {
     check:function (position) {
         var flag = true;

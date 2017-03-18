@@ -37,7 +37,7 @@ Vue.component('tt-table', {
     //复选框美化
     '<th v-if="selection">' +
     '<div class="checkbox checkbox-table tt-table-checkbox">' +
-    '<input v-model="allSelected" v-on:click="updateAllSelect" type="checkbox">' +
+    '<input v-model="allSelected" @click="updateAllSelect" type="checkbox">' +
     '<label></label>' +
     '</div>' +
     '</th>' +
@@ -88,7 +88,7 @@ Vue.component('tt-table', {
                 }
                 if (key == "$index"){
                     jQuery.each(temp.data,function (index,item) {
-                        item[key] = index;
+                        item[key] = index+1;
                     });
                 }
             });
