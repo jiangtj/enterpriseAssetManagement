@@ -81,8 +81,9 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
     };
 });
 
-function WebBuilder(url,options) {
-    this.options = jQuery.extend(true,{
+function WebBuilder(url,defaultOptions) {
+    this.options = {};
+    this.defaultOptions = jQuery.extend(true,{
         url:Web.buildUrl(url),
         dataType:"json",
         defaultHandling:true,
@@ -91,7 +92,7 @@ function WebBuilder(url,options) {
             ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！",9);
             console.log(XMLHttpRequest);
         }
-    },options);
+    },defaultOptions);
 }
 jQuery.extend(true,WebBuilder.prototype,{
     url:function (url) {
@@ -99,11 +100,15 @@ jQuery.extend(true,WebBuilder.prototype,{
         return this;
     },
     set:function (options) {
-        this.options = jQuery.extend(true,this.options,options);
+        jQuery.extend(true,this.options,options);
         return this;
     },
     setData:function (data) {
         this.options.data = data;
+        return this;
+    },
+    setMethod:function (method) {
+        this.options.type = method;
         return this;
     },
     setType:function (daraType) {
@@ -131,14 +136,16 @@ jQuery.extend(true,WebBuilder.prototype,{
         return this;
     }
 });
-jQuery.each(['get','post'],function (i,method) {
+jQuery.each(['get','post','execute'],function (i,method) {
     WebBuilder.prototype[method] = function (callback) {
+        if (method != 'execute') this.options.type = method;
         if (jQuery.isFunction(callback)){
             this.options.success = callback;
         }else {
             this.options = jQuery.extend(true,this.options,callback);
         }
-        this.options.type = method;
-        return Web.submit(this.options);
+        var tempOptions = jQuery.extend(true,this.options,this.defaultOptions);
+        this.options = {};
+        return Web.submit(tempOptions);
     }
 });
