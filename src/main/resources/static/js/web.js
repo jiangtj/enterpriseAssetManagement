@@ -86,10 +86,6 @@ jQuery.extend(true,WebBuilder.prototype,{
     setError:function (callback) {
         this.options.error = callback;
         return this;
-    },
-    setDefaultHandling:function (flag) {
-        this.options.defaultHandling = flag;
-        return this;
     }
 });
 jQuery.each(['get','post','execute'],function (i,method) {

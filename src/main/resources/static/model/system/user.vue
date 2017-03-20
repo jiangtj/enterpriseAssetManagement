@@ -142,10 +142,7 @@
         methods: {
             getTableList:function (flag) {
                 var tableDefaultData = this.tableDefaultData;
-                /*new WebBuilder("/user/getList").setDefaultHandling(flag).post(function (data) {
-                    tableDefaultData.data = data.object.list;
-                });*/
-                Server.user.getList.setDefaultHandling(flag).post(function (data) {
+                Server.user.getList.post(function (data) {
                     tableDefaultData.data = data.object.list;
                 })
             },

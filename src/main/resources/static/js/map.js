@@ -9,7 +9,6 @@ const Map = new Vue({
         getMap:function (url) {
             var list = [];
             new WebBuilder(url)
-                .setDefaultHandling(false)
                 .setAsync(false)
                 .get(function (data) {
                     if (Web.isSuccess(data)){
