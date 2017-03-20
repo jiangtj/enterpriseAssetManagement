@@ -38,12 +38,8 @@ const RouteUtils = {
                 var url = item.staticUrl;//获取url
                 var tempText = "";
                 //动态获取静态模板
-                Web.get(url,{
-                    async: false,
-                    dataType: "text",
-                    success: function (data) {
-                        tempText = data;
-                    }
+                new WebBuilder(url).setAsync(false).setType("text").get(function (data) {
+                    tempText = data;
                 });
 
                 //获取view

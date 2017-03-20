@@ -1,6 +1,7 @@
 //ajax请求
 const Web = {
-    baseUrl:baseUrl,
+    baseUrl:null,
+    innerOptions:null,
     buildUrl:function (url) {
         if (url == null) return null;
         if (url.charAt(0) == "/"){
@@ -24,75 +25,30 @@ const Web = {
     isSuccess:function(obj){
         return obj.code.charAt(1) == "0";
     },
+    setPrototype:function (options) {
+        jQuery.extend(true, WebBuilder.prototype, options);
+    },
+    setDefault:function (options) {
+        Web.innerOptions = options;
+    },
+    setBaseUrl:function (url) {
+        Web.baseUrl = url;
+    },
     go:function (url) {
         window.location.href = Web.buildUrl(url);
-    },
-    submit:function (customsOptions) {
-        var options = jQuery.extend(true,{},customsOptions);
-        //dataType数据类型
-        options.dataType = options.dataType.toLowerCase();
-        //默认回调处理
-        if (options.dataType == "json" && options.defaultHandling){
-            options.success = function (response,status,xhr) {
-                if (!JsonUtils.isJson(response)) {
-                    if (options.url.indexOf(".") == -1){
-                        Web.go(url);
-                        return;
-                    }
-                    customsOptions.success(response,status,xhr);
-                    return;
-                }
-                ToastrUtils.showResult(response);
-                customsOptions[Web.isSuccess(response)?"success":"fail"](response,status,xhr);
-            };
-        }
-        return jQuery.ajax(options);
     }
 };
-jQuery.each( [ "get", "post" ], function( i, method ) {
-    Web[ method ] = function( url, data, callbackOrOptions) {
-
-        //处理回调
-        if ( Web.isCallbackOrOptions( data ) ) {
-            callbackOrOptions = data;
-            data = undefined;
-        }
-        if ( jQuery.isFunction( callbackOrOptions ) ) {
-            callbackOrOptions = {success:callbackOrOptions};
-        }
-
-        //默认配置
-        var options = {
-            url:Web.buildUrl(url),
-            type:method,
-            data:data,
-            dataType:"json",
-            defaultHandling:true,
-            error:function (XMLHttpRequest, textStatus, errorThrown) {
-                debugger;
-                ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！",9);
-                console.log(XMLHttpRequest);
-                /*if (textStatus == "parsererror"){
-                 Web.go(url);
-                 }*/
-            }
-        };
-        return Web.submit(jQuery.extend(true,options,callbackOrOptions));
-    };
-});
 
 function WebBuilder(url,defaultOptions) {
     this.options = {};
+    this.innerOptions = {};
     this.defaultOptions = jQuery.extend(true,{
-        url:Web.buildUrl(url),
-        dataType:"json",
-        defaultHandling:true,
-        error:function (XMLHttpRequest, textStatus, errorThrown) {
-            debugger;
-            ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！",9);
-            console.log(XMLHttpRequest);
-        }
-    },defaultOptions);
+        dataType:"json"
+    },Web.innerOptions,defaultOptions);
+    this.options.intercepts = [];
+    var tempIntercepts  = this.defaultOptions.intercepts || [];
+    this.defaultOptions.intercepts = jQuery.isFunction(tempIntercepts)?[tempIntercepts]:tempIntercepts;
+    this.defaultOptions.url = Web.buildUrl(url);
 }
 jQuery.extend(true,WebBuilder.prototype,{
     url:function (url) {
@@ -112,19 +68,19 @@ jQuery.extend(true,WebBuilder.prototype,{
         return this;
     },
     setType:function (daraType) {
-        this.options.daraType = daraType;
+        this.options.dataType = daraType;
         return this;
     },
     setAsync:function (async) {
         this.options.async = async;
         return this;
     },
-    setSuccess:function (callback) {
-        this.options.success = callback;
+    setIntercepts:function (intercepts) {
+        this.options.intercepts = jQuery.isFunction(intercepts)?[intercepts]:intercepts;
         return this;
     },
-    setFail:function (callback) {
-        this.options.fail = callback;
+    setSuccess:function (callback) {
+        this.options.success = callback;
         return this;
     },
     setError:function (callback) {
@@ -142,10 +98,23 @@ jQuery.each(['get','post','execute'],function (i,method) {
         if (jQuery.isFunction(callback)){
             this.options.success = callback;
         }else {
-            this.options = jQuery.extend(true,this.options,callback);
+            jQuery.extend(true,this.options,callback);
         }
-        var tempOptions = jQuery.extend(true,this.options,this.defaultOptions);
+
+        var tempOptions = jQuery.extend(true,{},this.defaultOptions,this.options);
+        var tempIntercepts = [];
+        tempIntercepts = this.defaultOptions.intercepts.concat(this.options.intercepts);
         this.options = {};
-        return Web.submit(tempOptions);
+        this.options.intercepts = [];
+
+        var tempSuccess = tempOptions.success;
+        tempOptions.success = function (request, status, thrown) {
+            for (var i in tempIntercepts){
+                if (tempIntercepts[i](request, status, thrown,tempOptions)) return;
+            }
+            tempSuccess(request, status, thrown);
+        };
+
+        return jQuery.ajax(tempOptions);
     }
 });

@@ -10,13 +10,16 @@ const loginApp = new Vue({
             var now=new Date();
             var time = now.getTime();
             var MD5Password = hex_md5(this.password+time);
-            new WebBuilder("/public/login").setData({
-                name:this.username,
-                password:MD5Password,
-                time:time
-            }).post(function (data) {
-                Web.go("/index");
-            });
+            new WebBuilder("/public/login")
+                .setIntercepts(defaultIntercept)
+                .setData({
+                    name:this.username,
+                    password:MD5Password,
+                    time:time
+                })
+                .post(function (data) {
+                    Web.go("/index");
+                });
         }
     }
 });
