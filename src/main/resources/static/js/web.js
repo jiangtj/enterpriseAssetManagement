@@ -17,11 +17,6 @@ const Web = {
         }
         return url;
     },
-    isCallbackOrOptions:function (data) {
-        if (jQuery.isFunction( data )) return true;
-        if (!JsonUtils.isJson(data)) return false;
-        return (jQuery.isFunction(data.success) || jQuery.isFunction(data.error) || data.defaultHandling != null);
-    },
     isSuccess:function(obj){
         return obj.code.charAt(1) == "0";
     },
