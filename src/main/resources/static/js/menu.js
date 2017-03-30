@@ -47,10 +47,10 @@ const MenuUtils = {
     pushMenuRoutes: function (menus) {
         for (var i = 0; i < menus.length; i++) {
             var item = menus[i];
-            if (item.list != null) {
+            if (item.list !== undefined) {
                 MenuUtils.pushMenuRoutes(item.list);
             }
-            if (item.url != null) {
+            if (item.url !== undefined) {
                 MenuUtils.pushMenuRoute(item.menu, item)
             }
         }

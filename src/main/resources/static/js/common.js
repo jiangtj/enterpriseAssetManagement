@@ -48,7 +48,7 @@ ToastrUtils.defaultConfig();
 //json
 const JsonUtils = {
     isJson:function (data) {
-        return typeof(data) == "object" && Object.prototype.toString.call(data).toLowerCase() == "[object object]"
+        return typeof(data) === "object" && Object.prototype.toString.call(data).toLowerCase() === "[object object]"
             && !data.length;
     },
     copy:function (obj) {
@@ -59,7 +59,7 @@ const JsonUtils = {
 //Modal
 function ModalBuilder(position) {
     this.obj = $(position);
-    if (this.option != null){
+    if (this.option !== undefined){
         this.obj.modal(this.option);
     }
 }
@@ -105,7 +105,7 @@ const ValidationUtils = {
                 errorPlacement: function (error, element) {
                 },
                 showErrors:function(errorMap,errorList) {
-                    if (errorList.length == 0) return;
+                    if (errorList.length === 0) return;
                     var temp ='[' + errorList[0].method + ']' + errorList[0].message;
                     ToastrUtils.show("提醒",temp,5);
                     this.defaultShowErrors();

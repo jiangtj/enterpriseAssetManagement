@@ -75,7 +75,7 @@ Vue.component('tt-table', {
     },
     computed:{
         allSelected:function () {
-            return this.checkedData.length != 0;
+            return this.checkedData.length !== 0;
         },
         innerTableDate:function () {
             var self = this;
@@ -86,7 +86,7 @@ Vue.component('tt-table', {
                 if (self.isString(value)){
                     temp.title[key] = {name:value}
                 }
-                if (key == "$index"){
+                if (key === "$index"){
                     jQuery.each(temp.data,function (index,item) {
                         item[key] = index+1;
                     });
@@ -102,7 +102,7 @@ Vue.component('tt-table', {
     },
     methods:{
         isString:function (str) {
-            return Object.prototype.toString.call(str) == "[object String]"
+            return Object.prototype.toString.call(str) === "[object String]"
         },
         updateAllSelect:function () {
             if (this.allSelected){
@@ -157,7 +157,7 @@ Vue.component('tt-simple-input', {
             }
         },[
             createElement('label',self.label),
-            createElement(self.baseType == 'textarea'?'textarea':'input',{
+            createElement(self.baseType === 'textarea'?'textarea':'input',{
                 class:{
                     'form-control':true
                 },
@@ -235,16 +235,16 @@ Vue.component('tt-modal', {
             class:{
                 'modal':true,
                 'fade':true,
-                "bs-example-modal-lg":self.size == "lg",
-                "bs-example-modal-sm":self.size == "sm"
+                "bs-example-modal-lg":self.size === "lg",
+                "bs-example-modal-sm":self.size === "sm"
             },
             attrs:{'aria-hidden':true}
         },[
             createElement('div',{
                 class:{
                     'modal-dialog':true,
-                    "modal-lg":self.size == "lg",
-                    "modal-sm":self.size == "sm"
+                    "modal-lg":self.size === "lg",
+                    "modal-sm":self.size === "sm"
                 }
             },[
                 createElement('div',{
@@ -259,8 +259,8 @@ Vue.component('tt-modal', {
     },
     computed: {
         innerClose: function () {
-            var temp = this.close == null?true:this.close;
-            if (temp == "false") temp = false;
+            var temp = this.close === undefined?true:this.close;
+            if (temp === "false") temp = false;
             return temp;
         }
     }

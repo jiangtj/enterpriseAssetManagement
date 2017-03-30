@@ -3,22 +3,22 @@ const Web = {
     baseUrl:null,
     innerOptions:null,
     buildUrl:function (url) {
-        if (url == null) return null;
-        if (url.charAt(0) == "/"){
-            if (url.charAt(1) == "/"){
+        if (url === undefined) return null;
+        if (url.charAt(0) === "/"){
+            if (url.charAt(1) === "/"){
                 return "http:" + url;
             }
             return Web.baseUrl + url;
         }
-        if (url.charAt(0) == "~"){
-            if (url.charAt(1) == "/"){
+        if (url.charAt(0) === "~"){
+            if (url.charAt(1) === "/"){
                 return url.substring(1);
             }
         }
         return url;
     },
     isSuccess:function(obj){
-        return obj.code.charAt(1) == "0";
+        return obj.code.charAt(1) === "0";
     },
     setPrototype:function (options) {
         jQuery.extend(true, WebBuilder.prototype, options);
@@ -85,7 +85,7 @@ jQuery.extend(true,WebBuilder.prototype,{
 });
 jQuery.each(['get','post','execute'],function (i,method) {
     WebBuilder.prototype[method] = function (callback) {
-        if (method != 'execute') this.options.type = method;
+        if (method !== 'execute') this.options.type = method;
         if (jQuery.isFunction(callback)){
             this.options.success = callback;
         }else {

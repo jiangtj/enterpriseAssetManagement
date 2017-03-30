@@ -2,9 +2,9 @@ const defaultIntercept = function (response,status,thrown,context) {
     //dataType数据类型
     context.dataType = context.dataType.toLowerCase();
     //默认回调处理
-    if (context.dataType == "json"){
+    if (context.dataType === "json"){
         if (!JsonUtils.isJson(response)) {
-            if (options.url.indexOf(".") == -1){
+            if (options.url.indexOf(".") === -1){
                 Web.go(url);
                 return true;//true 拦截
             }

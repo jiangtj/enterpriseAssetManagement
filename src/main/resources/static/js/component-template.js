@@ -62,7 +62,7 @@ Vue.component('tt-table', {
     },
     computed:{
         allSelected:function () {
-            return this.checkedData.length != 0;
+            return this.checkedData.length !== 0;
         },
         innerTableDate:function () {
             var self = this;
@@ -73,7 +73,7 @@ Vue.component('tt-table', {
                 if (self.isString(value)){
                     temp.title[key] = {name:value}
                 }
-                if (key == "$index"){
+                if (key === "$index"){
                     jQuery.each(temp.data,function (index,item) {
                         item[key] = index;
                     });
@@ -89,7 +89,7 @@ Vue.component('tt-table', {
     },
     methods:{
         isString:function (str) {
-            return Object.prototype.toString.call(str) == "[object String]"
+            return Object.prototype.toString.call(str) === "[object String]"
         },
         updateAllSelect:function () {
             if (this.allSelected){
@@ -183,20 +183,20 @@ Vue.component('tt-modal', {
     '</div>',
     computed: {
         innerClose: function () {
-            var temp = this.close == null?true:this.close;
-            if (temp == "false") temp = false;
+            var temp = this.close === undefined?true:this.close;
+            if (temp === "false") temp = false;
             return temp;
         },
         modalFormClass:function () {
             return {
-                "bs-example-modal-lg":this.size == "lg",
-                "bs-example-modal-sm":this.size == "sm"
+                "bs-example-modal-lg":this.size === "lg",
+                "bs-example-modal-sm":this.size === "sm"
             }
         },
         modalDialogClass:function () {
             return {
-                "modal-lg":this.size == "lg",
-                "modal-sm":this.size == "sm"
+                "modal-lg":this.size === "lg",
+                "modal-sm":this.size === "sm"
             }
         }
     }
