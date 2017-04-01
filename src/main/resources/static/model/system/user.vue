@@ -17,7 +17,7 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showMore(null)"  class="btn btn-outline btn-primary" type="button">新增</button>
+                                <button @click="showAddModal()"  class="btn btn-outline btn-primary" type="button">新增</button>
                                 <button v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">修改</button>
                                 <button @click="showMore(tableSelectData[0])" v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">详情</button>
                                 <button v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
@@ -123,10 +123,10 @@
         },
         computed:{
             hasChecked:function () {
-                return this.tableSelectData.length != 0;
+                return this.tableSelectData.length !== 0;
             },
             hasCheckedOne:function () {
-                return this.tableSelectData.length == 1;
+                return this.tableSelectData.length === 1;
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
@@ -155,7 +155,12 @@
                 }
             },
             showMore:function (obj) {
-                this.fromModalData = obj?JsonUtils.copy(obj):{};
+                this.fromModalData = JsonUtils.copy(obj);
+                this.fromModal.show();
+            },
+            showAddModal:function () {
+                debugger;
+                this.fromModalData = {};
                 this.fromModal.show();
             }
         }

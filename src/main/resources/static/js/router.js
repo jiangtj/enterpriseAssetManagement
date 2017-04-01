@@ -82,7 +82,7 @@ const AppRouter = new VueRouter({
 
 //更新菜单class
 function updateMenuStatus(hook,status) {
-    if (hook.name === undefined) return;
+    if (hook.name === null) return;
     var route = Routes[hook.name];
     if (route.menu === undefined) return;
     var menu = MenuRoutes[route.menu];
