@@ -18,9 +18,9 @@
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
                                 <button @click="showAddModal()"  class="btn btn-outline btn-primary" type="button">新增</button>
-                                <button v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">修改</button>
-                                <button @click="showMore(tableSelectData[0])" v-if="hasCheckedOne" class="btn btn-outline btn-primary" type="button">详情</button>
-                                <button v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
+                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
+                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">详情</button>
+                                <button @click="deleteAll()" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -35,12 +35,12 @@
             <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <tt-table v-bind:data="tableDefaultData" :selection = "true" v-model="tableSelectData">
+                        <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-roleName" scope="props">
                                 {{props.row.role.name}}
                             </template>
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showMore(props.row)" class="btn btn-table btn-primary" type="button">More</button>
+                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary" type="button">More</button>
                             </template>
                         </tt-table>
                     </div>
@@ -52,19 +52,19 @@
         <div>{{selectModel}}</div>
 
         <!-- 添加弹出窗 -->
-        <tt-modal id="form-modal" title="添加新用户">
+        <tt-modal id="form-modal" :title="fromModalData.title">
             <form role="form" class="validation">
                 <div class="row">
                     <div class="col-sm-6 b-r">
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <p>这里的信息很重要,不要乱填.</p>
-                        <tt-simple-input label="用户名" v-model="fromModalData.name" required></tt-simple-input>
-                        <tt-simple-input label="密码" v-model="fromModalData.password" type="password" required minlength="6"></tt-simple-input>
+                        <tt-simple-input label="用户名" v-model="fromModalData.data.name" required></tt-simple-input>
+                        <tt-simple-input label="密码" v-model="fromModalData.data.password" type="password" required minlength="6"></tt-simple-input>
                     </div>
                     <div class="col-sm-6">
                         <h4>额外 More</h4>
-                        <p>个性化的介绍,以后填也可以的.</p>
-                        <tt-simple-input label="描述&简介" v-model="fromModalData.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
+                        <p>个性化的介绍.</p>
+                        <tt-simple-input label="描述&简介" v-model="fromModalData.data.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
@@ -105,7 +105,7 @@
                         active:"User"
                     }
                 },
-                tableDefaultData:{
+                tableData:{
                     title:{
                         $index:"序号",
                         id:"用户id",
@@ -118,14 +118,17 @@
                 },
                 tableSelectData:[],
                 selectModel:{},
-                fromModalData:{}
+                fromModalData:{
+                    title:"",
+                    data:{}
+                }
             }
         },
         computed:{
             hasChecked:function () {
                 return this.tableSelectData.length !== 0;
             },
-            hasCheckedOne:function () {
+            hasOneChecked:function () {
                 return this.tableSelectData.length === 1;
             },
             fromModal:function () {
@@ -133,34 +136,37 @@
             }
         },
         created:function () {
-            this.getTableList(false);
+            let self = this;
+            Server.user.getList.post(data => self.tableData.data = data.object.list);
         },
         beforeMount:function () {
         },
         mounted:function () {
         },
         methods: {
-            getTableList:function (flag) {
-                var tableDefaultData = this.tableDefaultData;
-                Server.user.getList.post(function (data) {
-                    tableDefaultData.data = data.object.list;
-                })
+            getTableList:function () {
+                let self = this;
+                Server.user.getList.setIntercepts(defaultIntercept)
+                    .post(data => self.tableData.data = data.object.list);
             },
             put:function () {
-                var self = this;
+                let self = this;
                 if (ValidationUtils.check(".validation")){
-                    Server.user.add.setData(self.fromModalData).post(function () {
-                        self.fromModal.hide();
-                    })
+                    Server.user.add.setData(self.fromModalData)
+                        .post(() => self.fromModal.hide())
                 }
             },
-            showMore:function (obj) {
-                this.fromModalData = JsonUtils.copy(obj);
-                this.fromModal.show();
+            deleteAll:function () {
+
             },
             showAddModal:function () {
-                debugger;
-                this.fromModalData = {};
+                this.fromModalData.title = "添加新用户";
+                this.fromModalData.data = {};
+                this.fromModal.show();
+            },
+            showUpdateModal:function (obj) {
+                this.fromModalData.title = "修改";
+                this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModal.show();
             }
         }
