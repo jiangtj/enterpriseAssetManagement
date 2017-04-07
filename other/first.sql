@@ -210,6 +210,7 @@ CREATE TABLE `auth_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `name` varchar(50) NOT NULL COMMENT '用户名称',
   `password` varchar(50) NOT NULL COMMENT '密码',
+  `description` varchar(255) DEFAULT NULL COMMENT '个人介绍',
   `role_id` bigint(20) NOT NULL COMMENT '角色id',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',

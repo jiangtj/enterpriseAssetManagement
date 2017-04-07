@@ -1,5 +1,6 @@
 package com.jtj.web.controller;
 
+import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.UserDao;
 import com.jtj.web.dto.UserDto;
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public ResultDto<Object> delete(@RequestParam("id") long id){
-        return userService.delete(id);
+    public ResultDto<Object> delete(@RequestParam("ids") Long[] ids){
+        return userService.delete(ids);
     }
 
     @PostMapping("/update")
@@ -35,12 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/getList")
-    public ResultDto<Object> getList(UserDto dto){
+    public ResultDto<PageDto<User>> getList(UserDto dto){
         return userService.getList(dto);
     }
 
     @GetMapping("/get/{id}")
-    public ResultDto<Object> getUserById(@PathVariable("id") long id){
+    public ResultDto<User> getUserById(@PathVariable("id") long id){
         return userService.getUserById(id);
     }
 }

@@ -24,8 +24,8 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     public String init(HttpServletRequest request, HttpServletResponse response) {
-        List<User> users = userDao.getUserById(1L);
-        if (users.size() == 0){
+        User user = userDao.getUserById(1L);
+        if (user == null){
             return "init";
         }
         return "redirect:/login";

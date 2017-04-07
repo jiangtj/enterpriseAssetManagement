@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public ResultDto<Object> getUserById(long id){
-        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+    public ResultDto<User> getUserById(long id){
+        ResultDto<User> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject(userDao.getUserById(id));
         return result;
     }
@@ -86,23 +86,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultDto<Object> add(User user) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(ResultCode.SUCCESS);
+        result.setResultCode(userDao.add(user) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         return result;
     }
 
     @Override
-    public ResultDto<Object> delete(long id) {
-        return null;
+    public ResultDto<Object> delete(Long[] ids) {
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(userDao.deleteByIds(ids) == ids.length?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        return result;
     }
 
     @Override
     public ResultDto<Object> update(User user) {
-        return null;
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(userDao.update(user) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        return result;
     }
 
     @Override
-    public ResultDto<Object> getList(UserDto dto) {
-        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+    public ResultDto<PageDto<User>> getList(UserDto dto) {
+        ResultDto<PageDto<User>> result = new ResultDto<>(ResultCode.SUCCESS);
 
         //处理密码
         List<User> userList = userDao.getList(dto);

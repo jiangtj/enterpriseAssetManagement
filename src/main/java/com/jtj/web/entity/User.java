@@ -10,6 +10,7 @@ public class User extends BaseEntity {
 
     private String name;//用户名
     private String password;//密码
+    private String description;//密码
     private Long roleId;//角色id
     private Role role;//角色对象
 
@@ -27,6 +28,14 @@ public class User extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getRoleId() {

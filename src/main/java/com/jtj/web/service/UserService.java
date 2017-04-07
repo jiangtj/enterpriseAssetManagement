@@ -1,5 +1,6 @@
 package com.jtj.web.service;
 
+import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.User;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -22,11 +24,11 @@ public interface UserService {
 
     ResultDto<Object> add(User user);
 
-    ResultDto<Object> delete(long id);
+    ResultDto<Object> delete(Long[] ids);
 
     ResultDto<Object> update(User user);
 
-    ResultDto<Object> getList(UserDto dto);
+    ResultDto<PageDto<User>> getList(UserDto dto);
 
-    ResultDto<Object> getUserById(long id);
+    ResultDto<User> getUserById(long id);
 }

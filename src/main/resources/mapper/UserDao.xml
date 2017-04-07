@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jtj.web.dao.UserDao">
 
-    <!-- 根据id查询用户 -->
     <select id="getUserById" resultType="User">
         SELECT
             au.* ,
@@ -16,7 +15,6 @@
         WHERE au.id = #{id}
     </select>
 
-    <!-- 登陆 -->
     <select id="login" resultType="User">
         SELECT
             au.* ,
@@ -28,7 +26,6 @@
         WHERE au.name = #{name} AND au.password = #{password}
     </select>
 
-    <!-- 获取用户信息-by name -->
     <select id="getUserByName" resultType="User">
         SELECT
         au.* ,
@@ -40,7 +37,6 @@
         WHERE au.name = #{name}
     </select>
 
-    <!-- 用户查询sql -->
     <sql id="userDtoWhere">
         <if test="name != null and name != ''">
             ${alias}.name = #{name}
@@ -50,7 +46,6 @@
         </if>
     </sql>
 
-    <!-- 获取用户列表 -->
     <select id="getList" resultType="User">
         SELECT
             au.* ,
@@ -66,7 +61,6 @@
         </where>
     </select>
 
-    <!-- 获取用户数量 -->
     <select id="getListNum" resultType="int">
         SELECT
         count(1)
@@ -78,6 +72,34 @@
             </include>
         </where>
     </select>
+
+    <insert id="add">
+        INSERT INTO auth_user(name, password, description,role_id)
+        VALUES (#{name},#{password},#{description},#{roleId})
+    </insert>
+
+    <update id="update">
+        UPDATE auth_user
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+            <if test=" description != '' and description != null ">
+                description = #{description},
+            </if>
+            <if test="roleId != null ">
+                role_id = #{roleId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByIds">
+        DELETE FROM auth_user WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 
 
 </mapper>

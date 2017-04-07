@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
-    List<User> getUserById(@Param("id") long id);
+    User getUserById(@Param("id") long id);
 
     User login(@Param("name") String name,@Param("password") String password);
 
@@ -23,4 +23,10 @@ public interface UserDao {
     List<User> getList(UserDto dto);
 
     int getListNum(UserDto dto);
+
+    int add(User user);
+
+    int update(User user);
+
+    int deleteByIds(@Param("ids") Long[] ids);
 }
