@@ -35,7 +35,7 @@
             <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
+                        <tt-table :data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-roleName" scope="props">
                                 {{props.row.role.name}}
                             </template>
@@ -64,11 +64,11 @@
                     <div class="col-sm-6">
                         <h4>额外 More</h4>
                         <p>个性化的介绍.</p>
-                        <tt-simple-input label="描述&简介" v-model="fromModalData.data.describe" type="textarea" row="5" minlength="6"></tt-simple-input>
+                        <tt-simple-input label="描述&简介" v-model="fromModalData.data.description" type="textarea" row="5" minlength="6"></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
-                    <button @click="put" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
+                    <button @click="fromModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
                 </div>
             </form>
         </tt-modal>
@@ -149,12 +149,13 @@
                 Server.user.getList.setIntercepts(defaultIntercept)
                     .post(data => self.tableData.data = data.object.list);
             },
-            put:function () {
+            submit:function (func) {
                 let self = this;
-                if (ValidationUtils.check(".validation")){
-                    Server.user.add.setData(self.fromModalData)
-                        .post(() => self.fromModal.hide())
-                }
+                return function () {
+                    if (ValidationUtils.check(".validation")){
+                        func.setData(self.fromModalData).post(() => self.fromModal.hide())
+                    }
+                };
             },
             deleteAll:function () {
 
@@ -162,11 +163,13 @@
             showAddModal:function () {
                 this.fromModalData.title = "添加新用户";
                 this.fromModalData.data = {};
+                this.fromModalData.submit = this.submit(Server.user.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
+                this.fromModalData.submit = this.submit(Server.user.update);
                 this.fromModal.show();
             }
         }

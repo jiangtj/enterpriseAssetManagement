@@ -78,8 +78,9 @@ Vue.component('tt-table', {
             return this.checkedData.length !== 0;
         },
         innerTableDate:function () {
-            var self = this;
-            var temp = self.data || {};
+            debugger;
+            let self = this;
+            let temp = self.data || {};
             temp.title = temp.title || {error:{name:"data不能为空",width:null}};
             temp.data = temp.data || [];
             jQuery.each(temp.title,function (key,value) {
