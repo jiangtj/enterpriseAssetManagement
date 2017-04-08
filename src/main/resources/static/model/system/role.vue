@@ -46,7 +46,7 @@
 <script type="application/javascript">
 
     //路由配置
-    RouteConfig = {
+    RouteConfig.deploy({
         data:function () {
             return {
                 headerLabel:{
@@ -78,6 +78,6 @@
         },
         methods: {
         }
-    };
+    });
 
 </script>

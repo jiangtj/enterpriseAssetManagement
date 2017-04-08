@@ -14,7 +14,18 @@ const Routes = jQuery.extend(true,{},MenuRoutes,CustomRoutes);
 const AppRoutes = [];
 //定义全局路由对象
 var Route = null;
-var RouteConfig = {};
+const RouteConfig = {
+    config:null,
+    deploy:function (obj) {
+        RouteConfig.config = obj;
+    },
+    get:function () {
+        return JsonUtils.copy(RouteConfig.config)
+    },
+    clear:function () {
+        RouteConfig.config = null;
+    }
+};
 
 //路由对象工具类
 const RouteUtils = {
@@ -25,46 +36,43 @@ const RouteUtils = {
         Routes[key] = item;
     },
     transformToAppRoutes:function () {
-        for (var i in Routes){
+        for (let i in Routes){
             RouteUtils.putAppRoute(i,Routes[i]);
         }
     },
     putAppRoute:function (name,item) {
-        var object = {
+        let object = {
             path: item.url,
             name:name,
             data:{},
             component: function (resolve) {
-                var url = item.staticUrl;//获取url
-                var tempText = "";
+                let url = item.staticUrl;//获取url
+                let tempText = "";
                 //动态获取静态模板
                 new WebBuilder(url).setAsync(false).setType("text").get(function (data) {
                     tempText = data;
                 });
 
                 //获取view
-                var tempIndex = tempText.indexOf("template");
-                var templateStart = tempText.indexOf(">",tempIndex)+1;
-                var templateEnd = tempText.lastIndexOf("template")-2;
-                var view = tempText.substring(templateStart,templateEnd);
+                let tempIndex = tempText.indexOf("template");
+                let templateStart = tempText.indexOf(">",tempIndex)+1;
+                let templateEnd = tempText.lastIndexOf("template")-2;
+                let view = tempText.substring(templateStart,templateEnd);
 
                 //获取js
-                RouteConfig = {};
+                //RouteConfig = {};
+                RouteConfig.clear();
+
                 tempIndex = tempText.indexOf("script",templateEnd);
                 if (tempIndex !== -1){
-                    var scriptStart = tempText.indexOf(">",tempIndex)+1;
-                    var scriptEnd = tempText.indexOf("script",scriptStart)-2;
-                    var js = tempText.substring(scriptStart,scriptEnd);
+                    let scriptStart = tempText.indexOf(">",tempIndex)+1;
+                    let scriptEnd = tempText.indexOf("script",scriptStart)-2;
+                    let js = tempText.substring(scriptStart,scriptEnd);
                     eval(js);
                 }
 
-                var option = {
-                    template:view,
-                    data:function () {
-                        return object.data;
-                    }
-                };
-                option = jQuery.extend(true,option,RouteConfig);
+                let option = {template:view};
+                option = jQuery.extend(true,option, RouteConfig.get());
                 resolve(option);
             }
         };
