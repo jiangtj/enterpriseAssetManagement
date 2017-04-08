@@ -19,7 +19,6 @@
                             <div class="btn-group">
                                 <button @click="showAddModal()"  class="btn btn-outline btn-primary" type="button">新增</button>
                                 <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
-                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">详情</button>
                                 <button @click="deleteAll()" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
@@ -32,7 +31,7 @@
             </div></div></div>
 
             <!-- 表格 -->
-            <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
+            <div class="row"><div class="col-lg-12"><div class="ibox">
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
@@ -40,10 +39,31 @@
                                 {{props.row.role.name}}
                             </template>
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary" type="button">More</button>
+                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">More</button>
                             </template>
                         </tt-table>
                     </div>
+
+                    <form role="form" class="form-inline pull-right">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-double-left"></i></button>
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-left"></i></button>
+                            <button type="button" class="btn btn-white">1</button>
+                            <button type="button" class="btn btn-primary" disabled>2</button>
+                            <button type="button" class="btn btn-white">3</button>
+                            <button type="button" class="btn btn-white">4</button>
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-right"></i> </button>
+                            <button type="button" class="btn btn-white"><i class="fa fa-angle-double-right"></i> </button>
+                        </div>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" style="width: 40px" />
+                            <span class="input-group-addon">/80</span>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary">Go!</button>
+                        </span>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
                 </div>
             </div></div></div>
         </div>
@@ -103,7 +123,7 @@
                         $index:"序号",
                         id:"用户id",
                         name:"名称",
-                        password:"密码",
+                        description:"简介",
                         roleName:"角色名称",
                         operation:{name:"操作",width:"100px"}
                     },

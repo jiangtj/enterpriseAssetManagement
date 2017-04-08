@@ -63,10 +63,10 @@ const RouteUtils = {
                 //RouteConfig = {};
                 RouteConfig.clear();
 
-                tempIndex = tempText.indexOf("script",templateEnd);
+                tempIndex = tempText.indexOf("<script",templateEnd);
                 if (tempIndex !== -1){
                     let scriptStart = tempText.indexOf(">",tempIndex)+1;
-                    let scriptEnd = tempText.indexOf("script",scriptStart)-2;
+                    let scriptEnd = tempText.indexOf("</script",scriptStart);
                     let js = tempText.substring(scriptStart,scriptEnd);
                     eval(js);
                 }
@@ -91,9 +91,9 @@ const AppRouter = new VueRouter({
 //更新菜单class
 function updateMenuStatus(hook,status) {
     if (hook.name === null) return;
-    var route = Routes[hook.name];
+    let route = Routes[hook.name];
     if (route.menu === undefined) return;
-    var menu = MenuRoutes[route.menu];
+    let menu = MenuRoutes[route.menu];
     menu.isActive = status;
 }
 

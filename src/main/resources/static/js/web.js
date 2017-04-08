@@ -41,7 +41,7 @@ function WebBuilder(url,defaultOptions) {
         dataType:"json"
     },Web.innerOptions,defaultOptions);
     this.options.intercepts = [];
-    var tempIntercepts  = this.defaultOptions.intercepts || [];
+    let tempIntercepts  = this.defaultOptions.intercepts || [];
     this.defaultOptions.intercepts = jQuery.isFunction(tempIntercepts)?[tempIntercepts]:tempIntercepts;
     this.defaultOptions.url = Web.buildUrl(url);
 }
@@ -92,15 +92,15 @@ jQuery.each(['get','post','execute'],function (i,method) {
             jQuery.extend(true,this.options,callback);
         }
 
-        var tempOptions = jQuery.extend(true,{},this.defaultOptions,this.options);
-        var tempIntercepts = [];
+        let tempOptions = jQuery.extend(true,{},this.defaultOptions,this.options);
+        let tempIntercepts = [];
         tempIntercepts = this.defaultOptions.intercepts.concat(this.options.intercepts);
         this.options = {};
         this.options.intercepts = [];
 
-        var tempSuccess = tempOptions.success;
+        let tempSuccess = tempOptions.success;
         tempOptions.success = function (request, status, thrown) {
-            for (var i in tempIntercepts){
+            for (let i in tempIntercepts){
                 if (tempIntercepts[i](request, status, thrown,tempOptions)) return;
             }
             tempSuccess(request, status, thrown);

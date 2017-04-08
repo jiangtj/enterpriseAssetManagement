@@ -74,6 +74,8 @@
                 }
             }
         },
+        created:function () {
+        },
         mounted:function () {
         },
         methods: {
