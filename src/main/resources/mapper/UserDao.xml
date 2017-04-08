@@ -37,7 +37,7 @@
         WHERE au.name = #{name}
     </select>
 
-    <sql id="userDtoWhere">
+    <sql id="userConditions">
         <if test="name != null and name != ''">
             ${alias}.name = #{name}
         </if>
@@ -55,7 +55,7 @@
         FROM auth_user au
             LEFT JOIN auth_role ar ON au.role_id = ar.id
         <where>
-            <include refid="userDtoWhere">
+            <include refid="userConditions">
                 <property name="alias" value="au"/>
             </include>
         </where>
@@ -67,7 +67,7 @@
         FROM auth_user au
         LEFT JOIN auth_role ar ON au.role_id = ar.id
         <where>
-            <include refid="userDtoWhere">
+            <include refid="userConditions">
                 <property name="alias" value="au"/>
             </include>
         </where>

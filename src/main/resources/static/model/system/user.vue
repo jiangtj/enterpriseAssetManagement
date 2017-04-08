@@ -12,8 +12,8 @@
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
 
-                        <tt-simple-input label="用户名" v-model="selectModel.username"></tt-simple-input>
-                        <tt-simple-input label="角色" v-model="selectModel.role"></tt-simple-input>
+                        <tt-simple-input label="用户名" v-model="conditions.name"></tt-simple-input>
+                        <tt-simple-select label="角色" v-model="conditions.roleId" :data="Map.role" show-undefined></tt-simple-select>
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
@@ -49,7 +49,7 @@
         </div>
 
         <div>{{tableSelectData}}</div>
-        <div>{{selectModel}}</div>
+        <div>{{conditions}}</div>
 
         <!-- 添加弹出窗 -->
         <tt-modal id="form-modal" :title="fromModalData.title">
@@ -69,7 +69,10 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-sm-12">
                     <button @click="fromModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
+                    <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
+                    </div>
                 </div>
             </form>
         </tt-modal>
@@ -107,7 +110,7 @@
                     data:[]
                 },
                 tableSelectData:[],
-                selectModel:{},
+                conditions:{},
                 fromModalData:{
                     title:"",
                     data:{},
@@ -136,9 +139,10 @@
         methods: {
             getTableList:function () {
                 let self = this;
-                Server.user.getList.post(data => self.tableData.data = data.object.list);
+                Server.user.getList.setData(self.conditions)
+                    .post(data => self.tableData.data = data.object.list);
             },
-            submit:function (func) {
+            getSubmitFunc:function (func) {
                 let self = this;
                 return function () {
                     if (ValidationUtils.check(".validation")){
@@ -160,7 +164,7 @@
                 this.fromModalData.title = "添加新用户";
                 this.fromModalData.data = {};
                 this.fromModalData.showPassword = true;
-                this.fromModalData.submit = this.submit(Server.user.add);
+                this.fromModalData.submit = this.getSubmitFunc(Server.user.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
@@ -168,7 +172,7 @@
                 this.fromModalData.data = JsonUtils.copy(obj);
                 JsonUtils.clear(this.fromModalData.data,"password","role");
                 this.fromModalData.showPassword = false;
-                this.fromModalData.submit = this.submit(Server.user.update);
+                this.fromModalData.submit = this.getSubmitFunc(Server.user.update);
                 this.fromModal.show();
             }
         }

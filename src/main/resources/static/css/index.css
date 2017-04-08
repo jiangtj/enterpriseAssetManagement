@@ -20,6 +20,10 @@
     padding-left: 0;
 }
 
+.tt-modal-cancel {
+    margin-right: 10px;
+}
+
 /*style.css移除样式*/
 /*修改默认样式：去除模态框消失重新页面动画*/
 /*body.modal-open .wrapper-content.animated {
