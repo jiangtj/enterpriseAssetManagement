@@ -6,10 +6,11 @@
 > 示例：[企业固定资产管理系统](http://118.89.149.180:8080/asset/)
 
 ### 环境
-- 开发环境：jdk 8+
+- JDK环境：jdk 8+
 - 数据库：mysql 5.7.14
 - 服务器：tomcat
 - 系统：window/linux
+- 运行环境：支持chrome、edge、foxfire、safari最新版,**不支持ie**
 
 ### 框架
 - 后台：spring boot : (ssm) spring + spring mvc + mybatis
