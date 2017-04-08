@@ -78,7 +78,6 @@ Vue.component('tt-table', {
             return this.checkedData.length !== 0;
         },
         innerTableDate:function () {
-            debugger;
             let self = this;
             let temp = self.data || {};
             temp.title = temp.title || {error:{name:"data不能为空",width:null}};

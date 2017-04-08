@@ -35,7 +35,7 @@
             <div class="row"><div class="col-lg-12"><div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <tt-table :data="tableData" :selection = "true" v-model="tableSelectData">
+                        <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-roleName" scope="props">
                                 {{props.row.role.name}}
                             </template>
@@ -120,7 +120,8 @@
                 selectModel:{},
                 fromModalData:{
                     title:"",
-                    data:{}
+                    data:{},
+                    submit:function () {}
                 }
             }
         },
