@@ -205,6 +205,30 @@ Vue.component('tt-simple-input', {
     }
 });
 
+Vue.component("tt-simple-select",{
+    props: ['data','value','name','label','show-undefined','required'],
+    template:'<div class="form-group tt-from-input">' +
+    '<label>{{label}}</label>' +
+    '<select :value="value" @input="updateValue($event.target.value)" class="form-control" :name="innerName" :required="required">' +
+    '<option v-if="showOthers" :value="undefined">---- 请选择 ----</option>' +
+    '<option v-for="item in data" :value="item.key">{{ item.value }}</option>' +
+    '</select>' +
+    '</div>',
+    computed: {
+        innerName:function () {
+            return this.name || this.label;
+        },
+        showOthers:function () {
+            return this.showUndefined !== undefined
+        }
+    },
+    methods:{
+        updateValue:function (value) {
+            this.$emit('input',value)
+        }
+    }
+});
+
 Vue.component('tt-modal', {
     props: ['size','close','title'],
     render:function(createElement){

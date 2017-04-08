@@ -59,7 +59,8 @@
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <p>这里的信息很重要,不要乱填.</p>
                         <tt-simple-input label="用户名" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input label="密码" v-model="fromModalData.data.password" type="password" required minlength="6"></tt-simple-input>
+                        <tt-simple-input v-if="fromModalData.showPassword" label="密码" v-model="fromModalData.data.password" type="password" required minlength="6"></tt-simple-input>
+                        <tt-simple-select label="角色" v-model="fromModalData.data.roleId" :data="Map.role" show-undefined required></tt-simple-select>
                     </div>
                     <div class="col-sm-6">
                         <h4>额外 More</h4>
@@ -73,17 +74,6 @@
             </form>
         </tt-modal>
 
-        <select class="form-control m-b" name="account">
-            <option>option 1</option>
-            <option>option 2</option>
-            <option>option 3</option>
-            <option>option 4</option>
-        </select>
-        <select class="form-control m-b" name="account">
-            <option v-for="item in Map.role" :value="item.key">
-                {{ item.value }}
-            </option>
-        </select>
         <div class="clearfix"></div>
 
     </div>
@@ -137,8 +127,7 @@
             }
         },
         created:function () {
-            let self = this;
-            Server.user.getList.post(data => self.tableData.data = data.object.list);
+            this.getTableList();
         },
         beforeMount:function () {
         },
@@ -147,29 +136,41 @@
         methods: {
             getTableList:function () {
                 let self = this;
-                Server.user.getList.setIntercepts(defaultIntercept)
-                    .post(data => self.tableData.data = data.object.list);
+                Server.user.getList.post(data => self.tableData.data = data.object.list);
             },
             submit:function (func) {
                 let self = this;
                 return function () {
                     if (ValidationUtils.check(".validation")){
-                        func.setData(self.fromModalData).post(() => self.fromModal.hide())
+                        func.setData(self.fromModalData.data).post(() => {
+                            self.fromModal.hide();
+                            self.getTableList();
+                        })
                     }
                 };
             },
             deleteAll:function () {
-
+                let self = this;
+                SweetAlertUtils.show().sure(function () {
+                    let ids = $.map(self.tableSelectData,item => item.id);
+                    Server.user.delete.setData("ids="+ids).post(() => {
+                        self.getTableList();
+                        self.tableSelectData = [];
+                    });
+                });
             },
             showAddModal:function () {
                 this.fromModalData.title = "添加新用户";
                 this.fromModalData.data = {};
+                this.fromModalData.showPassword = true;
                 this.fromModalData.submit = this.submit(Server.user.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
-                this.fromModalData.title = "修改";
+                this.fromModalData.title = "修改信息";
                 this.fromModalData.data = JsonUtils.copy(obj);
+                JsonUtils.clear(this.fromModalData.data,"password","role");
+                this.fromModalData.showPassword = false;
                 this.fromModalData.submit = this.submit(Server.user.update);
                 this.fromModal.show();
             }

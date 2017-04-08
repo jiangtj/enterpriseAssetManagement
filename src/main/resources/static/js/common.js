@@ -45,6 +45,60 @@ const ToastrUtils = {
 };
 ToastrUtils.defaultConfig();
 
+//SweetAlert弹出框
+const SweetAlertUtils = {
+    show:function (title,text) {
+
+        let content;
+
+        if (title === undefined){
+            content = {};
+        }else {
+            content = JsonUtils.isJson(title)?title:{
+                "title":title,
+                "text":text
+            };
+        }
+
+        let option = jQuery.extend(true,{
+            title: "是否确定?",
+            text: "你当前的操作属于威胁操作!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            closeOnConfirm: true
+        },content);
+
+        let button = {
+            sure:function () {
+                swal("成功!", "操作成功.", "success");
+            },
+            cancel:function () {
+                //swal("取消!", "您取消了当前操作.", "success");
+            }
+        };
+
+        swal(option, function (isConfirm) {
+            isConfirm?button.sure():button.cancel();
+        });
+
+        let returnObj = {
+            sure:function (func) {
+                button.sure = func;
+                return returnObj;
+            },
+            cancel:function (func) {
+                button.cancel = func;
+                return returnObj;
+            }
+        };
+
+        return returnObj;
+    }
+};
+
 //json
 const JsonUtils = {
     isJson:function (data) {
@@ -53,6 +107,12 @@ const JsonUtils = {
     },
     copy:function (obj) {
         return jQuery.extend(true,{},obj);
+    },
+    clear:function (obj) {
+        let length = arguments.length;
+        for (let i =1; i<length; i++){
+            obj[arguments[i]] = undefined;
+        }
     }
 };
 
