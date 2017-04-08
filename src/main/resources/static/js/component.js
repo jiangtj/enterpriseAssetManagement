@@ -110,10 +110,19 @@ Vue.component('tt-table', {
             }else {
                 this.checkedData = this.innerTableDate.data.slice(0);
             }
-            this.$emit('input',this.checkedData)
+            this.$emit('input',this.checkedData);
         },
         updateSelect:function () {
-            this.$emit('input',this.checkedData)
+            this.$emit('input',this.checkedData);
+        }
+    },
+    watch:{
+        "data.data":{
+            handler:function () {
+                this.checkedData = [];
+                this.$emit('input',this.checkedData);
+            },
+            deep:true
         }
     }
 });

@@ -153,10 +153,7 @@
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.user.delete.setData("ids="+ids).post(() => {
-                        self.getTableList();
-                        self.tableSelectData = [];
-                    });
+                    Server.user.delete.setData("ids="+ids).post(() => self.getTableList());
                 });
             },
             showAddModal:function () {
