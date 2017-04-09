@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public ResultDto<Object> delete(@RequestParam("ids") Long[] ids){
+    public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
         return userService.delete(ids);
     }
 

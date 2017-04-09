@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/4/9 20:16 End.
  */
-@Aspect
 @Deprecated
+//@Aspect
 //@Component
 public class ResultAspect {
 

@@ -26,9 +26,9 @@ public interface UserService {
 
     ResultDto<Object> add(User user);
 
-    ResultDto<Object> delete(Long[] ids);
+    ResultDto<Object> delete(Long[] ids) throws AssetException;
 
-    ResultDto<Object> update(User user) throws AssetException;
+    ResultDto<Object> update(User user);
 
     ResultDto<PageDto<User>> getList(UserDto dto);
 

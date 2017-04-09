@@ -89,19 +89,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultDto<Object> delete(Long[] ids) {
+    @Transactional(rollbackFor=Exception.class)
+    public ResultDto<Object> delete(Long[] ids) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(userDao.deleteByIds(ids) == ids.length?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        return result;
+        int count = userDao.deleteByIds(ids);
+        int all = ids.length;
+        if (count == all){
+            result.setResultCode(ResultCode.SUCCESS);
+            return result;
+        }
+        result.setResultCode(ResultCode.OPERATE_FAIL);
+        result.setMessage("存在"+(all - count)+"/"+all+"数据有误！");
+        throw new AssetException(result);
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
-    public ResultDto<Object> update(User user) throws AssetException {
+    public ResultDto<Object> update(User user) {
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(userDao.update(user) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        //return result;
-        throw new AssetException(result);
+        return result;
     }
 
     @Override
