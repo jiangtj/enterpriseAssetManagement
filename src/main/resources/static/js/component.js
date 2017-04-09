@@ -127,30 +127,177 @@ Vue.component('tt-table', {
     }
 });
 
+//size每页个数，count总条目数，index选择页数，button-count按钮个数，button-size按钮大小，listener点击事件监听器
 Vue.component('tt-pagination', {
-    props: ['value','label','type','placeholder'],
-    template: '<div class="btn-group">' +
-    '<button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>' +
-    '<button class="btn btn-white">1</button>' +
-    '<button class="btn btn-white  active">2</button>' +
-    '<button class="btn btn-white">3</button>' +
-    '<button class="btn btn-white">4</button>' +
-    '<button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>' +
-    '</div>',
-    data:function(){
-        return{
+    props: ['size','count','index',"button-count","button-size"],
+    render: function (createElement) {
+        let self = this;
+
+        //数字按钮
+        let numberButton = [];
+        //首页，上一页
+        numberButton.push(createElement("button",{
+            class:["btn","btn-white"],
+            attrs:{type:"button",disabled:self.innerIndex === 1},
+            on:{click:self.getUpdateIndexFunc(1)}
+        },[
+            createElement("i",{class:["fa","fa-angle-double-left"]})
+        ]));
+        numberButton.push(createElement("button",{
+            class:["btn","btn-white"],
+            attrs:{type:"button",disabled:self.innerIndex === 1},
+            on:{click:self.getUpdateIndexFunc(self.innerIndex - 1)}
+        },[
+            createElement("i",{class:["fa","fa-angle-left"]})
+        ]));
+        //数字
+        for (let i = 0;i < self.innerButtonCount;i++){
+            numberButton.push(createElement("button",{
+                class:["btn",i+self.offset === self.innerIndex?"btn-primary":"btn-white"],
+                attrs:{type:"button",disabled:i+self.offset===self.innerIndex},
+                on:{click:self.getUpdateIndexFunc(i+self.offset)}
+            },i+self.offset))
+        }
+        //下一页尾页
+        numberButton.push(createElement("button",{
+            class:["btn","btn-white"],
+            attrs:{type:"button",disabled:self.innerIndex === self.maxPageSize},
+            on:{click:self.getUpdateIndexFunc(self.innerIndex + 1)}
+        },[
+            createElement("i",{class:["fa","fa-angle-right"]})
+        ]));
+        numberButton.push(createElement("button",{
+            class:["btn","btn-white"],
+            attrs:{type:"button",disabled:self.innerIndex === self.maxPageSize},
+            on:{click:self.getUpdateIndexFunc(self.maxPageSize)}
+        },[
+            createElement("i",{class:["fa","fa-angle-double-right"]})
+        ]));
+
+        //输入按钮
+        let inputButton = [];
+        inputButton.push(createElement("input",{
+            class:["form-control"],
+            style:{width:"40px"},attrs:{type:"text"},
+            domProps:{
+                value:self.inputIndex
+            },
+            on:{
+                input:function(event){
+                    let temp = parseInt(event.target.value);
+                    if (isNaN(temp)) temp = self.inputIndex;
+                    if (temp > self.maxPageSize) temp = self.maxPageSize;
+                    if (temp <= 0) temp = 1;
+                    self.inputIndex = temp;
+                    event.target.value=self.inputIndex;
+                }
+            }
+        }));
+        inputButton.push(createElement("span",{class:["input-group-addon"]},"/"+self.maxPageSize));
+        inputButton.push(createElement("span",{class:["input-group-btn"]},[
+            createElement("button",{
+                class:["btn","btn-primary"],
+                attrs:{type:"button"},
+                on:{click:self.goToInputIndex}
+            },"Go!")
+        ]));
+
+        return createElement("form",{class:["tt-form-all-inline"],attrs:{role:"from"}},[
+            createElement("div",{class:["btn-group",self.buttonGroupClass],style:{marginRight:"2px"}},numberButton),
+            createElement("div",{class:["input-group",self.inputGroupClass]},inputButton)
+        ]);
+    },
+    data:function () {
+        return {
+            //每页个数
+            innerSize:parseInt(this.size||10),
+            //总条目数
+            innerCount:parseInt(this.count||0),
+            //选择页码
+            innerIndex:this.index||1,
+            //待跳转页码
+            inputIndex:this.index||1,
+            //样式
+            sizeClass:{
+                lg:{
+                    button:"btn-group-lg",
+                    input:"input-group-lg"
+                },
+                sm:{
+                    button:"btn-group-sm",
+                    input:"input-group-sm"
+                },
+                xs:{
+                    button:"btn-group-xs",
+                    input:"input-group-xs"
+                }
+            }
         }
     },
     computed: {
-        baseType: function () {
-            return this.type||"text";
+        //最大页数
+        maxPageSize:function () {
+            let temp = Math.ceil(this.innerCount/this.innerSize);
+            if (temp === 0) temp=1;
+            return temp;
+        },
+        //按钮数
+        innerButtonCount: function () {
+            let temp = this.buttonCount||5;
+            return Math.min(temp,this.maxPageSize);
+        },
+        //偏移量
+        offset:function () {
+            let temp = parseInt(this.innerIndex||1);
+            let innerOffset = Math.ceil(this.innerButtonCount/2);
+            let maxIndex = this.maxPageSize + innerOffset -this.innerButtonCount;
+            if (temp > maxIndex) temp = maxIndex;
+            temp = temp - innerOffset + 1;
+            if (temp <= 0) temp = 1;
+            return temp;
+        },
+        //样式
+        buttonGroupClass:function () {
+            if (this.buttonSize) return this.sizeClass[this.buttonSize].button;
+            return undefined;
+        },
+        inputGroupClass:function () {
+            if (this.buttonSize) return this.sizeClass[this.buttonSize].input;
+            return undefined;
         }
     },
     created:function () {
     },
     methods:{
-        updateValue:function (value) {
-            this.$emit('input',value)
+        getUpdateIndexFunc:function (i) {
+            let self = this;
+            return function(){
+                self.updateIndex(i);
+            };
+        },
+        goToInputIndex:function () {
+            this.updateIndex(this.inputIndex);
+        },
+        updateIndex:function (i) {
+            let self = this;
+            self.innerIndex = i;
+            self.inputIndex = self.innerIndex;
+            this.$emit('listener',self.innerIndex,self.innerSize);
+        },
+        getUpdateSizeFunc:function (size) {
+            let self = this;
+            return function(){
+                self.innerSize = size;
+                alert(size);
+            };
+        }
+    },
+    watch:{
+        count:function (value) {
+            this.innerCount = parseInt(value);
+        },
+        size:function (value) {
+            this.innerSize = parseInt(value);
         }
     }
 });
@@ -209,7 +356,7 @@ Vue.component('tt-simple-input', {
     },
     methods:{
         updateValue:function (value) {
-            this.$emit('input',value)
+            this.$emit('input',value);
         }
     }
 });

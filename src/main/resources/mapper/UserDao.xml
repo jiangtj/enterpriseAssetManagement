@@ -59,6 +59,7 @@
                 <property name="alias" value="au"/>
             </include>
         </where>
+        LIMIT #{begin},#{offset}
     </select>
 
     <select id="getListNum" resultType="int">

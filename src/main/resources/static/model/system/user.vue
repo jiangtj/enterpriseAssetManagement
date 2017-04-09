@@ -44,26 +44,9 @@
                         </tt-table>
                     </div>
 
-                    <form role="form" class="form-inline pull-right">
-                        <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-white"><i class="fa fa-angle-double-left"></i></button>
-                            <button type="button" class="btn btn-white"><i class="fa fa-angle-left"></i></button>
-                            <button type="button" class="btn btn-white">1</button>
-                            <button type="button" class="btn btn-primary" disabled>2</button>
-                            <button type="button" class="btn btn-white">3</button>
-                            <button type="button" class="btn btn-white">4</button>
-                            <button type="button" class="btn btn-white"><i class="fa fa-angle-right"></i> </button>
-                            <button type="button" class="btn btn-white"><i class="fa fa-angle-double-right"></i> </button>
-                        </div>
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" style="width: 40px" />
-                            <span class="input-group-addon">/80</span>
-                            <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary">Go!</button>
-                        </span>
-                        </div>
-                    </form>
+                    <tt-pagination :count="pagination.count" @listener="getTablePaginationList" button-size="sm" class="pull-right"></tt-pagination>
                     <div class="clearfix"></div>
+
                 </div>
             </div></div></div>
         </div>
@@ -118,6 +101,10 @@
                         active:"User"
                     }
                 },
+                conditions:{
+                    begin:0,
+                    offset:10
+                },
                 tableData:{
                     title:{
                         $index:"序号",
@@ -130,7 +117,7 @@
                     data:[]
                 },
                 tableSelectData:[],
-                conditions:{},
+                pagination:{},
                 fromModalData:{
                     title:"",
                     data:{},
@@ -157,10 +144,21 @@
         mounted:function () {
         },
         methods: {
+            getTablePaginationList:function (index,size) {
+                let self = this;
+                self.conditions.begin = (index - 1) * size;
+                self.conditions.offset = size;
+                self.getTableList();
+            },
             getTableList:function () {
                 let self = this;
-                Server.user.getList.setData(self.conditions)
-                    .post(data => self.tableData.data = data.object.list);
+                Server.user.getList.setData(self.conditions).post(data => {
+                    self.tableData.data = data.object.list;
+                    self.pagination.count = data.object.count;
+                });
+            },
+            showmm:function (index,size) {
+                alert(index+','+size);
             },
             getSubmitFunc:function (func) {
                 let self = this;
