@@ -144,9 +144,8 @@ const ValidationUtils = {
     check:function (position) {
         var flag = true;
         $(position).each(function(){
-            var item = $(this);
+            let item = $(this);
             item.validate({
-                onkeyup:true,
                 submitHandler: function () {
                 }
             });
