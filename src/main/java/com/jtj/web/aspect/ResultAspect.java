@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
  * 2017/4/9 20:16 End.
  */
 @Aspect
-@Component
+@Deprecated
+//@Component
 public class ResultAspect {
 
 

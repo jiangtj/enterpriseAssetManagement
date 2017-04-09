@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor=Exception.class)
     public ResultDto<Object> update(User user) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(userDao.update(user) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);

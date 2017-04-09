@@ -14,7 +14,8 @@ public enum ResultCode {
     USER_TIME_ERROR("190002","请求时间异常"),
     USER_PASSWORD_ERROR("190003","密码错误"),
     UNAUTHORIZED("960000","未授权"),
-    OPERATE_FAIL("980001","操作失败");
+    OPERATE_FAIL("980001","操作失败"),
+    UN_KNOWN_ERROR("999999","未知错误");
 
     private String code;
     private String message;
