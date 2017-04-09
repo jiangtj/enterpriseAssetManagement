@@ -1,5 +1,6 @@
 package com.jtj.web.controller;
 
+import com.jtj.web.common.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.UserDao;
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public ResultDto<Object> update(User user){
+    public ResultDto<Object> update(User user) throws AssetException {
         return userService.update(user);
     }
 

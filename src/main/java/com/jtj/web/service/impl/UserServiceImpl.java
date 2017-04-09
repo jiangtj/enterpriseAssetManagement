@@ -1,16 +1,14 @@
 package com.jtj.web.service.impl;
 
-import com.jtj.web.common.Constant;
-import com.jtj.web.common.PageDto;
-import com.jtj.web.common.ResultCode;
+import com.jtj.web.common.*;
 import com.jtj.web.common.utils.MD5String;
 import com.jtj.web.dao.UserDao;
-import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -98,10 +96,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultDto<Object> update(User user) {
+    @Transactional
+    public ResultDto<Object> update(User user) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(userDao.update(user) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        return result;
+        //return result;
+        throw new AssetException(result);
     }
 
     @Override

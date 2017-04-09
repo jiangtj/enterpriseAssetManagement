@@ -1,5 +1,6 @@
 package com.jtj.web.service;
 
+import com.jtj.web.common.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.UserDto;
@@ -26,7 +27,7 @@ public interface UserService {
 
     ResultDto<Object> delete(Long[] ids);
 
-    ResultDto<Object> update(User user);
+    ResultDto<Object> update(User user) throws AssetException;
 
     ResultDto<PageDto<User>> getList(UserDto dto);
 
