@@ -20,6 +20,23 @@ const defaultIntercept = function (response,status,thrown,context) {
     }
 };
 
+const defaultListIntercept = function (response,status,thrown,context) {
+
+    if (!JsonUtils.isJson(response)) {
+        ToastrUtils.show("类型不匹配","",9);
+        console.log(response);
+        return true;
+    }
+
+    if (Web.isSuccess(response)){
+        return false;//false 不拦截
+    }
+
+    ToastrUtils.showResult(response);
+    context.fail(response,status,thrown);
+    return true;
+};
+
 Web.setBaseUrl(baseUrl);
 
 Web.setPrototype({
@@ -40,7 +57,7 @@ Web.setDefault({
 
 const Server = {
     user:{
-        getList:new WebBuilder("/user/getList"),
+        getList:new WebBuilder("/user/getList",{intercepts:defaultListIntercept}),
         add:new WebBuilder("/user/add",{intercepts:defaultIntercept}),
         delete:new WebBuilder("/user/delete",{intercepts:defaultIntercept}),
         update:new WebBuilder("/user/update",{intercepts:defaultIntercept})
