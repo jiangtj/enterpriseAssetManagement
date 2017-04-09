@@ -305,7 +305,7 @@ Vue.component('tt-pagination', {
 Vue.component('tt-simple-input', {
     props: ['value','name','label','type','row','placeholder','required','minlength','maxlength'],
     render: function (createElement) {
-        var self = this;
+        let self = this;
         return createElement('div',{
             class:{
                 'form-group':true,
@@ -388,9 +388,9 @@ Vue.component("tt-simple-select",{
 Vue.component('tt-modal', {
     props: ['size','close','title'],
     render:function(createElement){
-        var self = this;
+        let self = this;
         //bodyTitle节点
-        var bodyTitleElement = [];
+        let bodyTitleElement = [];
         if (self.innerClose) bodyTitleElement.push(
             createElement('button',{
                 class:{'close':true},
@@ -407,7 +407,7 @@ Vue.component('tt-modal', {
         );
         bodyTitleElement.push(createElement('div',{ class:{'col-sm-10':true}},[createElement('h3',self.title)]));
         //body节点
-        var bodyElement = [];
+        let bodyElement = [];
         bodyElement.push(createElement('div',{class:{'row':true}},bodyTitleElement));
         bodyElement.push(self.$slots.default);
         //根节点创建
@@ -439,7 +439,7 @@ Vue.component('tt-modal', {
     },
     computed: {
         innerClose: function () {
-            var temp = this.close === undefined?true:this.close;
+            let temp = this.close === undefined?true:this.close;
             if (temp === "false") temp = false;
             return temp;
         }

@@ -20,7 +20,7 @@ const ToastrUtils = {
     },
     show:function (title,msg,level) {
         level = level||1;
-        var toastrMethod;
+        let toastrMethod;
         switch (level){
             case 0:toastrMethod = "success";break;
             case 1:
@@ -36,7 +36,7 @@ const ToastrUtils = {
         toastr[toastrMethod](msg,title);
     },
     showResult:function (obj) {
-        var level = Number(obj.code.charAt(1));
+        let level = Number(obj.code.charAt(1));
         ToastrUtils.show(obj.title,obj.message,level);
         if (level >= 4) {
             console.log("code:"+obj.code+",title:"+obj.title+",message:"+obj.message);
@@ -142,7 +142,7 @@ ModalBuilder.prototype.set = function (option) {
 //校验
 const ValidationUtils = {
     check:function (position) {
-        var flag = true;
+        let flag = true;
         $(position).each(function(){
             let item = $(this);
             item.validate({
@@ -153,25 +153,6 @@ const ValidationUtils = {
             flag = item.valid() && flag;
         });
         return flag;
-    },
-    show:function (position) {
-        $(position).each(function(){
-            var item = $(this);
-            item.validate({
-                onkeyup:false,
-                submitHandler: function () {
-                },
-                errorPlacement: function (error, element) {
-                },
-                showErrors:function(errorMap,errorList) {
-                    if (errorList.length === 0) return;
-                    var temp ='[' + errorList[0].method + ']' + errorList[0].message;
-                    ToastrUtils.show("提醒",temp,5);
-                    this.defaultShowErrors();
-                }
-            });
-            item.submit();
-        });
     }
 };
 //修改提醒为中文

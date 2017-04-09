@@ -45,8 +45,8 @@ const MenuUtils = {
         MenuRoutes[key] = item;
     },
     pushMenuRoutes: function (menus) {
-        for (var i = 0; i < menus.length; i++) {
-            var item = menus[i];
+        for (let i = 0; i < menus.length; i++) {
+            let item = menus[i];
             if (item.list !== undefined) {
                 MenuUtils.pushMenuRoutes(item.list);
             }
