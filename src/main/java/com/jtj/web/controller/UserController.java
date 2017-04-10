@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public ResultDto<Object> update(User user) throws AssetException {
+    public ResultDto<Object> update(User user) {
         return userService.update(user);
     }
 

@@ -4,7 +4,63 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jtj.web.dao.RoleDao">
 
-    <!-- 获取角色列表 -->
+    <insert id="add">
+        INSERT INTO auth_role(name, status)
+        VALUES (#{name},#{status})
+    </insert>
+
+    <update id="update">
+        UPDATE auth_role
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+            <if test="status != null ">
+                status = #{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteByIds">
+        DELETE FROM auth_role WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <sql id="roleConditions">
+        <if test="name != null and name != ''">
+            ${alias}.name = #{name}
+        </if>
+        <if test="status != null">
+            ${alias}.status = #{status}
+        </if>
+    </sql>
+
+    <select id="getList" resultType="Role">
+        SELECT
+        ar.*
+        FROM auth_role ar
+        <where>
+            <include refid="roleConditions">
+                <property name="alias" value="ar"/>
+            </include>
+        </where>
+        LIMIT #{begin},#{offset}
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM auth_role ar
+        <where>
+            <include refid="roleConditions">
+                <property name="alias" value="ar"/>
+            </include>
+        </where>
+    </select>
+
     <select id="getRoleMap" resultType="KeyValue">
         SELECT
         ar.id "key",

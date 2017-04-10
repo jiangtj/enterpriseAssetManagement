@@ -1,6 +1,7 @@
 package com.jtj.web.controller;
 
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.entity.KeyValue;
 import com.jtj.web.service.RoleService;
 import com.jtj.web.service.SystemService;
 import com.jtj.web.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 公共接口控制层，该层接口无须权限
@@ -41,7 +43,7 @@ public class PublicController {
 
     @ResponseBody
     @GetMapping("/map/role")
-    public ResultDto<Object> getRoleMap(){
+    public ResultDto<List<KeyValue>> getRoleMap(){
         return roleService.getRoleMap();
     }
 
