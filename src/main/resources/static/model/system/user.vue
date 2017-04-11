@@ -39,7 +39,8 @@
                                 {{props.row.role.name}}
                             </template>
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">More</button>
+                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
+                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-danger btn-rounded" type="button">重置密码</button>
                             </template>
                         </tt-table>
                     </div>
@@ -50,9 +51,6 @@
                 </div>
             </div></div></div>
         </div>
-
-        <div>{{tableSelectData}}</div>
-        <div>{{conditions}}</div>
 
         <!-- 添加弹出窗 -->
         <tt-modal id="form-modal" :title="fromModalData.title">
@@ -81,6 +79,9 @@
         </tt-modal>
 
         <div class="clearfix"></div>
+        <br />
+        <br />
+        <br />
 
     </div>
 </template>
@@ -112,7 +113,7 @@
                         name:"名称",
                         description:"简介",
                         roleName:"角色名称",
-                        operation:{name:"操作",width:"100px"}
+                        operation:{name:"操作",width:"120px"}
                     },
                     data:[]
                 },
