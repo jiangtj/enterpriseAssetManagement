@@ -35,6 +35,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public ResultDto<Object> delete(Long[] ids) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
+        //todo 删除前修改用户为默认角色
         int count = roleDao.delete(ids);
         int all = ids.length;
         if (count == all){

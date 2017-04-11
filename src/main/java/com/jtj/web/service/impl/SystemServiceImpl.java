@@ -24,6 +24,8 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     public String init(HttpServletRequest request, HttpServletResponse response) {
+        //todo 自动创表增加默认数据
+        //todo 跳转至注册页面
         User user = userDao.getUserById(1L);
         if (user == null){
             return "init";
