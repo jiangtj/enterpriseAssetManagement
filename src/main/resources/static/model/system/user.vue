@@ -158,9 +158,6 @@
                     self.pagination.count = data.object.count;
                 });
             },
-            showmm:function (index,size) {
-                alert(index+','+size);
-            },
             getSubmitFunc:function (func) {
                 let self = this;
                 return function () {

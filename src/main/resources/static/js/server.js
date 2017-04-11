@@ -61,5 +61,11 @@ const Server = {
         add:new WebBuilder("/user/add",{intercepts:defaultIntercept}),
         delete:new WebBuilder("/user/delete",{intercepts:defaultIntercept}),
         update:new WebBuilder("/user/update",{intercepts:defaultIntercept})
+    },
+    role:{
+        getList:new WebBuilder("/role/getList",{intercepts:defaultListIntercept}),
+        add:new WebBuilder("/role/add",{intercepts:defaultIntercept}),
+        delete:new WebBuilder("/role/delete",{intercepts:defaultIntercept}),
+        update:new WebBuilder("/role/update",{intercepts:defaultIntercept})
     }
 };
