@@ -11,10 +11,5 @@ pipeline {
         bat 'mvn clean & mvn package'
       }
     }
-    stage('copy') {
-      steps {
-        bat 'copy target/asset.war F:/'
-      }
-    }
   }
 }
