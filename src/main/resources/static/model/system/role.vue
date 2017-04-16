@@ -10,8 +10,8 @@
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
 
-                        <tt-simple-input label="用户名" v-model="conditions.name"></tt-simple-input>
-                        <tt-simple-select label="角色" v-model="conditions.roleId" :data="Map.role" show-undefined></tt-simple-select>
+                        <tt-simple-input label="角色名" v-model="conditions.name"></tt-simple-input>
+                        <!--<tt-simple-select label="状态" v-model="conditions.status" :data="Map.role" show-undefined></tt-simple-select>-->
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
@@ -33,12 +33,12 @@
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
-                            <template slot="tt-body-roleName" scope="props">
-                                {{props.row.role.name}}
+                            <template slot="tt-body-status" scope="props">
+                                <tt-icon-check :checked="props.row.status === 1"></tt-icon-check>
                             </template>
                             <template slot="tt-body-operation" scope="props">
+                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">权限</button>
                                 <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
-                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-danger btn-rounded" type="button">重置密码</button>
                             </template>
                         </tt-table>
                     </div>
@@ -51,21 +51,17 @@
         </div>
 
         <!-- 添加弹出窗 -->
-        <tt-modal id="form-modal" :title="fromModalData.title">
+        <tt-modal id="form-modal" :title="fromModalData.title" size="sm">
             <form role="form" class="validation">
                 <div class="row">
-                    <div class="col-sm-6 b-r">
+                    <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
-                        <p>这里的信息很重要,不要乱填.</p>
-                        <tt-simple-input label="用户名" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input v-if="fromModalData.showPassword" label="密码" v-model="fromModalData.data.password" type="password" required minlength="6"></tt-simple-input>
-                        <tt-simple-select label="角色" v-model="fromModalData.data.roleId" :data="Map.role" show-undefined required></tt-simple-select>
+                        <tt-simple-input label="角色" v-model="fromModalData.data.name" required></tt-simple-input>
+                        <tt-simple-select label="状态" v-model="fromModalData.data.roleId" :data="Map.role" show-undefined required></tt-simple-select>
                     </div>
-                    <div class="col-sm-6">
-                        <h4>额外 More</h4>
-                        <p>个性化的介绍.</p>
-                        <tt-simple-input label="描述&简介" v-model="fromModalData.data.description" type="textarea" row="5" minlength="6"></tt-simple-input>
-                    </div>
+                    <!--<div class="col-sm-6">
+                        <h4>权限配置</h4>
+                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -174,17 +170,14 @@
                 });
             },
             showAddModal:function () {
-                this.fromModalData.title = "添加新用户";
+                this.fromModalData.title = "添加新角色";
                 this.fromModalData.data = {};
-                this.fromModalData.showPassword = true;
                 this.fromModalData.submit = this.getSubmitFunc(Server.role.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改信息";
                 this.fromModalData.data = JsonUtils.copy(obj);
-                JsonUtils.clear(this.fromModalData.data,"password","role");
-                this.fromModalData.showPassword = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.role.update);
                 this.fromModal.show();
             }

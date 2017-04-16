@@ -445,3 +445,20 @@ Vue.component('tt-modal', {
         }
     }
 });
+
+Vue.component("tt-icon-check",{
+    props: ['shape','black','checked'],
+    template:'<i class="fa" :class="innerClass"></i>',
+    computed: {
+        innerShape:function () {
+            return this.shape||"square";
+        },
+        innerClass:function () {
+            let temp = "fa";
+            if (this.checked) temp+="-check";
+            temp=temp+"-"+this.innerShape;
+            if (!this.black) temp+="-o";
+            return [temp];
+        }
+    }
+});

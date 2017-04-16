@@ -31,10 +31,10 @@
 
     <sql id="roleConditions">
         <if test="name != null and name != ''">
-            ${alias}.name = #{name}
+            AND ${alias}.name = #{name}
         </if>
         <if test="status != null">
-            ${alias}.status = #{status}
+            AND ${alias}.status = #{status}
         </if>
     </sql>
 

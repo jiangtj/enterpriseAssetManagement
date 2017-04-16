@@ -39,10 +39,10 @@
 
     <sql id="userConditions">
         <if test="name != null and name != ''">
-            ${alias}.name = #{name}
+            AND ${alias}.name = #{name}
         </if>
         <if test="roleId != null and roleId != ''">
-            ${alias}.role_id = #{roleId}
+            AND ${alias}.role_id = #{roleId}
         </if>
     </sql>
 
