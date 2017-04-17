@@ -1,7 +1,9 @@
 package com.jtj.web.dao;
 
+import com.jtj.web.dto.PermissionDto;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.KeyValue;
+import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,18 +17,16 @@ import java.util.List;
  */
 @Mapper
 @Component
-public interface RoleDao extends BaseDao<Role,RoleDto> {
+public interface PermissionDao extends BaseDao<Permission,PermissionDto>{
 
-    /*int add(Role role);
+/*    int add(Permission permission);
 
     int delete(@Param("ids") Long[] ids);
 
-    int update(Role role);
+    int update(Permission permission);
 
-    List<Role> getList(RoleDto roleDto);
+    List<Permission> getList(PermissionDto dto);
 
-    int getNum(RoleDto roleDto);*/
-
-    List<KeyValue> getRoleMap();
+    int getNum(PermissionDto dto);*/
 
 }

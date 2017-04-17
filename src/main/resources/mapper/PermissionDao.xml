@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.PermissionDao">
+
+    <insert id="add">
+        INSERT INTO auth_permission(name, url)
+        VALUES (#{name},#{url})
+    </insert>
+
+    <update id="update">
+        UPDATE auth_permission
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM auth_permission WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <sql id="permissionConditions">
+        <if test="name != null and name != ''">
+            AND ${alias}.name = #{name}
+        </if>
+        <if test="url != null and url != ''">
+            AND ${alias}.url = #{url}
+        </if>
+    </sql>
+
+    <select id="getList" resultType="Permission">
+        SELECT
+        ap.*
+        FROM auth_permission ap
+        <where>
+            <include refid="permissionConditions">
+                <property name="alias" value="ap"/>
+            </include>
+        </where>
+        LIMIT #{begin},#{offset}
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM auth_permission ap
+        <where>
+            <include refid="permissionConditions">
+                <property name="alias" value="ap"/>
+            </include>
+        </where>
+    </select>
+
+</mapper>

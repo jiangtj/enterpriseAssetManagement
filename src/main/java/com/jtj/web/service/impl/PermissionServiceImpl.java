@@ -4,11 +4,14 @@ import com.jtj.web.common.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.dao.PermissionDao;
 import com.jtj.web.dao.RoleDao;
+import com.jtj.web.dto.PermissionDto;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.KeyValue;
+import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.Role;
-import com.jtj.web.entity.User;
+import com.jtj.web.service.PermissionService;
 import com.jtj.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,25 +23,24 @@ import java.util.List;
  * 2017/3/15.
  */
 @Service
-public class RoleServiceImpl
-        extends BaseServiceImpl<Role,RoleDto,RoleDao>
-        implements RoleService {
+public class PermissionServiceImpl
+        extends BaseServiceImpl<Permission,PermissionDto,PermissionDao>
+        implements PermissionService {
 
     @Autowired
-    private RoleDao roleDao;
+    private PermissionDao permissionDao;
 
-   /* @Override
-    public ResultDto<Object> add(Role role) {
+    /*@Override
+    public ResultDto<Object> add(Permission permission) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(roleDao.add(role) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        result.setResultCode(permissionDao.add(permission) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         return result;
     }
 
     @Override
     public ResultDto<Object> delete(Long[] ids) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
-        //todo 删除前修改用户为默认角色
-        int count = roleDao.delete(ids);
+        int count = permissionDao.delete(ids);
         int all = ids.length;
         if (count == all){
             result.setResultCode(ResultCode.SUCCESS);
@@ -50,26 +52,20 @@ public class RoleServiceImpl
     }
 
     @Override
-    public ResultDto<Object> update(Role role) {
+    public ResultDto<Object> update(Permission permission) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(roleDao.update(role) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        result.setResultCode(permissionDao.update(permission) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         return result;
     }
 
     @Override
-    public ResultDto<PageDto<Role>> getList(RoleDto dto) {
-        ResultDto<PageDto<Role>> result = new ResultDto<>(ResultCode.SUCCESS);
-        PageDto<Role> page = new PageDto<>();
-        page.setList(roleDao.getList(dto));
-        page.setCount(roleDao.getNum(dto));
+    public ResultDto<PageDto<Permission>> getList(PermissionDto dto) {
+        ResultDto<PageDto<Permission>> result = new ResultDto<>(ResultCode.SUCCESS);
+        PageDto<Permission> page = new PageDto<>();
+        page.setList(permissionDao.getList(dto));
+        page.setCount(permissionDao.getNum(dto));
         result.setObject(page);
         return result;
     }*/
 
-    @Override
-    public ResultDto<List<KeyValue>> getRoleMap() {
-        ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject(roleDao.getRoleMap());
-        return result;
-    }
 }
