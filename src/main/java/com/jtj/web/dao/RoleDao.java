@@ -5,6 +5,7 @@ import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * 2017/3/15.
  */
 @Mapper
+@Component
 public interface RoleDao {
 
     int add(Role role);
@@ -24,8 +26,6 @@ public interface RoleDao {
     List<Role> getList(RoleDto roleDto);
 
     int getNum(RoleDto roleDto);
-
-    //Role getRoleById(long id);
 
     List<KeyValue> getRoleMap();
 

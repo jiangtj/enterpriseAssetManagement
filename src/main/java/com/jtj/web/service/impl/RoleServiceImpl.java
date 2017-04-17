@@ -65,11 +65,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public ResultDto<Object> getRoleById(long id) {
-        return null;
-    }
-
-    @Override
     public ResultDto<List<KeyValue>> getRoleMap() {
         ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject(roleDao.getRoleMap());

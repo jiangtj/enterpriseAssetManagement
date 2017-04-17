@@ -29,7 +29,5 @@ public interface RoleService {
 
     ResultDto<PageDto<Role>> getList(RoleDto roleDto);
 
-    ResultDto<Object> getRoleById(long id);
-
     ResultDto<List<KeyValue>> getRoleMap();
 }

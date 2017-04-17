@@ -4,6 +4,7 @@ import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * 2016/12/23 23:26 End.
  */
 @Mapper
+@Component
 public interface UserDao {
 
     User getUserById(@Param("id") long id);
