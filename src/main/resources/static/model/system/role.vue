@@ -11,7 +11,7 @@
                     <form role="form" class="form-inline">
 
                         <tt-simple-input label="角色名" v-model="conditions.name"></tt-simple-input>
-                        <!--<tt-simple-select label="状态" v-model="conditions.status" :data="Map.role" show-undefined></tt-simple-select>-->
+                        <tt-simple-select label="状态" v-model="conditions.status" :data="Map.roleStatus" show-undefined></tt-simple-select>
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
@@ -57,7 +57,7 @@
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="角色" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-select label="状态" v-model="fromModalData.data.roleId" :data="Map.role" show-undefined required></tt-simple-select>
+                        <tt-simple-select label="状态" v-model="fromModalData.data.status" :data="Map.roleStatus" show-undefined required></tt-simple-select>
                     </div>
                     <!--<div class="col-sm-6">
                         <h4>权限配置</h4>

@@ -22,7 +22,7 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteByIds">
+    <delete id="delete">
         DELETE FROM auth_role WHERE id IN
         <foreach collection="ids" item="item" open="(" separator="," close=")">
             #{item}
