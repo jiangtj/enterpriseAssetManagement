@@ -4,6 +4,7 @@ import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface RoleDao {
 
     int add(Role role);
 
-    int delete(Long[] ids);
+    int delete(@Param("ids") Long[] ids);
 
     int update(Role role);
 
