@@ -26,6 +26,8 @@ public class PublicController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private SystemService systemService;
 
     @ResponseBody
     @PostMapping("/login")
@@ -45,6 +47,13 @@ public class PublicController {
     @GetMapping("/map/role")
     public ResultDto<List<KeyValue>> getRoleMap(){
         return roleService.getRoleMap();
+    }
+
+    @ResponseBody
+    @GetMapping("/map/dictionary/{table}/{column}")
+    public ResultDto<List<KeyValue>> getDictionaryMap(@PathVariable("table") String table,
+                                                      @PathVariable("column") String column){
+        return systemService.getDictionaryMap(table, column);
     }
 
 }
