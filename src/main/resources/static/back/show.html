@@ -9,6 +9,7 @@
     <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />
     <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet" />
     <link href="../css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../css/plugins/jsTree/style.min.css" rel="stylesheet">
     <link href="../css/animate.css" rel="stylesheet" />
     <link href="../css/style.css" rel="stylesheet" />
     <link href="../css/index.css" rel="stylesheet" />
@@ -20,12 +21,31 @@
 <div id="page-wrapper" class="gray-bg">
 
     <div class="row wrapper wrapper-content">
+
         <div class="col-lg-12">
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>备份模版</h5>
                 </div>
                 <div class="ibox-content">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>tree</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="col-lg-4">
+                        <div id="json-tree1"></div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="json-tree2"></div>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -68,12 +88,12 @@
 
 <!-- Mainly scripts -->
 <script src="../js/main/jquery-2.1.1.js"></script>
-<script src="js/main/bootstrap.min.js}"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js}"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
-<script src="js/main/vue.js}"></script>
-<script src="js/main/vue-router.js}"></script>
-<script src="js/main/inspinia.js}"></script>
+<script src="../js/main/bootstrap.min.js}"></script>
+<script src="../js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script src="../js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script src="../js/main/vue.js}"></script>
+<script src="../js/main/vue-router.js}"></script>
+<script src="../js/main/inspinia.js}"></script>
 
 <!-- plugins -->
 <script src="../js/plugins/pace/pace.min.js"></script>
@@ -81,6 +101,7 @@
 <script src="../js/plugins/toastr/toastr.min.js"></script>
 <script src="../js/plugins/sweetalert/sweetalert.min.js"></script>
 <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../js/plugins/jsTree/jstree.min.js"></script>
 
 <!-- Custom javascript -->
 <script src="../js/md5.js"></script>
@@ -93,6 +114,81 @@
 <script src="../js/map.js"></script>
 <script src="../js/index.js"></script>
 
-</body>
 
+
+
+<script>
+    $(document).ready(function(){
+
+        $('#json-tree1').jstree({
+            'core' : {
+                'data' : [
+                    'Empty Folder',
+                    {
+                        'text': 'Resources',
+                        'state': {
+                            'opened': true
+                        },
+                        'children': [
+                            {
+                                'text': 'js',
+                                'children': [
+                                    {
+                                        'text': 'jquery.min.js', 'icon': 'none'
+                                    },
+                                    {
+                                        'text': 'jsTree.min.js', 'icon': 'none'
+                                    },
+                                    {
+                                        'text': 'custom.min.js', 'icon': 'none'
+                                    }
+                                ],
+                                'state': {
+                                    'opened': true
+                                }
+                            },
+                            {
+                                'text': 'html',
+                                'children': [
+                                    {
+                                        'text': 'footer.html', 'icon': 'none'
+                                    },
+                                    {
+                                        'text': 'sidebar.html', 'icon': 'none'
+                                    }
+                                ],
+                                'state': {
+                                    'opened': true,
+                                    'selected' :true
+                                }
+                            }
+                        ]
+                    },
+                    'Fonts',
+                    'Images',
+                    'Scripts',
+                    'Templates',
+                ]
+            },
+            "plugins" : [ "checkbox" ]
+        });
+
+        $('#json-tree2').jstree({
+            'core' : {
+                'data' :[
+                    { "id" : "ajson1", "parent" : "#", "text" : "Simple root node",'state':{'selected' :true} },
+                    { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+                    { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1",'state':{'selected' :true} },
+                    { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+                    { "id" : "fazrfe", "parent" : "#", "text" : "Child 2",state:{disabled :true} },
+                ]
+            },
+            "plugins" : [ "checkbox" ]
+        });
+
+    });
+</script>
+
+
+</body>
 </html>
