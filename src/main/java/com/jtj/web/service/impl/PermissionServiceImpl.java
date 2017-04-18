@@ -30,42 +30,4 @@ public class PermissionServiceImpl
     @Autowired
     private PermissionDao permissionDao;
 
-    /*@Override
-    public ResultDto<Object> add(Permission permission) {
-        ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(permissionDao.add(permission) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        return result;
-    }
-
-    @Override
-    public ResultDto<Object> delete(Long[] ids) throws AssetException {
-        ResultDto<Object> result = new ResultDto<>();
-        int count = permissionDao.delete(ids);
-        int all = ids.length;
-        if (count == all){
-            result.setResultCode(ResultCode.SUCCESS);
-            return result;
-        }
-        result.setResultCode(ResultCode.OPERATE_FAIL);
-        result.setMessage("存在"+(all - count)+"/"+all+"数据有误！");
-        throw new AssetException(result);
-    }
-
-    @Override
-    public ResultDto<Object> update(Permission permission) {
-        ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(permissionDao.update(permission) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        return result;
-    }
-
-    @Override
-    public ResultDto<PageDto<Permission>> getList(PermissionDto dto) {
-        ResultDto<PageDto<Permission>> result = new ResultDto<>(ResultCode.SUCCESS);
-        PageDto<Permission> page = new PageDto<>();
-        page.setList(permissionDao.getList(dto));
-        page.setCount(permissionDao.getNum(dto));
-        result.setObject(page);
-        return result;
-    }*/
-
 }

@@ -62,7 +62,7 @@
         LIMIT #{begin},#{offset}
     </select>
 
-    <select id="getListNum" resultType="int">
+    <select id="getNum" resultType="int">
         SELECT
         count(1)
         FROM auth_user au
@@ -95,7 +95,7 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteByIds">
+    <delete id="delete">
         DELETE FROM auth_user WHERE id IN
         <foreach collection="ids" item="item" open="(" separator="," close=")">
             #{item}

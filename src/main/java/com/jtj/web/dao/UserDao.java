@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Mapper
 @Component
-public interface UserDao {
+public interface UserDao extends BaseDao<User,UserDto> {
 
     User getUserById(@Param("id") long id);
 
@@ -22,13 +22,4 @@ public interface UserDao {
 
     User getUserByName(@Param("name") String name);
 
-    List<User> getList(UserDto dto);
-
-    int getListNum(UserDto dto);
-
-    int add(User user);
-
-    int update(User user);
-
-    int deleteByIds(@Param("ids") Long[] ids);
 }

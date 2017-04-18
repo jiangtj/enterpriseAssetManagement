@@ -17,16 +17,6 @@ import java.util.List;
 @Component
 public interface RoleDao extends BaseDao<Role,RoleDto> {
 
-    /*int add(Role role);
-
-    int delete(@Param("ids") Long[] ids);
-
-    int update(Role role);
-
-    List<Role> getList(RoleDto roleDto);
-
-    int getNum(RoleDto roleDto);*/
-
     List<KeyValue> getRoleMap();
 
 }

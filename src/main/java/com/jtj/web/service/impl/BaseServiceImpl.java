@@ -12,6 +12,7 @@ import com.jtj.web.service.BaseService;
 import com.jtj.web.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -32,6 +33,7 @@ public class BaseServiceImpl<Entity,Dto,Dao extends BaseDao<Entity,Dto>>
     }
 
     @Override
+    @Transactional(rollbackFor=Exception.class)
     public ResultDto<Object> delete(Long[] ids) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
         int count = dao.delete(ids);

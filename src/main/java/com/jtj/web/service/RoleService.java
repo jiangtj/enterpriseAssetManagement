@@ -21,13 +21,6 @@ import java.util.List;
 @Service
 public interface RoleService extends BaseService<Role,RoleDto> {
 
-    /*ResultDto<Object> add(Role role);
-
-    ResultDto<Object> delete(Long[] ids) throws AssetException;
-
-    ResultDto<Object> update(Role role);
-
-    ResultDto<PageDto<Role>> getList(RoleDto roleDto);*/
-
     ResultDto<List<KeyValue>> getRoleMap();
+
 }

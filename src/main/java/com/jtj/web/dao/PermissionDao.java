@@ -19,14 +19,4 @@ import java.util.List;
 @Component
 public interface PermissionDao extends BaseDao<Permission,PermissionDto>{
 
-/*    int add(Permission permission);
-
-    int delete(@Param("ids") Long[] ids);
-
-    int update(Permission permission);
-
-    List<Permission> getList(PermissionDto dto);
-
-    int getNum(PermissionDto dto);*/
-
 }

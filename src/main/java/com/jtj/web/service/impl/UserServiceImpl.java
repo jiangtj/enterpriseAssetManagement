@@ -21,7 +21,9 @@ import java.util.List;
  * 2016/12/23 23:26 End.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl
+        extends BaseServiceImpl<User,UserDto,UserDao>
+        implements UserService {
 
     @Autowired
     private UserDao userDao;
@@ -82,35 +84,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultDto<Object> add(User user) {
-        ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(userDao.add(user) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        return result;
-    }
-
-    @Override
-    @Transactional(rollbackFor=Exception.class)
-    public ResultDto<Object> delete(Long[] ids) throws AssetException {
-        ResultDto<Object> result = new ResultDto<>();
-        int count = userDao.deleteByIds(ids);
-        int all = ids.length;
-        if (count == all){
-            result.setResultCode(ResultCode.SUCCESS);
-            return result;
-        }
-        result.setResultCode(ResultCode.OPERATE_FAIL);
-        result.setMessage("存在"+(all - count)+"/"+all+"数据有误！");
-        throw new AssetException(result);
-    }
-
-    @Override
-    public ResultDto<Object> update(User user) {
-        ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(userDao.update(user) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        return result;
-    }
-
-    @Override
     public ResultDto<PageDto<User>> getList(UserDto dto) {
         ResultDto<PageDto<User>> result = new ResultDto<>(ResultCode.SUCCESS);
 
@@ -120,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
         PageDto<User> page = new PageDto<>();
         page.setList(userList);
-        page.setCount(userDao.getListNum(dto));
+        page.setCount(userDao.getNum(dto));
         result.setObject(page);
         return result;
     }

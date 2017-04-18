@@ -17,20 +17,12 @@ import java.util.List;
  * 2016/12/23 23:26 End.
  */
 @Service
-public interface UserService {
+public interface UserService extends BaseService<User,UserDto> {
 
     ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response,
                             String name, String password,Long time);
 
     ResultDto<Object> logout(HttpServletRequest request, HttpServletResponse response);
-
-    ResultDto<Object> add(User user);
-
-    ResultDto<Object> delete(Long[] ids) throws AssetException;
-
-    ResultDto<Object> update(User user);
-
-    ResultDto<PageDto<User>> getList(UserDto dto);
 
     ResultDto<User> getUserById(long id);
 }
