@@ -43,8 +43,11 @@
                     <div class="col-lg-4">
                         <div id="json-tree1"></div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-4">
                         <div id="json-tree2"></div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div id="json-tree3"></div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -184,6 +187,18 @@
                 ]
             },
             "plugins" : [ "checkbox" ]
+        });
+
+        $('#json-tree3').jstree({
+            'core' : {
+                'data' :[
+                    { "id" : "ajson1", "parent" : "#", "text" : "Simple root node",'state':{'selected' :true} },
+                    { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+                    { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1",'state':{'selected' :true} },
+                    { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+                    { "id" : "fazrfe", "parent" : "#", "text" : "Child 2",state:{disabled :true} },
+                ]
+            }
         });
 
     });
