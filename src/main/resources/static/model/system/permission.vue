@@ -10,8 +10,7 @@
                 <div class="ibox-content">
                     <form role="form" class="form-inline">
 
-                        <tt-simple-input label="角色名" v-model="conditions.name"></tt-simple-input>
-                        <tt-simple-select label="状态" v-model="conditions.status" :data="Map.roleStatus" show-undefined></tt-simple-select>
+                        <tt-simple-input label="名称" v-model="conditions.name"></tt-simple-input>
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
@@ -33,9 +32,6 @@
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
-                            <template slot="tt-body-status" scope="props">
-                                <tt-icon-check :checked="props.row.status === 1"></tt-icon-check>
-                            </template>
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                             </template>
@@ -55,8 +51,8 @@
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
-                        <tt-simple-input label="角色" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-select label="状态" v-model="fromModalData.data.status" :data="Map.roleStatus" show-undefined required></tt-simple-select>
+                        <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
+                        <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
                     </div>
                     <!--<div class="col-sm-6">
                         <h4>权限配置</h4>
@@ -105,7 +101,7 @@
                         id:"权限id",
                         name:"名称",
                         url:"url",
-                        operation:{name:"操作",width:"120px"}
+                        operation:{name:"操作",width:"60px"}
                     },
                     data:[]
                 },
@@ -169,13 +165,13 @@
                 });
             },
             showAddModal:function () {
-                this.fromModalData.title = "添加新角色";
+                this.fromModalData.title = "添加";
                 this.fromModalData.data = {};
                 this.fromModalData.submit = this.getSubmitFunc(Server.permission.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
-                this.fromModalData.title = "修改信息";
+                this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.permission.update);
                 this.fromModal.show();
