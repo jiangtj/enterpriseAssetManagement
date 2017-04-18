@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.MenuDao">
+
+    <insert id="add">
+        INSERT INTO auth_menu(name, level, pid, `order`, is_menu)
+        VALUES (#{name},#{level},#{pid},#{order},#{isMenu})
+    </insert>
+
+    <update id="update">
+        UPDATE auth_menu
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+            <if test="level != null">
+                level = #{level},
+            </if>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="order != null">
+                order = #{order},
+            </if>
+            <if test="isMenu != null">
+                is_menu = #{isMenu},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM auth_menu WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <sql id="permissionConditions">
+        <if test="name != null and name != ''">
+            AND ${alias}.name = #{name}
+        </if>
+        <if test="level != null">
+            AND ${alias}.level = #{level}
+        </if>
+        <if test="pid != null">
+            AND ${alias}.pid = #{pid}
+        </if>
+        <if test="order != null">
+            AND ${alias}.order = #{order}
+        </if>
+        <if test="isMenu != null">
+            AND ${alias}.is_menu = #{isMenu}
+        </if>
+    </sql>
+
+    <select id="getList" resultType="Menu">
+        SELECT
+        am.*
+        FROM auth_menu am
+        <where>
+            <include refid="permissionConditions">
+                <property name="alias" value="am"/>
+            </include>
+        </where>
+        ORDER BY am.pid ASC ,am.`order` ASC
+        LIMIT #{begin},#{offset}
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM auth_menu am
+        <where>
+            <include refid="permissionConditions">
+                <property name="alias" value="am"/>
+            </include>
+        </where>
+    </select>
+
+</mapper>
