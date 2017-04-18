@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-04-18 21:30:21
+Date: 2017-04-18 21:30:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,6 +33,10 @@ CREATE TABLE `assets_borrow` (
   CONSTRAINT `ab@user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `ab@uuid` FOREIGN KEY (`uuid`) REFERENCES `assets_item` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of assets_borrow
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for assets_item
@@ -58,6 +62,10 @@ CREATE TABLE `assets_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of assets_item
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for assets_operation_record
 -- ----------------------------
 DROP TABLE IF EXISTS `assets_operation_record`;
@@ -71,6 +79,10 @@ CREATE TABLE `assets_operation_record` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of assets_operation_record
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for assets_stock_take
@@ -92,6 +104,10 @@ CREATE TABLE `assets_stock_take` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of assets_stock_take
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for assets_type
 -- ----------------------------
 DROP TABLE IF EXISTS `assets_type`;
@@ -105,6 +121,10 @@ CREATE TABLE `assets_type` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of assets_type
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for auth_menu
@@ -126,6 +146,10 @@ CREATE TABLE `auth_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of auth_menu
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for auth_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `auth_permission`;
@@ -139,6 +163,11 @@ CREATE TABLE `auth_permission` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of auth_permission
+-- ----------------------------
+INSERT INTO `auth_permission` VALUES ('1', 'uw', '/edsc/dvr', '2017-04-17 22:47:12', '2017-04-17 22:47:12');
+
+-- ----------------------------
 -- Table structure for auth_role
 -- ----------------------------
 DROP TABLE IF EXISTS `auth_role`;
@@ -150,6 +179,13 @@ CREATE TABLE `auth_role` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of auth_role
+-- ----------------------------
+INSERT INTO `auth_role` VALUES ('3', '1', '1', '2017-01-30 22:30:37', '2017-01-30 22:30:55');
+INSERT INTO `auth_role` VALUES ('4', '2', '1', '2017-01-30 22:30:59', '2017-01-30 22:30:59');
+INSERT INTO `auth_role` VALUES ('5', '差价款', '2', '2017-04-16 19:18:55', '2017-04-16 19:18:55');
 
 -- ----------------------------
 -- Table structure for auth_role_assets_type_relation
@@ -169,6 +205,10 @@ CREATE TABLE `auth_role_assets_type_relation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of auth_role_assets_type_relation
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for auth_role_permission_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `auth_role_permission_relation`;
@@ -186,6 +226,10 @@ CREATE TABLE `auth_role_permission_relation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of auth_role_permission_relation
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for auth_role_point_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `auth_role_point_relation`;
@@ -201,6 +245,10 @@ CREATE TABLE `auth_role_point_relation` (
   CONSTRAINT `rp1@point_id` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE CASCADE,
   CONSTRAINT `rp1@role_id` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of auth_role_point_relation
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -221,6 +269,19 @@ CREATE TABLE `auth_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of auth_user
+-- ----------------------------
+INSERT INTO `auth_user` VALUES ('1', '1', '1', 'Hi~~~ wo', '3', '2017-01-31 22:39:53', '2017-04-11 21:35:29');
+INSERT INTO `auth_user` VALUES ('2', '11', '111111', '的大尚书是 的', '3', '2017-04-08 22:19:40', '2017-04-09 22:42:02');
+INSERT INTO `auth_user` VALUES ('4', 'dcs', 'rvvsvfb', null, '3', '2017-04-09 17:15:54', '2017-04-09 20:40:28');
+INSERT INTO `auth_user` VALUES ('6', 'veave', 'veavfdv', null, '3', '2017-04-09 17:16:27', '2017-04-09 22:45:39');
+INSERT INTO `auth_user` VALUES ('7', 'vevdfv', 'reveavreav', null, '3', '2017-04-09 17:16:41', '2017-04-09 17:16:41');
+INSERT INTO `auth_user` VALUES ('8', 'eveavf', 'fdfd a', null, '4', '2017-04-09 17:16:50', '2017-04-09 17:16:50');
+INSERT INTO `auth_user` VALUES ('10', 'vfdave', 'fdvervre', null, '4', '2017-04-09 17:17:12', '2017-04-09 17:17:12');
+INSERT INTO `auth_user` VALUES ('11', 'vdvezv', 'svrsvgd', null, '4', '2017-04-09 17:17:25', '2017-04-09 17:17:25');
+INSERT INTO `auth_user` VALUES ('12', 'vtvg', 'gtbsrvf', null, '4', '2017-04-09 17:17:36', '2017-04-09 23:15:32');
+
+-- ----------------------------
 -- Table structure for point
 -- ----------------------------
 DROP TABLE IF EXISTS `point`;
@@ -234,6 +295,10 @@ CREATE TABLE `point` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of point
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for system_config
@@ -250,6 +315,10 @@ CREATE TABLE `system_config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of system_config
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for system_dictionary
 -- ----------------------------
 DROP TABLE IF EXISTS `system_dictionary`;
@@ -264,3 +333,9 @@ CREATE TABLE `system_dictionary` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@table, column, key` (`table`,`column`,`key`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of system_dictionary
+-- ----------------------------
+INSERT INTO `system_dictionary` VALUES ('1', 'auth_role', 'status', '1', '启用', '2017-04-16 18:23:37', '2017-04-16 18:23:37');
+INSERT INTO `system_dictionary` VALUES ('2', 'auth_role', 'status', '2', '不启用', '2017-04-16 18:23:58', '2017-04-16 18:23:58');
