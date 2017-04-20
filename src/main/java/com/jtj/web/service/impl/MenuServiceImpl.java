@@ -1,5 +1,7 @@
 package com.jtj.web.service.impl;
 
+import com.jtj.web.common.ResultCode;
+import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.MenuDao;
 import com.jtj.web.dao.PermissionDao;
 import com.jtj.web.dto.MenuDto;
@@ -10,6 +12,8 @@ import com.jtj.web.service.MenuService;
 import com.jtj.web.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -23,4 +27,10 @@ public class MenuServiceImpl
     @Autowired
     private MenuDao menuDao;
 
+    @Override
+    public ResultDto<List<Menu>> getMenu(MenuDto dto) {
+        ResultDto<List<Menu>> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject( menuDao.getMenu(dto));
+        return result;
+    }
 }

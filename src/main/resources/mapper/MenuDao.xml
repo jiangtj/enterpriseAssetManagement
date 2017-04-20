@@ -39,6 +39,9 @@
     </delete>
 
     <sql id="permissionConditions">
+        <if test="id != null">
+            AND ${alias}.id = #{id}
+        </if>
         <if test="name != null and name != ''">
             AND ${alias}.name = #{name}
         </if>
@@ -78,6 +81,18 @@
                 <property name="alias" value="am"/>
             </include>
         </where>
+    </select>
+
+    <select id="getMenu" resultType="Menu">
+        SELECT
+        am.*
+        FROM auth_menu am
+        <where>
+            <include refid="permissionConditions">
+                <property name="alias" value="am"/>
+            </include>
+        </where>
+        ORDER BY am.pid ASC ,am.`order` ASC
     </select>
 
 </mapper>

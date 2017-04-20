@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
  * 2017/2/22.
@@ -44,6 +46,11 @@ public class MenuController {
     @PostMapping("/getList")
     public ResultDto<PageDto<Menu>> getList(MenuDto dto){
         return menuService.getList(dto);
+    }
+
+    @PostMapping("/getMenu")
+    public ResultDto<List<Menu>> getMenu(MenuDto dto){
+        return menuService.getMenu(dto);
     }
 
 }

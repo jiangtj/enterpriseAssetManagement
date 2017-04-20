@@ -190,15 +190,36 @@
                 this.fromModal.show();
             },
             updateTree:function () {
+                /*$('#menu-tree').jstree({
+                    'core' : {
+                        'data' :{
+                            url:"/menu/getList",
+                            dataType:"post",
+                            method:"post",
+                            data:function (node) {
+                                debugger;
+                                return {
+                                    id:node.id==="#"?0:node.id
+                                }
+                            }
+                        }
+                    }
+                });*/
                 $('#menu-tree').jstree({
                     'core' : {
-                        'data' :[
-                            { "id" : "ajson1", "parent" : "#", "text" : "Simple root node",'state':{'selected' :true} },
-                            { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
-                            { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1",'state':{'selected' :true} },
-                            { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
-                            { "id" : "fazrfe", "parent" : "#", "text" : "Child 2",state:{disabled :true} },
-                        ]
+                        "check_callback" : true,
+                        'data' :function (node,callback) {
+                            Server.menu.getMenu.setData({pid:node.id==="#"?0:node.id}).post(data => {
+                                debugger;
+                                let list = $.map(data.object,(item,index) => {
+                                    item.parent = item.pid===0?"#":item.pid;
+                                    item.text = item.name;
+                                    item["check_callback"] = true;
+                                    return item;
+                                });
+                                callback.call(this,list)
+                            });
+                        }
                     }
                 });
             }

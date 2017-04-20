@@ -78,6 +78,7 @@ const Server = {
         getList:new WebBuilder("/menu/getList",{intercepts:defaultListIntercept}),
         add:new WebBuilder("/menu/add",{intercepts:defaultIntercept}),
         delete:new WebBuilder("/menu/delete",{intercepts:defaultIntercept}),
-        update:new WebBuilder("/menu/update",{intercepts:defaultIntercept})
+        update:new WebBuilder("/menu/update",{intercepts:defaultIntercept}),
+        getMenu:new WebBuilder("/menu/getMenu",{intercepts:defaultListIntercept})
     }
 };

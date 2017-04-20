@@ -8,11 +8,20 @@ import com.jtj.web.common.BaseDto;
  */
 public class MenuDto extends BaseDto {
 
+    private Long id;
     private String name;
     private Integer level;
     private Long pid;
     private Integer order;
     private Integer isMenu;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
