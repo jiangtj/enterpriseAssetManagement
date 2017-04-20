@@ -5,6 +5,12 @@
         <!-- 动画 -->
         <div class="wrapper wrapper-content animated fadeInRight"><!-- animated -->
 
+            <div class="row">
+                <div class="col-lg-3"><div class="ibox tt-from-table"><div class="ibox-content">
+                    <div id="menu-tree"></div>
+                </div></div></div>
+                <div class="col-lg-9">
+
             <!-- 表单 -->
             <div class="row"><div class="col-lg-12"><div class="ibox tt-from-table">
                 <div class="ibox-content">
@@ -43,6 +49,9 @@
 
                 </div>
             </div></div></div>
+        </div>
+
+            </div>
         </div>
 
         <!-- 添加弹出窗 -->
@@ -134,6 +143,7 @@
         beforeMount:function () {
         },
         mounted:function () {
+            this.updateTree();
         },
         methods: {
             getTablePaginationList:function (index,size) {
@@ -178,6 +188,19 @@
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.update);
                 this.fromModal.show();
+            },
+            updateTree:function () {
+                $('#menu-tree').jstree({
+                    'core' : {
+                        'data' :[
+                            { "id" : "ajson1", "parent" : "#", "text" : "Simple root node",'state':{'selected' :true} },
+                            { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+                            { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1",'state':{'selected' :true} },
+                            { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+                            { "id" : "fazrfe", "parent" : "#", "text" : "Child 2",state:{disabled :true} },
+                        ]
+                    }
+                });
             }
         }
     });

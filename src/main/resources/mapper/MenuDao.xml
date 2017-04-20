@@ -5,8 +5,8 @@
 <mapper namespace="com.jtj.web.dao.MenuDao">
 
     <insert id="add">
-        INSERT INTO auth_menu(name, level, pid, `order`, is_menu)
-        VALUES (#{name},#{level},#{pid},#{order},#{isMenu})
+        INSERT INTO auth_menu(name, level, pid, `order`, is_menu, permission_id)
+        VALUES (#{name},#{level},#{pid},#{order},#{isMenu},#{permissionId})
     </insert>
 
     <update id="update">
