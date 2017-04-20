@@ -30,8 +30,8 @@ const AppMenu = [
         list:[
             {menu:"User",name:"用户管理",url:"/system/user",staticUrl:"/model/system/user.vue"},
             {menu:"Role",name:"角色管理",url:"/system/role",staticUrl:"/model/system/role.vue"},
-            // {name:"权限菜单",url:"#",staticUrl:"/model/system/aaa.vue"},
-            {menu:"Permission",name:"权限管理",url:"/system/permission",staticUrl:"/model/system/permission.vue"}
+            {menu:"Permission",name:"权限管理",url:"/system/permission",staticUrl:"/model/system/permission.vue"},
+            {menu:"Menu",name:"菜单管理",url:"/system/menu",staticUrl:"/model/system/menu.vue"},
         ]
     }
 ];

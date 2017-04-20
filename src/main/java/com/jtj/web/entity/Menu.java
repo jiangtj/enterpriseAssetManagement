@@ -13,6 +13,7 @@ public class Menu extends BaseEntity {
     private Long pid;
     private Integer order;
     private Integer isMenu;
+    private Long permissionId;
 
     public String getName() {
         return name;
@@ -52,5 +53,13 @@ public class Menu extends BaseEntity {
 
     public void setIsMenu(Integer isMenu) {
         this.isMenu = isMenu;
+    }
+
+    public Long getPermissionId() {
+        return permissionId;
+    }
+
+    public void setPermissionId(Long permissionId) {
+        this.permissionId = permissionId;
     }
 }
