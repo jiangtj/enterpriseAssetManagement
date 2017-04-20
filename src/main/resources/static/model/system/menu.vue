@@ -207,14 +207,12 @@
                 });*/
                 $('#menu-tree').jstree({
                     'core' : {
-                        "check_callback" : true,
                         'data' :function (node,callback) {
                             Server.menu.getMenu.setData({pid:node.id==="#"?0:node.id}).post(data => {
-                                debugger;
                                 let list = $.map(data.object,(item,index) => {
                                     item.parent = item.pid===0?"#":item.pid;
                                     item.text = item.name;
-                                    item["check_callback"] = true;
+                                    item["children"] = true;
                                     return item;
                                 });
                                 callback.call(this,list)
