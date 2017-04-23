@@ -178,14 +178,16 @@
             },
             showAddModal:function () {
                 this.fromModalData.title = "添加新用户";
-                this.fromModalData.data = {};
+                /*this.fromModalData.data = {};*/
+                VueUtils.setNull(this.fromModalData.data,{});
                 this.fromModalData.showPassword = true;
                 this.fromModalData.submit = this.getSubmitFunc(Server.user.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改信息";
-                this.fromModalData.data = JsonUtils.copy(obj);
+                /*this.fromModalData.data = JsonUtils.copy(obj);*/
+                VueUtils.setValue(this.fromModalData.data,obj);
                 JsonUtils.clear(this.fromModalData.data,"password","role");
                 this.fromModalData.showPassword = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.user.update);

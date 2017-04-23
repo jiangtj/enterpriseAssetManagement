@@ -108,10 +108,55 @@ const JsonUtils = {
     copy:function (obj) {
         return jQuery.extend(true,{},obj);
     },
+    setNull:function (obj) {
+        let copyObj = jQuery.extend(true,{},obj);
+        for (let i in copyObj){
+            if (!copyObj.hasOwnProperty(i)){
+                return null;
+            }
+            if (JsonUtils.isJson(copyObj[i])){
+                copyObj[i] = JsonUtils.setNull(copyObj[i]);
+            }else {
+                copyObj[i] = null;
+            }
+        }
+        return copyObj;
+    },
     clear:function (obj) {
         let length = arguments.length;
         for (let i =1; i<length; i++){
             obj[arguments[i]] = undefined;
+        }
+    }
+};
+
+const VueUtils = {
+    setNull:function (vm,obj) {
+        for (let i in obj){
+            if (!obj.hasOwnProperty(i)){
+                Vue.set(vm,obj,null);
+                return;
+            }
+            if (JsonUtils.isJson(obj[i])){
+                Vue.set(vm,i,{});
+                VueUtils.setNull(vm,obj[i]);
+            }else {
+                Vue.set(vm,i,null);
+            }
+        }
+    },
+    setValue:function (vm,obj) {
+        for (let i in obj){
+            if (!obj.hasOwnProperty(i)){
+                Vue.set(vm,obj,obj);
+                return;
+            }
+            if (JsonUtils.isJson(obj[i])){
+                Vue.set(vm,i,{});
+                VueUtils.setValue(vm,obj[i]);
+            }else {
+                Vue.set(vm,i,obj[i]);
+            }
         }
     }
 };

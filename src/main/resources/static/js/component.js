@@ -303,7 +303,7 @@ Vue.component('tt-pagination', {
 });
 
 Vue.component('tt-simple-input', {
-    props: ['value','name','label','type','row','placeholder','required','minlength','maxlength'],
+    props: ['value','name','label','type','row','placeholder','required','minlength','maxlength','disabled'],
     render: function (createElement) {
         let self = this;
         return createElement('div',{
@@ -321,6 +321,7 @@ Vue.component('tt-simple-input', {
                     type:self.baseType,
                     name:self.innerName,
                     placeholder:self.placeholder,
+                    disabled:self.disabled,
                     rows:self.baseRow,
                     required:self.required,
                     minlength:self.minlength,

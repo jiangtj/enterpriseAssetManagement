@@ -65,8 +65,9 @@
                     </div>
                     <div class="col-sm-6">
                         <h4>权限信息</h4>
-                        <tt-simple-select label="权限" :data="Map.menuPermissionCreateType" v-model="fromModalData.permissionCreateType"></tt-simple-select>
-                        <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
+                        <tt-simple-select label="权限" v-model="fromModalData.permissionCreateType" :data="Map.menuPermissionCreateType"></tt-simple-select>
+                        <tt-simple-input label="名称" v-model="fromModalData.data.name" :disabled="isPermissionCreate"></tt-simple-input>
+                        <tt-simple-input label="url" v-model="fromModalData.data.url" :disabled="!isPermissionCreate"></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
@@ -125,9 +126,6 @@
                     title:"",
                     data:{},
                     submit:function () {}
-                },
-                permission:{
-                    createType:{"1":"创建新权限","2":"关联已有权限"}
                 }
             }
         },
@@ -140,6 +138,15 @@
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
+            },
+            isPermissionCreate:{
+                get:function () {
+                    return this.fromModalData.permissionCreateType === '1';
+                },
+                set:function (flag) {
+                    debugger;
+                    this.fromModalData.permissionCreateType = flag?"1":"2";
+                }
             }
         },
         created:function () {
@@ -167,6 +174,7 @@
             getSubmitFunc:function (func) {
                 let self = this;
                 return function () {
+                    debugger;
                     if (ValidationUtils.check(".validation")){
                         func.setData(self.fromModalData.data).post(() => {
                             self.fromModal.hide();
@@ -186,32 +194,17 @@
                 this.fromModalData.title = "添加";
                 this.fromModalData.data = {};
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.add);
-                this.fromModalData.permissionCreateType = "1";
+                this.isPermissionCreate = true;
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.update);
-                this.fromModalData.permissionCreateType = "2";
+                this.isPermissionCreate = false;
                 this.fromModal.show();
             },
             updateTree:function () {
-                /*$('#menu-tree').jstree({
-                    'core' : {
-                        'data' :{
-                            url:"/menu/getList",
-                            dataType:"post",
-                            method:"post",
-                            data:function (node) {
-                                debugger;
-                                return {
-                                    id:node.id==="#"?0:node.id
-                                }
-                            }
-                        }
-                    }
-                });*/
                 $('#menu-tree').jstree({
                     'core' : {
                         'data' :function (node,callback) {
