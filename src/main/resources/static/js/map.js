@@ -6,6 +6,9 @@ const Map = new Vue({
         },
         roleStatus:function () {
             return this.getMap("/public/map/dictionary/auth_role/status");
+        },
+        menuPermissionCreateType:function () {
+            return this.getMap("/public/map/dictionary/auth_menu/permission_create_type");
         }
     },
     methods:{

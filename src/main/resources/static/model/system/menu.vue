@@ -55,17 +55,19 @@
         </div>
 
         <!-- 添加弹出窗 -->
-        <tt-modal id="form-modal" :title="fromModalData.title" size="sm">
+        <tt-modal id="form-modal" :title="fromModalData.title">
             <form role="form" class="validation">
                 <div class="row">
-                    <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
+                    <div class="col-sm-6"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                         <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
                     </div>
-                    <!--<div class="col-sm-6">
-                        <h4>权限配置</h4>
-                    </div>-->
+                    <div class="col-sm-6">
+                        <h4>权限信息</h4>
+                        <tt-simple-select label="权限" :data="Map.menuPermissionCreateType" v-model="fromModalData.permissionCreateType"></tt-simple-select>
+                        <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -123,6 +125,9 @@
                     title:"",
                     data:{},
                     submit:function () {}
+                },
+                permission:{
+                    createType:{"1":"创建新权限","2":"关联已有权限"}
                 }
             }
         },
@@ -181,12 +186,14 @@
                 this.fromModalData.title = "添加";
                 this.fromModalData.data = {};
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.add);
+                this.fromModalData.permissionCreateType = "1";
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.update);
+                this.fromModalData.permissionCreateType = "2";
                 this.fromModal.show();
             },
             updateTree:function () {
