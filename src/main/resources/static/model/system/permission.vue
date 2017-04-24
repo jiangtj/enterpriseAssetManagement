@@ -110,6 +110,7 @@
                 fromModalData:{
                     title:"",
                     data:{},
+                    empty:null,
                     submit:function () {}
                 }
             }
@@ -144,7 +145,15 @@
                 Server.permission.getList.setData(self.conditions).post(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
+                    self.initFromEmpty();
                 });
+            },
+            initFromEmpty:function () {
+                let self = this;
+                if (!self.fromModalData.empty){
+                    let empty = self.tableData.data.length === 0?null:self.tableData.data[0];
+                    self.fromModalData.empty = JsonUtils.setNull(empty);
+                }
             },
             getSubmitFunc:function (func) {
                 let self = this;
@@ -166,7 +175,7 @@
             },
             showAddModal:function () {
                 this.fromModalData.title = "添加";
-                this.fromModalData.data = {};
+                this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
                 this.fromModalData.submit = this.getSubmitFunc(Server.permission.add);
                 this.fromModal.show();
             },

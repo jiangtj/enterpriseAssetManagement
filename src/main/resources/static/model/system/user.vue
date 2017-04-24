@@ -122,6 +122,7 @@
                 fromModalData:{
                     title:"",
                     data:{},
+                    empty:null,
                     submit:function () {}
                 }
             }
@@ -138,7 +139,8 @@
             }
         },
         created:function () {
-            this.getTableList();
+            let self = this;
+            self.getTableList();
         },
         beforeMount:function () {
         },
@@ -156,7 +158,15 @@
                 Server.user.getList.setData(self.conditions).post(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
+                    self.initFromEmpty();
                 });
+            },
+            initFromEmpty:function () {
+                let self = this;
+                if (!self.fromModalData.empty){
+                    let empty = self.tableData.data.length === 0?null:self.tableData.data[0];
+                    self.fromModalData.empty = JsonUtils.setNull(empty);
+                }
             },
             getSubmitFunc:function (func) {
                 let self = this;
@@ -178,16 +188,15 @@
             },
             showAddModal:function () {
                 this.fromModalData.title = "添加新用户";
-                /*this.fromModalData.data = {};*/
-                VueUtils.setNull(this.fromModalData.data,{});
+                this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
                 this.fromModalData.showPassword = true;
                 this.fromModalData.submit = this.getSubmitFunc(Server.user.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
+                debugger;
                 this.fromModalData.title = "修改信息";
-                /*this.fromModalData.data = JsonUtils.copy(obj);*/
-                VueUtils.setValue(this.fromModalData.data,obj);
+                this.fromModalData.data = JsonUtils.copy(obj);
                 JsonUtils.clear(this.fromModalData.data,"password","role");
                 this.fromModalData.showPassword = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.user.update);

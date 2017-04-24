@@ -110,16 +110,13 @@ const JsonUtils = {
     },
     setNull:function (obj) {
         let copyObj = jQuery.extend(true,{},obj);
-        for (let i in copyObj){
-            if (!copyObj.hasOwnProperty(i)){
-                return null;
-            }
-            if (JsonUtils.isJson(copyObj[i])){
-                copyObj[i] = JsonUtils.setNull(copyObj[i]);
+        jQuery.each(copyObj,function (key,value) {
+            if (JsonUtils.isJson(value)){
+                copyObj[key] = JsonUtils.setNull(value);
             }else {
-                copyObj[i] = null;
+                copyObj[key] = null;
             }
-        }
+        });
         return copyObj;
     },
     clear:function (obj) {
