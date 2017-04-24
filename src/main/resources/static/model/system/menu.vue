@@ -125,6 +125,8 @@
                 fromModalData:{
                     title:"",
                     data:{},
+                    empty:null,
+                    permissionCreateType:"1",
                     submit:function () {}
                 }
             }
@@ -139,14 +141,8 @@
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
             },
-            isPermissionCreate:{
-                get:function () {
-                    return this.fromModalData.permissionCreateType === '1';
-                },
-                set:function (flag) {
-                    debugger;
-                    this.fromModalData.permissionCreateType = flag?"1":"2";
-                }
+            isPermissionCreate:function () {
+                return this.fromModalData.permissionCreateType === "1";
             }
         },
         created:function () {
@@ -169,7 +165,15 @@
                 Server.menu.getList.setData(self.conditions).post(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
+                    self.initFromEmpty();
                 });
+            },
+            initFromEmpty:function () {
+                let self = this;
+                if (!self.fromModalData.empty){
+                    let empty = self.tableData.data.length === 0?null:self.tableData.data[0];
+                    self.fromModalData.empty = JsonUtils.setNull(empty);
+                }
             },
             getSubmitFunc:function (func) {
                 let self = this;
@@ -192,16 +196,16 @@
             },
             showAddModal:function () {
                 this.fromModalData.title = "添加";
-                this.fromModalData.data = {};
+                this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.add);
-                this.isPermissionCreate = true;
+                this.fromModalData.permissionCreateType = "1";
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.update);
-                this.isPermissionCreate = false;
+                this.fromModalData.permissionCreateType = "2";
                 this.fromModal.show();
             },
             updateTree:function () {
