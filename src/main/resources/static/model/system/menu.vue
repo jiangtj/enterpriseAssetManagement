@@ -58,18 +58,16 @@
         <tt-modal id="form-modal" :title="fromModalData.title">
             <form role="form" class="validation">
                 <div class="row">
-                    <div class="col-sm-6"><!--<div class="col-sm-6 b-r">-->
+                    <div class="col-sm-6 b-r"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                         <tt-simple-input label="排序" v-model="fromModalData.data.order" required></tt-simple-input>
-                        <tt-simple-select label="是否菜单" v-model="fromModalData.data.isMenu" required></tt-simple-select>
-                        <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
+                        <tt-simple-select label="类型" v-model="fromModalData.data.isMenu" :data="Map.menuType" required></tt-simple-select>
                     </div>
                     <div class="col-sm-6">
-                        <h4>权限信息</h4>
-                        <tt-simple-select label="权限" v-model="fromModalData.permissionCreateType" :data="Map.menuPermissionCreateType"></tt-simple-select>
-                        <tt-simple-input label="名称" v-model="fromModalData.data.permission.name" v-if="isPermissionCreate"></tt-simple-input>
-                        <tt-simple-input label="url" v-model="fromModalData.data.permission.url" v-if="isPermissionCreate"></tt-simple-input>
+                        <h4 class="m-t-none m-b">额外</h4>
+                        <tt-simple-input label="url" v-model="fromModalData.data.url"></tt-simple-input>
+                        <tt-simple-select label="权限" v-model="fromModalData.permissionId" :data="Map.permission" show-undefined></tt-simple-select>
                     </div>
                 </div>
                 <div class="row">
@@ -128,7 +126,6 @@
                     title:"",
                     data:{permission:{}},
                     empty:null,
-                    permissionCreateType:"1",
                     submit:function () {}
                 }
             }
@@ -142,9 +139,6 @@
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
-            },
-            isPermissionCreate:function () {
-                return this.fromModalData.permissionCreateType === "1";
             }
         },
         created:function () {
@@ -165,7 +159,6 @@
             getTableList:function () {
                 let self = this;
                 Server.menu.getList.setData(self.conditions).post(data => {
-                    debugger;
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -176,13 +169,11 @@
                 if (!self.fromModalData.empty){
                     let empty = self.tableData.data.length === 0?null:self.tableData.data[0];
                     self.fromModalData.empty = JsonUtils.setNull(empty);
-                    self.fromModalData.data.permission = self.fromModalData.data.permission||{};
                 }
             },
             getSubmitFunc:function (func) {
                 let self = this;
                 return function () {
-                    debugger;
                     if (ValidationUtils.check(".validation")){
                         func.setData(self.fromModalData.data).post(() => {
                             self.fromModal.hide();
@@ -202,14 +193,12 @@
                 this.fromModalData.title = "添加";
                 this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.add);
-                this.fromModalData.permissionCreateType = "1";
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.update);
-                this.fromModalData.permissionCreateType = "2";
                 this.fromModal.show();
             },
             updateTree:function () {

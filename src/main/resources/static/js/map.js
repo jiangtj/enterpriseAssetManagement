@@ -4,11 +4,15 @@ const Map = new Vue({
         role:function () {
             return this.getMap("/public/map/role");
         },
+        permission:function () {
+            return this.getMap("/permission/getMap");
+        },
+
         roleStatus:function () {
             return this.getMap("/public/map/dictionary/auth_role/status");
         },
-        menuPermissionCreateType:function () {
-            return this.getMap("/public/map/dictionary/auth_menu/permission_create_type");
+        menuType:function () {
+            return this.getMap("/public/map/dictionary/auth_menu/type");
         }
     },
     methods:{
