@@ -61,4 +61,11 @@
         </where>
     </select>
 
+    <select id="getMap" resultType="KeyValue">
+        SELECT
+            ap.id "key",
+            ap.name "value"
+        FROM auth_permission ap
+    </select>
+
 </mapper>

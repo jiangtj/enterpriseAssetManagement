@@ -30,4 +30,10 @@ public class PermissionServiceImpl
     @Autowired
     private PermissionDao permissionDao;
 
+    @Override
+    public ResultDto<List<KeyValue>> getMap() {
+        ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(permissionDao.getMap());
+        return result;
+    }
 }

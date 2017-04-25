@@ -19,4 +19,5 @@ import java.util.List;
 @Component
 public interface PermissionDao extends BaseDao<Permission,PermissionDto>{
 
+    List<KeyValue> getMap();
 }

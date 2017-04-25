@@ -6,6 +6,7 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.PermissionDto;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.dto.UserDto;
+import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.Role;
 import com.jtj.web.entity.User;
@@ -13,10 +14,9 @@ import com.jtj.web.service.PermissionService;
 import com.jtj.web.service.RoleService;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -47,6 +47,11 @@ public class PermissionController {
     @PostMapping("/getList")
     public ResultDto<PageDto<Permission>> getList(PermissionDto dto){
         return permissionService.getList(dto);
+    }
+
+    @GetMapping("/getMap")
+    public ResultDto<List<KeyValue>> getMap(){
+        return permissionService.getMap();
     }
 
 }
