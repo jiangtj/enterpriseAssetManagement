@@ -498,7 +498,7 @@ Vue.component("tt-simple-tree-children",{
     },
     computed:{
         hasTree:function () {
-            return this.object1 !== null || this.object1 !== undefined;
+            return this.object1 !== null && this.object1 !== undefined;
         }
     },
     methods:{

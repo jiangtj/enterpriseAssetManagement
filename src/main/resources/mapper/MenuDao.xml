@@ -5,8 +5,8 @@
 <mapper namespace="com.jtj.web.dao.MenuDao">
 
     <insert id="add">
-        INSERT INTO auth_menu(name, level, pid, `order`, is_menu, permission_id)
-        VALUES (#{name},#{level},#{pid},#{order},#{isMenu},#{permissionId})
+        INSERT INTO auth_menu(name,menu, level, pid, `order`, type,url,static_url,permission_id)
+        VALUES (#{name},#{menu},#{level},#{pid},#{order},#{type},#{url},#{staticUrl},#{permissionId})
     </insert>
 
     <update id="update">
@@ -14,6 +14,9 @@
         <set>
             <if test=" name != '' and name != null ">
                 name = #{name},
+            </if>
+            <if test=" menu != '' and menu != null ">
+                name = #{menu},
             </if>
             <if test="level != null">
                 level = #{level},
@@ -24,8 +27,14 @@
             <if test="order != null">
                 order = #{order},
             </if>
-            <if test="isMenu != null">
-                is_menu = #{isMenu},
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test=" url != '' and url != null ">
+                name = #{url},
+            </if>
+            <if test=" staticUrl != '' and staticUrl != null ">
+                static_url = #{staticUrl},
             </if>
         </set>
         WHERE id = #{id}
@@ -45,6 +54,9 @@
         <if test="name != null and name != ''">
             AND ${alias}.name = #{name}
         </if>
+        <if test="menu != null and menu != ''">
+            AND ${alias}.menu = #{menu}
+        </if>
         <if test="level != null">
             AND ${alias}.level = #{level}
         </if>
@@ -54,8 +66,8 @@
         <if test="order != null">
             AND ${alias}.order = #{order}
         </if>
-        <if test="isMenu != null">
-            AND ${alias}.is_menu = #{isMenu}
+        <if test="type != null">
+            AND ${alias}.type = #{type}
         </if>
     </sql>
 

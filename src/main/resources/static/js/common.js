@@ -127,37 +127,6 @@ const JsonUtils = {
     }
 };
 
-const VueUtils = {
-    setNull:function (vm,obj) {
-        for (let i in obj){
-            if (!obj.hasOwnProperty(i)){
-                Vue.set(vm,obj,null);
-                return;
-            }
-            if (JsonUtils.isJson(obj[i])){
-                Vue.set(vm,i,{});
-                VueUtils.setNull(vm,obj[i]);
-            }else {
-                Vue.set(vm,i,null);
-            }
-        }
-    },
-    setValue:function (vm,obj) {
-        for (let i in obj){
-            if (!obj.hasOwnProperty(i)){
-                Vue.set(vm,obj,obj);
-                return;
-            }
-            if (JsonUtils.isJson(obj[i])){
-                Vue.set(vm,i,{});
-                VueUtils.setValue(vm,obj[i]);
-            }else {
-                Vue.set(vm,i,obj[i]);
-            }
-        }
-    }
-};
-
 //Modal
 function ModalBuilder(position) {
     this.obj = $(position);

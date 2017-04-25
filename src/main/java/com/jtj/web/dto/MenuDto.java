@@ -10,10 +10,11 @@ public class MenuDto extends BaseDto {
 
     private Long id;
     private String name;
+    private String menu;
     private Integer level;
     private Long pid;
     private Integer order;
-    private Integer isMenu;
+    private Integer type;
 
     public Long getId() {
         return id;
@@ -29,6 +30,14 @@ public class MenuDto extends BaseDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
     }
 
     public Integer getLevel() {
@@ -55,11 +64,11 @@ public class MenuDto extends BaseDto {
         this.order = order;
     }
 
-    public Integer getIsMenu() {
-        return isMenu;
+    public Integer getType() {
+        return type;
     }
 
-    public void setIsMenu(Integer isMenu) {
-        this.isMenu = isMenu;
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

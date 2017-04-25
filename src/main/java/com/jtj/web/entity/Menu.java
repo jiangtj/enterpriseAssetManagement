@@ -9,10 +9,13 @@ import com.jtj.web.common.BaseEntity;
 public class Menu extends BaseEntity {
 
     private String name;
+    private String menu;
     private Integer level;
     private Long pid;
     private Integer order;
-    private Integer isMenu;
+    private Integer type;
+    private String url;
+    private String staticUrl;
     private Long permissionId;
     private Permission permission;
 
@@ -22,6 +25,14 @@ public class Menu extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
     }
 
     public Integer getLevel() {
@@ -48,12 +59,28 @@ public class Menu extends BaseEntity {
         this.order = order;
     }
 
-    public Integer getIsMenu() {
-        return isMenu;
+    public Integer getType() {
+        return type;
     }
 
-    public void setIsMenu(Integer isMenu) {
-        this.isMenu = isMenu;
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getStaticUrl() {
+        return staticUrl;
+    }
+
+    public void setStaticUrl(String staticUrl) {
+        this.staticUrl = staticUrl;
     }
 
     public Long getPermissionId() {
