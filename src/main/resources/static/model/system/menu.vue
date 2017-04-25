@@ -228,6 +228,7 @@
                                     item.parent = item.pid===0?"#":item.pid;
                                     item.text = item.name;
                                     item.children = true;
+                                    item.icon = 'fa fa-folder';
                                     return item;
                                 });
                                 callback.call(this,list)
