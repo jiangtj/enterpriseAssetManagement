@@ -463,3 +463,59 @@ Vue.component("tt-icon-check",{
         }
     }
 });
+
+Vue.component("tt-simple-tree-root",{
+    props: ['data','value','label'],
+    template:'<div>' +
+    '<label>{{label}}</label>' +
+    '<tt-simple-tree-children :data="data" v-model="object"></tt-simple-tree-children>' +
+    '</div>',
+    data:function () {
+        return {
+            object:this.value
+        }
+    },
+    watch:{
+        object:function (value) {
+            this.$emit('input',value);
+        }
+    }
+});
+Vue.component("tt-simple-tree-children",{
+    props: ['data','value'],
+    template:'<div>' +
+    '<select v-model="object1" class="form-control">' +
+    '<option :value="null">---- 请选择 ----</option>' +
+    '<option v-for="item in data" :value="item.key">{{ item.value }}</option>' +
+    '</select>' +
+    '<tt-simple-tree-children v-if="hasTree" :data="data" v-model="object2"></tt-simple-tree-children>' +
+    '</div>',
+    data:function () {
+        return {
+            object1:this.value,
+            object2:null
+        }
+    },
+    computed:{
+        hasTree:function () {
+            return this.object1 !== null || this.object1 !== undefined;
+        }
+    },
+    methods:{
+        updateValue:function (value) {
+            this.$emit('input',value)
+        }
+    },
+    watch:{
+        object1:function (value) {
+            this.object2=null;
+            this.$emit('input',value);
+        },
+        object2:function (value) {
+            this.$emit('input',value?value:this.object1);
+        },
+        value:function (value) {
+            if (value === null) this.object1=value;
+        }
+    }
+});

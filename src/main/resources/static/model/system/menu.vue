@@ -72,6 +72,7 @@
                     </div>
                     <div class="col-sm-6">
                         <h4 class="m-t-none m-b">额外</h4>
+                        <tt-simple-tree-root label="父节点" v-model="fromModalData.permissionId" :data="Map.permission"></tt-simple-tree-root>
                         <tt-simple-input label="url" v-model="fromModalData.data.url"></tt-simple-input>
                         <tt-simple-select label="权限" v-model="fromModalData.permissionId" :data="Map.permission" show-undefined></tt-simple-select>
                     </div>
