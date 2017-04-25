@@ -85,8 +85,11 @@
 
     <select id="getMenu" resultType="Menu">
         SELECT
-        am.*
+        am.*,
+        ap.name "permission.name",
+        ap.url "permission.url"
         FROM auth_menu am
+        LEFT JOIN auth_permission ap ON am.permission_id = ap.id
         <where>
             <include refid="permissionConditions">
                 <property name="alias" value="am"/>

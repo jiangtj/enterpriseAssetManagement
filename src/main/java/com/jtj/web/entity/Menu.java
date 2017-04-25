@@ -14,6 +14,7 @@ public class Menu extends BaseEntity {
     private Integer order;
     private Integer isMenu;
     private Long permissionId;
+    private Permission permission;
 
     public String getName() {
         return name;
@@ -61,5 +62,13 @@ public class Menu extends BaseEntity {
 
     public void setPermissionId(Long permissionId) {
         this.permissionId = permissionId;
+    }
+
+    public Permission getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
     }
 }

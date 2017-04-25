@@ -61,13 +61,15 @@
                     <div class="col-sm-6"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
+                        <tt-simple-input label="排序" v-model="fromModalData.data.order" required></tt-simple-input>
+                        <tt-simple-select label="是否菜单" v-model="fromModalData.data.isMenu" required></tt-simple-select>
                         <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
                     </div>
                     <div class="col-sm-6">
                         <h4>权限信息</h4>
                         <tt-simple-select label="权限" v-model="fromModalData.permissionCreateType" :data="Map.menuPermissionCreateType"></tt-simple-select>
-                        <tt-simple-input label="名称" v-model="fromModalData.data.name" :disabled="isPermissionCreate"></tt-simple-input>
-                        <tt-simple-input label="url" v-model="fromModalData.data.url" :disabled="!isPermissionCreate"></tt-simple-input>
+                        <tt-simple-input label="名称" v-model="fromModalData.data.permission.name" v-if="isPermissionCreate"></tt-simple-input>
+                        <tt-simple-input label="url" v-model="fromModalData.data.permission.url" v-if="isPermissionCreate"></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
@@ -124,7 +126,7 @@
                 pagination:{},
                 fromModalData:{
                     title:"",
-                    data:{},
+                    data:{permission:{}},
                     empty:null,
                     permissionCreateType:"1",
                     submit:function () {}
@@ -163,6 +165,7 @@
             getTableList:function () {
                 let self = this;
                 Server.menu.getList.setData(self.conditions).post(data => {
+                    debugger;
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -173,6 +176,7 @@
                 if (!self.fromModalData.empty){
                     let empty = self.tableData.data.length === 0?null:self.tableData.data[0];
                     self.fromModalData.empty = JsonUtils.setNull(empty);
+                    self.fromModalData.data.permission = self.fromModalData.data.permission||{};
                 }
             },
             getSubmitFunc:function (func) {
@@ -216,7 +220,7 @@
                                 let list = $.map(data.object,(item,index) => {
                                     item.parent = item.pid===0?"#":item.pid;
                                     item.text = item.name;
-                                    item["children"] = true;
+                                    item.children = true;
                                     return item;
                                 });
                                 callback.call(this,list)
