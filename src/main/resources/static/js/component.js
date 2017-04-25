@@ -468,7 +468,7 @@ Vue.component("tt-simple-tree-root",{
     props: ['data','value','label'],
     template:'<div>' +
     '<label>{{label}}</label>' +
-    '<tt-simple-tree-children :data="data" v-model="object"></tt-simple-tree-children>' +
+    '<tt-simple-tree-children :data="data(0)" :func="data" v-model="object"></tt-simple-tree-children>' +
     '</div>',
     data:function () {
         return {
@@ -482,13 +482,13 @@ Vue.component("tt-simple-tree-root",{
     }
 });
 Vue.component("tt-simple-tree-children",{
-    props: ['data','value'],
-    template:'<div>' +
+    props: ['data','value','func'],
+    template:'<div v-if="data.length !== 0">' +
     '<select v-model="object1" class="form-control">' +
     '<option :value="null">---- 请选择 ----</option>' +
     '<option v-for="item in data" :value="item.key">{{ item.value }}</option>' +
     '</select>' +
-    '<tt-simple-tree-children v-if="hasTree" :data="data" v-model="object2"></tt-simple-tree-children>' +
+    '<tt-simple-tree-children v-if="hasTree" :data="func(object1)" :func="func" :value="object2" @input="updateValue"></tt-simple-tree-children>' +
     '</div>',
     data:function () {
         return {
@@ -503,7 +503,8 @@ Vue.component("tt-simple-tree-children",{
     },
     methods:{
         updateValue:function (value) {
-            this.$emit('input',value)
+            this.object2 = value;
+            if (value === null) this.$emit('input',this.object1);
         }
     },
     watch:{

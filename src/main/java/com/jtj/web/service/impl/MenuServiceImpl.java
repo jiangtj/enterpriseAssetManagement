@@ -6,6 +6,7 @@ import com.jtj.web.dao.MenuDao;
 import com.jtj.web.dao.PermissionDao;
 import com.jtj.web.dto.MenuDto;
 import com.jtj.web.dto.PermissionDto;
+import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
 import com.jtj.web.entity.Permission;
 import com.jtj.web.service.MenuService;
@@ -28,9 +29,21 @@ public class MenuServiceImpl
     private MenuDao menuDao;
 
     @Override
+    public ResultDto<Object> add(Menu t) {
+        return super.add(t);
+    }
+
+    @Override
     public ResultDto<List<Menu>> getMenu(MenuDto dto) {
         ResultDto<List<Menu>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject( menuDao.getMenu(dto));
+        return result;
+    }
+
+    @Override
+    public ResultDto<List<KeyValue>> getMapById(Long pid) {
+        ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject( menuDao.getMapById(pid));
         return result;
     }
 }

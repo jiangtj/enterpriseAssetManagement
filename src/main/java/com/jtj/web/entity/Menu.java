@@ -14,6 +14,7 @@ public class Menu extends BaseEntity {
     private Long pid;
     private Integer order;
     private Integer type;
+    private String icon;
     private String url;
     private String staticUrl;
     private Long permissionId;
@@ -65,6 +66,14 @@ public class Menu extends BaseEntity {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getUrl() {

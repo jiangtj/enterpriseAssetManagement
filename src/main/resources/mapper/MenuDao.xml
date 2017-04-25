@@ -5,8 +5,8 @@
 <mapper namespace="com.jtj.web.dao.MenuDao">
 
     <insert id="add">
-        INSERT INTO auth_menu(name,menu, level, pid, `order`, type,url,static_url,permission_id)
-        VALUES (#{name},#{menu},#{level},#{pid},#{order},#{type},#{url},#{staticUrl},#{permissionId})
+        INSERT INTO auth_menu(name,menu, level, pid, `order`, type,icon,url,static_url,permission_id)
+        VALUES (#{name},#{menu},#{level},#{pid},#{order},#{type},#{icon},#{url},#{staticUrl},#{permissionId})
     </insert>
 
     <update id="update">
@@ -30,10 +30,13 @@
             <if test="type != null">
                 type = #{type},
             </if>
-            <if test=" url != '' and url != null ">
-                name = #{url},
+            <if test="icon != null ">
+                icon = #{icon},
             </if>
-            <if test=" staticUrl != '' and staticUrl != null ">
+            <if test="url != null ">
+                url = #{url},
+            </if>
+            <if test="staticUrl != null ">
                 static_url = #{staticUrl},
             </if>
         </set>
@@ -108,6 +111,15 @@
             </include>
         </where>
         ORDER BY am.pid ASC ,am.`order` ASC
+    </select>
+
+    <select id="getMapById" resultType="KeyValue">
+        SELECT
+            am.id "key",
+            am.name "value"
+        FROM auth_menu am
+        WHERE am.pid = #{pid}
+        ORDER BY am.`order` ASC
     </select>
 
 </mapper>

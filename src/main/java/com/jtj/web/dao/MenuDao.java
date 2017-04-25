@@ -1,11 +1,10 @@
 package com.jtj.web.dao;
 
-import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.MenuDto;
-import com.jtj.web.dto.PermissionDto;
+import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
-import com.jtj.web.entity.Permission;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,4 +18,6 @@ import java.util.List;
 public interface MenuDao extends BaseDao<Menu,MenuDto>{
 
     List<Menu> getMenu(MenuDto dto);
+
+    List<KeyValue> getMapById(@Param("pid") Long pid);
 }
