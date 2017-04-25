@@ -38,6 +38,12 @@
                 <div class="ibox-content">
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
+                            <template slot="tt-body-permission" scope="props">
+                                {{props.row.permission?props.row.permission.name:'未绑定权限'}}
+                            </template>
+                            <template slot="tt-body-isMenu" scope="props">
+                                <tt-icon-check :checked="props.row.isMenu === 1"></tt-icon-check>
+                            </template>
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                             </template>
@@ -115,7 +121,7 @@
                         level:"级别",
                         order:"排序",
                         isMenu:"是否菜单",
-                        permissionId:"权限id",
+                        permission:"关联权限",
                         operation:{name:"操作",width:"60px"}
                     },
                     data:[]
@@ -124,7 +130,7 @@
                 pagination:{},
                 fromModalData:{
                     title:"",
-                    data:{permission:{}},
+                    data:{},
                     empty:null,
                     submit:function () {}
                 }
