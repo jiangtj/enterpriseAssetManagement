@@ -33,18 +33,24 @@ const Web = {
         window.location.href = Web.buildUrl(url);
     },
     updateDate:function (data) {
-        if (Object.prototype.toString.call(data) === "[object String]"){
-            return;
-        }
         jQuery.each(data,function (key,value) {
-            if (value === null) data[key] = undefined;
-            if (typeof(value) === "object" && Object.prototype.toString.call(value).toLowerCase() === "[object object]" && !value.length){
-                Web.updateDate(value)
-            }
-            if (data[key] === {}){
-                data[key] = undefined;
-            }
-        })
+            Web.updateObject(key,value,data);
+        });
+        return data;
+    },
+    updateObject:function (key,value,content) {
+        if (value === null) content[key] = undefined;
+        if (typeof(value) === "object" && Object.prototype.toString.call(value).toLowerCase() === "[object object]" && !value.length){
+            jQuery.each(value,function (x,y) {
+                Web.updateObject(x,y,value);
+                if (content[key] === {}){
+                    content[key+"."+x] = undefined;
+                }else {
+                    content[key+"."+x] = value[x];
+                }
+                value[x] = undefined;
+            });
+        }
     }
 };
 
@@ -69,8 +75,14 @@ jQuery.extend(true,WebBuilder.prototype,{
         return this;
     },
     setData:function (data) {
+        //string
+        if (Object.prototype.toString.call(data) === "[object String]"){
+            this.options.data = data;
+            return this;
+        }
+        //json
         Web.updateDate(data);
-        this.options.data = data;
+        this.options.data =data;
         return this;
     },
     setMethod:function (method) {

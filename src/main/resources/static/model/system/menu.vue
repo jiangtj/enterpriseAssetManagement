@@ -68,7 +68,8 @@
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                         <tt-simple-input label="编号" v-model="fromModalData.data.menu" required></tt-simple-input>
-                        <tt-simple-tree-root label="父节点" v-model="fromModalData.data.pid" :data="getMenuMapById"></tt-simple-tree-root>
+                        <tt-simple-input v-if="conditions.pid || isUpdate" label="父节点" v-model="fromModalData.data.pid" disabled="disabled"></tt-simple-input>
+                        <tt-simple-tree-root v-else label="父节点" v-model="fromModalData.data.pid" :data="getMenuMapById"></tt-simple-tree-root>
                         <tt-simple-input label="排序" v-model="fromModalData.data.order" required></tt-simple-input>
                         <tt-simple-select label="类型" v-model="fromModalData.data.type" :data="Map.menuType" required></tt-simple-select>
                     </div>
@@ -137,7 +138,8 @@
                     data:{},
                     empty:null,
                     submit:function () {}
-                }
+                },
+                isUpdate:false
             }
         },
         computed:{
@@ -149,6 +151,11 @@
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
+            },
+            hasSelectedPid:function () {
+                if (this.conditions.pid) return true;
+                if (this.isUpdate) return true;
+                return false
             }
         },
         created:function () {
@@ -202,12 +209,15 @@
             showAddModal:function () {
                 this.fromModalData.title = "添加";
                 this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
+                this.fromModalData.data.pid = this.conditions.pid;
+                this.isUpdate = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
+                this.isUpdate = true;
                 this.fromModalData.submit = this.getSubmitFunc(Server.menu.update);
                 this.fromModal.show();
             },
@@ -237,6 +247,7 @@
                     }
                 }).on('changed.jstree', function (e, data) {
                     self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
+                    self.pname = data.node.text;
                     self.getTableList();
                 });
             }
