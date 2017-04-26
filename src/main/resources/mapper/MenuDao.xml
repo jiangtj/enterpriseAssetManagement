@@ -16,16 +16,17 @@
                 name = #{name},
             </if>
             <if test=" menu != '' and menu != null ">
-                name = #{menu},
+                menu = #{menu},
             </if>
-            <if test="level != null">
+            <!-- 暂不支持父节点修改 -->
+            <!--<if test="level != null">
                 level = #{level},
             </if>
             <if test="pid != null">
                 pid = #{pid},
-            </if>
+            </if>-->
             <if test="order != null">
-                order = #{order},
+                `order` = #{order},
             </if>
             <if test="type != null">
                 type = #{type},
