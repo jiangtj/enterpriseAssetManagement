@@ -30,6 +30,13 @@ public class MenuServiceImpl
 
     @Override
     public ResultDto<Object> add(Menu t) {
+        if (t.getPid() == null) {
+            t.setPid(0L);
+            t.setLevel(1);
+        }else {
+            Menu menu = menuDao.getById(t.getPid());
+            t.setLevel(menu.getLevel() + 1);
+        }
         return super.add(t);
     }
 

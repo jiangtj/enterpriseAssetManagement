@@ -68,12 +68,12 @@
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                         <tt-simple-input label="编号" v-model="fromModalData.data.menu" required></tt-simple-input>
+                        <tt-simple-tree-root label="父节点" v-model="fromModalData.data.pid" :data="getMenuMapById"></tt-simple-tree-root>
                         <tt-simple-input label="排序" v-model="fromModalData.data.order" required></tt-simple-input>
                         <tt-simple-select label="类型" v-model="fromModalData.data.type" :data="Map.menuType" required></tt-simple-select>
                     </div>
                     <div class="col-sm-6">
                         <h4 class="m-t-none m-b">额外</h4>
-                        <tt-simple-tree-root label="父节点" v-model="fromModalData.data.pid" :data="getMenuMapById"></tt-simple-tree-root>
                         <tt-simple-input label="图标" v-model="fromModalData.data.icon"></tt-simple-input>
                         <tt-simple-input label="访问路径" v-model="fromModalData.data.url"></tt-simple-input>
                         <tt-simple-input label="静态资源" v-model="fromModalData.data.staticUrl"></tt-simple-input>

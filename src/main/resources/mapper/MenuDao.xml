@@ -122,4 +122,8 @@
         ORDER BY am.`order` ASC
     </select>
 
+    <select id="getById" resultType="Menu">
+        SELECT am.* FROM auth_menu am WHERE am.id = #{id}
+    </select>
+
 </mapper>

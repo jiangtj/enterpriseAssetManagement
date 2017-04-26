@@ -20,4 +20,6 @@ public interface MenuDao extends BaseDao<Menu,MenuDto>{
     List<Menu> getMenu(MenuDto dto);
 
     List<KeyValue> getMapById(@Param("pid") Long pid);
+
+    Menu getById(@Param("id") Long id);
 }

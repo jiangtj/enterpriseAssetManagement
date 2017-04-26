@@ -466,7 +466,7 @@ Vue.component("tt-icon-check",{
 
 Vue.component("tt-simple-tree-root",{
     props: ['data','value','label'],
-    template:'<div>' +
+    template:'<div class="form-group tt-from-input">' +
     '<label>{{label}}</label>' +
     '<tt-simple-tree-children :data="data(0)" :func="data" v-model="object"></tt-simple-tree-children>' +
     '</div>',

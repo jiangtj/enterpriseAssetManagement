@@ -1,6 +1,7 @@
 package com.jtj.web.common;
 
 import org.springframework.core.convert.converter.Converter;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.Date;
 
@@ -11,6 +12,9 @@ import java.util.Date;
 public class StringToDateConverter implements Converter<String,Date> {
     @Override
     public Date convert(String source) {
+        if (StringUtils.isEmpty(source)){
+            return null;
+        }
         return new Date(Long.parseLong(source));
     }
 }
