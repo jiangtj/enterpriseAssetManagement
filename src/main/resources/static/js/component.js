@@ -11,6 +11,59 @@ const SlotsUtils = {
     }
 };
 
+
+
+Vue.component("tt-menu-root",{
+    props: ['data','menu'],
+    render:function (createElement) {
+        let self = this;
+        let elements = [];
+        if (self.isEmpty(self.data.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
+        elements.push(createElement("span",{class:["nav-label"]},self.data.name));
+        if (self.isNext(self.data.id)) {
+            elements.push(createElement("span",{class:["fa","arrow"]}));
+        }
+        return createElement(self.isEmpty(self.data.url)?"a":"router-link",{attrs:{to:self.data.url}},elements)
+    },
+    computed:{
+    },
+    methods:{
+        isEmpty:function (value) {
+            return value === null || value === undefined || value === "";
+        },
+        isNext:function (id) {
+            for (let i in this.menu){
+                if (this.menu[i].pid === id) return true;
+            }
+            return false;
+        }
+    }
+});
+
+Vue.component("tt-menu-second",{
+    props: ['data'],
+    render:function (createElement) {
+        let self = this;
+        if (self.data.length === 0) return null;
+        return createElement("ul",{class:["nav","nav-second-level","collapse"]},$.map(this.data,function (item) {
+            let elements = [];
+            if (self.isEmpty(item.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
+            //elements.push(createElement("span",item.name));
+            elements.push(item.name);
+            return createElement("li",{class:{'active':item.isActive}},[
+                createElement(self.isEmpty(item.url)?"a":"router-link",{attrs:{to:item.url}},elements)
+            ])
+        }));
+    },
+    computed:{
+    },
+    methods:{
+        isEmpty:function (value) {
+            return value === null || value === undefined || value === "";
+        }
+    }
+});
+
 Vue.component('header-label', {
     props: ['data'],
     template: '<div v-if="data != null" class="row wrapper border-bottom white-bg page-heading">'

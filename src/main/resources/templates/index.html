@@ -48,23 +48,23 @@
                 </li>
 
                 <!-- 菜单 -->
-                <li v-for="n in menu" v-bind:class="{'active':n.isActive}">
+                <!--<li v-for="n in menu" v-bind:class="{'active':n.isActive}">
 
-                    <!-- 一级菜单url为空 -->
+                    &lt;!&ndash; 一级菜单url为空 &ndash;&gt;
                     <a v-if="n.url == null">
                         <i v-if="n.icon != null" class="fa" v-bind:class="[n.icon]"></i>
                         <span class="nav-label">{{n.name}}</span>
                         <span v-if="n.list != null" class="fa arrow"></span>
                     </a>
 
-                    <!-- 一级菜单url不为空 -->
+                    &lt;!&ndash; 一级菜单url不为空 &ndash;&gt;
                     <router-link v-if="n.url != null" v-bind:to="n.url">
                         <i v-if="n.icon != null" class="fa" v-bind:class="[n.icon]"></i>
                         <span class="nav-label">{{n.name}}</span>
                         <span v-if="n.list != null" class="fa arrow"></span>
                     </router-link>
 
-                    <!-- 二级菜单 -->
+                    &lt;!&ndash; 二级菜单 &ndash;&gt;
                     <ul v-if="n.list != null" class="nav nav-second-level collapse">
                         <li v-for="item in n.list" v-bind:class="{'active':item.isActive}">
                             <router-link v-bind:to="item.url">
@@ -73,6 +73,10 @@
                         </li>
                     </ul>
 
+                </li>-->
+                <li v-for="n in menuLevel1" v-bind:class="{'active':n.isActive}">
+                    <tt-menu-root :data="n" :menu="menu"></tt-menu-root>
+                    <tt-menu-second :data="getNextMenu(n.id)"></tt-menu-second>
                 </li>
             </ul>
 

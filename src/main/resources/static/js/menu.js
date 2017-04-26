@@ -1,5 +1,5 @@
 //todo 将menu数据存入数据库
-const AppMenu = [
+/*const AppMenu = [
     {
         menu:"Home",
         name:"首页",
@@ -34,7 +34,17 @@ const AppMenu = [
             {menu:"Menu",name:"菜单管理",url:"/system/menu",staticUrl:"/model/system/menu.vue"},
         ]
     }
-];
+];*/
+
+function getAppMenu() {
+    let innerData = null;
+    Server.menu.getMenu.setAsync(false).post(data => {
+        innerData = data.object;
+    });
+    return innerData;
+}
+
+const AppMenu = getAppMenu();
 
 //定义路由
 const MenuRoutes = {};
@@ -47,10 +57,10 @@ const MenuUtils = {
     pushMenuRoutes: function (menus) {
         for (let i = 0; i < menus.length; i++) {
             let item = menus[i];
-            if (item.list !== undefined) {
+            /*if (item.list !== undefined) {
                 MenuUtils.pushMenuRoutes(item.list);
-            }
-            if (item.url !== undefined) {
+            }*/
+            if (item.url !== undefined && item.url !== null && item.url !== "") {
                 MenuUtils.pushMenuRoute(item.menu, item)
             }
         }
