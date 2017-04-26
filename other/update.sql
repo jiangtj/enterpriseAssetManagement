@@ -6,3 +6,7 @@ ADD COLUMN `static_url`  varchar(255) NULL COMMENT '静态资源路径' AFTER `u
 
 ALTER TABLE `auth_menu`
   ADD COLUMN `icon`  varchar(255) NULL COMMENT '图标' AFTER `type`;
+
+ALTER TABLE `auth_menu`
+  MODIFY COLUMN `menu`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单编号' AFTER `name`;
+
