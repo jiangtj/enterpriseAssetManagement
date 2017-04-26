@@ -17,6 +17,8 @@
                     <form role="form" class="form-inline">
 
                         <tt-simple-input label="名称" v-model="conditions.name"></tt-simple-input>
+                        <tt-simple-input label="编号" v-model="conditions.menu"></tt-simple-input>
+                        <tt-simple-select label="类型" v-model="conditions.type" :data="Map.menuType" show-undefined></tt-simple-select>
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
@@ -151,11 +153,6 @@
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
-            },
-            hasSelectedPid:function () {
-                if (this.conditions.pid) return true;
-                if (this.isUpdate) return true;
-                return false
             }
         },
         created:function () {
