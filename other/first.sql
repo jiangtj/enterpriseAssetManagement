@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-04-18 21:30:21
+Date: 2017-04-27 00:31:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -113,17 +113,21 @@ DROP TABLE IF EXISTS `auth_menu`;
 CREATE TABLE `auth_menu` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单id',
   `name` varchar(50) NOT NULL COMMENT '菜单名称',
+  `menu` varchar(50) NOT NULL COMMENT '菜单编号',
   `level` int(8) NOT NULL COMMENT '级别',
   `pid` bigint(20) NOT NULL COMMENT '父节点id',
   `order` int(8) NOT NULL COMMENT '同一个父节点下面的排序',
-  `is_menu` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否是菜单，1：是，2：否',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否是菜单，1：菜单，2：权限',
+  `icon` varchar(255) DEFAULT NULL COMMENT '图标',
+  `url` varchar(255) DEFAULT NULL COMMENT '菜单请求路径',
+  `static_url` varchar(255) DEFAULT NULL COMMENT '静态资源路径',
   `permission_id` bigint(20) DEFAULT NULL COMMENT '权限id',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `menu@permission_id` (`permission_id`),
   CONSTRAINT `menu@permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -263,4 +267,4 @@ CREATE TABLE `system_dictionary` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@table, column, key` (`table`,`column`,`key`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;

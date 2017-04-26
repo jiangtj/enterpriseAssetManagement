@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-04-18 21:30:10
+Date: 2017-04-27 00:31:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -133,21 +133,33 @@ DROP TABLE IF EXISTS `auth_menu`;
 CREATE TABLE `auth_menu` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单id',
   `name` varchar(50) NOT NULL COMMENT '菜单名称',
+  `menu` varchar(50) NOT NULL COMMENT '菜单编号',
   `level` int(8) NOT NULL COMMENT '级别',
   `pid` bigint(20) NOT NULL COMMENT '父节点id',
   `order` int(8) NOT NULL COMMENT '同一个父节点下面的排序',
-  `is_menu` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否是菜单，1：是，2：否',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否是菜单，1：菜单，2：权限',
+  `icon` varchar(255) DEFAULT NULL COMMENT '图标',
+  `url` varchar(255) DEFAULT NULL COMMENT '菜单请求路径',
+  `static_url` varchar(255) DEFAULT NULL COMMENT '静态资源路径',
   `permission_id` bigint(20) DEFAULT NULL COMMENT '权限id',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `menu@permission_id` (`permission_id`),
   CONSTRAINT `menu@permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_menu
 -- ----------------------------
+INSERT INTO `auth_menu` VALUES ('1', '首页', 'Home', '1', '0', '1', '1', 'fa-dashboard', '/', '/model/index.vue', null, '2017-04-25 21:20:36', '2017-04-26 22:13:48');
+INSERT INTO `auth_menu` VALUES ('2', '资源管理', 'Asset', '1', '0', '2', '1', 'fa-th-large', '', null, null, '2017-04-25 21:20:59', '2017-04-26 22:10:34');
+INSERT INTO `auth_menu` VALUES ('4', '报表分析', 'Report ', '1', '0', '3', '1', 'fa-pie-chart', null, null, null, '2017-04-26 22:11:41', '2017-04-26 22:11:41');
+INSERT INTO `auth_menu` VALUES ('5', '系统管理', 'System', '1', '0', '99', '1', 'fa-cogs', null, null, null, '2017-04-26 22:12:16', '2017-04-26 22:12:16');
+INSERT INTO `auth_menu` VALUES ('6', '用户管理', 'User', '2', '5', '1', '1', null, '/system/user', '/model/system/user.vue', null, '2017-04-26 22:13:37', '2017-04-26 22:13:37');
+INSERT INTO `auth_menu` VALUES ('7', '角色管理', 'Role', '2', '5', '2', '1', null, '/system/role', '/model/system/role.vue', null, '2017-04-26 22:14:32', '2017-04-26 22:14:32');
+INSERT INTO `auth_menu` VALUES ('8', '权限管理', 'Permission', '2', '5', '3', '1', null, '/system/permission', '/model/system/permission.vue', null, '2017-04-26 22:15:12', '2017-04-26 22:15:12');
+INSERT INTO `auth_menu` VALUES ('9', '菜单管理', 'Menu', '2', '5', '4', '1', null, '/system/menu', '/model/system/menu.vue', null, '2017-04-26 22:15:43', '2017-04-26 22:15:43');
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -332,10 +344,12 @@ CREATE TABLE `system_dictionary` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@table, column, key` (`table`,`column`,`key`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of system_dictionary
 -- ----------------------------
 INSERT INTO `system_dictionary` VALUES ('1', 'auth_role', 'status', '1', '启用', '2017-04-16 18:23:37', '2017-04-16 18:23:37');
 INSERT INTO `system_dictionary` VALUES ('2', 'auth_role', 'status', '2', '不启用', '2017-04-16 18:23:58', '2017-04-16 18:23:58');
+INSERT INTO `system_dictionary` VALUES ('3', 'auth_menu', 'type', '1', '菜单', '2017-04-23 20:49:09', '2017-04-25 20:27:19');
+INSERT INTO `system_dictionary` VALUES ('4', 'auth_menu', 'type', '2', '权限', '2017-04-23 20:50:20', '2017-04-25 20:27:22');
