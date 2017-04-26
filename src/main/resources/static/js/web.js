@@ -42,7 +42,7 @@ const Web = {
         if (value === null) content[key] = undefined;
         if (typeof(value) === "object" && Object.prototype.toString.call(value).toLowerCase() === "[object object]" && !value.length){
             jQuery.each(value,function (x,y) {
-                Web.updateObject(x,y,value);
+                Web.updateObject(key+"."+x,y,content);
                 if (content[key] === {}){
                     content[key+"."+x] = undefined;
                 }else {
