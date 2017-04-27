@@ -14,6 +14,7 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
+                                <button @click="showAddMiniModal()"  class="btn btn-outline btn-primary" type="button">Quick</button>
                                 <button @click="showAddModal()"  class="btn btn-outline btn-primary" type="button">新增</button>
                                 <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
                                 <button @click="deleteAll()" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
@@ -51,7 +52,7 @@
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
-                        <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
+                        <tt-simple-input v-if="!quick" label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                         <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
                     </div>
                     <!--<div class="col-sm-6">
@@ -112,7 +113,8 @@
                     data:{},
                     empty:null,
                     submit:function () {}
-                }
+                },
+                quick:false
             }
         },
         computed:{
@@ -177,12 +179,21 @@
                 this.fromModalData.title = "添加";
                 this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
                 this.fromModalData.submit = this.getSubmitFunc(Server.permission.add);
+                this.quick = false;
+                this.fromModal.show();
+            },
+            showAddMiniModal:function () {
+                this.fromModalData.title = "添加";
+                this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
+                this.fromModalData.submit = this.getSubmitFunc(Server.permission.addQuick);
+                this.quick = true;
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.permission.update);
+                this.quick = false;
                 this.fromModal.show();
             }
         }

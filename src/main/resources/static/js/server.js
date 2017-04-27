@@ -71,6 +71,7 @@ const Server = {
     permission:{
         getList:new WebBuilder("/permission/getList",{intercepts:defaultListIntercept}),
         add:new WebBuilder("/permission/add",{intercepts:defaultIntercept}),
+        addQuick:new WebBuilder("/permission/addQuick",{intercepts:defaultIntercept}),
         delete:new WebBuilder("/permission/delete",{intercepts:defaultIntercept}),
         update:new WebBuilder("/permission/update",{intercepts:defaultIntercept})
     },

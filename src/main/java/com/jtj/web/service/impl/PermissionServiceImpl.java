@@ -36,4 +36,13 @@ public class PermissionServiceImpl
         result.setObject(permissionDao.getMap());
         return result;
     }
+
+    @Override
+    public ResultDto<Object> addQuick(Permission permission) {
+        String[] arr = permission.getUrl().split("/");
+        StringBuilder builder = new StringBuilder();
+        for (String temp : arr) builder.append(":").append(temp);
+        permission.setName(builder.substring(2));
+        return super.add(permission);
+    }
 }
