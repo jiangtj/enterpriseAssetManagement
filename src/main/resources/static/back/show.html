@@ -10,6 +10,7 @@
     <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet" />
     <link href="../css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../css/plugins/jsTree/style.min.css" rel="stylesheet" />
+    <link href="../css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet" />
     <link href="../css/animate.css" rel="stylesheet" />
     <link href="../css/style.css" rel="stylesheet" />
     <link href="../css/index.css" rel="stylesheet" />
@@ -28,6 +29,44 @@
                     <h5>备份模版</h5>
                 </div>
                 <div class="ibox-content">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>选择</h5>
+                </div>
+                <div class="ibox-content">
+
+
+                    <div class="form-group">
+                        <label>ss select</label>
+                        <select class="chosen-select">
+                            <option value>--- 请选择 ---</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Aland Islands">Aland Islands</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-noraml">xx select</label>
+                        <select data-placeholder="Choose a Country..." class="chosen-select" multiple style="width:350px;">
+                            <option value="">Select</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <option value="Aland Islands">Aland Islands</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                        </select>
+                    </div>
+
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -105,6 +144,7 @@
 <script src="../js/plugins/sweetalert/sweetalert.min.js"></script>
 <script src="../js/plugins/validate/jquery.validate.min.js"></script>
 <script src="../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../js/plugins/chosen/chosen.jquery.js"></script>
 
 <!-- Custom javascript -->
 <script src="../js/md5.js"></script>
@@ -119,7 +159,11 @@
 
 
 
-
+<!-- chosen -->
+<script>
+    $('.chosen-select').chosen({width: "100%"});
+</script>
+<!-- tree -->
 <script>
     $(document).ready(function(){
 

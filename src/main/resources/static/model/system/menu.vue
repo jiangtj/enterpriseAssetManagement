@@ -19,6 +19,7 @@
                         <tt-simple-input label="名称" v-model="conditions.name"></tt-simple-input>
                         <tt-simple-input label="编号" v-model="conditions.menu"></tt-simple-input>
                         <tt-simple-select label="类型" v-model="conditions.type" :data="Map.menuType" show-undefined></tt-simple-select>
+                        <!--<tt-multi-select label="类型" v-model="conditions.type" :data="Map.menuType" show-undefined></tt-multi-select>-->
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">

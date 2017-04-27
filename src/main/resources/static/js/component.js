@@ -438,6 +438,41 @@ Vue.component("tt-simple-select",{
         }
     }
 });
+Vue.component("tt-multi-select",{
+    props: ['data','value','name','label','show-undefined','required','multiple'],
+    template:'<div class="form-group tt-from-input">' +
+    '<label>{{label}}</label>' +
+    '<select :id="\'chosen-\'+id" :value="value" @input="updateValue($event.target.value)" class="form-control chosen-select" :name="innerName" :required="required">' +
+    '<option v-if="showOthers" :value="undefined">---- 请选择 ----</option>' +
+    '<option v-for="item in data" :value="item.key">{{ item.value }}</option>' +
+    '</div>' +
+    '</div>',
+    data:function () {
+        return {
+            id:new Date().getTime()
+        }
+    },
+    computed: {
+        innerName:function () {
+            return this.name || this.label;
+        },
+        showOthers:function () {
+            return this.showUndefined !== undefined
+        }
+    },
+    mounted:function () {
+        let self = this;
+       $('.chosen-select').chosen({width: "100%"}).change(function () {
+           let value = $("#chosen-"+self.id).val();
+           self.$emit('input',value)
+       });
+    },
+    methods:{
+        updateValue:function (value) {
+            this.$emit('input',value)
+        }
+    }
+});
 
 Vue.component('tt-modal', {
     props: ['size','close','title'],
