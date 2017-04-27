@@ -81,7 +81,8 @@
                         <tt-simple-input label="图标" v-model="fromModalData.data.icon"></tt-simple-input>
                         <tt-simple-input label="访问路径" v-model="fromModalData.data.url"></tt-simple-input>
                         <tt-simple-input label="静态资源" v-model="fromModalData.data.staticUrl"></tt-simple-input>
-                        <tt-simple-select label="权限" v-model="fromModalData.data.permissionId" :data="Map.permission" show-undefined></tt-simple-select>
+                        <!--<tt-simple-select label="权限" v-model="fromModalData.data.permissionId" :data="Map.permission" show-undefined></tt-simple-select>-->
+                        <tt-multi-select label="权限" v-model="fromModalData.data.permissionId" :data="Map.permission" show-undefined></tt-multi-select>
                     </div>
                 </div>
                 <div class="row">
