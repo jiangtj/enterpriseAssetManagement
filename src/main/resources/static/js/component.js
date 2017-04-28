@@ -18,7 +18,7 @@ Vue.component("tt-menu-root",{
     render:function (createElement) {
         let self = this;
         let elements = [];
-        if (self.isEmpty(self.data.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
+        if (!self.isEmpty(self.data.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
         elements.push(createElement("span",{class:["nav-label"]},self.data.name));
         if (self.isNext(self.data.id)) {
             elements.push(createElement("span",{class:["fa","arrow"]}));
@@ -47,7 +47,7 @@ Vue.component("tt-menu-second",{
         if (self.data.length === 0) return null;
         return createElement("ul",{class:["nav","nav-second-level","collapse"]},$.map(this.data,function (item) {
             let elements = [];
-            if (self.isEmpty(item.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
+            if (!self.isEmpty(item.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
             //elements.push(createElement("span",item.name));
             elements.push(item.name);
             return createElement("li",{class:{'active':item.isActive}},[
