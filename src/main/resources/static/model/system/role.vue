@@ -37,7 +37,7 @@
                                 <tt-icon-check :checked="props.row.status === 1"></tt-icon-check>
                             </template>
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">权限</button>
+                                <button @click="showPermissionModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">权限</button>
                                 <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                             </template>
                         </tt-table>
@@ -66,6 +66,23 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <button @click="fromModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
+                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
+                    </div>
+                </div>
+            </form>
+        </tt-modal>
+
+        <!-- 权限弹出框 -->
+        <tt-modal id="permission-modal" title="配置权限" size="sm">
+            <form role="form" class="validation">
+                <div class="row">
+                    <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
+                        <div id="menu-tree"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button @click="permissionModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
                         <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
                     </div>
                 </div>
@@ -117,6 +134,10 @@
                     data:{},
                     empty:null,
                     submit:function () {}
+                },
+                permissionModalData:{
+                    data:{},
+                    submit:function () {}
                 }
             }
         },
@@ -129,6 +150,9 @@
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
+            },
+            permissionModal:function () {
+                return new ModalBuilder("#permission-modal");
             }
         },
         created:function () {
@@ -189,6 +213,41 @@
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.role.update);
                 this.fromModal.show();
+            },
+            showPermissionModal:function (obj) {
+                let self = this;
+                self.updateMenuTree();
+                self.permissionModalData.data = {id:obj.id};
+                self.permissionModalData.submit = function () {
+                    let menuIds = $('#menu-tree').jstree(true).get_selected();
+                    Server.role.updatePermission.setData({
+                        roleId:obj.id,
+                        menuIds:menuIds
+                    }).post()
+                };
+                self.permissionModal.show();
+            },
+            updateMenuTree:function () {
+                let self = this;
+                $('#menu-tree').jstree({
+                    'core': {
+                        'data': function (node, callback) {
+                            Server.menu.getMenu.setData({
+                                pid: node.id === "#" ? 0 : node.id
+                            }).post(data => {
+                                let list = $.map(data.object, (item, index) => {
+                                    item.parent = item.pid === 0 ? "#" : item.pid;
+                                    item.text = item.name;
+                                    item.children = true;
+                                    item.icon = item.type === 1 ? 'fa fa-folder' : 'none';
+                                    return item;
+                                });
+                                callback.call(this, list)
+                            });
+                        }
+                    },
+                    "plugins": ["checkbox"]
+                });
             }
         }
     });

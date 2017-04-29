@@ -232,7 +232,10 @@
                 $('#menu-tree').jstree({
                     'core' : {
                         'data' :function (node,callback) {
-                            Server.menu.getMenu.setData({pid:node.id==="#"?0:node.id}).post(data => {
+                            Server.menu.getMenu.setData({
+                                pid:node.id==="#"?0:node.id,
+                                type:1
+                            }).post(data => {
                                 let list = $.map(data.object,(item,index) => {
                                     item.parent = item.pid===0?"#":item.pid;
                                     item.text = item.name;

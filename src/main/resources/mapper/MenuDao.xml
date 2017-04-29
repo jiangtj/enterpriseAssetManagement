@@ -108,7 +108,6 @@
         am.*
         FROM auth_menu am
         <where>
-            am.type = 1
             <include refid="permissionConditions">
                 <property name="alias" value="am"/>
             </include>
@@ -121,7 +120,7 @@
             am.id "key",
             am.name "value"
         FROM auth_menu am
-        WHERE am.pid = #{pid}
+        WHERE am.pid = #{pid} AND am.type = 1
         ORDER BY am.`order` ASC
     </select>
 

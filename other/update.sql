@@ -1,14 +1,3 @@
-ALTER TABLE `auth_menu`
-CHANGE COLUMN `is_menu` `type`  tinyint(4) NOT NULL DEFAULT 1 COMMENT '是否是菜单，1：菜单，2：权限' AFTER `order`,
-ADD COLUMN `menu`  varchar(50) NULL COMMENT '菜单编号' AFTER `name`,
-ADD COLUMN `url`  varchar(255) NULL COMMENT '菜单请求路径' AFTER `type`,
-ADD COLUMN `static_url`  varchar(255) NULL COMMENT '静态资源路径' AFTER `url`;
-
-ALTER TABLE `auth_menu`
-  ADD COLUMN `icon`  varchar(255) NULL COMMENT '图标' AFTER `type`;
-
-ALTER TABLE `auth_menu`
-  MODIFY COLUMN `menu`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单编号' AFTER `name`;
 
 INSERT INTO `asset`.`auth_permission` (`id`, `name`, `url`, `create_time`, `update_time`) VALUES ('1', 'user:add', '/user/add', '2017-04-17 22:47:12', '2017-04-27 09:37:45');
 INSERT INTO `asset`.`auth_permission` (`id`, `name`, `url`, `create_time`, `update_time`) VALUES ('2', 'user:delete', '/user/delete', '2017-04-27 09:38:25', '2017-04-27 09:38:25');
