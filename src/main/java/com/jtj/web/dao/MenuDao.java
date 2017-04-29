@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -22,4 +23,8 @@ public interface MenuDao extends BaseDao<Menu,MenuDto>{
     List<KeyValue> getMapById(@Param("pid") Long pid);
 
     Menu getById(@Param("id") Long id);
+
+    List<Menu> getMenuByIds(@Param("ids") Collection<Long> menuIds);
+
+    List<Menu> getMenuByPids(@Param("ids") List<Long> ids);
 }

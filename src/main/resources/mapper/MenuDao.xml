@@ -128,4 +128,24 @@
         SELECT am.* FROM auth_menu am WHERE am.id = #{id}
     </select>
 
+    <select id="getMenuByIds" resultType="Menu">
+        SELECT
+        am.*
+        FROM auth_menu am
+        WHERE am.id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getMenuByPids" resultType="Menu">
+        SELECT
+        am.*
+        FROM auth_menu am
+        WHERE am.pid IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>

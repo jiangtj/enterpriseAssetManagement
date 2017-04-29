@@ -219,7 +219,9 @@
                 self.updateMenuTree();
                 self.permissionModalData.data = {id:obj.id};
                 self.permissionModalData.submit = function () {
-                    let menuIds = $('#menu-tree').jstree(true).get_selected();
+                    let tree = $('#menu-tree').jstree(true);
+                    let menuIds = tree.get_bottom_selected().toString();
+                    //let menuIds = tree.get_top_selected().toString();
                     Server.role.updatePermission.setData({
                         roleId:obj.id,
                         menuIds:menuIds
@@ -236,6 +238,7 @@
                                 pid: node.id === "#" ? 0 : node.id
                             }).post(data => {
                                 let list = $.map(data.object, (item, index) => {
+                                    //todo 已选择权限状态变更
                                     item.parent = item.pid === 0 ? "#" : item.pid;
                                     item.text = item.name;
                                     item.children = true;

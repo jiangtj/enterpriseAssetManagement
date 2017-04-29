@@ -69,4 +69,15 @@
         WHERE ar.status = 1
     </select>
 
+    <delete id="clearPermission">
+        DELETE FROM auth_role_permission_relation WHERE role_id = #{roleId}
+    </delete>
+
+    <insert id="addPermission">
+        INSERT INTO auth_role_permission_relation(role_id, permission_id) VALUES
+        <foreach collection="permissionIds" item="item" separator=",">
+            (#{roleId},#{item})
+        </foreach>
+    </insert>
+
 </mapper>
