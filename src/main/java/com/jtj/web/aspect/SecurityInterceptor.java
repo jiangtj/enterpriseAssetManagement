@@ -62,7 +62,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
         //如果是首页，则放行
         if (user.getId() == 1) return true;
 
-        //获取用户信息
+        //拥有权限，则放行
         List<Permission> permissions = (List<Permission>) session.getAttribute(Constant.SESSION_PERMISSION);
         for (Permission permission : permissions){
             if (permission.getUrl().equals(servletPath)) return true;
