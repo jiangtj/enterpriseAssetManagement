@@ -12,7 +12,7 @@ const SlotsUtils = {
 };
 
 
-
+//todo 整合菜单为单个递归组件
 Vue.component("tt-menu-root",{
     props: ['data','menu'],
     render:function (createElement) {
@@ -22,6 +22,9 @@ Vue.component("tt-menu-root",{
         elements.push(createElement("span",{class:["nav-label"]},self.data.name));
         if (self.isNext(self.data.id)) {
             elements.push(createElement("span",{class:["fa","arrow"]}));
+        }else {
+            //todo ...
+            if (self.isEmpty(self.data.url)) return null;
         }
         return createElement(self.isEmpty(self.data.url)?"a":"router-link",{attrs:{to:self.data.url}},elements)
     },
