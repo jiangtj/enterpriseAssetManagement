@@ -6,8 +6,17 @@ package com.jtj.web.common;
  */
 public class BaseDto {
 
+    private Long id;
     private int begin;
     private int offset;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getBegin() {
         return begin;

@@ -84,5 +84,13 @@ const Server = {
         getMenu:new WebBuilder("/menu/getMenu",{intercepts:defaultListIntercept}),
         getPublicMenu:new WebBuilder("/public/getMenu",{intercepts:defaultListIntercept}),
         getMapById:new WebBuilder("/menu/getMapById",{intercepts:defaultListIntercept})
+    },
+    assetType:{
+        getList:new WebBuilder("/assetType/getList",{intercepts:defaultListIntercept}),
+        add:new WebBuilder("/assetType/add",{intercepts:defaultIntercept}),
+        delete:new WebBuilder("/assetType/delete",{intercepts:defaultIntercept}),
+        update:new WebBuilder("/assetType/update",{intercepts:defaultIntercept}),
+        getType:new WebBuilder("/assetType/getType",{intercepts:defaultListIntercept}),
+        getMapById:new WebBuilder("/assetType/getMapById",{intercepts:defaultListIntercept})
     }
 };

@@ -1,19 +1,18 @@
 package com.jtj.web.dto;
 
 import com.jtj.web.common.BaseDto;
+import com.jtj.web.common.BaseEntity;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
- * 2017/4/18 21:06 End.
+ * 2017/4/29 19:25 End.
  */
-public class MenuDto extends BaseDto {
+public class AssetTypeDto extends BaseDto {
 
     private String name;
-    private String menu;
-    private Integer level;
     private Long pid;
+    private Integer level;
     private Integer order;
-    private Integer type;
 
     public String getName() {
         return name;
@@ -21,22 +20,6 @@ public class MenuDto extends BaseDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMenu() {
-        return menu;
-    }
-
-    public void setMenu(String menu) {
-        this.menu = menu;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Long getPid() {
@@ -47,19 +30,19 @@ public class MenuDto extends BaseDto {
         this.pid = pid;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     public Integer getOrder() {
         return order;
     }
 
     public void setOrder(Integer order) {
         this.order = order;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 }
