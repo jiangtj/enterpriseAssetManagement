@@ -5,6 +5,7 @@ const App = new Vue({
     data:{
         baseUrl:baseUrl,
         user: sessionUser,
+        permission: sessionPermission,
         menu:AppMenu,
         alwaysTrue:true
     },

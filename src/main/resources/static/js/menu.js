@@ -36,15 +36,49 @@
     }
 ];*/
 
+const Permission = {
+    superRole:(sessionUser.id === 1),
+    source:sessionPermission,
+    name:{},
+    url:{},
+    put:function (key,value) {
+        Permission[key][value] = true;
+    },
+    checked:function (id) {
+        for (let i in Permission.source){
+            if (Permission.source[i].id === id) return true;
+        }
+        return false;
+    },
+    hasName:function (name) {
+        return Permission.name[name]||Permission.superRole
+    }
+};
+jQuery.each(sessionPermission,function (item) {
+    Permission.put("name",item.name);
+    Permission.put("url",item.url);
+});
+
 function getAppMenu() {
     let innerData = null;
-    Server.menu.getMenu.setAsync(false).post(data => {
+    Server.menu.getPublicMenu.setAsync(false).post(data => {
         innerData = data.object;
     });
     return innerData;
 }
 
 const AppMenu = getAppMenu();
+
+if (sessionUser.id !== 1){
+    for (let i = 0; i < AppMenu.length; i++) {
+        let item = AppMenu[i];
+        if (item.permissionId !== undefined && item.permissionId !== null){
+            if (!Permission.checked([item.permissionId])){
+                AppMenu.splice(i,1);
+            }
+        }
+    }
+}
 
 //定义路由
 const MenuRoutes = {};

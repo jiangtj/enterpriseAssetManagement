@@ -24,6 +24,9 @@ const RouteConfig = {
     },
     clear:function () {
         RouteConfig.config = null;
+    },
+    put:function (obj) {
+        jQuery.extend(true,RouteConfig.config,obj);
     }
 };
 
@@ -70,6 +73,13 @@ const RouteUtils = {
                     let js = tempText.substring(scriptStart,scriptEnd);
                     eval(js);
                 }
+                RouteConfig.put({
+                    methods:{
+                        PermissionName:function(name){
+                            return Permission.hasName(name);
+                        }
+                    }
+                });
 
                 let option = {template:view};
                 option = jQuery.extend(true,option, RouteConfig.get());
