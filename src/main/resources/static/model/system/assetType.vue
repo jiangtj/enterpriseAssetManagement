@@ -201,7 +201,7 @@
             },
             getMenuMapById:function (id) {
                 let self;
-                Server.assetType.getMapById.setData("pid="+id).setAsync(false).post((data) => {
+                Server.assetType.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
                     self = data.object;
                 });
                 return self;

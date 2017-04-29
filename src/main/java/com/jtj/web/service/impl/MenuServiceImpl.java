@@ -48,9 +48,9 @@ public class MenuServiceImpl
     }
 
     @Override
-    public ResultDto<List<KeyValue>> getMapById(Long pid) {
+    public ResultDto<List<KeyValue>> getMapByPid(Long pid) {
         ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject( menuDao.getMapById(pid));
+        result.setObject( menuDao.getMapByPid(pid));
         return result;
     }
 }

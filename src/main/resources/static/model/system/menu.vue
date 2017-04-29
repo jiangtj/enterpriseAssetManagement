@@ -222,7 +222,7 @@
             },
             getMenuMapById:function (id) {
                 let self;
-                Server.menu.getMapById.setData("pid="+id).setAsync(false).post((data) => {
+                Server.menu.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
                     self = data.object;
                 });
                 return self;

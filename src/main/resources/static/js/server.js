@@ -83,7 +83,7 @@ const Server = {
         update:new WebBuilder("/menu/update",{intercepts:defaultIntercept}),
         getMenu:new WebBuilder("/menu/getMenu",{intercepts:defaultListIntercept}),
         getPublicMenu:new WebBuilder("/public/getMenu",{intercepts:defaultListIntercept}),
-        getMapById:new WebBuilder("/menu/getMapById",{intercepts:defaultListIntercept})
+        getMapByPid:new WebBuilder("/menu/getMapByPid",{intercepts:defaultListIntercept})
     },
     assetType:{
         getList:new WebBuilder("/assetType/getList",{intercepts:defaultListIntercept}),
@@ -91,6 +91,6 @@ const Server = {
         delete:new WebBuilder("/assetType/delete",{intercepts:defaultIntercept}),
         update:new WebBuilder("/assetType/update",{intercepts:defaultIntercept}),
         getType:new WebBuilder("/assetType/getType",{intercepts:defaultListIntercept}),
-        getMapById:new WebBuilder("/assetType/getMapById",{intercepts:defaultListIntercept})
+        getMapByPid:new WebBuilder("/assetType/getMapByPid",{intercepts:defaultListIntercept})
     }
 };

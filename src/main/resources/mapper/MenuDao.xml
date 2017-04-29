@@ -115,7 +115,7 @@
         ORDER BY am.pid ASC ,am.`order` ASC
     </select>
 
-    <select id="getMapById" resultType="KeyValue">
+    <select id="getMapByPid" resultType="KeyValue">
         SELECT
             am.id "key",
             am.name "value"

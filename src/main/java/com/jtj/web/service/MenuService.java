@@ -20,5 +20,5 @@ public interface MenuService extends BaseService<Menu,MenuDto> {
 
     ResultDto<List<Menu>> getMenu(MenuDto dto);
 
-    ResultDto<List<KeyValue>> getMapById(Long pid);
+    ResultDto<List<KeyValue>> getMapByPid(Long pid);
 }

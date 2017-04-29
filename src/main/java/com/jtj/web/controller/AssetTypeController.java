@@ -54,8 +54,8 @@ public class AssetTypeController {
         return assetTypeService.getType(dto);
     }
 
-    @PostMapping("/getMapById")
-    public ResultDto<List<KeyValue>> getMapById(@RequestParam("pid") Long pid){
+    @PostMapping("/getMapByPid")
+    public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid){
         return assetTypeService.getMapByPid(pid);
     }
 

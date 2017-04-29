@@ -54,9 +54,9 @@ public class MenuController {
         return menuService.getMenu(dto);
     }
 
-    @PostMapping("/getMapById")
-    public ResultDto<List<KeyValue>> getMapById(@RequestParam("pid") Long pid){
-        return menuService.getMapById(pid);
+    @PostMapping("/getMapByPid")
+    public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid){
+        return menuService.getMapByPid(pid);
     }
 
 }
