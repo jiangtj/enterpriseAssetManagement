@@ -3,6 +3,7 @@ package com.jtj.web.aspect;
 import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -59,6 +61,12 @@ public class SecurityInterceptor implements HandlerInterceptor{
 
         //如果是首页，则放行
         if (user.getId() == 1) return true;
+
+        //获取用户信息
+        List<Permission> permissions = (List<Permission>) session.getAttribute(Constant.SESSION_PERMISSION);
+        for (Permission permission : permissions){
+            if (permission.getUrl().equals(servletPath)) return true;
+        }
 
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("UTF-8");

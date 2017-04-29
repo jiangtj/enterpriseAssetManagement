@@ -2,8 +2,11 @@ package com.jtj.web.service.impl;
 
 import com.jtj.web.common.*;
 import com.jtj.web.common.utils.MD5String;
+import com.jtj.web.dao.PermissionDao;
 import com.jtj.web.dao.UserDao;
+import com.jtj.web.dto.PermissionDto;
 import com.jtj.web.dto.UserDto;
+import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ public class UserServiceImpl
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private PermissionDao permissionDao;
 
     @Override
     public ResultDto<User> getUserById(long id){
@@ -64,10 +69,14 @@ public class UserServiceImpl
 
         //用户信息放入session
         user.setPassword("保密");
+
         HttpSession session = request.getSession();
         session.setAttribute(Constant.SESSION_USER,user);
         session.setAttribute(Constant.SESSION_LOGIN_TIME,serverTime);
         session.setAttribute(Constant.SESSION_PREVIOUS_PASSWORD,password);
+
+        List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
+        session.setAttribute(Constant.SESSION_PERMISSION,permissions);
 
         result.setResultCode(ResultCode.SUCCESS);
         return result;

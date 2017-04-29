@@ -68,4 +68,12 @@
         FROM auth_permission ap
     </select>
 
+    <select id="getByRoleId" resultType="Permission">
+        SELECT
+            ap.*
+        FROM auth_role_permission_relation arpr
+            LEFT JOIN auth_permission ap ON arpr.permission_id = ap.id
+        WHERE arpr.role_id = #{id}
+    </select>
+
 </mapper>
