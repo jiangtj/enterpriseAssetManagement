@@ -63,6 +63,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- 监控SpringBoot状态 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<!-- gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
