@@ -22,9 +22,11 @@
 <div id="wrapper">
 
     <script th:inline="javascript">
+        //同步session数据
         var baseUrl = [[${#httpServletRequest.getContextPath()}]];
         var sessionUser = [[${session.user}]];
         var sessionPermission = [[${session.permission}]];
+        var sessionPoint = [[${session.point}]];
     </script>
 
     <nav class="navbar-default navbar-static-side" role="navigation">

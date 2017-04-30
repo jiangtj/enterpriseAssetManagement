@@ -13,6 +13,8 @@ public class User extends BaseEntity {
     private String description;//密码
     private Long roleId;//角色id
     private Role role;//角色对象
+    private Long pointId;//角色id
+    private Point point;//角色对象
 
     public String getName() {
         return name;
@@ -52,5 +54,21 @@ public class User extends BaseEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Long getPointId() {
+        return pointId;
+    }
+
+    public void setPointId(Long pointId) {
+        this.pointId = pointId;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
     }
 }

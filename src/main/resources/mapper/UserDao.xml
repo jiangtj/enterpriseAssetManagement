@@ -75,8 +75,8 @@
     </select>
 
     <insert id="add">
-        INSERT INTO auth_user(name, password, description,role_id)
-        VALUES (#{name},#{password},#{description},#{roleId})
+        INSERT INTO auth_user(name, password, description,role_id,point_id)
+        VALUES (#{name},#{password},#{description},#{roleId},#{pointId})
     </insert>
 
     <update id="update">

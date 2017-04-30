@@ -41,3 +41,9 @@ INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, 
 INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('21', '菜单删除', 'MenuDel', '3', '9', '2', '2', NULL, NULL, NULL, '16', '2017-04-27 15:05:05', '2017-04-27 15:05:05');
 INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('22', '菜单修改', 'MenuUpdate', '3', '9', '3', '2', NULL, NULL, NULL, '17', '2017-04-27 15:05:42', '2017-04-27 15:05:42');
 INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('23', '菜单列表获取', 'MenuGetMenu', '3', '9', '4', '2', NULL, NULL, NULL, '18', '2017-04-27 15:11:40', '2017-04-27 15:52:52');
+
+# 4-30
+ALTER TABLE `auth_user`
+  ADD COLUMN `point_id`  bigint(20) NULL COMMENT '网点id' AFTER `role_id`;
+
+ALTER TABLE `auth_user` ADD CONSTRAINT `user@point_id` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;

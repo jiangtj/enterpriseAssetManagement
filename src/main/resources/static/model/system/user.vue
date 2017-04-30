@@ -60,12 +60,13 @@
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <p>这里的信息很重要,不要乱填.</p>
                         <tt-simple-input label="用户名" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input v-if="fromModalData.showPassword" label="密码" v-model="fromModalData.data.password" type="password" required minlength="6"></tt-simple-input>
+                        <tt-simple-input v-if="fromModalData.isCreate" label="密码" v-model="fromModalData.data.password" type="password" required minlength="6"></tt-simple-input>
                         <tt-simple-select label="角色" v-model="fromModalData.data.roleId" :data="Map.role" show-undefined required></tt-simple-select>
                     </div>
                     <div class="col-sm-6">
                         <h4>额外 More</h4>
                         <p>个性化的介绍.</p>
+                        <tt-simple-tree-root v-if="fromModalData.isCreate" label="网点" v-model="fromModalData.data.pointId" :data="getPointMapById"></tt-simple-tree-root>
                         <tt-simple-input label="描述&简介" v-model="fromModalData.data.description" type="textarea" row="5" minlength="6"></tt-simple-input>
                     </div>
                 </div>
@@ -189,7 +190,7 @@
             showAddModal:function () {
                 this.fromModalData.title = "添加新用户";
                 this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
-                this.fromModalData.showPassword = true;
+                this.fromModalData.isCreate = true;
                 this.fromModalData.submit = this.getSubmitFunc(Server.user.add);
                 this.fromModal.show();
             },
@@ -198,10 +199,17 @@
                 this.fromModalData.title = "修改信息";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 JsonUtils.clear(this.fromModalData.data,"password","role");
-                this.fromModalData.showPassword = false;
+                this.fromModalData.isCreate = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.user.update);
                 this.fromModal.show();
-            }
+            },
+            getPointMapById:function (id) {
+                let self;
+                Server.point.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
+                    self = data.object;
+                });
+                return self;
+            },
         }
     });
 

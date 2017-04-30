@@ -6,6 +6,7 @@ const App = new Vue({
         baseUrl:baseUrl,
         user: sessionUser,
         permission: sessionPermission,
+        point: sessionPoint,
         menu:AppMenu,
         alwaysTrue:true,
         selectedPoint:[]
@@ -17,6 +18,9 @@ const App = new Vue({
         menuLevel2:function(){
             return this.getMenuLevelData(2)
         }
+    },
+    created:function () {
+        if (this.user.pointId) this.selectedPoint.push(this.user.pointId);
     },
     mounted:function () {
         this.updateSidebarTree();
@@ -48,22 +52,26 @@ const App = new Vue({
             $('#sidebar-point-tree').jstree({
                 'core' : {
                     'data' :function (node,callback) {
-                        Server.point.getPublicPoint.setData({
+                        /*Server.point.getPublicPoint.setData({
                             pid:node.id==="#"?0:node.id
                         }).post(data => {
-                            //todo 根节点节点判断有误，待修复
-                            let max=99;
-                            $.each(data.object,function (index,item) {
-                                if (max > item.level) max = item.level;
-                            });
-                            let list = $.map(data.object,(item,index) => {
-                                item.parent = item.level===max?"#":item.pid;
-                                item.text = item.name;
-                                item.icon = 'fa fa-folder';
-                                return item;
-                            });
-                            callback.call(this,list)
+                        });*/
+                        //todo 根节点节点判断有误，待修复
+                        let max=99;
+                        $.each(self.point,function (index,item) {
+                            if (max > item.level) max = item.level;
                         });
+                        let list = $.map(self.point,(item,index) => {
+                            item.parent = item.level===max?"#":item.pid;
+                            item.text = item.name;
+                            item.icon = 'fa fa-folder';
+                            if ($.inArray(item.id,self.selectedPoint) !== -1){
+                                item.state = {};
+                                item.state.selected = true;
+                            }
+                            return item;
+                        });
+                        callback.call(this,list);
                     }
                 },
                 "checkbox" : {

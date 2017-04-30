@@ -62,7 +62,7 @@
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                         <tt-simple-input v-if="conditions.pid || isUpdate" label="父节点" v-model="fromModalData.data.pid" disabled="disabled"></tt-simple-input>
-                        <tt-simple-tree-root v-else label="父节点" v-model="fromModalData.data.pid" :data="getMenuMapById"></tt-simple-tree-root>
+                        <tt-simple-tree-root v-else label="父节点" v-model="fromModalData.data.pid" :data="getPointMapById"></tt-simple-tree-root>
                         <tt-simple-input label="排序" v-model="fromModalData.data.order" required></tt-simple-input>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
                 this.fromModalData.submit = this.getSubmitFunc(Server.point.update);
                 this.fromModal.show();
             },
-            getMenuMapById:function (id) {
+            getPointMapById:function (id) {
                 let self;
                 Server.point.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
                     self = data.object;
