@@ -47,3 +47,6 @@ ALTER TABLE `auth_user`
   ADD COLUMN `point_id`  bigint(20) NULL COMMENT '网点id' AFTER `role_id`;
 
 ALTER TABLE `auth_user` ADD CONSTRAINT `user@point_id` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('24', '资源类型', 'AssetType', '2', '5', '5', '1', NULL, '/system/assetType', '/model/system/assetType.vue', NULL, '2017-04-29 19:02:04', '2017-04-29 19:02:04');
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('25', '网点管理', 'Point', '2', '5', '6', '1', NULL, '/system/point', '/model/system/point.vue', NULL, '2017-04-30 19:32:38', '2017-04-30 19:32:38');
