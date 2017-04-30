@@ -91,16 +91,21 @@
             <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary"><i class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" method="post" action="#">
+                    <!--<form role="search" class="navbar-form-custom" method="post" action="#">
                         <div class="form-group">
                             <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search" />
                         </div>
-                    </form>
+                    </form>-->
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
                         <a v-on:click="logout">
                             <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                    <li>
+                        <a class="right-sidebar-toggle">
+                            <i class="fa fa-tasks"></i>
                         </a>
                     </li>
                 </ul>
@@ -118,6 +123,45 @@
             </div>
             <div>
                 <strong>Owner</strong> Mr.J &copy; 2017
+            </div>
+        </div>
+
+
+        <div id="right-sidebar" class="animated">
+            <div class="sidebar-container">
+
+                <ul class="nav nav-tabs navs-3">
+
+                    <!--<li class="active"><a data-toggle="tab" href="#tab-1">
+                        Notes
+                    </a></li>-->
+                    <li class="active"><a data-toggle="tab" href="#tab-1">
+                        <i class="fa fa-gear"></i>
+                    </a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="tab-1" class="tab-pane">
+                        <div class="sidebar-title">
+                            <h3><i class="fa fa-gears"></i>网点设置</h3>
+                            <small><i class="fa fa-tim"></i>设置您管理的网点</small>
+                        </div>
+                        <div id="sidebar-point-tree"></div>
+                        <!--<div class="setings-item"><span>Show notifications</span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example" />
+                                    <label class="onoffswitch-label" for="example">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>-->
+
+                    </div>
+                </div>
             </div>
         </div>
 
