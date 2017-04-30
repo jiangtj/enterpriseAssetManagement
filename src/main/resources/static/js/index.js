@@ -17,6 +17,9 @@ const App = new Vue({
             return this.getMenuLevelData(2)
         }
     },
+    mounted:function () {
+        this.updateSidebarTree();
+    },
     methods:{
         logout:function () {
             new WebBuilder("/public/logout").post(function () {
@@ -39,7 +42,7 @@ const App = new Vue({
                 if (item.pid === id) return item;
             });
         },
-        updateTree:function () {
+        updateSidebarTree:function () {
             let self = this;
             $('#sidebar-point-tree').jstree({
                 'core' : {
@@ -47,8 +50,12 @@ const App = new Vue({
                         Server.point.getPublicPoint.setData({
                             pid:node.id==="#"?0:node.id
                         }).post(data => {
+                            let max=99;
+                            $.each(data.object,function (index,item) {
+                                if (max > item.level) max = item.level;
+                            });
                             let list = $.map(data.object,(item,index) => {
-                                item.parent = item.pid===0?"#":item.pid;
+                                item.parent = item.level===max?"#":item.pid;
                                 item.text = item.name;
                                 item.icon = 'fa fa-folder';
                                 return item;
@@ -57,11 +64,7 @@ const App = new Vue({
                         });
                     }
                 }
-            }).on('changed.jstree', function (e, data) {
-                self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
-                self.pname = data.node.text;
-                self.getTableList();
-            });
+            })
         }
     }
 });

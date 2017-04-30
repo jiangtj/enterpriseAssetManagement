@@ -24,5 +24,5 @@ public interface AssetTypeDao extends BaseDao<AssetType,AssetTypeDto>{
 
     List<KeyValue> getMapByPid(@Param("pid") Long pid);
 
-    AssetType getById(Long id);
+    AssetType getById(@Param("id") Long id);
 }

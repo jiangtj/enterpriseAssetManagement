@@ -4,16 +4,15 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.MenuDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
-import com.jtj.web.service.MenuService;
-import com.jtj.web.service.RoleService;
-import com.jtj.web.service.SystemService;
-import com.jtj.web.service.UserService;
+import com.jtj.web.entity.Point;
+import com.jtj.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -33,6 +32,8 @@ public class PublicController {
     private SystemService systemService;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private PointService pointService;
 
     @ResponseBody
     @PostMapping("/login")
@@ -65,6 +66,12 @@ public class PublicController {
     @PostMapping("/getMenu")
     public ResultDto<List<Menu>> getMenu(MenuDto dto){
         return menuService.getMenu(dto);
+    }
+
+    @ResponseBody
+    @PostMapping("/getPoint")
+    public ResultDto<List<Point>> getPoint(HttpSession session){
+        return pointService.getPublicPoint(session);
     }
 
 }

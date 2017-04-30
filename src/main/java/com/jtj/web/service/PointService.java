@@ -1,13 +1,12 @@
 package com.jtj.web.service;
 
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.dto.PointDto;
-import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -20,4 +19,6 @@ public interface PointService extends BaseService<Point,PointDto> {
     ResultDto<List<Point>> getPoint(PointDto dto);
 
     ResultDto<List<KeyValue>> getMapByPid(Long pid);
+
+    ResultDto<List<Point>> getPublicPoint(HttpSession session);
 }

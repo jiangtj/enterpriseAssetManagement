@@ -1,19 +1,17 @@
 package com.jtj.web.service.impl;
 
+import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.dao.AssetTypeDao;
 import com.jtj.web.dao.PointDao;
-import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.dto.PointDto;
-import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
-import com.jtj.web.service.AssetTypeService;
 import com.jtj.web.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -51,6 +49,14 @@ public class PointServiceImpl
     public ResultDto<List<KeyValue>> getMapByPid(Long pid) {
         ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject( pointDao.getMapByPid(pid));
+        return result;
+    }
+
+    @Override
+    public ResultDto<List<Point>> getPublicPoint(HttpSession session) {
+        ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
+        List<Point> points = (List<Point>) session.getAttribute(Constant.SESSION_POINT);
+        result.setObject(points);
         return result;
     }
 }
