@@ -25,5 +25,5 @@ public interface PointDao extends BaseDao<Point,PointDto>{
 
     Point getById(@Param("id") Long id);
 
-    List<Point> getAuthorizedPoint(@Param("roleId") Long roleId);
+    List<Point> getAuthorizedPoint(@Param("userId") Long userId,@Param("roleId") Long roleId);
 }

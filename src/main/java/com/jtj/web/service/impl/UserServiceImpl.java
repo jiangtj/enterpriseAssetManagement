@@ -81,7 +81,7 @@ public class UserServiceImpl
         List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
         session.setAttribute(Constant.SESSION_PERMISSION,permissions);
 
-        List<Point> points = pointDao.getAuthorizedPoint(user.getRoleId());
+        List<Point> points = pointDao.getAuthorizedPoint(user.getId(),user.getRoleId());
         session.setAttribute(Constant.SESSION_POINT,points);
 
         result.setResultCode(ResultCode.SUCCESS);
