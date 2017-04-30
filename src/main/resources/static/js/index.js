@@ -7,7 +7,8 @@ const App = new Vue({
         user: sessionUser,
         permission: sessionPermission,
         menu:AppMenu,
-        alwaysTrue:true
+        alwaysTrue:true,
+        selectedPoint:[]
     },
     computed:{
         menuLevel1:function(){
@@ -50,6 +51,7 @@ const App = new Vue({
                         Server.point.getPublicPoint.setData({
                             pid:node.id==="#"?0:node.id
                         }).post(data => {
+                            //todo 根节点节点判断有误，待修复
                             let max=99;
                             $.each(data.object,function (index,item) {
                                 if (max > item.level) max = item.level;
@@ -63,8 +65,15 @@ const App = new Vue({
                             callback.call(this,list)
                         });
                     }
-                }
-            })
+                },
+                "checkbox" : {
+                    "keep_selected_style" : false,
+                    "three_state":false
+                },
+                "plugins": ["checkbox"]
+            }).on('changed.jstree', function (e, data) {
+                self.selectedPoint = data.selected;
+            });
         }
     }
 });
