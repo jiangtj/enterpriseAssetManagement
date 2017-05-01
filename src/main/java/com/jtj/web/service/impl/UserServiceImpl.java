@@ -113,4 +113,11 @@ public class UserServiceImpl
         return result;
     }
 
+    @Override
+    public ResultDto<Object> updatePoint(Long id, Long pointId) {
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(userDao.updatePoint(id,pointId)==1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        return result;
+    }
+
 }

@@ -22,4 +22,6 @@ public interface UserDao extends BaseDao<User,UserDto> {
 
     User getUserByName(@Param("name") String name);
 
+    int updatePoint(@Param("id") Long id,@Param("pointId") Long pointId);
+
 }

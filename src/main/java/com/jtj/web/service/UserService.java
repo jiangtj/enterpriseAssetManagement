@@ -25,4 +25,6 @@ public interface UserService extends BaseService<User,UserDto> {
     ResultDto<Object> logout(HttpServletRequest request, HttpServletResponse response);
 
     ResultDto<User> getUserById(long id);
+
+    ResultDto<Object> updatePoint(Long id,Long Long);
 }

@@ -225,7 +225,7 @@
                     Server.role.updatePermission.setData({
                         roleId:obj.id,
                         menuIds:menuIds
-                    }).post()
+                    }).post(() => self.permissionModal.hide())
                 };
                 self.permissionModal.show();
             },

@@ -60,7 +60,8 @@ const Server = {
         getList:new WebBuilder("/user/getList",{intercepts:defaultListIntercept}),
         add:new WebBuilder("/user/add",{intercepts:defaultIntercept}),
         delete:new WebBuilder("/user/delete",{intercepts:defaultIntercept}),
-        update:new WebBuilder("/user/update",{intercepts:defaultIntercept})
+        update:new WebBuilder("/user/update",{intercepts:defaultIntercept}),
+        updatePoint:new WebBuilder("/user/updatePoint",{intercepts:defaultIntercept})
     },
     role:{
         getList:new WebBuilder("/role/getList",{intercepts:defaultListIntercept}),

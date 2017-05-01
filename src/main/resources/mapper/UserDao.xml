@@ -102,5 +102,11 @@
         </foreach>
     </delete>
 
+    <update id="updatePoint">
+        UPDATE auth_user
+        SET point_id = #{pointId}
+        WHERE id = #{id}
+    </update>
+
 
 </mapper>

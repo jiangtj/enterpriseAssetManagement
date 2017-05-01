@@ -45,4 +45,9 @@ public class UserController {
     public ResultDto<User> getUserById(@PathVariable("id") long id){
         return userService.getUserById(id);
     }
+
+    @PostMapping("/updatePoint")
+    public ResultDto<Object> updatePoint(@RequestParam Long id,@RequestParam Long pointId) {
+        return userService.updatePoint(id,pointId);
+    }
 }

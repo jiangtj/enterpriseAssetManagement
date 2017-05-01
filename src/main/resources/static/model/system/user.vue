@@ -40,6 +40,7 @@
                             </template>
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="showUpdateModal(props.row)" v-if="PermissionName('user:update')" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
+                                <button @click="showPointModal(props.row)" v-if="PermissionName('user:updatePoint')" class="btn btn-table btn-primary btn-rounded" type="button">网点</button>
                                 <button @click="showUpdateModal(props.row)" class="btn btn-table btn-danger btn-rounded" type="button">重置密码</button>
                             </template>
                         </tt-table>
@@ -74,6 +75,23 @@
                     <div class="col-sm-12">
                     <button @click="fromModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
                     <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
+                    </div>
+                </div>
+            </form>
+        </tt-modal>
+
+        <!-- 网点弹出窗 -->
+        <tt-modal id="point-modal" title="网点修改">
+            <form role="form" class="validation">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <tt-simple-tree-root label="网点" v-model="pointModalData.data.pointId" :data="getPointMapById"></tt-simple-tree-root>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button @click="pointModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
+                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
                     </div>
                 </div>
             </form>
@@ -114,7 +132,7 @@
                         name:"名称",
                         description:"简介",
                         roleName:"角色名称",
-                        operation:{name:"操作",width:"120px"}
+                        operation:{name:"操作",width:"160px"}
                     },
                     data:[]
                 },
@@ -124,6 +142,10 @@
                     title:"",
                     data:{},
                     empty:null,
+                    submit:function () {}
+                },
+                pointModalData:{
+                    data:{},
                     submit:function () {}
                 }
             }
@@ -137,6 +159,9 @@
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
+            },
+            pointModal:function () {
+                return new ModalBuilder("#point-modal");
             }
         },
         created:function () {
@@ -202,6 +227,16 @@
                 this.fromModalData.isCreate = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.user.update);
                 this.fromModal.show();
+            },
+            showPointModal:function (obj) {
+                let self = this;
+                self.pointModalData.data = {id:obj.id};
+                self.pointModalData.submit = function () {
+                    Server.user.updatePoint.setData(self.pointModalData.data).post(function () {
+                        self.pointModal.hide();
+                    })
+                };
+                this.pointModal.show();
             },
             getPointMapById:function (id) {
                 let self;
