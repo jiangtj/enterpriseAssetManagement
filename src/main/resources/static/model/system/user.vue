@@ -81,7 +81,7 @@
         </tt-modal>
 
         <!-- 网点弹出窗 -->
-        <tt-modal id="point-modal" title="网点修改">
+        <tt-modal id="point-modal" title="网点修改" size="sm">
             <form role="form" class="validation">
                 <div class="row">
                     <div class="col-sm-12">

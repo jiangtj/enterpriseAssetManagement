@@ -68,7 +68,8 @@ const Server = {
         add:new WebBuilder("/role/add",{intercepts:defaultIntercept}),
         delete:new WebBuilder("/role/delete",{intercepts:defaultIntercept}),
         update:new WebBuilder("/role/update",{intercepts:defaultIntercept}),
-        updatePermission:new WebBuilder("/role/updatePermission",{intercepts:defaultIntercept})
+        updatePermission:new WebBuilder("/role/updatePermission",{intercepts:defaultIntercept}),
+        updatePoint:new WebBuilder("/role/updatePoint",{intercepts:defaultIntercept})
     },
     permission:{
         getList:new WebBuilder("/permission/getList",{intercepts:defaultListIntercept}),

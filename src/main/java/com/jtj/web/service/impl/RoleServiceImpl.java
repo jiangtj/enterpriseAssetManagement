@@ -4,10 +4,12 @@ import com.jtj.web.common.AssetException;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.MenuDao;
+import com.jtj.web.dao.PointDao;
 import com.jtj.web.dao.RoleDao;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
+import com.jtj.web.entity.Point;
 import com.jtj.web.entity.Role;
 import com.jtj.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class RoleServiceImpl
     private RoleDao roleDao;
     @Autowired
     private MenuDao menuDao;
+    @Autowired
+    private PointDao pointDao;
 
     @Override
     public ResultDto<Object> delete(Long[] ids) throws AssetException {
@@ -71,6 +75,26 @@ public class RoleServiceImpl
                 .collect(Collectors.toSet());
         //添加权限
         roleDao.addPermission(roleId,permissionSet);
+        return result;
+    }
+
+    @Override
+    public ResultDto<Object> updatePoint(Long roleId, Long[] pointIds) {
+        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+        roleDao.clearPoint(roleId);
+        List<Long> pointIdList= Arrays.asList(pointIds);
+        List<Point> pointList = pointDao.getPointByIds(pointIdList);
+        //获取向下菜单信息
+        while (pointIdList.size() != 0){
+            List<Point> tempList = pointDao.getPointByPids(pointIdList);
+            pointList.addAll(tempList);
+            pointIdList = tempList.stream().map(Point::getId).collect(Collectors.toList());
+        }
+        //获取权限
+        Set<Long> pointSet = pointList.stream()
+                .map(Point::getId)
+                .collect(Collectors.toSet());
+        roleDao.addPoint(roleId,pointSet);
         return result;
     }
 }

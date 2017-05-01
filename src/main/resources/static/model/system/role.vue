@@ -38,6 +38,7 @@
                             </template>
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="showPermissionModal(props.row)" v-if="PermissionName('role:updatePermission')" class="btn btn-table btn-primary btn-rounded" type="button">权限</button>
+                                <button @click="showPointModal(props.row)" v-if="PermissionName('role:updatePoint')" class="btn btn-table btn-primary btn-rounded" type="button">网点</button>
                                 <button @click="showUpdateModal(props.row)" v-if="PermissionName('role:update')" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                             </template>
                         </tt-table>
@@ -77,12 +78,29 @@
             <form role="form" class="validation">
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
-                        <div id="menu-tree"></div>
+                        <div id="permission-tree"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <button @click="permissionModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
+                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
+                    </div>
+                </div>
+            </form>
+        </tt-modal>
+
+        <!-- 网点弹出框 -->
+        <tt-modal id="point-modal" title="配置网点" size="sm">
+            <form role="form" class="validation">
+                <div class="row">
+                    <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
+                        <div id="point-tree"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button @click="pointModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
                         <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
                     </div>
                 </div>
@@ -123,7 +141,7 @@
                         id:"角色id",
                         name:"名称",
                         status:"状态",
-                        operation:{name:"操作",width:"120px"}
+                        operation:{name:"操作",width:"130px"}
                     },
                     data:[]
                 },
@@ -136,6 +154,10 @@
                     submit:function () {}
                 },
                 permissionModalData:{
+                    data:{},
+                    submit:function () {}
+                },
+                pointModalData:{
                     data:{},
                     submit:function () {}
                 }
@@ -153,6 +175,9 @@
             },
             permissionModal:function () {
                 return new ModalBuilder("#permission-modal");
+            },
+            pointModal:function () {
+                return new ModalBuilder("#point-modal");
             }
         },
         created:function () {
@@ -216,7 +241,7 @@
             },
             showPermissionModal:function (obj) {
                 let self = this;
-                self.updateMenuTree();
+                self.updatePermissionTree();
                 self.permissionModalData.data = {id:obj.id};
                 self.permissionModalData.submit = function () {
                     let tree = $('#menu-tree').jstree(true);
@@ -229,9 +254,9 @@
                 };
                 self.permissionModal.show();
             },
-            updateMenuTree:function () {
+            updatePermissionTree:function () {
                 let self = this;
-                $('#menu-tree').jstree({
+                $('#permission-tree').jstree({
                     'core': {
                         'data': function (node, callback) {
                             Server.menu.getMenu.setData({
@@ -249,6 +274,44 @@
                             });
                         }
                     },
+                    "plugins": ["checkbox"]
+                });
+            },
+            showPointModal:function (obj) {
+                let self = this;
+                self.updatePointTree();
+                self.pointModalData.data = {id:obj.id};
+                self.pointModalData.submit = function () {
+                    let tree = $('#point-tree').jstree(true);
+                    let pointIds = tree.get_bottom_selected().toString();
+                    Server.role.updatePoint.setData({
+                        roleId:obj.id,
+                        pointIds:pointIds
+                    }).post(() => self.pointModal.hide())
+                };
+                self.pointModal.show();
+            },
+            updatePointTree:function () {
+                let self = this;
+                $('#point-tree').jstree({
+                    'core': {
+                        'data': function (node, callback) {
+                            Server.point.getPoint.setData({
+                                pid: node.id === "#" ? 0 : node.id
+                            }).post(data => {
+                                let list = $.map(data.object, (item, index) => {
+                                    //todo 已选择权限状态变更
+                                    item.parent = item.pid === 0 ? "#" : item.pid;
+                                    item.text = item.name;
+                                    item.icon = 'fa fa-folder';
+                                    item.children = true;
+                                    return item;
+                                });
+                                callback.call(this, list)
+                            });
+                        }
+                    },
+                    //"checkbox" : {"three_state":false},
                     "plugins": ["checkbox"]
                 });
             }
