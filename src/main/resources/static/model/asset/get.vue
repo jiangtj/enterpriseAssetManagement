@@ -36,7 +36,7 @@
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showUpdateModal(props.row)"  v-if="PermissionName('permission:update')" class="btn btn-table btn-primary btn-rounded" type="button">操作记录</button>
+                                <button @click="showOperationRecordModal(props.row)"  v-if="PermissionName('asset:getOperationRecordByUuid')" class="btn btn-table btn-primary btn-rounded" type="button">操作记录</button>
                             </template>
                         </tt-table>
                     </div>
@@ -65,6 +65,17 @@
                     <div class="col-sm-12">
                         <button @click="fromModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
                         <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
+                    </div>
+                </div>
+            </form>
+        </tt-modal>
+
+        <!-- 操作记录弹出窗 -->
+        <tt-modal id="operation-record-modal" title="记录">
+            <form role="form" class="validation">
+                <div class="row">
+                    <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
+                        <tt-table v-bind:data="operationRecordData"></tt-table>
                     </div>
                 </div>
             </form>
@@ -118,7 +129,14 @@
                     empty:null,
                     submit:function () {}
                 },
-                quick:false
+                operationRecordData:{
+                    title:{
+                        $index:"序号",
+                        userId:"操作人id",
+                        operationType:"操作类型"
+                    },
+                    data:[]
+                }
             }
         },
         computed:{
@@ -130,6 +148,9 @@
             },
             fromModal:function () {
                 return new ModalBuilder("#form-modal");
+            },
+            operationRecordModal:function () {
+                return new ModalBuilder("#operation-record-modal");
             }
         },
         created:function () {
@@ -185,6 +206,13 @@
                 this.fromModalData.submit = this.getSubmitFunc(Server.asset.update);
                 this.quick = false;
                 this.fromModal.show();
+            },
+            showOperationRecordModal:function (obj) {
+                let self =this;
+                Server.asset.getOperationRecordByUuid.setData("uuid="+obj.uuid).post((data) =>{
+                    self.operationRecordData.data = data.object;
+                });
+                self.operationRecordModal.show();
             },
             getTypeMapById:function (id) {
                 let self;

@@ -76,4 +76,11 @@
         VALUES (#{uuid},#{userId},#{operationType},#{remark})
     </insert>
 
+    <select id="getOperationRecordByUuid" resultType="AssetOperationRecord">
+        SELECT
+        aor.*
+        FROM assets_operation_record aor
+        WHERE aor.uuid = #{uuid}
+    </select>
+
 </mapper>

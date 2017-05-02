@@ -22,4 +22,5 @@ public interface AssetDao extends BaseDao<Asset,AssetDto>{
 
     int addOperationRecord(AssetOperationRecord record);
 
+    List<AssetOperationRecord> getOperationRecordByUuid(@Param("uuid") String uuid);
 }

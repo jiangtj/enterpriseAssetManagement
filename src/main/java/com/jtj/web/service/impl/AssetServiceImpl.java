@@ -1,6 +1,7 @@
 package com.jtj.web.service.impl;
 
 import com.jtj.web.common.Constant;
+import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.AssetDao;
@@ -56,4 +57,10 @@ public class AssetServiceImpl
         return assetDao.addOperationRecord(record);
     }
 
+    @Override
+    public ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(String uuid) {
+        ResultDto<List<AssetOperationRecord>> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(assetDao.getOperationRecordByUuid(uuid));
+        return result;
+    }
 }

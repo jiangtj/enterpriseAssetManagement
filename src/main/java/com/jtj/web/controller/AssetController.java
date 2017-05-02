@@ -6,6 +6,7 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.Asset;
+import com.jtj.web.entity.AssetOperationRecord;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.service.AssetService;
@@ -47,6 +48,11 @@ public class AssetController {
     @PostMapping("/getList")
     public ResultDto<PageDto<Asset>> getList(AssetDto dto){
         return assetService.getList(dto);
+    }
+
+    @PostMapping("/getOperationRecordByUuid")
+    public ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(String uuid){
+        return assetService.getOperationRecordByUuid(uuid);
     }
 
 }

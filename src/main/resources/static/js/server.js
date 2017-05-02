@@ -108,6 +108,7 @@ const Server = {
         getList:new WebBuilder("/asset/getList",{intercepts:defaultListIntercept}),
         add:new WebBuilder("/asset/add",{intercepts:defaultIntercept}),
         delete:new WebBuilder("/asset/delete",{intercepts:defaultIntercept}),
-        update:new WebBuilder("/asset/update",{intercepts:defaultIntercept})
+        update:new WebBuilder("/asset/update",{intercepts:defaultIntercept}),
+        getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid",{intercepts:defaultListIntercept})
     }
 };
