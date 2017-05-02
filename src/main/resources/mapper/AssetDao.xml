@@ -78,8 +78,11 @@
 
     <select id="getOperationRecordByUuid" resultType="AssetOperationRecord">
         SELECT
-        aor.*
+        aor.*,
+            sd.value operationTypeName
         FROM assets_operation_record aor
+        LEFT JOIN system_dictionary sd ON
+        (sd.`key` = aor.operation_type AND sd.`table` = 'assets_operation_record' AND sd.`column` = 'operation_type')
         WHERE aor.uuid = #{uuid}
     </select>
 

@@ -13,6 +13,7 @@ public class AssetOperationRecord extends BaseEntity {
     private String uuid;
     private Long userId;
     private Integer operationType;
+    private String operationTypeName;
     private String remark;
 
     public String getUuid() {
@@ -37,6 +38,14 @@ public class AssetOperationRecord extends BaseEntity {
 
     public void setOperationType(Integer operationType) {
         this.operationType = operationType;
+    }
+
+    public String getOperationTypeName() {
+        return operationTypeName;
+    }
+
+    public void setOperationTypeName(String operationTypeName) {
+        this.operationTypeName = operationTypeName;
     }
 
     public String getRemark() {

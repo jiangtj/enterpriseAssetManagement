@@ -133,7 +133,7 @@
                     title:{
                         $index:"序号",
                         userId:"操作人id",
-                        operationType:"操作类型"
+                        operationTypeName:"操作类型"
                     },
                     data:[]
                 }

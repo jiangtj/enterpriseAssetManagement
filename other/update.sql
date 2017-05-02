@@ -50,3 +50,14 @@ ALTER TABLE `auth_user` ADD CONSTRAINT `user@point_id` FOREIGN KEY (`point_id`) 
 
 INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('24', '资源类型', 'AssetType', '2', '5', '5', '1', NULL, '/system/assetType', '/model/system/assetType.vue', NULL, '2017-04-29 19:02:04', '2017-04-29 19:02:04');
 INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('25', '网点管理', 'Point', '2', '5', '6', '1', NULL, '/system/point', '/model/system/point.vue', NULL, '2017-04-30 19:32:38', '2017-04-30 19:32:38');
+
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('26', '资产添加', 'AssetAdd', '2', '2', '1', '1', NULL, '/asset/add', '/model/asset/add.vue', NULL, '2017-05-02 19:57:00', '2017-05-02 19:57:00');
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('27', '资产列表', 'AssetGet', '2', '2', '2', '1', NULL, '/asset/get', '/model/asset/get.vue', NULL, '2017-05-02 20:20:52', '2017-05-02 20:20:52');
+
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('5', 'assets_operation_record', 'operation_type', '1', '登记', '2017-05-02 21:46:29', '2017-05-02 21:46:29');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('6', 'assets_operation_record', 'operation_type', '2', '借', '2017-05-02 21:46:29', '2017-05-02 21:46:29');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('7', 'assets_operation_record', 'operation_type', '3', '换', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('8', 'assets_operation_record', 'operation_type', '4', '丢失', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('9', 'assets_operation_record', 'operation_type', '5', '报修', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('10', 'assets_operation_record', 'operation_type', '6', '作废', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('11', 'assets_operation_record', 'operation_type', '7', '盘点', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
