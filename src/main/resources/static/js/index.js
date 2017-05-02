@@ -20,7 +20,10 @@ const App = new Vue({
         }
     },
     created:function () {
-        if (this.user.pointId) this.selectedPoint.push(this.user.pointId);
+        if (this.user.pointId) {
+            this.selectedPoint.push(this.user.pointId);
+            Map.selectedPoint.push(this.user.pointId);
+        }
     },
     mounted:function () {
         this.updateSidebarTree();
@@ -81,6 +84,7 @@ const App = new Vue({
                 "plugins": ["checkbox"]
             }).on('changed.jstree', function (e, data) {
                 self.selectedPoint = data.selected;
+                Map.selectedPoint = data.selected;
             });
         }
     }

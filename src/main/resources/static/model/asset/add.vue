@@ -20,12 +20,17 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">类型</label>
-                            <div class="col-sm-10"><tt-simple-tree-children :data="getTypeMapById(0)" :func="getTypeMapById" v-model="object"></tt-simple-tree-children></div>
+                            <div class="col-sm-10"><tt-simple-tree-children :data="getTypeMapById(0)" :func="getTypeMapById"></tt-simple-tree-children></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所属网点</label>
-                            <div class="col-sm-10"><input type="text" class="form-control"></div>
+                            <div class="col-sm-10">
+                                <select class="form-control" required>
+                                    <option :value="undefined">---- 请选择 ----</option>
+                                    <option v-for="item in Map.point" :value="item.key">{{ item.value }}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
@@ -33,6 +38,12 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control">
                                 <span class="help-block m-b-none">资产编号是由用户提供的，便于系统内部uuid编号丢失时，定位物品，因此请尽量保持其唯一性.</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">提交</button>
                             </div>
                         </div>
                     </form>
