@@ -7,10 +7,7 @@ import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.AssetTypeDao;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.AssetTypeDto;
-import com.jtj.web.entity.Asset;
-import com.jtj.web.entity.AssetType;
-import com.jtj.web.entity.KeyValue;
-import com.jtj.web.entity.User;
+import com.jtj.web.entity.*;
 import com.jtj.web.service.AssetService;
 import com.jtj.web.service.AssetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +36,24 @@ public class AssetServiceImpl
     public ResultDto<Object> add(Asset t) {
         String uuid = UUID.randomUUID().toString();
         t.setUuid(uuid);
-        assetDao.addOperationRecord(uuid, Constant.OperationType.ADD)
+        addOperationRecord(uuid, Constant.OperationType.ADD);
         return super.add(t);
     }
 
     private int addOperationRecord(String uuid,Constant.OperationType type){
+        return addOperationRecord(uuid, type, null);
+    }
+
+    private int addOperationRecord(String uuid,Constant.OperationType type,String remark){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Constant.SESSION_USER);
-
-        return assetDao.addOperationRecord( );
+        AssetOperationRecord record = new AssetOperationRecord();
+        record.setUuid(uuid);
+        record.setOperationType(type.getId());
+        record.setUserId(user.getId());
+        record.setRemark(remark);
+        return assetDao.addOperationRecord(record);
     }
 
 }

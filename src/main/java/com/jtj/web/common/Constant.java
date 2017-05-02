@@ -29,6 +29,10 @@ public class Constant {
             this.id = id;
             this.name = name;
         }
+
+        public Integer getId() {
+            return id;
+        }
     }
 
 }

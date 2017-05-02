@@ -59,4 +59,9 @@
         </where>
     </select>
 
+    <insert id="addOperationRecord">
+        INSERT INTO assets_operation_record(uuid, user_id, operation_type, remark)
+        VALUES (#{uuid},#{userId},#{operationType},#{remark})
+    </insert>
+
 </mapper>
