@@ -53,6 +53,7 @@ INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, 
 
 INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('26', '资产添加', 'AssetAdd', '2', '2', '1', '1', NULL, '/asset/add', '/model/asset/add.vue', NULL, '2017-05-02 19:57:00', '2017-05-02 19:57:00');
 INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('27', '资产列表', 'AssetGet', '2', '2', '2', '1', NULL, '/asset/get', '/model/asset/get.vue', NULL, '2017-05-02 20:20:52', '2017-05-02 20:20:52');
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('28', '借还登记', 'AssetBorrow', '2', '2', '3', '1', NULL, '/asset/borrow', '/model/asset/borrow.vue', NULL, '2017-05-02 22:39:49', '2017-05-02 22:39:49');
 
 INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('5', 'assets_operation_record', 'operation_type', '1', '登记', '2017-05-02 21:46:29', '2017-05-02 21:46:29');
 INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('6', 'assets_operation_record', 'operation_type', '2', '借', '2017-05-02 21:46:29', '2017-05-02 21:46:29');
