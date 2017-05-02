@@ -76,21 +76,6 @@
         </where>
     </select>
 
-    <insert id="addOperationRecord">
-        INSERT INTO assets_operation_record(uuid, user_id, operation_type, remark)
-        VALUES (#{uuid},#{userId},#{operationType},#{remark})
-    </insert>
-
-    <select id="getOperationRecordByUuid" resultType="AssetOperationRecord">
-        SELECT
-        aor.*,
-            sd.value operationTypeName
-        FROM assets_operation_record aor
-        LEFT JOIN system_dictionary sd ON
-        (sd.`key` = aor.operation_type AND sd.`table` = 'assets_operation_record' AND sd.`column` = 'operation_type')
-        WHERE aor.uuid = #{uuid}
-    </select>
-
     <update id="updateAssetStatus">
         UPDATE assets_item SET status = #{status}
         WHERE uuid = #{uuid}

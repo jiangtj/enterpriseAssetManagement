@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.AssetOperationRecordDao">
+
+    <insert id="addOperationRecord">
+        INSERT INTO assets_operation_record(uuid, user_id, operation_type, remark)
+        VALUES (#{uuid},#{userId},#{operationType},#{remark})
+    </insert>
+
+    <select id="getOperationRecordByUuid" resultType="AssetOperationRecord">
+        SELECT
+        aor.*,
+            sd.value operationTypeName
+        FROM assets_operation_record aor
+        LEFT JOIN system_dictionary sd ON
+        (sd.`key` = aor.operation_type AND sd.`table` = 'assets_operation_record' AND sd.`column` = 'operation_type')
+        WHERE aor.uuid = #{uuid}
+    </select>
+
+</mapper>

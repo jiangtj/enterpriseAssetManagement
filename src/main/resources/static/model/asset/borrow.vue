@@ -9,6 +9,10 @@
                 <div class="ibox-content">
                     <form method="get" class="form-horizontal validation">
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">借记人用户名</label>
+                            <div class="col-sm-10"><input name="name" v-model="data.borrowUserName" type="text" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">uuid</label>
                             <div class="col-sm-10"><input name="name" v-model="data.uuid" type="text" class="form-control"></div>
                         </div>
@@ -70,6 +74,7 @@
                     }
                 },
                 data:{
+                    borrowUserName:null,
                     uuid:null,
                     name:null,
                     assetsTypeId:null,
@@ -101,6 +106,7 @@
             },
             clear:function () {
                 this.data = {
+                    borrowUserName:null,
                     uuid:null,
                     name:null,
                     assetsTypeId:null,

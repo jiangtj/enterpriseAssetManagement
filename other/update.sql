@@ -62,3 +62,7 @@ INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`
 INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('9', 'assets_operation_record', 'operation_type', '5', '报修', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
 INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('10', 'assets_operation_record', 'operation_type', '6', '作废', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
 INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('11', 'assets_operation_record', 'operation_type', '7', '盘点', '2017-05-02 21:49:44', '2017-05-02 21:49:44');
+
+ALTER TABLE `assets_borrow`
+  ADD COLUMN `status`  tinyint(4) NOT NULL DEFAULT 1 COMMENT '状态，1：在借，2：已归还' AFTER `expect_return_time`,
+  ADD COLUMN `return_time`  datetime NULL COMMENT '归还时间' AFTER `status`;

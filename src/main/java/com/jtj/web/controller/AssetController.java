@@ -4,13 +4,11 @@ import com.jtj.web.common.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetDto;
-import com.jtj.web.dto.AssetTypeDto;
+import com.jtj.web.entity.Borrow;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.AssetOperationRecord;
-import com.jtj.web.entity.AssetType;
-import com.jtj.web.entity.KeyValue;
+import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
-import com.jtj.web.service.AssetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +27,8 @@ public class AssetController {
 
     @Autowired
     private AssetService assetService;
+    @Autowired
+    private AssetOperationRecordService assetOperationRecordService;
 
     @PostMapping("/add")
     public ResultDto<Object> add(Asset asset){
@@ -52,17 +52,17 @@ public class AssetController {
 
     @PostMapping("/getOperationRecordByUuid")
     public ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(String uuid){
-        return assetService.getOperationRecordByUuid(uuid);
+        return assetOperationRecordService.getOperationRecordByUuid(uuid);
     }
 
     @PostMapping("/borrowAsset")
-    public ResultDto<Object> borrowAsset(AssetDto dto) {
-        return assetService.borrowAsset(dto);
+    public ResultDto<Object> borrowAsset(Borrow borrow) {
+        return assetService.borrowAsset(borrow);
     }
 
     @PostMapping("/returnAsset")
-    public ResultDto<Object> returnAsset(AssetDto dto) {
-        return assetService.returnAsset(dto);
+    public ResultDto<Object> returnAsset(Borrow borrow) {
+        return assetService.returnAsset(borrow);
     }
 
 }

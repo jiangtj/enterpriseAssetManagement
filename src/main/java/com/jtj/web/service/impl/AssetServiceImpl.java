@@ -4,14 +4,17 @@ import com.jtj.web.common.Constant;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.utils.BeanUtils;
 import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.AssetTypeDao;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.*;
+import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
 import com.jtj.web.service.AssetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -32,42 +35,22 @@ public class AssetServiceImpl
 
     @Autowired
     private AssetDao assetDao;
+    @Autowired
+    private AssetOperationRecordService assetOperationRecordService;
 
     @Override
     public ResultDto<Object> add(Asset t) {
         String uuid = UUID.randomUUID().toString();
         t.setUuid(uuid);
         ResultDto<Object> result = super.add(t);
-        addOperationRecord(uuid, Constant.OperationType.ADD,result.getTitle());
-        return result;
-    }
-
-    private int addOperationRecord(String uuid,Constant.OperationType type){
-        return addOperationRecord(uuid, type, null);
-    }
-
-    private int addOperationRecord(String uuid,Constant.OperationType type,String remark){
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(Constant.SESSION_USER);
-        AssetOperationRecord record = new AssetOperationRecord();
-        record.setUuid(uuid);
-        record.setOperationType(type.getId());
-        record.setUserId(user.getId());
-        record.setRemark(remark);
-        return assetDao.addOperationRecord(record);
-    }
-
-    @Override
-    public ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(String uuid) {
-        ResultDto<List<AssetOperationRecord>> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject(assetDao.getOperationRecordByUuid(uuid));
+        assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.ADD,result.getTitle());
         return result;
     }
 
     @Override
-    public ResultDto<Object> borrowAsset(AssetDto dto) {
+    public ResultDto<Object> borrowAsset(Borrow borrow) {
         ResultDto<Object> result = new ResultDto<>();
+        AssetDto dto = BeanUtils.fromBean(borrow.getAsset(),AssetDto.class);
         List<Asset> assets = assetDao.getList(dto);
         if (assets.size() == 0){
             result.setResultCode(ResultCode.ASSET_NON_EXISTENT);
@@ -81,13 +64,14 @@ public class AssetServiceImpl
         //todo 权限判断
         result.setResultCode(updateAssetStatus(assets.get(0).getUuid(), Constant.AssetStatus.BORROW) == 1?
                 ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.BORROW,result.getTitle());
+        assetOperationRecordService.addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.BORROW,result.getTitle());
         return result;
     }
 
     @Override
-    public ResultDto<Object> returnAsset(AssetDto dto) {
+    public ResultDto<Object> returnAsset(Borrow borrow) {
         ResultDto<Object> result = new ResultDto<>();
+        AssetDto dto = BeanUtils.fromBean(borrow.getAsset(),AssetDto.class);
         List<Asset> assets = assetDao.getList(dto);
         if (assets.size() == 0){
             result.setResultCode(ResultCode.ASSET_NON_EXISTENT);
@@ -100,7 +84,7 @@ public class AssetServiceImpl
         }
         result.setResultCode(updateAssetStatus(assets.get(0).getUuid(), Constant.AssetStatus.NORMAL) == 1?
                 ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.RETURN,result.getTitle());
+        assetOperationRecordService.addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.RETURN,result.getTitle());
         return result;
     }
 
