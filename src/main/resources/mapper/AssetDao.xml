@@ -30,8 +30,20 @@
         <if test="id != null">
             AND ${alias}.id = #{id}
         </if>
+        <if test="uuid != null and uuid != ''">
+            AND ${alias}.uuid = #{uuid}
+        </if>
         <if test="name != null and name != ''">
             AND ${alias}.name = #{name}
+        </if>
+        <if test="status != null">
+            AND ${alias}.status = #{status}
+        </if>
+        <if test="assetsTypeId != null">
+            AND ${alias}.assets_type_id = #{assetsTypeId}
+        </if>
+        <if test="pointId != null">
+            AND ${alias}.point_id = #{pointId}
         </if>
     </sql>
 

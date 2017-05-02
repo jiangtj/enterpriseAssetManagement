@@ -43,6 +43,7 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
+                                <!-- todo 自动提交功能：监测资产编号增加长度，并自动提交 -->
                                 <button @click="add" class="btn btn-primary" type="button">提交</button>
                             </div>
                         </div>

@@ -71,6 +71,12 @@ body.modal-open .animated {
     .form-inline .tt-from-input{
         margin-right: 10px;
     }
+
+    .form-inline div {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
 }
 @media (min-width: 992px){
 }
