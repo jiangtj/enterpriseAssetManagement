@@ -10,23 +10,23 @@
                     <form method="get" class="form-horizontal validation">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">资产名称</label>
-                            <div class="col-sm-10"><input v-model="data.name" type="text" class="form-control" required></div>
+                            <div class="col-sm-10"><input name="name" v-model="data.name" type="text" class="form-control" required></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">价格</label>
-                            <div class="col-sm-10"><input v-model="data.price" type="text" class="form-control" required></div>
+                            <div class="col-sm-10"><input name="price" v-model="data.price" type="text" class="form-control" required number="true"></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">类型</label>
-                            <div class="col-sm-10"><tt-simple-tree-children v-model="data.assetsTypeId" :data="getTypeMapById(0)" :func="getTypeMapById"></tt-simple-tree-children></div>
+                            <div class="col-sm-10"><tt-simple-tree-children name="assetsTypeId" v-model="data.assetsTypeId" :data="getTypeMapById(0)" :func="getTypeMapById"></tt-simple-tree-children></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所属网点</label>
                             <div class="col-sm-10">
-                                <select v-model="data.pointId" class="form-control" required>
+                                <select name="pointId" v-model="data.pointId" class="form-control" required>
                                     <option :value="undefined">---- 请选择 ----</option>
                                     <option v-for="item in Map.point" :value="item.key">{{ item.value }}</option>
                                 </select>
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">资产编号</label>
                             <div class="col-sm-10">
-                                <input v-model="data.customsId" type="text" class="form-control" required>
+                                <input name="customsId" v-model="data.customsId" type="text" class="form-control" required>
                                 <span class="help-block m-b-none">资产编号是由用户提供的，便于系统内部uuid编号丢失时，定位物品，因此请尽量保持其唯一性.</span>
                             </div>
                         </div>
