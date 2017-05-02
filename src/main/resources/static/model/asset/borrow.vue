@@ -9,35 +9,35 @@
                 <div class="ibox-content">
                     <form method="get" class="form-horizontal validation">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">借记人用户名</label>
-                            <div class="col-sm-10"><input name="name" v-model="data.borrowUserName" type="text" class="form-control"></div>
+                            <label class="col-sm-2 control-label">借记人id</label>
+                            <div class="col-sm-10"><input name="name" v-model="data.userId" type="text" class="form-control"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">uuid</label>
-                            <div class="col-sm-10"><input name="name" v-model="data.uuid" type="text" class="form-control"></div>
+                            <div class="col-sm-10"><input name="name" v-model="data.asset.uuid" type="text" class="form-control"></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">资产编号</label>
                             <div class="col-sm-10">
-                                <input name="customsId" v-model="data.customsId" type="text" class="form-control">
+                                <input name="customsId" v-model="data.asset.customsId" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">资产名称</label>
-                            <div class="col-sm-10"><input name="name" v-model="data.name" type="text" class="form-control"></div>
+                            <div class="col-sm-10"><input name="name" v-model="data.asset.name" type="text" class="form-control"></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">类型</label>
-                            <div class="col-sm-10"><tt-simple-tree-children name="assetsTypeId" v-model="data.assetsTypeId" :data="getTypeMapById(0)" :func="getTypeMapById"></tt-simple-tree-children></div>
+                            <div class="col-sm-10"><tt-simple-tree-children name="assetsTypeId" v-model="data.asset.assetsTypeId" :data="getTypeMapById(0)" :func="getTypeMapById"></tt-simple-tree-children></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所属网点</label>
                             <div class="col-sm-10">
-                                <select name="pointId" v-model="data.pointId" class="form-control">
+                                <select name="pointId" v-model="data.asset.pointId" class="form-control">
                                     <option :value="undefined">---- 请选择 ----</option>
                                     <option v-for="item in Map.point" :value="item.key">{{ item.value }}</option>
                                 </select>
@@ -73,15 +73,11 @@
                         active: "Borrow"
                     }
                 },
-                data:{
-                    borrowUserName:null,
-                    uuid:null,
-                    name:null,
-                    assetsTypeId:null,
-                    pointId:null,
-                    customsId:null,
-                }
+                data:{}
             }
+        },
+        created:function () {
+            this.clear();
         },
         methods:{
             assetBorrow:function () {
@@ -106,12 +102,17 @@
             },
             clear:function () {
                 this.data = {
-                    borrowUserName:null,
-                    uuid:null,
-                    name:null,
-                    assetsTypeId:null,
-                    pointId:null,
-                    customsId:null,
+                    userId:null,
+                    expectReturnTime:null,
+                    remark:null,
+                    returnTime:null,
+                    asset:{
+                        uuid:null,
+                        name:null,
+                        assetsTypeId:null,
+                        pointId:null,
+                        customsId:null,
+                    }
                 }
             },
             getTypeMapById:function (id) {
