@@ -283,7 +283,7 @@
                 self.pointModalData.data = {id:obj.id};
                 self.pointModalData.submit = function () {
                     let tree = $('#point-tree').jstree(true);
-                    let pointIds = tree.get_bottom_selected().toString();
+                    let pointIds = tree.get_top_selected().toString();
                     Server.role.updatePoint.setData({
                         roleId:obj.id,
                         pointIds:pointIds
@@ -311,7 +311,10 @@
                             });
                         }
                     },
-                    //"checkbox" : {"three_state":false},
+                    "checkbox" : {
+                        "three_state":false,
+                        "cascade":"down+undetermined"
+                    },
                     "plugins": ["checkbox"]
                 });
             }
