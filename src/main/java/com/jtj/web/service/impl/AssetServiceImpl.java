@@ -37,8 +37,9 @@ public class AssetServiceImpl
     public ResultDto<Object> add(Asset t) {
         String uuid = UUID.randomUUID().toString();
         t.setUuid(uuid);
-        addOperationRecord(uuid, Constant.OperationType.ADD);
-        return super.add(t);
+        ResultDto<Object> result = super.add(t);
+        addOperationRecord(uuid, Constant.OperationType.ADD,result.getTitle());
+        return result;
     }
 
     private int addOperationRecord(String uuid,Constant.OperationType type){
@@ -62,5 +63,48 @@ public class AssetServiceImpl
         ResultDto<List<AssetOperationRecord>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject(assetDao.getOperationRecordByUuid(uuid));
         return result;
+    }
+
+    @Override
+    public ResultDto<Object> borrowAsset(AssetDto dto) {
+        ResultDto<Object> result = new ResultDto<>();
+        List<Asset> assets = assetDao.getList(dto);
+        if (assets.size() == 0){
+            result.setResultCode(ResultCode.ASSET_NON_EXISTENT);
+            return result;
+        }
+        if (assets.size() > 1){
+            result.setResultCode(ResultCode.ASSET_NOT_ONLY);
+            result.setMessage("请使用uuid或者添加更多条件");
+            return result;
+        }
+        //todo 权限判断
+        result.setResultCode(updateAssetStatus(assets.get(0).getUuid(), Constant.AssetStatus.BORROW) == 1?
+                ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.BORROW,result.getTitle());
+        return result;
+    }
+
+    @Override
+    public ResultDto<Object> returnAsset(AssetDto dto) {
+        ResultDto<Object> result = new ResultDto<>();
+        List<Asset> assets = assetDao.getList(dto);
+        if (assets.size() == 0){
+            result.setResultCode(ResultCode.ASSET_NON_EXISTENT);
+            return result;
+        }
+        if (assets.size() > 1){
+            result.setResultCode(ResultCode.ASSET_NOT_ONLY);
+            result.setMessage("请使用uuid或者添加更多条件");
+            return result;
+        }
+        result.setResultCode(updateAssetStatus(assets.get(0).getUuid(), Constant.AssetStatus.NORMAL) == 1?
+                ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.RETURN,result.getTitle());
+        return result;
+    }
+
+    private int updateAssetStatus(String uuid, Constant.AssetStatus status){
+        return assetDao.updateAssetStatus(uuid,status.getId());
     }
 }

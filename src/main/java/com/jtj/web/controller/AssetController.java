@@ -55,4 +55,14 @@ public class AssetController {
         return assetService.getOperationRecordByUuid(uuid);
     }
 
+    @PostMapping("/borrowAsset")
+    public ResultDto<Object> borrowAsset(AssetDto dto) {
+        return assetService.borrowAsset(dto);
+    }
+
+    @PostMapping("/returnAsset")
+    public ResultDto<Object> returnAsset(AssetDto dto) {
+        return assetService.returnAsset(dto);
+    }
+
 }

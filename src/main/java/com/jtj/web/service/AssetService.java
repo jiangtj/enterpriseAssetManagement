@@ -21,4 +21,7 @@ public interface AssetService extends BaseService<Asset,AssetDto> {
 
     ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(String uuid);
 
+    ResultDto<Object> borrowAsset(AssetDto dto);
+
+    ResultDto<Object> returnAsset(AssetDto dto);
 }

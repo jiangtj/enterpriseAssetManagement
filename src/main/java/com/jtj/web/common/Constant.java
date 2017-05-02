@@ -21,11 +21,31 @@ public class Constant {
     public static List<Dictionary> dictionaries = new ArrayList<>();
 
     public enum OperationType{
-        ADD(1,"记录");
+        ADD(1,"记录"),
+        BORROW(2,"借"),
+        RETURN(3,"还");
 
         private Integer id;
         private String name;
         OperationType(Integer id,String name){
+            this.id = id;
+            this.name = name;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+    }
+
+    public enum AssetStatus{
+        NORMAL(1,"记录"),
+        BORROW(2,"租借"),
+        MAINTENANCE(3,"维修"),
+        ABANDONED(4,"报废");
+
+        private Integer id;
+        private String name;
+        AssetStatus(Integer id,String name){
             this.id = id;
             this.name = name;
         }

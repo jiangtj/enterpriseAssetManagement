@@ -112,7 +112,7 @@
                 tableData:{
                     title:{
                         $index:"序号",
-                        id:"uuid",
+                        uuid:"uuid",
                         customsId:"资产编号",
                         name:"名称",
                         price:"价格",

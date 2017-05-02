@@ -33,6 +33,9 @@
         <if test="uuid != null and uuid != ''">
             AND ${alias}.uuid = #{uuid}
         </if>
+        <if test="customsId != null and customsId != ''">
+            AND ${alias}.customs_id = #{customsId}
+        </if>
         <if test="name != null and name != ''">
             AND ${alias}.name = #{name}
         </if>
@@ -57,7 +60,9 @@
             </include>
         </where>
         ORDER BY ai.create_time DESC
-        LIMIT #{begin},#{offset}
+        <if test="offset != 0">
+            LIMIT #{begin},#{offset}
+        </if>
     </select>
 
     <select id="getNum" resultType="int">
@@ -85,5 +90,10 @@
         (sd.`key` = aor.operation_type AND sd.`table` = 'assets_operation_record' AND sd.`column` = 'operation_type')
         WHERE aor.uuid = #{uuid}
     </select>
+
+    <update id="updateAssetStatus">
+        UPDATE assets_item SET status = #{status}
+        WHERE uuid = #{uuid}
+    </update>
 
 </mapper>
