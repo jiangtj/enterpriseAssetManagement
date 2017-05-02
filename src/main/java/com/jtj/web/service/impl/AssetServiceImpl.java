@@ -13,6 +13,7 @@ import com.jtj.web.entity.*;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
 import com.jtj.web.service.AssetTypeService;
+import com.jtj.web.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,8 @@ public class AssetServiceImpl
     private AssetDao assetDao;
     @Autowired
     private AssetOperationRecordService assetOperationRecordService;
+    @Autowired
+    private BorrowService borrowService;
 
     @Override
     public ResultDto<Object> add(Asset t) {
@@ -62,10 +65,12 @@ public class AssetServiceImpl
             return result;
         }
         //todo 权限判断
-        result.setResultCode(updateAssetStatus(assets.get(0).getUuid(), Constant.AssetStatus.BORROW) == 1?
+        String uuid = assets.get(0).getUuid();
+        result.setResultCode(updateAssetStatus(uuid, Constant.AssetStatus.BORROW) == 1?
                 ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
-        assetOperationRecordService.addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.BORROW,result.getTitle());
-        return result;
+        assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.BORROW,result.getTitle());
+        borrow.setUuid(uuid);
+        return borrowService.add(borrow);
     }
 
     @Override
@@ -85,7 +90,8 @@ public class AssetServiceImpl
         result.setResultCode(updateAssetStatus(assets.get(0).getUuid(), Constant.AssetStatus.NORMAL) == 1?
                 ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         assetOperationRecordService.addOperationRecord(assets.get(0).getUuid(), Constant.OperationType.RETURN,result.getTitle());
-        return result;
+        //todo 修改状态
+        return borrowService.update(borrow);
     }
 
     private int updateAssetStatus(String uuid, Constant.AssetStatus status){

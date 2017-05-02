@@ -1,17 +1,15 @@
-package com.jtj.web.entity;
+package com.jtj.web.dto;
 
 import com.jtj.web.common.BaseDto;
-import com.jtj.web.common.BaseEntity;
 import com.jtj.web.entity.Asset;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
  * 2017/2/22.
  */
-public class Borrow extends BaseEntity {
+public class BorrowDto extends BaseDto {
 
     private String userId;
     private String uuid;

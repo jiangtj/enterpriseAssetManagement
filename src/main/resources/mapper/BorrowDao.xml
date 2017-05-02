@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.BorrowDao">
+
+    <insert id="add">
+        INSERT INTO assets_borrow(uuid, user_id, expect_return_time, remark)
+        VALUES (#{uuid},#{userId},#{expectReturnTime},#{remark})
+    </insert>
+
+    <update id="update">
+        UPDATE assets_borrow
+        <set>
+            <if test=" status != null ">
+                status = #{status},
+            </if>
+            <if test=" return_time != null ">
+                name = #{returnTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM assets_borrow WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <sql id="assetsItemConditions">
+        <if test="uuid != null and uuid != ''">
+            AND ${alias}.uuid = #{uuid}
+        </if>
+        <if test="userId != null">
+            AND ${alias}.user_id = #{userId}
+        </if>
+        <if test="status != null">
+            AND ${alias}.status = #{status}
+        </if>
+    </sql>
+
+    <select id="getList" resultType="Asset">
+        SELECT
+        ab.*
+        FROM assets_borrow ab
+        <where>
+            <include refid="assetsItemConditions">
+                <property name="alias" value="ab"/>
+            </include>
+        </where>
+        ORDER BY ab.create_time DESC
+        <if test="offset != 0">
+            LIMIT #{begin},#{offset}
+        </if>
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM assets_borrow ab
+        <where>
+            <include refid="assetsItemConditions">
+                <property name="alias" value="ab"/>
+            </include>
+        </where>
+    </select>
+
+</mapper>
