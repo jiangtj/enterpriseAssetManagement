@@ -20,4 +20,15 @@ public class Constant {
 
     public static List<Dictionary> dictionaries = new ArrayList<>();
 
+    public enum OperationType{
+        ADD(1,"记录");
+
+        private Integer id;
+        private String name;
+        OperationType(Integer id,String name){
+            this.id = id;
+            this.name = name;
+        }
+    }
+
 }

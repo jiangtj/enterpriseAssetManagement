@@ -3,6 +3,7 @@ package com.jtj.web.dao;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.Asset;
+import com.jtj.web.entity.AssetOperationRecord;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,5 +19,7 @@ import java.util.List;
 @Mapper
 @Component
 public interface AssetDao extends BaseDao<Asset,AssetDto>{
+
+    int addOperationRecord(AssetOperationRecord record);
 
 }
