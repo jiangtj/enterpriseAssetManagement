@@ -8,13 +8,23 @@
             <div class="row"><div class="col-lg-12"><div class="ibox">
                 <div class="ibox-content">
                     <form method="get" class="form-horizontal validation">
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label">借记人id</label>
-                            <div class="col-sm-10"><input name="name" v-model="data.userId" type="text" class="form-control"></div>
+                            <div class="col-sm-10"><input name="userId" v-model="data.userId" type="text" class="form-control"></div>
                         </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">预期/归还时间</label>
+                            <div class="col-sm-10">
+                                <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
+                                <input name="time" type="text" class="form-control datepicker">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">uuid</label>
-                            <div class="col-sm-10"><input name="name" v-model="data.asset.uuid" type="text" class="form-control"></div>
+                            <div class="col-sm-10"><input name="uuid" v-model="data.asset.uuid" type="text" class="form-control"></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
@@ -78,6 +88,15 @@
         },
         created:function () {
             this.clear();
+        },
+        mounted:function () {
+            $('.datepicker').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            })
         },
         methods:{
             assetBorrow:function () {
