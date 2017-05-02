@@ -103,5 +103,11 @@ const Server = {
         getPoint:new WebBuilder("/point/getPoint",{intercepts:defaultListIntercept}),
         getMapByPid:new WebBuilder("/point/getMapByPid",{intercepts:defaultListIntercept}),
         getPublicPoint:new WebBuilder("/public/getPoint",{intercepts:defaultListIntercept})
+    },
+    asset:{
+        getList:new WebBuilder("/asset/getList",{intercepts:defaultListIntercept}),
+        add:new WebBuilder("/asset/add",{intercepts:defaultIntercept}),
+        delete:new WebBuilder("/asset/delete",{intercepts:defaultIntercept}),
+        update:new WebBuilder("/asset/update",{intercepts:defaultIntercept})
     }
 };
