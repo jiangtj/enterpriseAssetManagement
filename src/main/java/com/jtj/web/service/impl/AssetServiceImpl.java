@@ -90,7 +90,7 @@ public class AssetServiceImpl
                 ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.RETURN,
                 result.getTitle()+",归还人："+borrow.getUserId());
-        borrow.setUserId(uuid);
+        borrow.setUuid(uuid);
         borrow.setStatus(2);
         if (borrow.getReturnTime() == null) borrow.setReturnTime(new Date());
         borrowDao.updateStatus(borrow);

@@ -10,7 +10,7 @@
                     <form method="get" class="form-horizontal validation">
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">借记人id</label>
+                            <label class="col-sm-2 control-label">借/还人id</label>
                             <div class="col-sm-10"><input name="userId" v-model="data.userId" type="text" class="form-control" required></div>
                         </div>
                         <div class="hr-line-dashed"></div>

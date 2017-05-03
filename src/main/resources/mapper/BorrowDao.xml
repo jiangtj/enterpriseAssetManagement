@@ -70,15 +70,12 @@
     <update id="updateStatus">
         UPDATE assets_borrow
         <set>
-            status = #{status},
-            <if test=" returnTime != null ">
-                return_time = #{returnTime},
-            </if>
+            status = 2,return_time = #{returnTime},
             <if test=" remark != null and remark != '' ">
-                remark = #{remark},
+                remark = #{remark}
             </if>
         </set>
-        WHERE uuid = #{uuid}
+        WHERE uuid = #{uuid} and status = 1
     </update>
 
 </mapper>
