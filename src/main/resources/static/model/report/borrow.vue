@@ -5,6 +5,25 @@
         <!-- 动画 -->
         <div class="wrapper wrapper-content animated fadeInRight">
 
+            <!-- 表单 -->
+            <div class="row"><div class="col-lg-12"><div class="ibox tt-from-table">
+                <div class="ibox-content">
+                    <form role="form" class="form-inline validation">
+
+                        <tt-simple-input id="time1" class="datepicker" label="开始时间" v-model="conditions.time1" required></tt-simple-input>
+                        <tt-simple-input id="time2" class="datepicker " label="结束时间" v-model="conditions.time2" required></tt-simple-input>
+
+                        <div class="btn-toolbar pull-right" role="toolbar">
+                            <div class="btn-group">
+                                <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div></div></div>
+
+            <!-- 图表 -->
             <div class="row"><div class="col-lg-12"><div class="ibox">
                 <div class="ibox-content">
                     <div>
@@ -32,14 +51,26 @@
                         active: "Overall"
                     }
                 },
-                pieData:{
-                    labels: ["正常","租借","维修","报废"],
-                    datasets: [{
-                        data: [300,50,100,100],
-                        backgroundColor: ["#a3e1d4","#dedede","#b5b8cf","#b7cfc8"]
-                    }]
+                conditions:{},
+                chartData:{
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [
+                        {
+                            label: "借用数",
+                            backgroundColor: 'rgba(26,179,148,0.5)',
+                            borderColor: "rgba(26,179,148,0.7)",
+                            pointBackgroundColor: "rgba(26,179,148,1)",
+                            pointBorderColor: "#fff",
+                            data: [28, 48, 40, 19, 86, 27, 90]
+                        },{
+                            label: "归还数",
+                            backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                            pointBorderColor: "#fff",
+                            data: [65, 59, 80, 81, 56, 55, 40]
+                        }
+                    ]
                 },
-                myPieChart:null
+                chart:null
             }
         },
         computed:{
@@ -48,33 +79,39 @@
             let self = this;
         },
         mounted:function () {
-            let lineData = {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [
+            let self = this;
 
-                    {
-                        label: "Data 1",
-                        backgroundColor: 'rgba(26,179,148,0.5)',
-                        borderColor: "rgba(26,179,148,0.7)",
-                        pointBackgroundColor: "rgba(26,179,148,1)",
-                        pointBorderColor: "#fff",
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },{
-                        label: "Data 2",
-                        backgroundColor: 'rgba(220, 220, 220, 0.5)',
-                        pointBorderColor: "#fff",
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    }
-                ]
-            };
+            $('.datepicker input').datepicker({
+                todayBtn: "linked",
+                format: 'yyyy-mm-dd',
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
 
             let lineOptions = {
                 responsive: true
             };
-
-
             let ctx = document.getElementById("lineChart").getContext("2d");
-            new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
+            self.chart = new Chart(ctx, {type: 'line', data: self.chartData, options:lineOptions});
+        },
+        methods: {
+            getTableList: function () {
+                let self = this;
+                if (ValidationUtils.check(".validation")) {
+                    self.conditions = {
+                        startTime: $('#time1 input').datepicker('getDate').getTime(),
+                        endTime: $('#time2 input').datepicker('getDate').getTime()
+                    };
+                    Server.report.getBorrow.setData(self.conditions).post(data => {
+                        self.chartData.labels = $.map(data.object,(item) => item.date);
+                        self.chartData.datasets[0].data = $.map(data.object,(item) => item.borrowNum);
+                        self.chartData.datasets[1].data = $.map(data.object,(item) => item.returnNum);
+                        self.chart.update();
+                    });
+                }
+            },
         }
     });
 </script>

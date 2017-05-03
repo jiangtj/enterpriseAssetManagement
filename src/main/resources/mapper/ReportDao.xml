@@ -12,4 +12,38 @@
             (SELECT count(1) abandoned FROM assets_item WHERE status = 4) AS a4
     </select>
 
+    <select id="getBorrow" resultType="map">
+        SELECT
+        a.date,
+        ifnull(a.borrowNum,0) borrowNum,
+        ifnull(b.returnNum,0) returnNum
+        FROM
+        (SELECT
+        date,any_value(borrowNum) borrowNum
+        FROM
+        (SELECT
+        date_format(ab.create_time,'%Y-%m-%d') date,
+        count(1) borrowNum
+        FROM assets_borrow ab
+        WHERE ab.create_time >= #{startTime} AND <![CDATA[ ab.create_time <= #{endTime} ]]>
+        GROUP BY date
+        <foreach collection="dateList" item="item">
+            UNION (SELECT date_format(#{item},'%Y-%m-%d'),0)
+        </foreach>
+        ) AS bu
+        GROUP BY bu.date
+        ) AS a
+
+        LEFT JOIN
+        (SELECT
+        date_format(ab2.return_time,'%Y-%m-%d') date,
+        count(1) returnNum
+        FROM assets_borrow ab2
+        WHERE ab2.return_time >= #{startTime}  AND <![CDATA[ ab2.return_time <= #{endTime} ]]>
+        GROUP BY date
+        ) AS b ON a.date = b.date
+
+        ORDER BY date ASC
+    </select>
+
 </mapper>

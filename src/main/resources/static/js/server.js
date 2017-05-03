@@ -116,5 +116,6 @@ const Server = {
     },
     report:{
         getOverall:new WebBuilder("/report/getOverall",{intercepts:defaultListIntercept}),
+        getBorrow:new WebBuilder("/report/getBorrow",{intercepts:defaultListIntercept}),
     }
 };

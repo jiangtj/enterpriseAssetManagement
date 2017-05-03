@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +33,11 @@ public class ReportController {
     @PostMapping("/getOverall")
     public ResultDto<Object> getOverall(){
         return reportService.getOverall();
+    }
+
+    @PostMapping("/getBorrow")
+    public ResultDto<Object> getBorrow(@RequestParam Date startTime,@RequestParam Date endTime){
+        return reportService.getBorrow(startTime,endTime);
     }
 
 }
