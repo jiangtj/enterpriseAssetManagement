@@ -113,7 +113,7 @@
                         customsId:"资产编号",
                         name:"名称",
                         price:"价格",
-                        status:"状态",
+                        statusName:"状态",
                         operation:{name:"操作",width:"60px"}
                     },
                     data:[]

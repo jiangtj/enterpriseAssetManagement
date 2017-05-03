@@ -52,8 +52,11 @@
 
     <select id="getList" resultType="Asset">
         SELECT
-        ai.*
+        ai.*,
+        sd.value statusName
         FROM assets_item ai
+        LEFT JOIN system_dictionary sd ON
+        (sd.`key` = ai.status AND sd.`table` = 'assets_item' AND sd.`column` = 'status')
         <where>
             <include refid="assetsItemConditions">
                 <property name="alias" value="ai"/>

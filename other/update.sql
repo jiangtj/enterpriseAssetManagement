@@ -66,3 +66,8 @@ INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`
 ALTER TABLE `assets_borrow`
   ADD COLUMN `status`  tinyint(4) NOT NULL DEFAULT 1 COMMENT '状态，1：在借，2：已归还' AFTER `expect_return_time`,
   ADD COLUMN `return_time`  datetime NULL COMMENT '归还时间' AFTER `status`;
+
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('12', 'assets_item', 'status', '1', '正常', '2017-05-03 16:22:14', '2017-05-03 16:22:14');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('13', 'assets_item', 'status', '2', '租借', '2017-05-03 16:22:14', '2017-05-03 16:22:14');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('14', 'assets_item', 'status', '3', '维修', '2017-05-03 16:22:14', '2017-05-03 16:22:14');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('15', 'assets_item', 'status', '4', '报废', '2017-05-03 16:22:14', '2017-05-03 16:22:14');

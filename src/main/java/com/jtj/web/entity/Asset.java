@@ -15,6 +15,7 @@ public class Asset extends BaseEntity {
     private String name;
     private BigDecimal price;
     private Integer status;
+    private String statusName;
     private Integer assetsTypeId;
     private Long pointId;
 
@@ -56,6 +57,14 @@ public class Asset extends BaseEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     public Integer getAssetsTypeId() {
