@@ -130,7 +130,8 @@
                     title:{
                         $index:"序号",
                         userId:"操作人id",
-                        operationTypeName:"操作类型"
+                        operationTypeName:"操作类型",
+                        remark:"备注"
                     },
                     data:[]
                 }

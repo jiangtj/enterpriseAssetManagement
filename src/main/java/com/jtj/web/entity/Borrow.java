@@ -18,7 +18,7 @@ public class Borrow extends BaseEntity {
     private Date expectReturnTime;
     private String remark;
     private Integer status;
-    private String returnTime;
+    private Date returnTime;
 
     private Asset asset;
 
@@ -62,11 +62,11 @@ public class Borrow extends BaseEntity {
         this.status = status;
     }
 
-    public String getReturnTime() {
+    public Date getReturnTime() {
         return returnTime;
     }
 
-    public void setReturnTime(String returnTime) {
+    public void setReturnTime(Date returnTime) {
         this.returnTime = returnTime;
     }
 

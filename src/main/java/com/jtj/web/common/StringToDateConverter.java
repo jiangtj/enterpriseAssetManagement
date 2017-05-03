@@ -12,7 +12,7 @@ import java.util.Date;
 public class StringToDateConverter implements Converter<String,Date> {
     @Override
     public Date convert(String source) {
-        if (StringUtils.isEmpty(source)){
+        if (StringUtils.isEmpty(source) || "NaN".equals(source)){
             return null;
         }
         return new Date(Long.parseLong(source));

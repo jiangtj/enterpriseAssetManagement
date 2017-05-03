@@ -38,7 +38,7 @@ public class Constant {
     }
 
     public enum AssetStatus{
-        NORMAL(1,"记录"),
+        NORMAL(1,"正常"),
         BORROW(2,"租借"),
         MAINTENANCE(3,"维修"),
         ABANDONED(4,"报废");

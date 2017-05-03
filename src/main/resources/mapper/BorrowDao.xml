@@ -67,4 +67,18 @@
         </where>
     </select>
 
+    <update id="updateStatus">
+        UPDATE assets_borrow
+        <set>
+            status = #{status},
+            <if test=" returnTime != null ">
+                return_time = #{returnTime},
+            </if>
+            <if test=" remark != null and remark != '' ">
+                remark = #{remark},
+            </if>
+        </set>
+        WHERE uuid = #{uuid}
+    </update>
+
 </mapper>

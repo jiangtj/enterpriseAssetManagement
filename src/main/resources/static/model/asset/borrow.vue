@@ -58,6 +58,13 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <input name="customsId" v-model="data.remark" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
                                 <button @click="assetBorrow" class="btn btn-primary" type="button">借用</button>
                                 <button @click="assetReturn" class="btn btn-default" type="button">归还</button>
