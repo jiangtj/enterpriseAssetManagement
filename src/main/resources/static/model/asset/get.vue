@@ -18,8 +18,8 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showUpdateModal(3,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:maintenance')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 3?'完成':'维修'}}</button>
-                                <button @click="showUpdateModal(4,tableSelectData[0])" v-if="hasOneChecked && PermissionName('permission:abandon')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 4?'撤回报废':'报废'}}</button>
+                                <button @click="showUpdateModal(3,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:updateStatus')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 3?'完成':'维修'}}</button>
+                                <button @click="showUpdateModal(4,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:updateStatus')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 4?'撤回报废':'报废'}}</button>
                                 <button @click="deleteAll()" v-if="hasChecked && PermissionName('permission:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
