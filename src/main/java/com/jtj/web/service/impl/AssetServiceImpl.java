@@ -97,6 +97,16 @@ public class AssetServiceImpl
         return result;
     }
 
+    @Override
+    public ResultDto<Object> updateStatus(String uuid, Integer status, String remark) {
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(assetDao.updateAssetStatus(uuid,status) == 1?
+                ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        if (status == 3) assetOperationRecordService.addOperationRecord(uuid,Constant.OperationType.MAINTENANCE,result.getTitle()+","+remark);
+        if (status == 4) assetOperationRecordService.addOperationRecord(uuid,Constant.OperationType.ABANDONED,result.getTitle()+","+remark);
+        return result;
+    }
+
     private int updateAssetStatus(String uuid, Constant.AssetStatus status){
         return assetDao.updateAssetStatus(uuid,status.getId());
     }

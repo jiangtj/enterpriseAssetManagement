@@ -19,4 +19,6 @@ public interface AssetService extends BaseService<Asset,AssetDto> {
     ResultDto<Object> borrowAsset(Borrow borrow);
 
     ResultDto<Object> returnAsset(Borrow borrow);
+
+    ResultDto<Object> updateStatus(String uuid, Integer status, String remark);
 }

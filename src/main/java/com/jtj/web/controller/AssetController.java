@@ -65,4 +65,9 @@ public class AssetController {
         return assetService.returnAsset(borrow);
     }
 
+    @PostMapping("/updateStatus")
+    public ResultDto<Object> updateStatus(@RequestParam String uuid,@RequestParam Integer status,@RequestParam String remark) {
+        return assetService.updateStatus(uuid,status,remark);
+    }
+
 }

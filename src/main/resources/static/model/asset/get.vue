@@ -18,7 +18,8 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked && PermissionName('permission:update')" class="btn btn-outline btn-primary" type="button">修改</button>
+                                <button @click="showUpdateModal(3,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:maintenance')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 3?'完成':'维修'}}</button>
+                                <button @click="showUpdateModal(4,tableSelectData[0])" v-if="hasOneChecked && PermissionName('permission:abandon')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 4?'撤回报废':'报废'}}</button>
                                 <button @click="deleteAll()" v-if="hasChecked && PermissionName('permission:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
@@ -53,9 +54,8 @@
             <form role="form" class="validation">
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
-                        <h4 class="m-t-none m-b">基本信息</h4>
-                        <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
+                        <!--<h4 class="m-t-none m-b">基本信息</h4>-->
+                        <tt-simple-input label="备注" v-model="fromModalData.data.remark" type="textarea" required></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
@@ -198,10 +198,12 @@
                     Server.asset.delete.setData("ids="+ids).post(() => self.getTableList());
                 });
             },
-            showUpdateModal:function (obj) {
-                this.fromModalData.title = "修改";
+            showUpdateModal:function (status,obj) {
+                this.fromModalData.title = status === 3?"维修":"报废";
+                obj.remark = null;
+                obj.status = obj.status===status?1:status;
                 this.fromModalData.data = JsonUtils.copy(obj);
-                this.fromModalData.submit = this.getSubmitFunc(Server.asset.update);
+                this.fromModalData.submit = this.getSubmitFunc(Server.asset.updateStatus);
                 this.fromModal.show();
             },
             showOperationRecordModal:function (obj) {

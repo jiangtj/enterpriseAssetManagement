@@ -23,7 +23,11 @@ public class Constant {
     public enum OperationType{
         ADD(1,"记录"),
         BORROW(2,"借"),
-        RETURN(3,"还");
+        RETURN(3,"还"),
+        LOSE(4,"丢失"),
+        MAINTENANCE(5,"维修"),
+        ABANDONED(6,"作废"),
+        PAN(7,"盘点");
 
         private Integer id;
         private String name;
