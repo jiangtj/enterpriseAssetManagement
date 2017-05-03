@@ -54,12 +54,9 @@
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
-                        <tt-simple-input v-if="!quick" label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
+                        <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                         <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
                     </div>
-                    <!--<div class="col-sm-6">
-                        <h4>权限配置</h4>
-                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -204,7 +201,6 @@
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.asset.update);
-                this.quick = false;
                 this.fromModal.show();
             },
             showOperationRecordModal:function (obj) {

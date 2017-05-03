@@ -11,7 +11,7 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">借记人id</label>
-                            <div class="col-sm-10"><input name="userId" v-model="data.userId" type="text" class="form-control"></div>
+                            <div class="col-sm-10"><input name="userId" v-model="data.userId" type="text" class="form-control" required></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
@@ -24,7 +24,10 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">uuid</label>
-                            <div class="col-sm-10"><input name="uuid" v-model="data.asset.uuid" type="text" class="form-control"></div>
+                            <div class="col-sm-10">
+                                <input name="uuid" v-model="data.asset.uuid" type="text" class="form-control">
+                                <span class="help-block m-b-none">uuid与之下资产信息选填其一.</span>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
@@ -92,6 +95,7 @@
         mounted:function () {
             $('.datepicker').datepicker({
                 todayBtn: "linked",
+                format: 'yyyy-mm-dd',
                 keyboardNavigation: false,
                 forceParse: false,
                 calendarWeeks: true,
@@ -101,23 +105,33 @@
         methods:{
             assetBorrow:function () {
                 let self = this;
-                if (self.data.uuid === null && self.data.customsId){
+                if ((self.data.asset.uuid === null || self.data.asset.uuid === "")&&
+                    (self.data.asset.customsId === null || self.data.asset.customsId === "")){
                     ToastrUtils.show("uuid与资产编号不能同时为空！","",9);
                     return;
                 }
-                Server.asset.borrowAsset.setData(self.data).post(() => {
-                    self.clear();
-                });
+                let date = $('.datepicker').datepicker('getDate');
+                self.data.expectReturnTime = date.getTime();
+                if (ValidationUtils.check(".validation")) {
+                    Server.asset.borrowAsset.setData(self.data).post(() => {
+                        self.clear();
+                    });
+                }
             },
             assetReturn:function () {
                 let self = this;
-                if (self.data.uuid === null && self.data.customsId){
+                if ((self.data.asset.uuid === null || self.data.asset.uuid === "")&&
+                    (self.data.asset.customsId === null || self.data.asset.customsId === "")){
                     ToastrUtils.show("uuid与资产编号不能同时为空！","",9);
                     return;
                 }
-                Server.asset.returnAsset.setData(self.data).post(() => {
-                    self.clear();
-                });
+                let date = $('.datepicker').datepicker('getDate');
+                self.data.returnTime = date.getTime();
+                if (ValidationUtils.check(".validation")) {
+                    Server.asset.returnAsset.setData(self.data).post(() => {
+                        self.clear();
+                    });
+                }
             },
             clear:function () {
                 this.data = {
