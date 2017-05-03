@@ -112,5 +112,8 @@ const Server = {
         getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid",{intercepts:defaultListIntercept}),
         borrowAsset:new WebBuilder("/asset/borrowAsset",{intercepts:defaultIntercept}),
         returnAsset:new WebBuilder("/asset/returnAsset",{intercepts:defaultIntercept})
+    },
+    report:{
+        getOverall:new WebBuilder("/report/getOverall",{intercepts:defaultListIntercept}),
     }
 };

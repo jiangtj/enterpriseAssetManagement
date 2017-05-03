@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.ReportDao">
+
+    <select id="getOverall" resultType="map">
+        SELECT * FROM
+            (SELECT count(1) normal FROM assets_item WHERE status = 1) AS a1,
+            (SELECT count(1) borrow FROM assets_item WHERE status = 2) AS a2,
+            (SELECT count(1) maintenance FROM assets_item WHERE status = 3) AS a3,
+            (SELECT count(1) abandoned FROM assets_item WHERE status = 4) AS a4
+    </select>
+
+</mapper>
