@@ -23,8 +23,8 @@
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
                     </form>
+                    <div class="clearfix"></div>
                 </div>
             </div></div></div>
 
