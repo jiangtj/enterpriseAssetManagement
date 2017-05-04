@@ -53,7 +53,7 @@
                 },
                 conditions:{},
                 chartData:{
-                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    labels: ["null"],
                     datasets: [
                         {
                             label: "借用数",
@@ -61,12 +61,12 @@
                             borderColor: "rgba(26,179,148,0.7)",
                             pointBackgroundColor: "rgba(26,179,148,1)",
                             pointBorderColor: "#fff",
-                            data: [28, 48, 40, 19, 86, 27, 90]
+                            data: [0]
                         },{
                             label: "归还数",
                             backgroundColor: 'rgba(220, 220, 220, 0.5)',
                             pointBorderColor: "#fff",
-                            data: [65, 59, 80, 81, 56, 55, 40]
+                            data: [0]
                         }
                     ]
                 },
