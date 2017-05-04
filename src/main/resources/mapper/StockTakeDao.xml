@@ -161,4 +161,16 @@
         WHERE ast.status = 1
     </select>
 
+    <update id="updateAmount">
+        UPDATE assets_stock_take SET
+            handling_amount = (SELECT COUNT(1) FROM assets_stock_take_item WHERE `status` = 1 AND stock_take_id = #{id}),
+            normal_amount = (SELECT COUNT(1) FROM assets_stock_take_item WHERE `status` = 2 AND stock_take_id = #{id}),
+            abnormal_amount = (SELECT COUNT(1) FROM assets_stock_take_item WHERE `status` = 3 AND stock_take_id = #{id})
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultType="StockTake">
+        SELECT * FROM assets_stock_take WHERE id = #{id}
+    </select>
+
 </mapper>

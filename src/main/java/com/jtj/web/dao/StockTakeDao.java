@@ -31,4 +31,9 @@ public interface StockTakeDao extends BaseDao<StockTake,StockTakeDto>{
                          @Param("status") Integer status);
 
     List<KeyValue> getAvailableMap();
+
+    int updateAmount(@Param("id") Long id);
+
+    StockTake getById(@Param("id") Long id);
+
 }

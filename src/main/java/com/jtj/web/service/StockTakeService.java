@@ -1,8 +1,10 @@
 package com.jtj.web.service;
 
+import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
+import com.jtj.web.dto.StockTakeItemDto;
 import com.jtj.web.entity.*;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +22,8 @@ public interface StockTakeService extends BaseService<StockTake,StockTakeDto> {
     ResultDto<Object> handleItem(StockTakeItem item);
 
     ResultDto<List<KeyValue>> getAvailableMap();
+
+    ResultDto<StockTake> updateAmount(Long id);
+
+    ResultDto<PageDto<StockTakeItem>> getItemList(StockTakeItemDto dto);
 }

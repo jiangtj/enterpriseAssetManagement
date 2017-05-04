@@ -5,12 +5,14 @@ import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.PermissionDto;
 import com.jtj.web.dto.StockTakeDto;
+import com.jtj.web.dto.StockTakeItemDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.StockTake;
 import com.jtj.web.entity.StockTakeItem;
 import com.jtj.web.service.PermissionService;
 import com.jtj.web.service.StockTakeService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +57,16 @@ public class StockTakeController {
     @GetMapping("/getAvailableMap")
     public ResultDto<List<KeyValue>> getAvailableMap(){
         return stockTakeService.getAvailableMap();
+    }
+
+    @PostMapping("/updateAmount")
+    public ResultDto<StockTake> updateAmount(@RequestParam Long id) {
+        return stockTakeService.updateAmount(id);
+    }
+
+    @PostMapping("/getItemList")
+    public ResultDto<PageDto<StockTakeItem>> getItemList(StockTakeItemDto dto) {
+        return stockTakeService.getItemList(dto);
     }
 
 }

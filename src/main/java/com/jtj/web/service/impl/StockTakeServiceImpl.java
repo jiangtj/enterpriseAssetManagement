@@ -1,6 +1,7 @@
 package com.jtj.web.service.impl;
 
 import com.jtj.web.common.Constant;
+import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.utils.BeanUtils;
@@ -85,6 +86,19 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
         ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject(stockTakeDao.getAvailableMap());
         return result;
+    }
+
+    @Override
+    public ResultDto<StockTake> updateAmount(Long id) {
+        ResultDto<StockTake> result = new ResultDto<>();
+        result.setResultCode(stockTakeDao.updateAmount(id)==1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        result.setObject(stockTakeDao.getById(id));
+        return result;
+    }
+
+    @Override
+    public ResultDto<PageDto<StockTakeItem>> getItemList(StockTakeItemDto dto) {
+        return null;
     }
 
     public int updateItemStatus(Long stockTakeId,String uuid, Constant.StockTakeItemStatus status) {

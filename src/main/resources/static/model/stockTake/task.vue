@@ -32,7 +32,7 @@
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showUpdateModal(props.row)"  v-if="PermissionName('stockTake:updateAmount')" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
+                                <button @click="updateAmount(props.row)"  v-if="PermissionName('stockTake:updateAmount')" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
                                 <button @click="showUpdateModal(props.row)"  v-if="PermissionName('stockTake:getItemList')" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
                             </template>
                         </tt-table>
@@ -177,6 +177,11 @@
                 this.fromModalData.data ={name:obj.name,id:obj.id};
                 this.fromModalData.submit = this.getSubmitFunc(Server.stockTake.update);
                 this.fromModal.show();
+            },
+            updateAmount:function (obj) {
+                Server.stockTake.updateAmount.setData("id="+obj.id).post((data) => {
+                    $.extend(true,obj,data.object);
+                })
             }
         }
     });
