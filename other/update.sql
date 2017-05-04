@@ -27,4 +27,6 @@ INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`
 
 
 ALTER TABLE `assets_stock_take`
-  ADD COLUMN `status`  tinyint(4) NULL DEFAULT 1 COMMENT '状态，1：盘点中，2：盘点关闭' AFTER `user_id`;
+  ADD COLUMN `status`  tinyint(4) NULL DEFAULT 1 COMMENT '状态，1：盘点中，2：盘点完成' AFTER `user_id`;
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('19', 'assets_stock_take', 'status', '1', '盘点中', '2017-05-04 23:43:05', '2017-05-04 23:43:05');
+INSERT INTO `asset`.`system_dictionary` (`id`, `table`, `column`, `key`, `value`, `create_time`, `update_time`) VALUES ('20', 'assets_stock_take', 'status', '2', '盘点完成', '2017-05-04 23:43:05', '2017-05-04 23:43:05');

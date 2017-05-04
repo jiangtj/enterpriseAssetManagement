@@ -98,11 +98,27 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
 
     @Override
     public ResultDto<PageDto<StockTakeItem>> getItemList(StockTakeItemDto dto) {
-        return null;
+        ResultDto<PageDto<StockTakeItem>> result = new ResultDto<>(ResultCode.SUCCESS);
+        PageDto<StockTakeItem> page= new PageDto<>();
+        page.setList(stockTakeDao.getItemList(dto));
+        page.setCount(stockTakeDao.getItemNum(dto));
+        result.setObject(page);
+        return result;
+    }
+
+    @Override
+    public ResultDto<Object> updateToAbnormal(Long id) {
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(updateItemStatusById(id,Constant.StockTakeItemStatus.ABNORMAL)==1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        return result;
     }
 
     public int updateItemStatus(Long stockTakeId,String uuid, Constant.StockTakeItemStatus status) {
         return stockTakeDao.updateItemStatus(stockTakeId, uuid, status.getId());
+    }
+
+    public int updateItemStatusById(Long id, Constant.StockTakeItemStatus status) {
+        return stockTakeDao.updateItemStatusById(id, status.getId());
     }
 
 }

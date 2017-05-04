@@ -124,8 +124,11 @@
 
     <select id="getItemList" resultType="StockTakeItem">
         SELECT
-        asti.*
+        asti.*,
+        sd.value statusName
         FROM assets_stock_take_item asti
+        LEFT JOIN system_dictionary sd ON
+        (sd.`key` = asti.status AND sd.`table` = 'assets_stock_take_item' AND sd.`column` = 'status')
         <where>
             <include refid="stockTakeItemConditions">
                 <property name="alias" value="asti"/>
@@ -151,6 +154,11 @@
     <update id="updateItemStatus">
         UPDATE assets_stock_take_item SET status = #{status}
         WHERE stock_take_id = #{stockTakeId} AND uuid = #{uuid}
+    </update>
+
+    <update id="updateItemStatusById">
+        UPDATE assets_stock_take_item SET status = #{status}
+        WHERE id = #{id}
     </update>
 
     <select id="getAvailableMap" resultType="KeyValue">

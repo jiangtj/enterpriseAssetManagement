@@ -1,11 +1,11 @@
 //定义路由堆
 const CustomRoutes = {
-    "dsc":{
-        menu:"Home",
+    /*"StockTake":{
+        menu:"StockTakeTask",
         name:"思考每次是",
         url:"/sl/sac/sa",
         staticUrl:"/model/index.vue"
-    }
+    }*/
 };
 
 //定义路由

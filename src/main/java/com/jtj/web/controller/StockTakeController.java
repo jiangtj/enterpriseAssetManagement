@@ -69,4 +69,9 @@ public class StockTakeController {
         return stockTakeService.getItemList(dto);
     }
 
+    @PostMapping("/updateToAbnormal")
+    public ResultDto<Object> updateToAbnormal(@RequestParam("id") Long id) throws AssetException {
+        return stockTakeService.updateToAbnormal(id);
+    }
+
 }

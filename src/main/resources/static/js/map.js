@@ -33,6 +33,15 @@ const Map = new Vue({
         },
         menuType:function () {
             return this.getMap("/public/map/dictionary/auth_menu/type");
+        },
+        assetStatus:function () {
+            return this.getMap("/public/map/dictionary/assets_item/status");
+        },
+        stockTakeStatus:function () {
+            return this.getMap("/public/map/dictionary/assets_stock_take/status");
+        },
+        stockTakeItemStatus:function () {
+            return this.getMap("/public/map/dictionary/assets_stock_take_item/status");
         }
     },
     methods:{

@@ -26,4 +26,6 @@ public interface StockTakeService extends BaseService<StockTake,StockTakeDto> {
     ResultDto<StockTake> updateAmount(Long id);
 
     ResultDto<PageDto<StockTakeItem>> getItemList(StockTakeItemDto dto);
+
+    ResultDto<Object> updateToAbnormal(Long id);
 }

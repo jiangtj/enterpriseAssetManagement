@@ -11,6 +11,7 @@
                     <form role="form" class="form-inline">
 
                         <tt-simple-input label="名称" v-model="conditions.name"></tt-simple-input>
+                        <tt-simple-select label="状态" v-model="conditions.status" :data="Map.stockTakeStatus" show-undefined></tt-simple-select>
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
@@ -33,7 +34,7 @@
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="updateAmount(props.row)"  v-if="PermissionName('stockTake:updateAmount')" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
-                                <button @click="showUpdateModal(props.row)"  v-if="PermissionName('stockTake:getItemList')" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
+                                <button @click="routerPushToItem(props.row)"  v-if="PermissionName('stockTake:getItemList')" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
                             </template>
                         </tt-table>
                     </div>
@@ -182,6 +183,9 @@
                 Server.stockTake.updateAmount.setData("id="+obj.id).post((data) => {
                     $.extend(true,obj,data.object);
                 })
+            },
+            routerPushToItem:function (obj) {
+                App.$router.push({ path: '/stockTake/item', query: { stockTakeId: obj.id }})
             }
         }
     });
