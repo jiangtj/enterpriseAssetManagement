@@ -14,10 +14,8 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showAddMiniModal()"  v-if="PermissionName('permission:addQuick')" class="btn btn-outline btn-primary" type="button">Quick</button>
-                                <button @click="showAddModal()"  v-if="PermissionName('permission:add')" class="btn btn-outline btn-primary" type="button">新增</button>
-                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked && PermissionName('permission:update')" class="btn btn-outline btn-primary" type="button">修改</button>
-                                <button @click="deleteAll()" v-if="hasChecked && PermissionName('permission:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
+                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked && PermissionName('stockTake:update')" class="btn btn-outline btn-primary" type="button">修改</button>
+                                <button @click="deleteAll()" v-if="hasChecked && PermissionName('stockTake:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -34,7 +32,8 @@
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showUpdateModal(props.row)"  v-if="PermissionName('permission:update')" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
+                                <button @click="showUpdateModal(props.row)"  v-if="PermissionName('stockTake:updateAmount')" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
+                                <button @click="showUpdateModal(props.row)"  v-if="PermissionName('stockTake:getItemList')" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
                             </template>
                         </tt-table>
                     </div>
@@ -51,13 +50,9 @@
             <form role="form" class="validation">
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
-                        <h4 class="m-t-none m-b">基本信息</h4>
-                        <tt-simple-input v-if="!quick" label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
+                        <!--<h4 class="m-t-none m-b">基本信息</h4>-->
+                        <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                     </div>
-                    <!--<div class="col-sm-6">
-                        <h4>权限配置</h4>
-                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -83,13 +78,13 @@
         data:function () {
             return {
                 headerLabel:{
-                    name:"权限管理",
+                    name:"盘点任务",
                     path:{
                         parent:[
                             {url:"/",name:"Home"},
-                            {name:"System"}
+                            {name:"StockTake"}
                         ],
-                        active:"Permission"
+                        active:"Task"
                     }
                 },
                 conditions:{
@@ -99,10 +94,13 @@
                 tableData:{
                     title:{
                         $index:"序号",
-                        id:"权限id",
+                        id:"任务id",
                         name:"名称",
-                        url:"url",
-                        operation:{name:"操作",width:"60px"}
+                        allAmount:"总数",
+                        handlingAmount:"待处理数",
+                        normalAmount:"正常数",
+                        abnormalAmount:"异常数",
+                        operation:{name:"操作",width:"120px"}
                     },
                     data:[]
                 },
@@ -113,8 +111,7 @@
                     data:{},
                     empty:null,
                     submit:function () {}
-                },
-                quick:false
+                }
             }
         },
         computed:{
@@ -144,7 +141,7 @@
             },
             getTableList:function () {
                 let self = this;
-                Server.permission.getList.setData(self.conditions).post(data => {
+                Server.stockTake.getList.setData(self.conditions).post(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -172,28 +169,13 @@
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.permission.delete.setData("ids="+ids).post(() => self.getTableList());
+                    Server.stockTake.delete.setData("ids="+ids).post(() => self.getTableList());
                 });
-            },
-            showAddModal:function () {
-                this.fromModalData.title = "添加";
-                this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
-                this.fromModalData.submit = this.getSubmitFunc(Server.permission.add);
-                this.quick = false;
-                this.fromModal.show();
-            },
-            showAddMiniModal:function () {
-                this.fromModalData.title = "添加";
-                this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
-                this.fromModalData.submit = this.getSubmitFunc(Server.permission.addQuick);
-                this.quick = true;
-                this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
-                this.fromModalData.data = JsonUtils.copy(obj);
-                this.fromModalData.submit = this.getSubmitFunc(Server.permission.update);
-                this.quick = false;
+                this.fromModalData.data ={name:obj.name,id:obj.id};
+                this.fromModalData.submit = this.getSubmitFunc(Server.stockTake.update);
                 this.fromModal.show();
             }
         }

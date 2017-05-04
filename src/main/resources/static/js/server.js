@@ -120,6 +120,10 @@ const Server = {
         getBorrow:new WebBuilder("/report/getBorrow",{intercepts:defaultListIntercept}),
     },
     stockTake:{
-        handle:new WebBuilder("/stockTake/handle",{intercepts:defaultIntercept})
+        handle:new WebBuilder("/stockTake/handle",{intercepts:defaultIntercept}),
+        getList:new WebBuilder("/stockTake/getList",{intercepts:defaultListIntercept}),
+        add:new WebBuilder("/stockTake/add",{intercepts:defaultIntercept}),
+        delete:new WebBuilder("/stockTake/delete",{intercepts:defaultIntercept}),
+        update:new WebBuilder("/stockTake/update",{intercepts:defaultIntercept})
     }
 };
