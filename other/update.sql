@@ -16,3 +16,7 @@ CREATE TABLE `assets_stock_take_item` (
 
 ALTER TABLE `assets_stock_take`
   DROP COLUMN `no`;
+
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('31', '资产盘点', 'StockTake', '1', '0', '4', '1', 'fa-certificate', NULL, NULL, NULL, '2017-05-04 16:03:45', '2017-05-04 16:03:45');
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('32', '盘点任务', 'StockTakeTask', '2', '31', '1', '1', NULL, '/stockTake/task', '/model/stockTake/task.vue', NULL, '2017-05-04 16:05:36', '2017-05-04 16:05:36');
+INSERT INTO `asset`.`auth_menu` (`id`, `name`, `menu`, `level`, `pid`, `order`, `type`, `icon`, `url`, `static_url`, `permission_id`, `create_time`, `update_time`) VALUES ('33', '处理', 'StockTakeHandle', '2', '31', '2', '1', NULL, '/stockTake/handle', '/model/stockTake/handle.vue', NULL, '2017-05-04 16:21:28', '2017-05-04 16:21:28');
