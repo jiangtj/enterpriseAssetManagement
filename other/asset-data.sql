@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-05-03 23:32:31
+Date: 2017-05-05 00:06:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `assets_borrow` (
   KEY `ab@uuid` (`uuid`) USING BTREE,
   CONSTRAINT `ab@user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `ab@uuid` FOREIGN KEY (`uuid`) REFERENCES `assets_item` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_borrow
@@ -42,6 +42,9 @@ CREATE TABLE `assets_borrow` (
 INSERT INTO `assets_borrow` VALUES ('1', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '2017-05-16 00:00:00', '2', '2017-05-03 00:00:00', null, '2017-05-03 20:00:02', '2017-05-03 20:00:22');
 INSERT INTO `assets_borrow` VALUES ('2', 'f76ae024-0132-4c98-8339-e26752649bf3', '1', null, '2', '2017-05-03 20:01:57', null, '2017-05-03 20:01:49', '2017-05-03 20:01:56');
 INSERT INTO `assets_borrow` VALUES ('3', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', null, '2', '2017-05-03 20:02:31', null, '2017-05-03 20:02:04', '2017-05-03 20:02:30');
+INSERT INTO `assets_borrow` VALUES ('4', '917de91c-96c9-49fe-a607-c68e036f71b0', '1', null, '1', null, null, '2017-05-04 23:59:43', '2017-05-04 23:59:43');
+INSERT INTO `assets_borrow` VALUES ('5', 'f76ae024-0132-4c98-8339-e26752649bf3', '1', null, '1', null, null, '2017-05-05 00:00:07', '2017-05-05 00:00:07');
+INSERT INTO `assets_borrow` VALUES ('6', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', null, '2', '2017-05-05 00:03:03', null, '2017-05-05 00:00:22', '2017-05-05 00:03:02');
 
 -- ----------------------------
 -- Table structure for assets_item
@@ -69,12 +72,12 @@ CREATE TABLE `assets_item` (
 -- ----------------------------
 -- Records of assets_item
 -- ----------------------------
-INSERT INTO `assets_item` VALUES ('1', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '2', '1', '4', '2017-05-02 20:05:48', '2017-05-02 22:45:00');
-INSERT INTO `assets_item` VALUES ('2', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:45', '2017-05-03 20:02:30');
-INSERT INTO `assets_item` VALUES ('3', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:47', '2017-05-03 20:01:56');
+INSERT INTO `assets_item` VALUES ('1', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '1', '1', '4', '2017-05-02 20:05:48', '2017-05-05 00:00:49');
+INSERT INTO `assets_item` VALUES ('2', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:45', '2017-05-05 00:03:02');
+INSERT INTO `assets_item` VALUES ('3', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '2', '4', '4', '2017-05-03 19:56:47', '2017-05-05 00:00:07');
 INSERT INTO `assets_item` VALUES ('4', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:48', '2017-05-03 19:56:48');
 INSERT INTO `assets_item` VALUES ('5', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:50', '2017-05-03 19:56:50');
-INSERT INTO `assets_item` VALUES ('6', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:52', '2017-05-03 19:56:52');
+INSERT INTO `assets_item` VALUES ('6', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '2', '4', '4', '2017-05-03 19:56:52', '2017-05-04 23:59:43');
 INSERT INTO `assets_item` VALUES ('7', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:54', '2017-05-03 19:56:54');
 INSERT INTO `assets_item` VALUES ('8', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '4', '4', '4', '2017-05-03 19:56:56', '2017-05-03 20:14:44');
 INSERT INTO `assets_item` VALUES ('9', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:58', '2017-05-03 19:56:58');
@@ -92,7 +95,7 @@ CREATE TABLE `assets_operation_record` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_operation_record
@@ -114,6 +117,12 @@ INSERT INTO `assets_operation_record` VALUES ('14', 'f76ae024-0132-4c98-8339-e26
 INSERT INTO `assets_operation_record` VALUES ('15', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '2', '成功,租借人：1', '2017-05-03 20:02:04', '2017-05-03 20:02:04');
 INSERT INTO `assets_operation_record` VALUES ('16', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '3', '成功,归还人：1', '2017-05-03 20:02:30', '2017-05-03 20:02:30');
 INSERT INTO `assets_operation_record` VALUES ('17', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', '1', '6', '成功,退货', '2017-05-03 20:14:44', '2017-05-03 20:14:44');
+INSERT INTO `assets_operation_record` VALUES ('18', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', '1', '7', '成功', '2017-05-04 20:53:14', '2017-05-04 20:53:14');
+INSERT INTO `assets_operation_record` VALUES ('19', '917de91c-96c9-49fe-a607-c68e036f71b0', '1', '2', '成功,租借人：1', '2017-05-04 23:59:43', '2017-05-04 23:59:43');
+INSERT INTO `assets_operation_record` VALUES ('20', 'f76ae024-0132-4c98-8339-e26752649bf3', '1', '2', '成功,租借人：1', '2017-05-05 00:00:07', '2017-05-05 00:00:07');
+INSERT INTO `assets_operation_record` VALUES ('21', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '2', '成功,租借人：1', '2017-05-05 00:00:22', '2017-05-05 00:00:22');
+INSERT INTO `assets_operation_record` VALUES ('22', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', '1', '3', '成功,归还人：1', '2017-05-05 00:00:49', '2017-05-05 00:00:49');
+INSERT INTO `assets_operation_record` VALUES ('23', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '3', '成功,归还人：1', '2017-05-05 00:03:02', '2017-05-05 00:03:02');
 
 -- ----------------------------
 -- Table structure for assets_stock_take
@@ -121,9 +130,9 @@ INSERT INTO `assets_operation_record` VALUES ('17', '1eaa891f-cc02-487d-b5ef-5db
 DROP TABLE IF EXISTS `assets_stock_take`;
 CREATE TABLE `assets_stock_take` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `no` varchar(50) NOT NULL COMMENT '盘点编号',
   `name` varchar(50) NOT NULL COMMENT '盘点名称',
   `user_id` bigint(20) NOT NULL COMMENT '盘点负责人',
+  `status` tinyint(4) DEFAULT '1' COMMENT '状态，1：盘点中，2：盘点完成',
   `end_time` datetime DEFAULT NULL COMMENT '盘点结束时间',
   `all_amount` int(8) DEFAULT '0' COMMENT '盘点数目',
   `handling_amount` int(8) DEFAULT '0' COMMENT '待处理数目',
@@ -132,11 +141,16 @@ CREATE TABLE `assets_stock_take` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_stock_take
 -- ----------------------------
+INSERT INTO `assets_stock_take` VALUES ('1', '全部盘点', '1', '1', null, '9', '7', '1', '1', '2017-05-04 20:42:03', '2017-05-04 23:56:10');
+INSERT INTO `assets_stock_take` VALUES ('5', '计算机类盘点1', '1', '1', null, '1', '1', '0', '0', '2017-05-04 20:47:23', '2017-05-04 22:27:58');
+INSERT INTO `assets_stock_take` VALUES ('6', '计算机类盘点2', '1', '1', null, '9', '0', '0', '0', '2017-05-04 20:47:39', '2017-05-04 22:25:41');
+INSERT INTO `assets_stock_take` VALUES ('7', 'xx3', '1', '1', null, '9', '9', '0', '0', '2017-05-04 20:50:53', '2017-05-04 21:54:13');
+INSERT INTO `assets_stock_take` VALUES ('8', 'xx2', '1', '1', null, '9', '9', '0', '0', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
 
 -- ----------------------------
 -- Table structure for assets_stock_take_item
@@ -156,11 +170,39 @@ CREATE TABLE `assets_stock_take_item` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@stock_take_id, uuid` (`stock_take_id`,`uuid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_stock_take_item
 -- ----------------------------
+INSERT INTO `assets_stock_take_item` VALUES ('32', '1', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '3', '1', '4', '2017-05-04 20:42:03', '2017-05-04 23:55:56');
+INSERT INTO `assets_stock_take_item` VALUES ('33', '1', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('34', '1', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('35', '1', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('36', '1', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('37', '1', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('38', '1', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '2', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:53:14');
+INSERT INTO `assets_stock_take_item` VALUES ('39', '1', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('40', '1', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('47', '5', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '1', '1', '4', '2017-05-04 20:47:23', '2017-05-04 20:47:23');
+INSERT INTO `assets_stock_take_item` VALUES ('48', '7', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '1', '1', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('49', '7', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('50', '7', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('51', '7', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('52', '7', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('53', '7', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('54', '7', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('55', '7', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('56', '7', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
+INSERT INTO `assets_stock_take_item` VALUES ('63', '8', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '1', '1', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('64', '8', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('65', '8', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('66', '8', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('67', '8', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('68', '8', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('69', '8', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('70', '8', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('71', '8', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
 
 -- ----------------------------
 -- Table structure for assets_type
@@ -206,7 +248,7 @@ CREATE TABLE `auth_menu` (
   PRIMARY KEY (`id`),
   KEY `menu@permission_id` (`permission_id`),
   CONSTRAINT `menu@permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_menu
@@ -240,6 +282,10 @@ INSERT INTO `auth_menu` VALUES ('27', '资产列表', 'AssetGet', '2', '2', '2',
 INSERT INTO `auth_menu` VALUES ('28', '借还登记', 'AssetBorrow', '2', '2', '3', '1', null, '/asset/borrow', '/model/asset/borrow.vue', null, '2017-05-02 22:39:49', '2017-05-02 22:39:49');
 INSERT INTO `auth_menu` VALUES ('29', '资产总揽', 'ReportOverall', '2', '4', '1', '1', null, '/report/overall', '/model/report/overall.vue', null, '2017-05-03 19:53:37', '2017-05-03 19:53:37');
 INSERT INTO `auth_menu` VALUES ('30', '借还报表', 'ReportBorrow', '2', '4', '2', '1', null, '/report/borrow', '/model/report/borrow.vue', null, '2017-05-03 19:54:38', '2017-05-03 19:54:38');
+INSERT INTO `auth_menu` VALUES ('31', '资产盘点', 'StockTake', '1', '0', '4', '1', 'fa-certificate', null, null, null, '2017-05-04 16:03:45', '2017-05-04 16:03:45');
+INSERT INTO `auth_menu` VALUES ('32', '任务', 'StockTakeTask', '2', '31', '1', '1', null, '/stockTake/task', '/model/stockTake/task.vue', null, '2017-05-04 16:05:36', '2017-05-04 22:46:29');
+INSERT INTO `auth_menu` VALUES ('33', '处理', 'StockTakeHandle', '2', '31', '3', '1', null, '/stockTake/handle', '/model/stockTake/handle.vue', null, '2017-05-04 16:21:28', '2017-05-04 22:46:34');
+INSERT INTO `auth_menu` VALUES ('34', '明细', 'StockTakeItem', '2', '31', '2', '1', null, '/stockTake/item', '/model/stockTake/item.vue', null, '2017-05-04 22:46:10', '2017-05-04 22:46:38');
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -481,7 +527,7 @@ CREATE TABLE `system_dictionary` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@table, column, key` (`table`,`column`,`key`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of system_dictionary
@@ -501,3 +547,8 @@ INSERT INTO `system_dictionary` VALUES ('12', 'assets_item', 'status', '1', '正
 INSERT INTO `system_dictionary` VALUES ('13', 'assets_item', 'status', '2', '租借', '2017-05-03 16:22:14', '2017-05-03 16:22:14');
 INSERT INTO `system_dictionary` VALUES ('14', 'assets_item', 'status', '3', '维修', '2017-05-03 16:22:14', '2017-05-03 16:22:14');
 INSERT INTO `system_dictionary` VALUES ('15', 'assets_item', 'status', '4', '报废', '2017-05-03 16:22:14', '2017-05-03 16:22:14');
+INSERT INTO `system_dictionary` VALUES ('16', 'assets_stock_take_item', 'status', '1', '待处理', '2017-05-04 17:40:55', '2017-05-04 17:40:55');
+INSERT INTO `system_dictionary` VALUES ('17', 'assets_stock_take_item', 'status', '2', '正常', '2017-05-04 17:40:55', '2017-05-04 17:40:55');
+INSERT INTO `system_dictionary` VALUES ('18', 'assets_stock_take_item', 'status', '3', '异常', '2017-05-04 17:40:55', '2017-05-04 17:40:55');
+INSERT INTO `system_dictionary` VALUES ('19', 'assets_stock_take', 'status', '1', '盘点中', '2017-05-04 23:43:05', '2017-05-04 23:43:05');
+INSERT INTO `system_dictionary` VALUES ('20', 'assets_stock_take', 'status', '2', '盘点完成', '2017-05-04 23:43:05', '2017-05-04 23:43:05');

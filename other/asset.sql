@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-05-03 23:32:18
+Date: 2017-05-05 00:06:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `assets_borrow` (
   KEY `ab@uuid` (`uuid`) USING BTREE,
   CONSTRAINT `ab@user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `ab@uuid` FOREIGN KEY (`uuid`) REFERENCES `assets_item` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for assets_item
@@ -72,7 +72,7 @@ CREATE TABLE `assets_operation_record` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for assets_stock_take
@@ -80,9 +80,9 @@ CREATE TABLE `assets_operation_record` (
 DROP TABLE IF EXISTS `assets_stock_take`;
 CREATE TABLE `assets_stock_take` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `no` varchar(50) NOT NULL COMMENT '盘点编号',
   `name` varchar(50) NOT NULL COMMENT '盘点名称',
   `user_id` bigint(20) NOT NULL COMMENT '盘点负责人',
+  `status` tinyint(4) DEFAULT '1' COMMENT '状态，1：盘点中，2：盘点完成',
   `end_time` datetime DEFAULT NULL COMMENT '盘点结束时间',
   `all_amount` int(8) DEFAULT '0' COMMENT '盘点数目',
   `handling_amount` int(8) DEFAULT '0' COMMENT '待处理数目',
@@ -91,7 +91,7 @@ CREATE TABLE `assets_stock_take` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for assets_stock_take_item
@@ -111,7 +111,7 @@ CREATE TABLE `assets_stock_take_item` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@stock_take_id, uuid` (`stock_take_id`,`uuid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for assets_type
@@ -149,7 +149,7 @@ CREATE TABLE `auth_menu` (
   PRIMARY KEY (`id`),
   KEY `menu@permission_id` (`permission_id`),
   CONSTRAINT `menu@permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -292,4 +292,4 @@ CREATE TABLE `system_dictionary` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@table, column, key` (`table`,`column`,`key`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
