@@ -1,6 +1,6 @@
 CREATE TABLE `assets_stock_take_item` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `stock_take_id` bigint(36) NOT NULL COMMENT '审核记录id',
+  `stock_take_id` bigint(36) NOT NULL COMMENT '盘点记录id',
   `uuid` char(36) NOT NULL COMMENT 'uuid',
   `customs_id` varchar(50) NOT NULL COMMENT '用户提供的资产编码',
   `name` varchar(255) NOT NULL COMMENT '资产名称',
@@ -15,4 +15,7 @@ CREATE TABLE `assets_stock_take_item` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO assets_stock_take_item(stock_take_id, uuid, customs_id, name, price, assets_type_id, point_id)
-  SELECT 1,uuid,customs_id,name,price,assets_type_id,point_id FROM assets_item
+  SELECT 1,uuid,customs_id,name,price,assets_type_id,point_id FROM assets_item;
+
+ALTER TABLE `assets_stock_take`
+  DROP COLUMN `no`;

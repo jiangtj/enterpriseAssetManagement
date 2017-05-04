@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtj.web.dao.StockTakeDao">
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO assets_stock_take(name, user_id, all_amount, handling_amount)
+        VALUES (#{name},#{userId},#{allAmount},#{handlingAmount})
+    </insert>
+
+    <update id="update">
+        UPDATE assets_stock_take
+        <set>
+            <if test=" name != '' and name != null ">
+                name = #{name},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM assets_stock_take WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <sql id="stockTakeConditions">
+        <if test="id != null">
+            AND ${alias}.id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+            AND ${alias}.name = #{name}
+        </if>
+    </sql>
+
+    <select id="getList" resultType="StockTake">
+        SELECT
+        ast.*
+        FROM assets_stock_take ast
+        <where>
+            <include refid="stockTakeConditions">
+                <property name="alias" value="ast"/>
+            </include>
+        </where>
+        ORDER BY ai.create_time DESC
+        <if test="offset != 0">
+            LIMIT #{begin},#{offset}
+        </if>
+    </select>
+
+    <select id="getNum" resultType="int">
+        SELECT
+        count(1)
+        FROM assets_stock_take ast
+        <where>
+            <include refid="stockTakeConditions">
+                <property name="alias" value="ast"/>
+            </include>
+        </where>
+    </select>
+
+    <sql id="assetsItemConditions">
+        <if test="assetDto.id != null">
+            AND ${alias}.id = #{assetDto.id}
+        </if>
+        <if test="assetDto.uuid != null and assetDto.uuid != ''">
+            AND ${alias}.uuid = #{assetDto.uuid}
+        </if>
+        <if test="assetDto.customsId != null and assetDto.customsId != ''">
+            AND ${alias}.customs_id = #{assetDto.customsId}
+        </if>
+        <if test="assetDto.name != null and assetDto.name != ''">
+            AND ${alias}.name = #{assetDto.name}
+        </if>
+        <if test="assetDto.status != null">
+            AND ${alias}.status = #{assetDto.status}
+        </if>
+        <if test="assetDto.assetsTypeId != null">
+            AND ${alias}.assets_type_id = #{assetDto.assetsTypeId}
+        </if>
+        <if test="assetDto.pointId != null">
+            AND ${alias}.point_id = #{assetDto.pointId}
+        </if>
+    </sql>
+    
+    <insert id="addItem">
+        INSERT INTO assets_stock_take_item(stock_take_id, uuid, customs_id, name, price, assets_type_id, point_id)
+        SELECT #{stockTakeId},uuid,customs_id,name,price,assets_type_id,point_id FROM assets_item ai
+        <where>
+            <include refid="assetsItemConditions">
+                <property name="alias" value="ai"/>
+            </include>
+        </where>
+    </insert>
+
+</mapper>

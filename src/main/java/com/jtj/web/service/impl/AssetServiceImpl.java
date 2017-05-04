@@ -11,7 +11,6 @@ import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.Borrow;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
-import com.jtj.web.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

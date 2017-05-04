@@ -20,6 +20,7 @@
                             <div class="btn-group">
                                 <button @click="showUpdateModal(3,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:updateStatus')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 3?'完成':'维修'}}</button>
                                 <button @click="showUpdateModal(4,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:updateStatus')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 4?'撤回报废':'报废'}}</button>
+                                <button @click="openStockTake()" class="btn btn-outline btn-primary" type="button">开启盘点</button>
                                 <button @click="deleteAll()" v-if="hasChecked && PermissionName('permission:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
@@ -73,6 +74,23 @@
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <tt-table v-bind:data="operationRecordData"></tt-table>
+                    </div>
+                </div>
+            </form>
+        </tt-modal>
+
+        <!-- 盘点弹出窗 -->
+        <tt-modal id="stock-take-modal" title="盘点">
+            <form role="form" class="validation">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <tt-simple-input label="名称" v-model="stockTakeData.name" required></tt-simple-input>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button @click="addStockTake" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
+                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
                     </div>
                 </div>
             </form>
@@ -134,6 +152,10 @@
                         remark:"备注"
                     },
                     data:[]
+                },
+                stockTakeData:{
+                    conditions:null,
+                    name:null
                 }
             }
         },
@@ -149,6 +171,9 @@
             },
             operationRecordModal:function () {
                 return new ModalBuilder("#operation-record-modal");
+            },
+            stockTakeModal:function () {
+                return new ModalBuilder("#stock-take-modal");
             }
         },
         created:function () {
@@ -219,6 +244,21 @@
                     self = data.object;
                 });
                 return self;
+            },
+            openStockTake:function () {
+                let self = this;
+                SweetAlertUtils.show("提醒","该操作将当前条件下的资产条目加入到待盘点中，是否继续").sure(function () {
+                    self.stockTakeData.conditions = self.conditions;
+                    self.stockTakeModal.show();
+                });
+            },
+            addStockTake:function () {
+                let self = this;
+                if (ValidationUtils.check(".validation")){
+                    Server.asset.addStockTake.setData(self.stockTakeData).post(()=>{
+                        self.stockTakeModal.hide();
+                    })
+                }
             }
         }
     });

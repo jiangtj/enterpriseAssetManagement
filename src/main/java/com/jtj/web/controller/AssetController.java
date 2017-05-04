@@ -3,17 +3,16 @@ package com.jtj.web.controller;
 import com.jtj.web.common.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.dto.AssetAndStockTakeNameDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.entity.Borrow;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.AssetOperationRecord;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
+import com.jtj.web.service.StockTakeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +26,8 @@ public class AssetController {
 
     @Autowired
     private AssetService assetService;
+    @Autowired
+    private StockTakeService stockTakeService;
     @Autowired
     private AssetOperationRecordService assetOperationRecordService;
 
@@ -68,6 +69,11 @@ public class AssetController {
     @PostMapping("/updateStatus")
     public ResultDto<Object> updateStatus(@RequestParam String uuid,@RequestParam Integer status,@RequestParam String remark) {
         return assetService.updateStatus(uuid,status,remark);
+    }
+
+    @PostMapping("/addStockTake")
+    public ResultDto<Object> addStockTake(AssetAndStockTakeNameDto dto) {
+        return stockTakeService.addByAsset(dto.getName(),dto.getConditions());
     }
 
 }
