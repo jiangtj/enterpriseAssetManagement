@@ -14,8 +14,5 @@ CREATE TABLE `assets_stock_take_item` (
   UNIQUE KEY `unique@stock_take_id, uuid` (`stock_take_id`,`uuid`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
-INSERT INTO assets_stock_take_item(stock_take_id, uuid, customs_id, name, price, assets_type_id, point_id)
-  SELECT 1,uuid,customs_id,name,price,assets_type_id,point_id FROM assets_item;
-
 ALTER TABLE `assets_stock_take`
   DROP COLUMN `no`;
