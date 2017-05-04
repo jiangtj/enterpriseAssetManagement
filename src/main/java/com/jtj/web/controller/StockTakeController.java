@@ -52,4 +52,9 @@ public class StockTakeController {
         return stockTakeService.handleItem(item);
     }
 
+    @GetMapping("/getAvailableMap")
+    public ResultDto<List<KeyValue>> getAvailableMap(){
+        return stockTakeService.getAvailableMap();
+    }
+
 }

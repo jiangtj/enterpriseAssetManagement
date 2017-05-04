@@ -24,6 +24,9 @@ const Map = new Vue({
         permission:function () {
             return this.getMap("/permission/getMap");
         },
+        stockTake:function () {
+            return this.getMap("/stockTake/getAvailableMap");
+        },
 
         roleStatus:function () {
             return this.getMap("/public/map/dictionary/auth_role/status");

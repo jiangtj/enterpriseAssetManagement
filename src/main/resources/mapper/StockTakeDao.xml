@@ -153,4 +153,12 @@
         WHERE stock_take_id = #{stockTakeId} AND uuid = #{uuid}
     </update>
 
+    <select id="getAvailableMap" resultType="KeyValue">
+        SELECT
+            id "key",
+            name "value"
+        FROM assets_stock_take ast
+        WHERE ast.status = 1
+    </select>
+
 </mapper>

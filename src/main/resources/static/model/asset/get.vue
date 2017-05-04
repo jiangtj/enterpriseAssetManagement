@@ -248,7 +248,7 @@
             openStockTake:function () {
                 let self = this;
                 SweetAlertUtils.show("提醒","该操作将当前条件下的资产条目加入到待盘点中，是否继续").sure(function () {
-                    self.stockTakeData.conditions = self.conditions;
+                    self.stockTakeData.conditions = JsonUtils.copy(self.conditions);
                     self.stockTakeModal.show();
                 });
             },

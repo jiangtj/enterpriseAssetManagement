@@ -11,7 +11,12 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">盘点任务id</label>
-                            <div class="col-sm-10"><input name="stockTakeId" v-model="data.stockTakeId" type="text" class="form-control" required></div>
+                            <div class="col-sm-10">
+                                <select name="pointId" v-model="data.stockTakeId" class="form-control" required>
+                                    <option :value="undefined">---- 请选择 ----</option>
+                                    <option v-for="item in Map.stockTake" :value="item.key">{{ item.value }}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">

@@ -4,6 +4,7 @@ import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
 import com.jtj.web.dto.StockTakeItemDto;
 import com.jtj.web.entity.Asset;
+import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.StockTake;
 import com.jtj.web.entity.StockTakeItem;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,5 @@ public interface StockTakeDao extends BaseDao<StockTake,StockTakeDto>{
     int updateItemStatus(@Param("stockTakeId") Long stockTakeId,@Param("uuid") String uuid,
                          @Param("status") Integer status);
 
+    List<KeyValue> getAvailableMap();
 }

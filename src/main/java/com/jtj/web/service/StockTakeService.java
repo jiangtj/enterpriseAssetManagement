@@ -3,11 +3,10 @@ package com.jtj.web.service;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
-import com.jtj.web.entity.Asset;
-import com.jtj.web.entity.Borrow;
-import com.jtj.web.entity.StockTake;
-import com.jtj.web.entity.StockTakeItem;
+import com.jtj.web.entity.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -19,4 +18,6 @@ public interface StockTakeService extends BaseService<StockTake,StockTakeDto> {
     ResultDto<Object> addByAsset(String name, AssetDto dto);
 
     ResultDto<Object> handleItem(StockTakeItem item);
+
+    ResultDto<List<KeyValue>> getAvailableMap();
 }

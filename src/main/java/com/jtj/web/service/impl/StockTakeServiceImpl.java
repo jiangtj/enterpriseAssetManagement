@@ -9,10 +9,7 @@ import com.jtj.web.dao.StockTakeDao;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
 import com.jtj.web.dto.StockTakeItemDto;
-import com.jtj.web.entity.Asset;
-import com.jtj.web.entity.StockTake;
-import com.jtj.web.entity.StockTakeItem;
-import com.jtj.web.entity.User;
+import com.jtj.web.entity.*;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.StockTakeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +77,13 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
         result.setResultCode(updateItemStatus(itemList.get(0).getStockTakeId(),uuid, Constant.StockTakeItemStatus.NORMAL) == 1?
                 ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.PAN, result.getTitle());
+        return result;
+    }
+
+    @Override
+    public ResultDto<List<KeyValue>> getAvailableMap() {
+        ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(stockTakeDao.getAvailableMap());
         return result;
     }
 
