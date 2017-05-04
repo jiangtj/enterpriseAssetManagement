@@ -2,11 +2,15 @@ package com.jtj.web.dao;
 
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
+import com.jtj.web.dto.StockTakeItemDto;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.StockTake;
+import com.jtj.web.entity.StockTakeItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -17,5 +21,12 @@ import org.springframework.stereotype.Component;
 public interface StockTakeDao extends BaseDao<StockTake,StockTakeDto>{
 
     int addItem(@Param("stockTakeId") Long stockTakeId,@Param("assetDto") AssetDto dto);
+
+    List<StockTakeItem> getItemList(StockTakeItemDto dto);
+
+    int getItemNum(StockTakeItemDto dto);
+
+    int updateItemStatus(@Param("stockTakeId") Long stockTakeId,@Param("uuid") String uuid,
+                         @Param("status") Integer status);
 
 }

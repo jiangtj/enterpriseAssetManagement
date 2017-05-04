@@ -6,6 +6,7 @@ import com.jtj.web.dto.StockTakeDto;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.Borrow;
 import com.jtj.web.entity.StockTake;
+import com.jtj.web.entity.StockTakeItem;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,4 +17,6 @@ import org.springframework.stereotype.Service;
 public interface StockTakeService extends BaseService<StockTake,StockTakeDto> {
 
     ResultDto<Object> addByAsset(String name, AssetDto dto);
+
+    ResultDto<Object> handleItem(StockTakeItem item);
 }

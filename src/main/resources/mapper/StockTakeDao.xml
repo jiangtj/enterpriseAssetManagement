@@ -44,7 +44,7 @@
                 <property name="alias" value="ast"/>
             </include>
         </where>
-        ORDER BY ai.create_time DESC
+        ORDER BY ast.create_time DESC
         <if test="offset != 0">
             LIMIT #{begin},#{offset}
         </if>
@@ -94,5 +94,63 @@
             </include>
         </where>
     </insert>
+
+    <sql id="stockTakeItemConditions">
+        <if test="id != null">
+            AND ${alias}.id = #{id}
+        </if>
+        <if test="stockTakeId != null">
+            AND ${alias}.stock_take_id = #{stockTakeId}
+        </if>
+        <if test="uuid != null and uuid != ''">
+            AND ${alias}.uuid = #{uuid}
+        </if>
+        <if test="customsId != null and customsId != ''">
+            AND ${alias}.customs_id = #{customsId}
+        </if>
+        <if test="name != null and name != ''">
+            AND ${alias}.name = #{name}
+        </if>
+        <if test="status != null">
+            AND ${alias}.status = #{status}
+        </if>
+        <if test="assetsTypeId != null">
+            AND ${alias}.assets_type_id = #{assetsTypeId}
+        </if>
+        <if test="pointId != null">
+            AND ${alias}.point_id = #{pointId}
+        </if>
+    </sql>
+
+    <select id="getItemList" resultType="StockTakeItem">
+        SELECT
+        asti.*
+        FROM assets_stock_take_item asti
+        <where>
+            <include refid="stockTakeItemConditions">
+                <property name="alias" value="asti"/>
+            </include>
+        </where>
+        ORDER BY asti.create_time DESC
+        <if test="offset != 0">
+            LIMIT #{begin},#{offset}
+        </if>
+    </select>
+
+    <select id="getItemNum" resultType="int">
+        SELECT
+        count(1)
+        FROM assets_stock_take_item asti
+        <where>
+            <include refid="stockTakeItemConditions">
+                <property name="alias" value="asti"/>
+            </include>
+        </where>
+    </select>
+
+    <update id="updateItemStatus">
+        UPDATE assets_stock_take_item SET status = #{status}
+        WHERE stock_take_id = #{stockTakeId} AND uuid = #{uuid}
+    </update>
 
 </mapper>

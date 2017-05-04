@@ -56,7 +56,6 @@
             self.myPieChart = new Chart(ctx4, {type: 'doughnut', data: self.pieData, options:doughnutOptions});
 
             Server.report.getOverall.post((data) => {
-                debugger;
                 let temp = [];
                 $.each(data.object,function (key,value) {
                     temp.push(value);

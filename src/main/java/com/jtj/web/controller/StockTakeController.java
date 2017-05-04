@@ -8,6 +8,7 @@ import com.jtj.web.dto.StockTakeDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.StockTake;
+import com.jtj.web.entity.StockTakeItem;
 import com.jtj.web.service.PermissionService;
 import com.jtj.web.service.StockTakeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class StockTakeController {
     @PostMapping("/getList")
     public ResultDto<PageDto<StockTake>> getList(StockTakeDto dto){
         return stockTakeService.getList(dto);
+    }
+
+    @PostMapping("/handle")
+    public ResultDto<Object> handleItem(StockTakeItem item) {
+        return stockTakeService.handleItem(item);
     }
 
 }

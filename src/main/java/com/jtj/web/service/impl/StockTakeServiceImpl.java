@@ -3,12 +3,17 @@ package com.jtj.web.service.impl;
 import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.utils.BeanUtils;
 import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.StockTakeDao;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
+import com.jtj.web.dto.StockTakeItemDto;
+import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.StockTake;
+import com.jtj.web.entity.StockTakeItem;
 import com.jtj.web.entity.User;
+import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.StockTakeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +22,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -29,6 +35,8 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
     private StockTakeDao stockTakeDao;
     @Autowired
     private AssetDao assetDao;
+    @Autowired
+    private AssetOperationRecordService assetOperationRecordService;
 
     @Override
     public ResultDto<Object> addByAsset(String name, AssetDto dto) {
@@ -51,6 +59,32 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
         }
 
         return result;
+    }
+
+    @Override
+    public ResultDto<Object> handleItem(StockTakeItem item) {
+        ResultDto<Object> result = new ResultDto<>();
+        StockTakeItemDto dto = BeanUtils.fromBean(item,StockTakeItemDto.class);
+        List<StockTakeItem> itemList = stockTakeDao.getItemList(dto);
+        if (itemList.size() == 0){
+            result.setResultCode(ResultCode.ASSET_NON_EXISTENT);
+            return result;
+        }
+        if (itemList.size() > 1){
+            result.setResultCode(ResultCode.ASSET_NOT_ONLY);
+            result.setMessage("请使用uuid或者添加更多条件");
+            return result;
+        }
+        //todo 权限判断
+        String uuid = itemList.get(0).getUuid();
+        result.setResultCode(updateItemStatus(itemList.get(0).getStockTakeId(),uuid, Constant.StockTakeItemStatus.NORMAL) == 1?
+                ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.PAN, result.getTitle());
+        return result;
+    }
+
+    public int updateItemStatus(Long stockTakeId,String uuid, Constant.StockTakeItemStatus status) {
+        return stockTakeDao.updateItemStatus(stockTakeId, uuid, status.getId());
     }
 
 }

@@ -59,4 +59,21 @@ public class Constant {
         }
     }
 
+    public enum StockTakeItemStatus{
+        HANDLING(1,"待处理"),
+        NORMAL(2,"正常"),
+        ABNORMAL(3,"异常");
+
+        private Integer id;
+        private String name;
+        StockTakeItemStatus(Integer id,String name){
+            this.id = id;
+            this.name = name;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+    }
+
 }
