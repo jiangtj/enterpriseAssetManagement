@@ -1,10 +1,10 @@
 # enterpriseAssetManagement
 企业固定资产管理系统--毕业设计
- 
-> 正在努力开发中， 请稍等待。。。  
 
 > 示例：[企业固定资产管理系统](http://www.kurome.xin:8080/)  
 用户：用户名密都是1
+
+> 需要弄毕设的原因，将大致的功能实现了，但各方面都不完善，但也算预览版了吧
 
 ### 环境
 - JDK环境：jdk 8+
@@ -16,6 +16,12 @@
 ### 框架
 - 后台：spring boot : (ssm) spring + spring mvc + mybatis
 - 前端：spring thymeleaf + vue.js
+
+### 运行
+
+1. 下载war包[asset.war](https://github.com/JiangTJ/enterpriseAssetManagement/tree/master/other/asset.war)  
+1. java 运行 `java -jar asset.war --server.port=8080`,其中`server.port`设置端口号
+1. 如果需要配置数据库，请仿照`application-dev.properties`，创建相应的配置文件`application-yourdb.properties`，并与war包放在相同目录或者config/下，`java -jar asset.war --spring.profiles.active=yourdb`来生效数据库配置
 
 ### LICENSE
 ```
