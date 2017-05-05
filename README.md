@@ -30,6 +30,7 @@
 - 运行环境需要先搭建好
 - 建议用户导入asset-data.sql _（后续会添加安装界面，以便初始化数据）_
 - 默认user-id 为 1 的用户拥有最大权限，必要时修改数据库中用户id
+- 后台运行方式，linux 使用`nohup`，windows 使用`javaw`代替`java`
 
 ### LICENSE
 ```
