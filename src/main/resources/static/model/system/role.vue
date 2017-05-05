@@ -244,7 +244,7 @@
                 self.updatePermissionTree();
                 self.permissionModalData.data = {id:obj.id};
                 self.permissionModalData.submit = function () {
-                    let tree = $('#menu-tree').jstree(true);
+                    let tree = $('#permission-tree').jstree(true);
                     let menuIds = tree.get_bottom_selected().toString();
                     //let menuIds = tree.get_top_selected().toString();
                     Server.role.updatePermission.setData({
