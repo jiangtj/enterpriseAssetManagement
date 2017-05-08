@@ -38,6 +38,7 @@
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
+                                <button @click="showQRCodeModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">QRCode</button>
                                 <button @click="showOperationRecordModal(props.row)"  v-if="PermissionName('asset:getOperationRecordByUuid')" class="btn btn-table btn-primary btn-rounded" type="button">操作记录</button>
                             </template>
                         </tt-table>
@@ -94,6 +95,13 @@
                     </div>
                 </div>
             </form>
+        </tt-modal>
+
+        <!-- QRCode -->
+        <tt-modal id="QRCode-modal" title="二维码" size="sm">
+            <div class="row">
+                <div id="qrcodeCanvas" class="col-sm-12"></div>
+            </div>
         </tt-modal>
 
         <div class="clearfix"></div>
@@ -174,6 +182,9 @@
             },
             stockTakeModal:function () {
                 return new ModalBuilder("#stock-take-modal");
+            },
+            QRCodeModal:function () {
+                return new ModalBuilder("#QRCode-modal");
             }
         },
         created:function () {
@@ -259,6 +270,11 @@
                         self.stockTakeModal.hide();
                     })
                 }
+            },
+            showQRCodeModal:function (obj) {
+                $('#qrcodeCanvas').html("");
+                $('#qrcodeCanvas').qrcode(obj.uuid);
+                this.QRCodeModal.show();
             }
         }
     });
