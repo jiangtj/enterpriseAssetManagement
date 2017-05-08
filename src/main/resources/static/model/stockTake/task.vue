@@ -35,6 +35,7 @@
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="updateAmount(props.row)"  v-if="PermissionName('stockTake:updateAmount')" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
                                 <button @click="routerPushToItem(props.row)"  v-if="PermissionName('stockTake:getItemList')" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
+                                <button @click="close(props.row)"  v-if="PermissionName('stockTake:close')" class="btn btn-table btn-danger btn-rounded" type="button">关闭</button>
                             </template>
                         </tt-table>
                     </div>
@@ -101,7 +102,7 @@
                         handlingAmount:"待处理数",
                         normalAmount:"正常数",
                         abnormalAmount:"异常数",
-                        operation:{name:"操作",width:"120px"}
+                        operation:{name:"操作",width:"140px"}
                     },
                     data:[]
                 },
@@ -186,6 +187,14 @@
             },
             routerPushToItem:function (obj) {
                 App.$router.push({ path: '/stockTake/item', query: { stockTakeId: obj.id }})
+            },
+            close:function (obj) {
+                let self = this;
+                SweetAlertUtils.show().sure(function () {
+                    Server.stockTake.close.setData("id=" + obj.id).post((data) => {
+                        $.extend(true, obj, data.object);
+                    })
+                });
             }
         }
     });

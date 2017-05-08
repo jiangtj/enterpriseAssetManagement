@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,4 +38,6 @@ public interface StockTakeDao extends BaseDao<StockTake,StockTakeDto>{
     int updateAmount(@Param("id") Long id);
 
     StockTake getById(@Param("id") Long id);
+
+    int updateHandlingToAbnormalByStockTakeId(@Param("stockTakeId") Long id);
 }

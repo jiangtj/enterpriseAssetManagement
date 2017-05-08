@@ -126,6 +126,7 @@ const Server = {
         delete:new WebBuilder("/stockTake/delete",{intercepts:defaultIntercept}),
         updateAmount:new WebBuilder("/stockTake/updateAmount",{intercepts:defaultIntercept}),
         getItemList:new WebBuilder("/stockTake/getItemList",{intercepts:defaultListIntercept}),
-        updateToAbnormal:new WebBuilder("/stockTake/updateToAbnormal",{intercepts:defaultIntercept})
+        updateToAbnormal:new WebBuilder("/stockTake/updateToAbnormal",{intercepts:defaultIntercept}),
+        close:new WebBuilder("/stockTake/close",{intercepts:defaultIntercept})
     }
 };

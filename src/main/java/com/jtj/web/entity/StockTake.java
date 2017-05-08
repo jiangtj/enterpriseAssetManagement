@@ -17,6 +17,7 @@ public class StockTake extends BaseEntity {
     private Integer handlingAmount;
     private Integer normalAmount;
     private Integer abnormalAmount;
+    private Integer status;
 
     public String getName() {
         return name;
@@ -72,5 +73,13 @@ public class StockTake extends BaseEntity {
 
     public void setAbnormalAmount(Integer abnormalAmount) {
         this.abnormalAmount = abnormalAmount;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

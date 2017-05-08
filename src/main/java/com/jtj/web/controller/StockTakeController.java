@@ -74,4 +74,9 @@ public class StockTakeController {
         return stockTakeService.updateToAbnormal(id);
     }
 
+    @PostMapping("/close")
+    public ResultDto<StockTake> close(@RequestParam("id") Long id) throws AssetException {
+        return stockTakeService.close(id);
+    }
+
 }

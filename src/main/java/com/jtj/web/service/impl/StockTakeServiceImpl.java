@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -111,6 +112,17 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(updateItemStatusById(id,Constant.StockTakeItemStatus.ABNORMAL)==1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         return result;
+    }
+
+    @Override
+    public ResultDto<StockTake> close(Long id) {
+        stockTakeDao.updateHandlingToAbnormalByStockTakeId(id);
+        StockTake stockTake = new StockTake();
+        stockTake.setEndTime(new Date());
+        stockTake.setStatus(2);
+        stockTake.setId(id);
+        stockTakeDao.update(stockTake);
+        return updateAmount(id);
     }
 
     public int updateItemStatus(Long stockTakeId,String uuid, Constant.StockTakeItemStatus status) {

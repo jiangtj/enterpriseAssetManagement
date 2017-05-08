@@ -15,6 +15,12 @@
             <if test=" name != '' and name != null ">
                 name = #{name},
             </if>
+            <if test=" endTime != null ">
+                end_time = #{endTime},
+            </if>
+            <if test=" status != null ">
+                status = #{status},
+            </if>
         </set>
         WHERE id = #{id}
     </update>
@@ -180,5 +186,10 @@
     <select id="getById" resultType="StockTake">
         SELECT * FROM assets_stock_take WHERE id = #{id}
     </select>
+
+    <update id="updateHandlingToAbnormalByStockTakeId">
+        UPDATE assets_stock_take_item SET status = 3
+        WHERE stock_take_id = #{stockTakeId} AND status = 1
+    </update>
 
 </mapper>
