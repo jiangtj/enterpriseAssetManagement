@@ -73,8 +73,9 @@ if (sessionUser.id !== 1){
     for (let i = 0; i < AppMenu.length; i++) {
         let item = AppMenu[i];
         if (item.permissionId !== undefined && item.permissionId !== null){
-            if (!Permission.checked([item.permissionId])){
+            if (!Permission.checked(item.permissionId)){
                 AppMenu.splice(i,1);
+                i--;
             }
         }
     }

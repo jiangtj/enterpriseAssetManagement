@@ -53,6 +53,7 @@ public class RoleServiceImpl
     public ResultDto<Object> updatePermission(Long roleId, Long[] menuIds) {
         ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
         roleDao.clearPermission(roleId);
+        if (menuIds.length == 0) return result;
         List<Long> menuIdList = Arrays.asList(menuIds);
         List<Menu> menuList = menuDao.getMenuByIds(menuIdList);
         Set<Long> needList = menuList.stream().map(Menu::getPid).collect(Collectors.toSet());
@@ -82,6 +83,7 @@ public class RoleServiceImpl
     public ResultDto<Object> updatePoint(Long roleId, Long[] pointIds) {
         ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
         roleDao.clearPoint(roleId);
+        if (pointIds.length == 0) return result;
         List<Long> pointIdList= Arrays.asList(pointIds);
         List<Point> pointList = pointDao.getPointByIds(pointIdList);
         //获取向下菜单信息
