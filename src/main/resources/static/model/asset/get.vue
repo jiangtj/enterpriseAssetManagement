@@ -140,7 +140,7 @@
                         name:"名称",
                         price:"价格",
                         statusName:"状态",
-                        operation:{name:"操作",width:"60px"}
+                        operation:{name:"操作",width:"140px"}
                     },
                     data:[]
                 },
