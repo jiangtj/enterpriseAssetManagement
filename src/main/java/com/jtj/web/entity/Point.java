@@ -12,6 +12,7 @@ public class Point extends BaseEntity {
     private Long pid;
     private Integer level;
     private Integer order;
+    private Boolean selected;
 
     public String getName() {
         return name;
@@ -43,5 +44,13 @@ public class Point extends BaseEntity {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 }

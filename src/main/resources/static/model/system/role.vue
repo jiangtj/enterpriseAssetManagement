@@ -305,6 +305,12 @@
                                     item.text = item.name;
                                     item.icon = 'fa fa-folder';
                                     item.children = true;
+
+                                    if (item.selected) {
+                                        item.state = {};
+                                        item.state.selected = true;
+                                    }
+
                                     return item;
                                 });
                                 callback.call(this, list)
