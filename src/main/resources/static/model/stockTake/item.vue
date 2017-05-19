@@ -61,13 +61,13 @@
         data:function () {
             return {
                 headerLabel:{
-                    name:"资产列表",
+                    name:"盘点明显",
                     path:{
                         parent:[
                             {url:"/",name:"Home"},
-                            {name:"Asset"}
+                            {name:"StockTake"}
                         ],
-                        active:"Get"
+                        active:"Item"
                     }
                 },
                 conditions:{
