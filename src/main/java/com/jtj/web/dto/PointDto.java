@@ -12,6 +12,7 @@ public class PointDto extends BaseDto {
     private Long pid;
     private Integer level;
     private Integer order;
+    private Integer roleId;
 
     public String getName() {
         return name;
@@ -43,5 +44,13 @@ public class PointDto extends BaseDto {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }

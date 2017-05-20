@@ -48,12 +48,12 @@ public class PointServiceImpl
     public ResultDto<List<Point>> getPoint(PointDto dto) {
         ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
         List<Point> pointList =  pointDao.getPoint(dto);
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        /*HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         List<Point> points = (List<Point>) session.getAttribute(Constant.SESSION_POINT);
         List<Long> pointIds = points.stream().map(BaseEntity::getId).collect(Collectors.toList());
         pointList.stream().filter(item -> pointIds.contains(item.getId()))
-                .forEach(item -> item.setSelected(true));
+                .forEach(item -> item.setSelected(true));*/
         result.setObject(pointList);
         return result;
     }

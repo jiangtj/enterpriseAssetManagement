@@ -279,7 +279,11 @@
             },
             showPointModal:function (obj) {
                 let self = this;
-                self.updatePointTree();
+                debugger;
+                let tempTree = $('#point-tree').jstree(true);
+                if (tempTree) tempTree.destroy();
+                //$('#point-tree').jstree(true).destroy();
+                self.updatePointTree(obj);
                 self.pointModalData.data = {id:obj.id};
                 self.pointModalData.submit = function () {
                     let tree = $('#point-tree').jstree(true);
@@ -291,13 +295,14 @@
                 };
                 self.pointModal.show();
             },
-            updatePointTree:function () {
+            updatePointTree:function (obj) {
                 let self = this;
                 $('#point-tree').jstree({
                     'core': {
                         'data': function (node, callback) {
                             Server.point.getPoint.setData({
-                                pid: node.id === "#" ? 0 : node.id
+                                pid: node.id === "#" ? 0 : node.id,
+                                roleId:obj.id
                             }).post(data => {
                                 let list = $.map(data.object, (item, index) => {
                                     //todo 已选择权限状态变更

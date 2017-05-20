@@ -80,8 +80,10 @@
 
     <select id="getPoint" resultType="Point">
         SELECT
-        p.*
+        p.*,
+        arpr.id selected
         FROM point p
+        LEFT JOIN auth_role_point_relation arpr ON (arpr.role_id = #{roleId} AND arpr.point_id = p.id)
         <where>
             <include refid="permissionConditions">
                 <property name="alias" value="p"/>
