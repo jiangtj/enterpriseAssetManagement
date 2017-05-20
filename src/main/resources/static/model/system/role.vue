@@ -279,7 +279,6 @@
             },
             showPointModal:function (obj) {
                 let self = this;
-                debugger;
                 let tempTree = $('#point-tree').jstree(true);
                 if (tempTree) tempTree.destroy();
                 //$('#point-tree').jstree(true).destroy();

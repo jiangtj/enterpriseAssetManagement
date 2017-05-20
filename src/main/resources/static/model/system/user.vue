@@ -41,7 +41,7 @@
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="showUpdateModal(props.row)" v-if="PermissionName('user:update')" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                                 <button @click="showPointModal(props.row)" v-if="PermissionName('user:updatePoint')" class="btn btn-table btn-primary btn-rounded" type="button">网点</button>
-                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-danger btn-rounded" type="button">重置密码</button>
+                                <button @click="showPasswordModal(props.row)" class="btn btn-table btn-danger btn-rounded" type="button">重置密码</button>
                             </template>
                         </tt-table>
                     </div>
@@ -86,6 +86,23 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <tt-simple-tree-root label="网点" v-model="pointModalData.data.pointId" :data="getPointMapById"></tt-simple-tree-root>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button @click="pointModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
+                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
+                    </div>
+                </div>
+            </form>
+        </tt-modal>
+
+        <!-- 密码弹出窗 -->
+        <tt-modal id="password-modal" title="请输入" size="sm">
+            <form role="form" class="validation">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <tt-simple-input type="password" label="密码" v-model="pointModalData.data.password"></tt-simple-input>
                     </div>
                 </div>
                 <div class="row">
@@ -245,6 +262,15 @@
                 });
                 return self;
             },
+            showPasswordModal:function (obj) {
+                //todo 接口待写
+                let self = this;
+                self.pointModalData.submit = function () {
+                    ToastrUtils.show("成功","",1);
+                    $("#password-modal").modal("hide");
+                };
+                $("#password-modal").modal("show");
+            }
         }
     });
 

@@ -54,7 +54,7 @@ const Permission = {
         return Permission.name[name]||Permission.superRole
     }
 };
-jQuery.each(sessionPermission,function (item) {
+jQuery.each(sessionPermission,function (index,item) {
     Permission.put("name",item.name);
     Permission.put("url",item.url);
 });
