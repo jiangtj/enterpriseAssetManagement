@@ -48,6 +48,12 @@
         <if test="pointId != null">
             AND ${alias}.point_id = #{pointId}
         </if>
+        <if test="pointIds != null">
+            AND ${alias}.point_id IN
+            <foreach collection="pointIds" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
     </sql>
 
     <select id="getList" resultType="Asset">

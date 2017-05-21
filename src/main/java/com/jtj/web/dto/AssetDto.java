@@ -1,6 +1,7 @@
 package com.jtj.web.dto;
 
 import com.jtj.web.common.BaseDto;
+import com.jtj.web.common.BasePointDto;
 
 import java.math.BigDecimal;
 
@@ -8,7 +9,7 @@ import java.math.BigDecimal;
  * Created by MrTT (jiang.taojie@foxmail.com)
  * 2017/2/22.
  */
-public class AssetDto extends BaseDto {
+public class AssetDto extends BasePointDto {
 
     private String uuid;
     private String customsId;
@@ -16,7 +17,7 @@ public class AssetDto extends BaseDto {
     private BigDecimal price;
     private Integer status;
     private Integer assetsTypeId;
-    private Long pointId;
+    //private Long pointId;
 
     public String getUuid() {
         return uuid;
@@ -66,11 +67,4 @@ public class AssetDto extends BaseDto {
         this.assetsTypeId = assetsTypeId;
     }
 
-    public Long getPointId() {
-        return pointId;
-    }
-
-    public void setPointId(Long pointId) {
-        this.pointId = pointId;
-    }
 }
