@@ -42,13 +42,13 @@
         data: function () {
             return {
                 headerLabel: {
-                    name: "资产总揽",
+                    name: "借还报表",
                     path: {
                         parent: [
                             {url: "/", name: "Home"},
                             {name: "Report"}
                         ],
-                        active: "Overall"
+                        active: "Borrow"
                     }
                 },
                 conditions:{},

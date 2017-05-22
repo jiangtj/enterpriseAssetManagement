@@ -35,7 +35,7 @@
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="updateAmount(props.row)"  v-if="PermissionName('stockTake:updateAmount')" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
                                 <button @click="routerPushToItem(props.row)"  v-if="PermissionName('stockTake:getItemList')" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
-                                <button @click="close(props.row)"  v-if="PermissionName('stockTake:close')" class="btn btn-table btn-danger btn-rounded" type="button">关闭</button>
+                                <button @click="close(props.row)"  v-if="PermissionName('stockTake:close') && props.row.status === 1" class="btn btn-table btn-danger btn-rounded" type="button">关闭</button>
                             </template>
                         </tt-table>
                     </div>
