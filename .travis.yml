@@ -1,5 +1,7 @@
 language: java
 jdk:
   - oraclejdk8
-# script:
-#   - mvn clean & mvn package
+before_script:
+  - chmod +x mvnw
+script:
+  - mvn clean & mvn package
