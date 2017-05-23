@@ -2,6 +2,8 @@ language: java
 jdk:
   - oraclejdk8
 before_script:
-  - chmod +x mvnw
+  - chmod 777 mvnw
 script:
   - mvn clean & mvn package
+  - pwd
+  - ls -a
