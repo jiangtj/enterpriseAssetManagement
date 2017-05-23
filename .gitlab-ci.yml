@@ -65,37 +65,37 @@ verify:jdk8:
 # See https://maven.apache.org/settings.html
 deploy:jdk8:
   # Use stage test here, so the pages job may later pickup the created site.
-  stage: test
+  stage: package
   script:
     # - 'mvn $MAVEN_CLI_OPTS deploy site site:stage'
     - 'mvn $MAVEN_CLI_OPTS clean & mvn $MAVEN_CLI_OPTS package'
     - ls -a
-    - mkdir target/staging
-    - mv target/asset.war target/staging
+    - mkdir war
+    - mv target/asset.war war
   only:
     - master
   # Archive up the built documentation site.
   artifacts:
     paths:
-    - target/staging
+    - war
   image: maven:3.3.9-jdk-8
 
 
-pages:
-  image: busybox:latest
-  stage: deploy
-  script:
-    # Because Maven appends the artifactId automatically to the staging path if you did define a parent pom,
-    # you might need to use `mv target/staging/YOUR_ARTIFACT_ID public` instead.
-    - ls -a
-    - pwd
-    - ls -a target
-    - mv target/staging/asset.war public
+# pages:
+#   image: busybox:latest
+#   stage: deploy
+#   script:
+#     # Because Maven appends the artifactId automatically to the staging path if you did define a parent pom,
+#     # you might need to use `mv target/staging/YOUR_ARTIFACT_ID public` instead.
+#     - ls -a
+#     - pwd
+#     - ls -a target
+#     - mv target/staging/asset.war public
 #   dependencies:
 #     - deploy:jdk8
-  artifacts:
-    paths:
-    - public
-  only:
-    - master
+#   artifacts:
+#     paths:
+#     - public
+#   only:
+#     - master
 
