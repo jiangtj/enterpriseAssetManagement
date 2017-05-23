@@ -6,6 +6,8 @@ before_install:
 # before_script:
 #   - chmod +x mvnw
 script:
-  - mvnw clean & mvnw package
+#   - mvn clean & mvn package
   - pwd
+  - ls -a
+  - cd target
   - ls -a
