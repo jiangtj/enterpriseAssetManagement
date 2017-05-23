@@ -1,5 +1,6 @@
 # enterpriseAssetManagement
-企业固定资产管理系统--毕业设计
+企业固定资产管理系统  
+[![Build Status](https://travis-ci.org/JiangTJ/enterpriseAssetManagement.svg?branch=master)](https://travis-ci.org/JiangTJ/enterpriseAssetManagement)
 
 > 示例：[企业固定资产管理系统](http://www.kurome.xin:8080/)  
 超级管理员 用户名:admin 密码:123456  
@@ -7,7 +8,8 @@
 修改密码接口未开发，所以，，暂时不能改密码ヾ(･ω･`｡)
 
 
-> 需要弄毕设的原因，将大致的功能实现了，各方面都不完善，但也算预览版了吧
+> 毕业验收过去了，接来下会慢慢修改发现不足之处。
+ 
 
 ### 环境
 - JDK环境：jdk 8+
