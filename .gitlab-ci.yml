@@ -69,6 +69,9 @@ deploy:jdk8:
   script:
     # - 'mvn $MAVEN_CLI_OPTS deploy site site:stage'
     - 'mvn $MAVEN_CLI_OPTS clean & mvn $MAVEN_CLI_OPTS package'
+    - ls -a
+    - mkdir target/staging
+    - mv target/asset.war target/staging
   only:
     - master
   # Archive up the built documentation site.
@@ -86,7 +89,7 @@ pages:
     # you might need to use `mv target/staging/YOUR_ARTIFACT_ID public` instead.
     - ls -a
     - pwd
-    - mv target/asset.war public
+    - mv target/staging/asset.war public
     - cd public
     - ls
   dependencies:
