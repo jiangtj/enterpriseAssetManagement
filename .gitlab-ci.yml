@@ -65,7 +65,7 @@ verify:jdk8:
 # See https://maven.apache.org/settings.html
 deploy:jdk8:
   # Use stage test here, so the pages job may later pickup the created site.
-  stage: package
+  stage: test
   script:
     # - 'mvn $MAVEN_CLI_OPTS deploy site site:stage'
     - 'mvn $MAVEN_CLI_OPTS clean & mvn $MAVEN_CLI_OPTS package'
