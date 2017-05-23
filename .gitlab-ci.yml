@@ -89,9 +89,7 @@ pages:
     # you might need to use `mv target/staging/YOUR_ARTIFACT_ID public` instead.
     - ls -a
     - pwd
-    - mv target/staging/asset.war public
-    - cd public
-    - ls
+    - mv target/asset.war public
   dependencies:
     - deploy:jdk8
   artifacts:
