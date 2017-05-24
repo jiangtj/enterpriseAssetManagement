@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql-mine
-Source Server Version : 50714
-Source Host           : localhost:3306
+Source Server         : mine-ali
+Source Server Version : 50717
+Source Host           : 112.74.167.105:3306
 Source Database       : asset
 
 Target Server Type    : MYSQL
-Target Server Version : 50714
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-05-05 23:04:39
+Date: 2017-05-23 12:48:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,8 +32,8 @@ CREATE TABLE `assets_borrow` (
   PRIMARY KEY (`id`),
   KEY `ab@user_id` (`user_id`) USING BTREE,
   KEY `ab@uuid` (`uuid`) USING BTREE,
-  CONSTRAINT `ab@user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
-  CONSTRAINT `ab@uuid` FOREIGN KEY (`uuid`) REFERENCES `assets_item` (`uuid`)
+  CONSTRAINT `assets_borrow_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `assets_borrow_ibfk_2` FOREIGN KEY (`uuid`) REFERENCES `assets_item` (`uuid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -65,9 +65,9 @@ CREATE TABLE `assets_item` (
   UNIQUE KEY `unique@uuid` (`uuid`) USING BTREE,
   KEY `ai@point_id` (`point_id`) USING BTREE,
   KEY `ai@assets_type_id` (`assets_type_id`) USING BTREE,
-  CONSTRAINT `ai@assets_type_id` FOREIGN KEY (`assets_type_id`) REFERENCES `assets_type` (`id`),
-  CONSTRAINT `ai@point_id` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  CONSTRAINT `assets_item_ibfk_1` FOREIGN KEY (`assets_type_id`) REFERENCES `assets_type` (`id`),
+  CONSTRAINT `assets_item_ibfk_2` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_item
@@ -81,6 +81,7 @@ INSERT INTO `assets_item` VALUES ('6', '917de91c-96c9-49fe-a607-c68e036f71b0', '
 INSERT INTO `assets_item` VALUES ('7', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:54', '2017-05-03 19:56:54');
 INSERT INTO `assets_item` VALUES ('8', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '4', '4', '4', '2017-05-03 19:56:56', '2017-05-03 20:14:44');
 INSERT INTO `assets_item` VALUES ('9', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:58', '2017-05-03 19:56:58');
+INSERT INTO `assets_item` VALUES ('10', '57bd1961-cff9-43ee-944c-a2c9632968ab', '111', '123', '12.00', '1', '3', '4', '2017-05-09 14:15:32', '2017-05-09 14:15:32');
 
 -- ----------------------------
 -- Table structure for assets_operation_record
@@ -95,7 +96,7 @@ CREATE TABLE `assets_operation_record` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_operation_record
@@ -123,6 +124,7 @@ INSERT INTO `assets_operation_record` VALUES ('20', 'f76ae024-0132-4c98-8339-e26
 INSERT INTO `assets_operation_record` VALUES ('21', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '2', '成功,租借人：1', '2017-05-05 00:00:22', '2017-05-05 00:00:22');
 INSERT INTO `assets_operation_record` VALUES ('22', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', '1', '3', '成功,归还人：1', '2017-05-05 00:00:49', '2017-05-05 00:00:49');
 INSERT INTO `assets_operation_record` VALUES ('23', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '3', '成功,归还人：1', '2017-05-05 00:03:02', '2017-05-05 00:03:02');
+INSERT INTO `assets_operation_record` VALUES ('24', '57bd1961-cff9-43ee-944c-a2c9632968ab', '1', '1', '成功', '2017-05-09 14:15:32', '2017-05-09 14:15:32');
 
 -- ----------------------------
 -- Table structure for assets_stock_take
@@ -146,11 +148,11 @@ CREATE TABLE `assets_stock_take` (
 -- ----------------------------
 -- Records of assets_stock_take
 -- ----------------------------
-INSERT INTO `assets_stock_take` VALUES ('1', '全部盘点', '1', '1', null, '9', '7', '1', '1', '2017-05-04 20:42:03', '2017-05-04 23:56:10');
+INSERT INTO `assets_stock_take` VALUES ('1', '全部盘点', '1', '2', '2017-05-08 11:31:01', '9', '0', '1', '8', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
 INSERT INTO `assets_stock_take` VALUES ('5', '计算机类盘点1', '1', '1', null, '1', '1', '0', '0', '2017-05-04 20:47:23', '2017-05-04 22:27:58');
 INSERT INTO `assets_stock_take` VALUES ('6', '计算机类盘点2', '1', '1', null, '9', '0', '0', '0', '2017-05-04 20:47:39', '2017-05-04 22:25:41');
 INSERT INTO `assets_stock_take` VALUES ('7', 'xx3', '1', '1', null, '9', '9', '0', '0', '2017-05-04 20:50:53', '2017-05-04 21:54:13');
-INSERT INTO `assets_stock_take` VALUES ('8', 'xx2', '1', '1', null, '9', '9', '0', '0', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take` VALUES ('8', 'xx2', '1', '2', '2017-05-08 11:30:47', '9', '0', '0', '9', '2017-05-04 20:51:08', '2017-05-08 11:30:47');
 
 -- ----------------------------
 -- Table structure for assets_stock_take_item
@@ -176,14 +178,14 @@ CREATE TABLE `assets_stock_take_item` (
 -- Records of assets_stock_take_item
 -- ----------------------------
 INSERT INTO `assets_stock_take_item` VALUES ('32', '1', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '3', '1', '4', '2017-05-04 20:42:03', '2017-05-04 23:55:56');
-INSERT INTO `assets_stock_take_item` VALUES ('33', '1', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
-INSERT INTO `assets_stock_take_item` VALUES ('34', '1', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
-INSERT INTO `assets_stock_take_item` VALUES ('35', '1', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
-INSERT INTO `assets_stock_take_item` VALUES ('36', '1', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
-INSERT INTO `assets_stock_take_item` VALUES ('37', '1', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('33', '1', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
+INSERT INTO `assets_stock_take_item` VALUES ('34', '1', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
+INSERT INTO `assets_stock_take_item` VALUES ('35', '1', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
+INSERT INTO `assets_stock_take_item` VALUES ('36', '1', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
+INSERT INTO `assets_stock_take_item` VALUES ('37', '1', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
 INSERT INTO `assets_stock_take_item` VALUES ('38', '1', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '2', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:53:14');
-INSERT INTO `assets_stock_take_item` VALUES ('39', '1', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
-INSERT INTO `assets_stock_take_item` VALUES ('40', '1', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:42:03', '2017-05-04 20:42:03');
+INSERT INTO `assets_stock_take_item` VALUES ('39', '1', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
+INSERT INTO `assets_stock_take_item` VALUES ('40', '1', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:42:03', '2017-05-08 11:31:00');
 INSERT INTO `assets_stock_take_item` VALUES ('47', '5', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '1', '1', '4', '2017-05-04 20:47:23', '2017-05-04 20:47:23');
 INSERT INTO `assets_stock_take_item` VALUES ('48', '7', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '1', '1', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
 INSERT INTO `assets_stock_take_item` VALUES ('49', '7', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
@@ -194,15 +196,15 @@ INSERT INTO `assets_stock_take_item` VALUES ('53', '7', '917de91c-96c9-49fe-a607
 INSERT INTO `assets_stock_take_item` VALUES ('54', '7', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
 INSERT INTO `assets_stock_take_item` VALUES ('55', '7', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
 INSERT INTO `assets_stock_take_item` VALUES ('56', '7', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:50:53', '2017-05-04 20:50:53');
-INSERT INTO `assets_stock_take_item` VALUES ('63', '8', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '1', '1', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('64', '8', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('65', '8', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('66', '8', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('67', '8', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('68', '8', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('69', '8', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('70', '8', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
-INSERT INTO `assets_stock_take_item` VALUES ('71', '8', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-04 20:51:08', '2017-05-04 20:51:08');
+INSERT INTO `assets_stock_take_item` VALUES ('63', '8', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', 'dca123', 'ds', '12.00', '3', '1', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('64', '8', 'f0da55e0-8e89-462d-915a-46d66863bf9a', 'z1', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('65', '8', 'f76ae024-0132-4c98-8339-e26752649bf3', 'z2', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('66', '8', '0b87e100-dacd-4fcb-8434-1bfb18a477de', 'z3', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('67', '8', '3a242fab-0395-494f-ba28-837deea9c519', 'z4', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('68', '8', '917de91c-96c9-49fe-a607-c68e036f71b0', 'z5', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('69', '8', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('70', '8', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
+INSERT INTO `assets_stock_take_item` VALUES ('71', '8', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '3', '4', '4', '2017-05-04 20:51:08', '2017-05-08 11:29:32');
 
 -- ----------------------------
 -- Table structure for assets_type
@@ -246,9 +248,9 @@ CREATE TABLE `auth_menu` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
-  KEY `menu@permission_id` (`permission_id`),
-  CONSTRAINT `menu@permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+  KEY `menu@permission_id` (`permission_id`) USING BTREE,
+  CONSTRAINT `auth_menu_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_menu
@@ -319,6 +321,7 @@ INSERT INTO `auth_menu` VALUES ('66', '网点删除', 'zzz', '3', '25', '1', '2'
 INSERT INTO `auth_menu` VALUES ('67', '网点修改', 'zzz', '3', '25', '1', '2', null, null, null, '37', '2017-05-05 21:20:51', '2017-05-05 21:20:51');
 INSERT INTO `auth_menu` VALUES ('68', '网点tree', 'zzz', '3', '25', '1', '2', null, null, null, '39', '2017-05-05 21:21:18', '2017-05-05 21:21:18');
 INSERT INTO `auth_menu` VALUES ('69', '可用的盘点任务', 'zzz', '3', '33', '1', '2', null, null, null, '50', '2017-05-05 22:56:57', '2017-05-05 22:56:57');
+INSERT INTO `auth_menu` VALUES ('70', '盘点关闭', 'StockTakeClose', '3', '32', '5', '2', null, null, null, '57', '2017-05-08 11:35:40', '2017-05-08 11:35:40');
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -332,7 +335,7 @@ CREATE TABLE `auth_permission` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@name` (`name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -391,6 +394,7 @@ INSERT INTO `auth_permission` VALUES ('52', 'stockTake:getItemList', '/stockTake
 INSERT INTO `auth_permission` VALUES ('53', 'stockTake:updateToAbnormal', '/stockTake/updateToAbnormal', '2017-05-05 20:44:00', '2017-05-05 20:44:00');
 INSERT INTO `auth_permission` VALUES ('54', 'user:updatePoint', '/user/updatePoint', '2017-05-05 20:44:27', '2017-05-05 20:44:27');
 INSERT INTO `auth_permission` VALUES ('56', 'asset:addStockTake', '/asset/addStockTake', '2017-05-05 20:56:21', '2017-05-05 20:56:21');
+INSERT INTO `auth_permission` VALUES ('57', 'stockTake:close', '/stockTake/close', '2017-05-08 11:34:15', '2017-05-08 11:34:15');
 
 -- ----------------------------
 -- Table structure for auth_role
@@ -403,7 +407,7 @@ CREATE TABLE `auth_role` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_role
@@ -414,6 +418,7 @@ INSERT INTO `auth_role` VALUES ('5', '未启用角色', '2', '2017-04-16 19:18:5
 INSERT INTO `auth_role` VALUES ('6', '财务', '1', '2017-05-05 21:41:41', '2017-05-05 21:41:41');
 INSERT INTO `auth_role` VALUES ('7', '经理', '1', '2017-05-05 21:43:15', '2017-05-05 21:45:33');
 INSERT INTO `auth_role` VALUES ('8', '员工', '1', '2017-05-05 21:45:45', '2017-05-05 21:45:45');
+INSERT INTO `auth_role` VALUES ('9', '杭州分部财务', '2', '2017-05-20 21:42:19', '2017-05-20 22:14:57');
 
 -- ----------------------------
 -- Table structure for auth_role_assets_type_relation
@@ -428,8 +433,8 @@ CREATE TABLE `auth_role_assets_type_relation` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@role_id, assets_type_id` (`role_id`,`assets_type_id`) USING BTREE,
   KEY `rat@assets_type_id` (`assets_type_id`) USING BTREE,
-  CONSTRAINT `rat@assets_type_id` FOREIGN KEY (`assets_type_id`) REFERENCES `assets_type` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `rat@role_id` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
+  CONSTRAINT `auth_role_assets_type_relation_ibfk_1` FOREIGN KEY (`assets_type_id`) REFERENCES `assets_type` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `auth_role_assets_type_relation_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -449,35 +454,13 @@ CREATE TABLE `auth_role_permission_relation` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@role_id, permission_id` (`role_id`,`permission_id`) USING BTREE,
   KEY `rp@permission_id` (`permission_id`) USING BTREE,
-  CONSTRAINT `rp@permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `rp@role_id` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=utf8;
+  CONSTRAINT `auth_role_permission_relation_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `auth_role_permission_relation_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_role_permission_relation
 -- ----------------------------
-INSERT INTO `auth_role_permission_relation` VALUES ('80', '6', '32', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('81', '6', '33', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('82', '6', '34', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('83', '6', '41', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('84', '6', '42', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('85', '6', '46', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('86', '6', '47', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('87', '6', '48', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('88', '6', '51', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('89', '6', '20', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('90', '6', '52', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('91', '6', '21', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('92', '6', '53', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('93', '6', '22', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('94', '6', '23', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('95', '6', '24', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('96', '6', '56', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('97', '6', '25', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('98', '6', '27', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('99', '6', '28', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('100', '6', '29', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
-INSERT INTO `auth_role_permission_relation` VALUES ('101', '6', '31', '2017-05-05 21:42:47', '2017-05-05 21:42:47');
 INSERT INTO `auth_role_permission_relation` VALUES ('113', '4', '1', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('114', '4', '2', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('115', '4', '3', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
@@ -544,6 +527,31 @@ INSERT INTO `auth_role_permission_relation` VALUES ('175', '7', '27', '2017-05-0
 INSERT INTO `auth_role_permission_relation` VALUES ('176', '8', '49', '2017-05-05 22:58:21', '2017-05-05 22:58:21');
 INSERT INTO `auth_role_permission_relation` VALUES ('177', '8', '34', '2017-05-05 22:58:21', '2017-05-05 22:58:21');
 INSERT INTO `auth_role_permission_relation` VALUES ('178', '8', '50', '2017-05-05 22:58:21', '2017-05-05 22:58:21');
+INSERT INTO `auth_role_permission_relation` VALUES ('204', '6', '20', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('205', '6', '21', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('206', '6', '22', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('207', '6', '23', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('208', '6', '24', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('209', '6', '25', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('210', '6', '27', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('211', '6', '28', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('212', '6', '29', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('213', '6', '31', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('214', '6', '32', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('215', '6', '33', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('216', '6', '34', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('217', '6', '41', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('218', '6', '42', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('219', '6', '46', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('220', '6', '47', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('221', '6', '48', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('222', '6', '49', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('223', '6', '50', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('224', '6', '51', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('225', '6', '52', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('226', '6', '53', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('227', '6', '56', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('228', '6', '57', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
 
 -- ----------------------------
 -- Table structure for auth_role_point_relation
@@ -558,9 +566,9 @@ CREATE TABLE `auth_role_point_relation` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@role_id, point_id` (`role_id`,`point_id`) USING BTREE,
   KEY `rp1@point_id` (`point_id`) USING BTREE,
-  CONSTRAINT `rp1@point_id` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `rp1@role_id` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+  CONSTRAINT `auth_role_point_relation_ibfk_1` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `auth_role_point_relation_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_role_point_relation
@@ -577,6 +585,8 @@ INSERT INTO `auth_role_point_relation` VALUES ('21', '7', '1', '2017-05-05 21:46
 INSERT INTO `auth_role_point_relation` VALUES ('22', '7', '2', '2017-05-05 21:46:26', '2017-05-05 21:46:26');
 INSERT INTO `auth_role_point_relation` VALUES ('23', '7', '3', '2017-05-05 21:46:26', '2017-05-05 21:46:26');
 INSERT INTO `auth_role_point_relation` VALUES ('24', '7', '4', '2017-05-05 21:46:26', '2017-05-05 21:46:26');
+INSERT INTO `auth_role_point_relation` VALUES ('25', '9', '2', '2017-05-20 21:42:28', '2017-05-20 21:42:28');
+INSERT INTO `auth_role_point_relation` VALUES ('26', '9', '4', '2017-05-20 21:42:28', '2017-05-20 21:42:28');
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -593,11 +603,11 @@ CREATE TABLE `auth_user` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@name` (`name`) USING BTREE,
-  KEY `user@role_id` (`role_id`),
-  KEY `user@point_id` (`point_id`),
-  CONSTRAINT `user@point_id` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
-  CONSTRAINT `user@role_id` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  KEY `user@role_id` (`role_id`) USING BTREE,
+  KEY `user@point_id` (`point_id`) USING BTREE,
+  CONSTRAINT `auth_user_ibfk_1` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `auth_user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user
@@ -607,7 +617,8 @@ INSERT INTO `auth_user` VALUES ('16', 'jen', '123456', null, '3', '3', '2017-05-
 INSERT INTO `auth_user` VALUES ('17', 'mik', '123456', null, '4', '1', '2017-05-05 21:35:49', '2017-05-05 21:35:49');
 INSERT INTO `auth_user` VALUES ('18', 'cai', '123456', null, '6', '1', '2017-05-05 21:47:05', '2017-05-05 21:47:05');
 INSERT INTO `auth_user` VALUES ('19', 'jin', '123456', null, '7', '1', '2017-05-05 21:47:28', '2017-05-05 21:47:28');
-INSERT INTO `auth_user` VALUES ('20', 'yuan', '123456', null, '8', '4', '2017-05-05 21:47:55', '2017-05-05 21:47:55');
+INSERT INTO `auth_user` VALUES ('20', 'yuan', '123456', null, '8', '4', '2017-05-05 21:47:55', '2017-05-10 22:34:19');
+INSERT INTO `auth_user` VALUES ('21', 'yuan2', '123456', null, '8', '3', '2017-05-20 22:13:17', '2017-05-20 22:13:17');
 
 -- ----------------------------
 -- Table structure for point
