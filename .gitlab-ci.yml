@@ -26,9 +26,9 @@ docker-build:
   - ls -a target
   - cp target/asset.war docker-preview/
   - cp other/db-init.sql docker-preview/
-  - docker build -t asset-preview docker-preview
+  - docker build -t registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-preview docker-preview
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-  - docker push asset-preview
+  - docker push registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-preview
 
 # k8s-deploy:
 #   image: google/cloud-sdk
