@@ -99,5 +99,10 @@ RUN ls -a /docker-entrypoint-initdb.d
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
+COPY start.sh /javaweb/
+RUN chmod 777 /javaweb/start.sh
+RUN dos2unix /javaweb/start.sh
+
 EXPOSE 3306 8080
-CMD ["mysqld"]
+#CMD ["sh","/javaweb/start.sh"]
+CMD ["/bin/bash"]

@@ -198,8 +198,6 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		echo 'MySQL init process done. Ready for start up.'
 		echo
 
-		# mine
-		nohup java -jar /javaweb/asset.war --spring.datasource.password="$MYSQL_ROOT_PASSWORD" &
 
 	fi
 fi

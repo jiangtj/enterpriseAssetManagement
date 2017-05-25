@@ -30,4 +30,5 @@ RUN ls -a /javaweb
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8080
+#CMD ["java","-jar","/javaweb/asset.war","--spring.datasource.url='$SPRING_DATASOURCE_URL'"]
 CMD ["/bin/bash"]
