@@ -53,6 +53,8 @@ RUN set -ex; \
 
 ENV MYSQL_MAJOR 5.7
 ENV MYSQL_VERSION 5.7.18-1debian8
+ENV MYSQL_DATABASE asset
+ENV MYSQL_PASSWORD pw
 
 RUN echo "deb http://repo.mysql.com/apt/debian/ jessie mysql-${MYSQL_MAJOR}" > /etc/apt/sources.list.d/mysql.list
 
@@ -86,7 +88,8 @@ RUN dos2unix /usr/local/bin/docker-entrypoint.sh
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 # mine
-COPY db-init.sql /docker-entrypoint-initdb.d/
+# COPY db-init.sql /docker-entrypoint-initdb.d/
+COPY asset-data.sql /docker-entrypoint-initdb.d/
 RUN mkdir /javaweb
 COPY asset.war /javaweb/
 COPY application.properties /javaweb/
