@@ -4,7 +4,7 @@ services:
 
 variables:
   DOCKER_DRIVER: overlay
-  SPRING_PROFILES_ACTIVE: gitlab-ci
+#   SPRING_PROFILES_ACTIVE: gitlab-ci
 
 stages:
   - build
