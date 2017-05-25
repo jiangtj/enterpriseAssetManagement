@@ -22,7 +22,8 @@ maven-build:
 docker-build:
   stage: package
   script:
-  - copy target/asset.war docker-preview/
+  - ls -a
+  - copy asset.war docker-preview/
   - copy other/db-init.sql docker-preview/
   - docker build -t registry.gitlab.com/JiangTJ/enterpriseAssetManagement docker-preview
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
