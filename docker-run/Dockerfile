@@ -15,7 +15,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
 RUN mkdir /javaweb
 COPY asset.war /javaweb/
 
-mkdir /javaweb/config
+RUN mkdir /javaweb/config
 VOLUME["/javaweb/config"]
 
 EXPOSE 8080
