@@ -16,7 +16,7 @@ RUN mkdir /javaweb
 COPY asset.war /javaweb/
 
 RUN mkdir /javaweb/config
-VOLUME["/javaweb/config"]
+VOLUME ["/javaweb/config"]
 
 EXPOSE 8080
 
