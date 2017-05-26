@@ -17,8 +17,8 @@ COPY asset.war /javaweb/
 
 EXPOSE 8080
 
-CMD ["java","-jar","/javaweb/asset.war",
-    "--spring.datasource.url='$SPRING_DATASOURCE_URL'"，
-    "--spring.datasource.username='$SPRING_DATASOURCE_USERNAME'"，
+CMD ["java","-jar","/javaweb/asset.war",\
+    "--spring.datasource.url='$SPRING_DATASOURCE_URL'",\
+    "--spring.datasource.username='$SPRING_DATASOURCE_USERNAME'",\
     "--spring.datasource.password='$SPRING_DATASOURCE_PASSWORD'"]
 #CMD ["/bin/bash"]
