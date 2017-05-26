@@ -26,15 +26,22 @@ docker-build:
   - ls -a target
   # docker-run
   - cp target/asset.war docker-run/
-  - docker build -t registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-run docker-run
-  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-  - docker push registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-run
+  - docker build -t $DOCKER_ID_USER/asset-run docker-run
+  - docker login -u $DOCKER_ID_USER -p $DOCKER_ID_PASSWORD
+  - docker push  $DOCKER_ID_USER/asset-run
+
   # docker-preview
 #  - cp target/asset.war docker-preview/
 #  - cp other/db-init.sql docker-preview/
 #  - docker build -t registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-preview docker-preview
 #  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 #  - docker push registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-preview
+
+  # docker-gitlab-registry
+  # 该镜像存放的服务器中国无法访问
+#  - docker build -t registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-run docker-run
+#  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+#  - docker push registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-run
 
 # k8s-deploy:
 #   image: google/cloud-sdk
