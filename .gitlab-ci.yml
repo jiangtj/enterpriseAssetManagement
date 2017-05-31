@@ -24,11 +24,18 @@ docker-build:
   script:
   - ls -a
   - ls -a target
-  # docker-run
   - cp target/asset.war docker-run/
-  - docker build -t $DOCKER_ID_USER/asset-run docker-run
+
+  # docker login
   - docker login -u $DOCKER_ID_USER -p $DOCKER_ID_PASSWORD
+
+  # build web
+  - docker build -t $DOCKER_ID_USER/asset-run docker-run
   - docker push  $DOCKER_ID_USER/asset-run
+
+  # build db
+  - docker build -t $DOCKER_ID_USER/asset-db docker-db
+  - docker push  $DOCKER_ID_USER/asset-db
 
   # docker-preview
 #  - cp target/asset.war docker-preview/
