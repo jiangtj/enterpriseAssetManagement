@@ -1,7 +1,7 @@
 
 
 # mine
+#
+sh /usr/local/bin/docker-entrypoint.sh
 service  mysql start
-echo "mysql running"
-echo "java running"
 java -jar /javaweb/asset.war

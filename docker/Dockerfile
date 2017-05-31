@@ -21,60 +21,34 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		openssh-client \
 		subversion \
 		procps \
-	&& rm -rf /var/lib/apt/lists/*
-
-# A few problems with compiling Java from source:
-#  1. Oracle.  Licensing prevents us from redistributing the official JDK.
-#  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
-#       really hairy.
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
-
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
-# add a simple script that can auto-detect the appropriate JAVA_HOME value
-# based on whether the JDK or only the JRE is installed
-RUN { \
-		echo '#!/bin/sh'; \
-		echo 'set -e'; \
-		echo; \
-		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
-	} > /usr/local/bin/docker-java-home \
-	&& chmod +x /usr/local/bin/docker-java-home
+ENV VERSION 8u131
+ENV BUILD 11
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+# 下载解压
+RUN mkdir /usr/lib/jvm \
+    && wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie;" \
+    http://download.oracle.com/otn-pub/java/jdk/"${VERSION}"-b"${BUILD}"/d54c1d3a095b4ff2b6607d096fa80163/jdk-"${VERSION}"-linux-x64.tar.gz \
+#    && wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie;" \
+#    http://download.oracle.com/otn-pub/java/jdk/"${VERSION}"-b"${BUILD}"/d54c1d3a095b4ff2b6607d096fa80163/jdk-"${VERSION}"-linux-x64.tar.gz?AuthParam=1496210338_c02c9aa5685697f5f0bd72c5a28e658f \
+    && tar -zxf jdk-"${VERSION}"-linux-x64.tar.gz -C /usr/lib/jvm
 
-ENV JAVA_VERSION 8u111
-ENV JAVA_DEBIAN_VERSION 8u111-b14-2~bpo8+1
-
-# see https://bugs.debian.org/775775
-# and https://github.com/docker-library/java/issues/19#issuecomment-70546872
-ENV CA_CERTIFICATES_JAVA_VERSION 20140324
-
-RUN set -x \
-	&& apt-get update \
-	&& apt-get install -y \
-		openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
-		ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
-
-# see CA_CERTIFICATES_JAVA_VERSION notes above
-RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
-
-# If you're reading this and have any feedback on how this image could be
-#   improved, please open an issue or a pull request so we can discuss it!
+ENV JAVA_HOME /usr/lib/jvm/jdk1.8.0_131
+ENV PATH=${PATH}:"${JAVA_HOME}"/bin
 
 # dos2unix
 RUN set -x \ && apt-get update && apt-get install -y --no-install-recommends dos2unix \
     && rm -rf /var/lib/apt/lists/*
+RUN dos2unix /usr/local/bin/docker-entrypoint.sh
+
+COPY docker-entrypoint.sh /usr/local/bin/
 RUN dos2unix /usr/local/bin/docker-entrypoint.sh
 
 # mine
@@ -83,9 +57,6 @@ RUN dos2unix /usr/local/bin/docker-entrypoint.sh
 RUN mkdir /javaweb
 COPY asset.war /javaweb/
 COPY application.properties /javaweb/
-RUN ls -a
-RUN ls -a /javaweb
-RUN ls -a /docker-entrypoint-initdb.d
 
 COPY start.sh /javaweb/
 RUN chmod 777 /javaweb/start.sh
@@ -93,4 +64,5 @@ RUN dos2unix /javaweb/start.sh
 
 EXPOSE 3306 8080
 #CMD ["sh","/javaweb/start.sh"]
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
+ENTRYPOINT ["sh","/javaweb/start.sh"]
