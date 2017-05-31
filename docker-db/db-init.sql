@@ -14,6 +14,14 @@ Date: 2017-05-23 12:48:58
 */
 CREATE DATABASE asset DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE asset;
+set character_set_client = utf8;
+set character_set_server = utf8;
+set character_set_connection = utf8;
+set character_set_database = utf8;
+set character_set_results = utf8;
+set collation_connection = utf8_general_ci;
+set collation_database = utf8_general_ci;
+set collation_server = utf8_general_ci;
 
 SET FOREIGN_KEY_CHECKS=0;
 
