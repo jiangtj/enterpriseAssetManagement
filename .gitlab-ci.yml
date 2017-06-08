@@ -18,7 +18,6 @@ build:maven:
   artifacts:
     paths:
       - target/asset.war
-  coverage: '/Code coverage: \d+\.\d+/'
   only:
     - master
 
