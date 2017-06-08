@@ -8,19 +8,22 @@ variables:
 
 stages:
   - build
-  - package
-#   - deploy
+#  - package
+  - deploy
 
-maven-build:
+build:maven:
   image: maven:3-jdk-8
   stage: build
   script: "mvn package -B"
   artifacts:
     paths:
       - target/asset.war
+  coverage: '/Code coverage: \d+\.\d+/'
+  only:
+    - master
 
-docker-build:
-  stage: package
+deploy:docker:
+  stage: deploy
   script:
   - ls -a
   - ls -a target
@@ -37,29 +40,12 @@ docker-build:
   - docker build -t $DOCKER_ID_USER/asset-db docker-db
   - docker push  $DOCKER_ID_USER/asset-db
 
-  # docker-preview
-#  - cp target/asset.war docker-preview/
-#  - cp other/db-init.sql docker-preview/
-#  - docker build -t registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-preview docker-preview
-#  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-#  - docker push registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-preview
-
   # docker-gitlab-registry
   # 该镜像存放的服务器中国无法访问
 #  - docker build -t registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-run docker-run
 #  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 #  - docker push registry.gitlab.com/jiangtj/enterpriseassetmanagement/asset-run
+  only:
+    - master
 
-# k8s-deploy:
-#   image: google/cloud-sdk
-#   stage: deploy
-#   script:
-#   - echo "$GOOGLE_KEY" > key.json
-#   - gcloud auth activate-service-account --key-file key.json
-#   - gcloud config set compute/zone europe-west1-c
-#   - gcloud config set project actuator-sample
-#   - gcloud config set container/use_client_certificate True
-#   - gcloud container clusters get-credentials actuator-sample
-#   - kubectl delete secret registry.gitlab.com
-#   - kubectl create secret docker-registry registry.gitlab.com --docker-server=https://registry.gitlab.com --docker-username=marcolenzo --docker-password=$REGISTRY_PASSWD --docker-email=lenzo.marco@gmail.com
-#   - kubectl apply -f deployment.yml 
+
