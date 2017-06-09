@@ -24,7 +24,7 @@
 
 ### java 运行
 
-1. 下载war包[asset.war](https://gitlab.com/JiangTJ/enterpriseAssetManagement/pipelines) 
+1. 下载源码，maven编译获取war包（暂不提供下载）
 1. 配置数据库，请仿照`application-dev.properties`，创建相应的配置文件`application.properties`，并与war包放在相同目录或者config/下
 1. java 运行 `java -jar asset.war --server.port=8080`,其中`server.port`设置端口号，该配置可写于`application.properties`中
 
