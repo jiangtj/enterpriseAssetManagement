@@ -36,12 +36,15 @@
 
 ### docker 运行
 
-1. docker  run -p 80:8080 \
+- docker命令行输入以下代码
+```
+docker  run -p 80:8080 \
    -e 'SPRING_DATASOURCE_URL=jdbc:mysql://192.169.2.2:3306/asset?useUnicode=true&characterEncoding=utf-8&useSSL=false' \
    -e 'SPRING_DATASOURCE_USERNAME=root' \
    -e 'SPRING_DATASOURCE_PASSWORD=pw' \
    kurome/asset-run  
-1. 在网页端，输入docker虚拟环境ip地址即可  
+```  
+- 在网页端，输入docker虚拟环境ip地址即可  
 
 
 
