@@ -22,7 +22,7 @@
 - 后台：spring boot : (ssm) spring + spring mvc + mybatis
 - 前端：spring thymeleaf + vue.js
 
-### 运行
+### java 运行
 
 1. 下载war包[asset.war](https://gitlab.com/JiangTJ/enterpriseAssetManagement/pipelines) 
 1. 配置数据库，请仿照`application-dev.properties`，创建相应的配置文件`application.properties`，并与war包放在相同目录或者config/下
@@ -33,5 +33,15 @@
 - 建议用户导入asset-data.sql _（后续会添加安装界面，以便初始化数据）_
 - 默认user-id 为 1 的用户拥有最大权限，必要时修改数据库中用户id
 - 后台运行方式，linux 使用`nohup`，windows 使用`javaw`代替`java`
+
+### docker 运行
+
+1. docker  run -p 80:8080 \
+   -e 'SPRING_DATASOURCE_URL=jdbc:mysql://192.169.2.2:3306/asset?useUnicode=true&characterEncoding=utf-8&useSSL=false' \
+   -e 'SPRING_DATASOURCE_USERNAME=root' \
+   -e 'SPRING_DATASOURCE_PASSWORD=pw' \
+   kurome/asset-run  
+1. 在网页端，输入docker虚拟环境ip地址即可  
+
 
 
