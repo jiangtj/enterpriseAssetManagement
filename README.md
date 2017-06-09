@@ -34,20 +34,4 @@
 - 默认user-id 为 1 的用户拥有最大权限，必要时修改数据库中用户id
 - 后台运行方式，linux 使用`nohup`，windows 使用`javaw`代替`java`
 
-### LICENSE
-```
-Copyright Mr.J
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
 
