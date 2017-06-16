@@ -171,8 +171,10 @@
     </div>
 </div>
 
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <!-- Mainly scripts -->
 <script th:src="@{/js/main/jquery-2.1.1.js}"></script>
+<!--<script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;}</script>-->
 <script th:src="@{/js/main/bootstrap.min.js}"></script>
 <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
 <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
@@ -202,6 +204,8 @@
 <script th:src="@{/js/router.js}"></script>
 <script th:src="@{/js/map.js}"></script>
 <script th:src="@{/js/index.js}"></script>
+
+<script>if (window.module) module = window.module;</script>
 
 
 </body>

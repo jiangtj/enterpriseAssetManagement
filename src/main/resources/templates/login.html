@@ -44,9 +44,10 @@
     <script th:inline="javascript">
         var baseUrl = [[${#httpServletRequest.getContextPath()}]];
     </script>
-
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <!-- Mainly scripts -->
     <script th:src="@{/js/main/jquery-2.1.1.js}"></script>
+    <!--<script>if (typeof module === 'object') {window.jquery = window.jQuery = window.$ = module.exports;}</script>-->
     <script th:src="@{/js/main/bootstrap.min.js}"></script>
     <script th:src="@{/js/main/vue.js}"></script>
 
@@ -61,6 +62,7 @@
     <script th:src="@{/js/web.js}"></script>
     <script th:src="@{/js/server.js}"></script>
     <script th:src="@{/js/login.js}"></script>
+    <script>if (window.module) module = window.module;</script>
 
 </body>
 
