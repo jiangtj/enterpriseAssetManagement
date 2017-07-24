@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients(basePackages = {"com.jtj.web"})
+@EnableFeignClients
 public class AssetApplication {
 
 	public static void main(String[] args) {
