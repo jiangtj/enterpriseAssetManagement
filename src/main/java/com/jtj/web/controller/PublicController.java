@@ -6,6 +6,7 @@ import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
 import com.jtj.web.entity.Point;
 import com.jtj.web.service.*;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class PublicController {
     @Autowired
     private PointService pointService;
 
+    @ApiOperation(value="获取用户列表", notes="xxxx")
     @ResponseBody
     @PostMapping("/login")
     public ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name,
