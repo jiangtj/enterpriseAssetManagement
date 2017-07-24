@@ -2,7 +2,9 @@ package com.jtj.web;
 
 import com.jtj.web.aspect.SecurityInterceptor;
 import com.jtj.web.common.StringToDateConverter;
+import feign.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.GenericConversionService;
@@ -21,8 +23,8 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    private RequestMappingHandlerAdapter handlerAdapter;
+    /*@Autowired
+    private RequestMappingHandlerAdapter handlerAdapter;*/
 
     @Bean
     public SecurityInterceptor getSecurityInterceptor() {
@@ -35,7 +37,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         super.addInterceptors(registry);
     }
 
-    @PostConstruct
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+
+    /*@PostConstruct
     public void genericConversionService() {
         ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter
                 .getWebBindingInitializer();
@@ -46,7 +53,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             genericConversionService.addConverter(new StringToDateConverter());
         }
 
-    }
+    }*/
 
 
 }
