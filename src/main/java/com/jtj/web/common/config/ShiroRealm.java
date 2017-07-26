@@ -1,21 +1,34 @@
 package com.jtj.web.common.config;
 
-import com.jtj.web.common.exception.AuthenticationAssetException;
+import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.AuthenticationAssetException;
 import com.jtj.web.common.utils.MD5String;
+import com.jtj.web.dao.PermissionDao;
+import com.jtj.web.dao.PointDao;
 import com.jtj.web.dao.UserDao;
 import com.jtj.web.dto.UsernamePasswordTokenDto;
+import com.jtj.web.entity.Permission;
+import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -27,11 +40,25 @@ public class ShiroRealm extends AuthorizingRealm {
     private UserService userService;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private PermissionDao permissionDao;
+    @Autowired
+    private PointDao pointDao;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User)principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addRole(user.getRole().getName());
+        List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
+        List<Point> points = pointDao.getAuthorizedPoint(user.getId(),user.getRoleId());
+        List<String> stringPermissions = permissions.stream().map(Permission::getName).collect(Collectors.toList());
+        info.addStringPermissions(stringPermissions);
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+        session.setAttribute(Constant.SESSION_USER,user);
+        session.setAttribute(Constant.SESSION_PERMISSION,permissions);
+        session.setAttribute(Constant.SESSION_POINT,points);
         return info;
     }
 

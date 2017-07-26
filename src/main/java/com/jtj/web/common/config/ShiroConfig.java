@@ -1,11 +1,14 @@
 package com.jtj.web.common.config;
 
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,6 +25,21 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean
+    public SimpleCookie rememberMeCookie(){
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        simpleCookie.setMaxAge(2592000);
+        return simpleCookie;
+    }
+
+    @Bean
+    public CookieRememberMeManager rememberMeManager(){
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        cookieRememberMeManager.setCipherKey(Base64.decode("bWluZS1hc3NldC1rZXk6QQ=="));
+        return cookieRememberMeManager;
+    }
+
+    @Bean
     public Realm shiroRealm() {
         return new ShiroRealm();
     }
@@ -30,6 +48,7 @@ public class ShiroConfig {
     public DefaultWebSecurityManager securityManager(Realm realm) {
         DefaultWebSecurityManager sm = new DefaultWebSecurityManager();
         sm.setRealm(realm);
+        sm.setRememberMeManager(rememberMeManager());
         return sm;
     }
 

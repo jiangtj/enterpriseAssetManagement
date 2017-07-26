@@ -7,6 +7,7 @@ import com.jtj.web.dto.PointDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import com.jtj.web.service.PointService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class PointController {
     private PointService pointService;
 
     @PostMapping("/add")
+    @RequiresPermissions("point:add")
     public ResultDto<Object> add(Point point){
         return pointService.add(point);
     }

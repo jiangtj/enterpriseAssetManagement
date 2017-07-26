@@ -1,5 +1,6 @@
 package com.jtj.web.common;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
  * Created by MrTT (jiang.taojie@foxmail.com)
  * 2017/1/22.
  */
-public class BaseEntity {
+public class BaseEntity implements Serializable {
 
     private Long id;
     private Date createTime;

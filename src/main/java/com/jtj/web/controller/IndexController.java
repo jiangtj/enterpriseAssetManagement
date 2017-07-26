@@ -2,6 +2,8 @@ package com.jtj.web.controller;
 
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.service.SystemService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,8 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(){
+        //触发获取权限
+        SecurityUtils.getSubject().hasRole("doGetAuthorizationInfo");
         return "index";
     }
 

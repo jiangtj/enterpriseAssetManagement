@@ -13,6 +13,11 @@ public class UsernamePasswordTokenDto extends UsernamePasswordToken {
         this.loginTime = loginTime;
     }
 
+    public UsernamePasswordTokenDto(String username, String password, boolean rememberMe, Long loginTime) {
+        super(username, password, rememberMe);
+        this.loginTime = loginTime;
+    }
+
     private Long loginTime;
 
     public Long getTime() {

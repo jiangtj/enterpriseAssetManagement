@@ -3,6 +3,8 @@ package com.jtj.web.common.aspect;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.exception.ResultInterf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,14 +16,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class ResultExceptionHandler {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResultDto<Object> handle(Exception e){
-        e.printStackTrace();
         if (e instanceof ResultInterf){
             ResultInterf exception = (ResultInterf) e;
-            return exception.getResult();
+            ResultDto<Object> result = exception.getResult();
+            logger.warn(result.toString());
+            return result;
         }
+        logger.error("error",e);
         return new ResultDto<>(ResultCode.UN_KNOWN_ERROR);
     }
 

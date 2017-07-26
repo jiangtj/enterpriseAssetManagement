@@ -46,7 +46,7 @@ public class PublicController {
     public ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name,
                                    @RequestParam("password") String password,@RequestParam("time") Long time){
         Subject subject = SecurityUtils.getSubject();
-        subject.login(new UsernamePasswordTokenDto(name,password,time));
+        subject.login(new UsernamePasswordTokenDto(name,password,true,time));
 
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(ResultCode.SUCCESS);
@@ -55,8 +55,14 @@ public class PublicController {
 
     @ResponseBody
     @PostMapping("/logout")
-    public ResultDto<Object> loginOut(HttpServletRequest request, HttpServletResponse response){
-        return userService.logout(request,response);
+    public ResultDto<Object> logout(){
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
+            subject.logout();
+        }
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(ResultCode.SUCCESS);
+        return result;
     }
 
     @ResponseBody

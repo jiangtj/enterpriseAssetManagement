@@ -2,6 +2,8 @@ package com.jtj.web.entity;
 
 import com.jtj.web.common.BaseEntity;
 
+import java.io.Serializable;
+
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2016/12/23 23:26 End.

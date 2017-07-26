@@ -20,6 +20,7 @@ import java.util.List;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/1/10 23:31 End.
  */
+@Deprecated
 public class SecurityInterceptor implements HandlerInterceptor{
 
     private final static String separator = ",";
