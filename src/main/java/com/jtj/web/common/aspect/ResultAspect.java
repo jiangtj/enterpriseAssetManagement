@@ -1,11 +1,9 @@
-package com.jtj.web.aspect;
+package com.jtj.web.common.aspect;
 
-import com.jtj.web.common.AssetException;
+import com.jtj.web.common.exception.AssetException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)

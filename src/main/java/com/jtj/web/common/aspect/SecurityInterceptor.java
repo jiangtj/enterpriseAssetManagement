@@ -1,4 +1,4 @@
-package com.jtj.web.aspect;
+package com.jtj.web.common.aspect;
 
 import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;

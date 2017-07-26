@@ -1,6 +1,6 @@
 package com.jtj.web.controller;
 
-import com.jtj.web.common.AssetException;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetAndStockTakeNameDto;

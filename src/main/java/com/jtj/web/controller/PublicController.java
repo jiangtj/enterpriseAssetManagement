@@ -1,12 +1,16 @@
 package com.jtj.web.controller;
 
+import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.MenuDto;
+import com.jtj.web.dto.UsernamePasswordTokenDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
 import com.jtj.web.entity.Point;
 import com.jtj.web.service.*;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +45,12 @@ public class PublicController {
     @PostMapping("/login")
     public ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name,
                                    @RequestParam("password") String password,@RequestParam("time") Long time){
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(new UsernamePasswordTokenDto(name,password,time));
 
-        return userService.login(request,response,name,password,time);
+        ResultDto<Object> result = new ResultDto<>();
+        result.setResultCode(ResultCode.SUCCESS);
+        return result;
     }
 
     @ResponseBody

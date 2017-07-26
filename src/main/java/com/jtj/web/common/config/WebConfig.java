@@ -1,19 +1,11 @@
-package com.jtj.web;
+package com.jtj.web.common.config;
 
-import com.jtj.web.aspect.SecurityInterceptor;
-import com.jtj.web.common.StringToDateConverter;
+import com.jtj.web.common.aspect.SecurityInterceptor;
 import feign.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.support.GenericConversionService;
-import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -33,7 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getSecurityInterceptor()).addPathPatterns("/**");
+        //registry.addInterceptor(getSecurityInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

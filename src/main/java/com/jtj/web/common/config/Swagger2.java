@@ -1,4 +1,4 @@
-package com.jtj.web.common;
+package com.jtj.web.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

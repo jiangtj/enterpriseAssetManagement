@@ -1,15 +1,9 @@
-package com.jtj.web.aspect;
+package com.jtj.web.common.aspect;
 
-import com.jtj.web.common.AssetException;
 import com.jtj.web.common.BasePointDto;
 import com.jtj.web.common.Constant;
-import com.jtj.web.common.ResultDto;
-import com.jtj.web.dto.PointDto;
 import com.jtj.web.entity.Point;
-import com.jtj.web.entity.User;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;

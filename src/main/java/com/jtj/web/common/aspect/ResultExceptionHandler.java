@@ -1,8 +1,8 @@
-package com.jtj.web.aspect;
+package com.jtj.web.common.aspect;
 
-import com.jtj.web.common.AssetException;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.ResultInterf;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,8 +18,8 @@ public class ResultExceptionHandler {
     @ResponseBody
     public ResultDto<Object> handle(Exception e){
         e.printStackTrace();
-        if (e instanceof AssetException){
-            AssetException exception = (AssetException) e;
+        if (e instanceof ResultInterf){
+            ResultInterf exception = (ResultInterf) e;
             return exception.getResult();
         }
         return new ResultDto<>(ResultCode.UN_KNOWN_ERROR);

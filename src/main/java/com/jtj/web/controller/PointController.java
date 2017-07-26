@@ -1,14 +1,11 @@
 package com.jtj.web.controller;
 
-import com.jtj.web.common.AssetException;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.dto.PointDto;
-import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
-import com.jtj.web.service.AssetTypeService;
 import com.jtj.web.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

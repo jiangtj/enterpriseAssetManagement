@@ -1,0 +1,25 @@
+package com.jtj.web.dto;
+
+import org.apache.shiro.authc.UsernamePasswordToken;
+
+/**
+ * Created by MrTT (jiang.taojie@foxmail.com)
+ * 2017/7/26.
+ */
+public class UsernamePasswordTokenDto extends UsernamePasswordToken {
+
+    public UsernamePasswordTokenDto(String username, String password, Long loginTime) {
+        super(username, password);
+        this.loginTime = loginTime;
+    }
+
+    private Long loginTime;
+
+    public Long getTime() {
+        return loginTime;
+    }
+
+    public void setTime(Long loginTime) {
+        this.loginTime = loginTime;
+    }
+}

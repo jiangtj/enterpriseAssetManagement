@@ -1,6 +1,6 @@
 package com.jtj.web.service.impl;
 
-import com.jtj.web.common.AssetException;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.MenuDao;
