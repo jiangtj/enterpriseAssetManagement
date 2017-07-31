@@ -47,3 +47,9 @@ const Shiro = {
 };
 
 Shiro.init(sessionRole,sessionPermission);
+
+const ShiroVue = function (el, binding) {
+    alert(binding.value);
+    //if (binding.arg === "role")
+};
+Vue.directive("shiro",ShiroVue);
