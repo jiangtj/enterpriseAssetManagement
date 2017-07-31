@@ -55,31 +55,9 @@ const AppMenu = [
     }
 ];
 
-//todo up changed
 
-const Permission = {
-    superRole:(sessionUser.id === 1),
-    source:sessionPermission,
-    name:{},
-    url:{},
-    put:function (key,value) {
-        Permission[key][value] = true;
-    },
-    checked:function (id) {
-        for (let i in Permission.source){
-            if (Permission.source[i].id === id) return true;
-        }
-        return false;
-    },
-    hasName:function (name) {
-        return Permission.name[name]||Permission.superRole
-    }
-};
-jQuery.each(sessionPermission,function (index,item) {
-    Permission.put("name",item.name);
-    Permission.put("url",item.url);
-});
 
+//todo del
 function getAppMenu() {
     let innerData = null;
     Server.menu.getPublicMenu.setAsync(false).post(data => {
@@ -87,20 +65,8 @@ function getAppMenu() {
     });
     return innerData;
 }
+//const AppMenu = getAppMenu();
 
-const AppMenu = getAppMenu();
-
-if (sessionUser.id !== 1){
-    for (let i = 0; i < AppMenu.length; i++) {
-        let item = AppMenu[i];
-        if (item.permissionId !== undefined && item.permissionId !== null){
-            if (!Permission.checked(item.permissionId)){
-                AppMenu.splice(i,1);
-                i--;
-            }
-        }
-    }
-}
 
 //定义路由
 const MenuRoutes = {};
@@ -113,10 +79,8 @@ const MenuUtils = {
     pushMenuRoutes: function (menus) {
         for (let i = 0; i < menus.length; i++) {
             let item = menus[i];
-            /*if (item.list !== undefined) {
-                MenuUtils.pushMenuRoutes(item.list);
-            }*/
             if (item.url !== undefined && item.url !== null && item.url !== "") {
+                if (!item.code) item.code = "menu:" + item.url;
                 MenuUtils.pushMenuRoute(item.menu, item)
             }
         }
