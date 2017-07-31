@@ -3,6 +3,7 @@ package com.jtj.web.common.aspect;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.exception.ResultInterf;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,6 +28,14 @@ public class ResultExceptionHandler {
             logger.warn(result.toString());
             return result;
         }
+
+        if (e instanceof UnauthorizedException){
+            ResultDto<Object> result = new ResultDto<>(ResultCode.UNAUTHORIZED);
+            result.setMessage(e.getMessage());
+            logger.warn(result.toString());
+            return result;
+        }
+
         logger.error("error",e);
         return new ResultDto<>(ResultCode.UN_KNOWN_ERROR);
     }
