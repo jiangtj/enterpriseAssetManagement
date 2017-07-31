@@ -80,7 +80,8 @@ public class ShiroRealm extends AuthorizingRealm {
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         session.setAttribute(Constant.SESSION_USER,user);
-        session.setAttribute(Constant.SESSION_PERMISSION,permissions);
+        session.setAttribute(Constant.SESSION_PERMISSION,info.getStringPermissions());
+        session.setAttribute(Constant.SESSION_ROLE,info.getRoles());
         session.setAttribute(Constant.SESSION_POINT,points);
         return info;
     }
