@@ -49,6 +49,12 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User)principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //系统管理员
+        if (user.getId() == 1){
+            info.addRole("system-administrator-role");
+            info.addStringPermission("system-administrator-permission");
+        }
+        //权限
         info.addRole(user.getRole().getName());
         List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
         List<Point> points = pointDao.getAuthorizedPoint(user.getId(),user.getRoleId());

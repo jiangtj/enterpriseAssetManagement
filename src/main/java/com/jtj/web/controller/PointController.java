@@ -8,6 +8,7 @@ import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import com.jtj.web.service.PointService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/point")
+@RequiresRoles("system-administrator-role")
 public class PointController {
 
     @Autowired

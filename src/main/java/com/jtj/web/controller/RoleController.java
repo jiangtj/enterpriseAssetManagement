@@ -6,6 +6,7 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.Role;
 import com.jtj.web.service.RoleService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/role")
+@RequiresRoles("system-administrator-role")
 public class RoleController {
 
     @Autowired
