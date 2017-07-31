@@ -15,6 +15,8 @@ const Shiro = {
         });
     },
     compareObject:function (object,value,logical) {
+        //null
+        if (value === undefined || value === null) return true;
         //value is str
         if (!jQuery.isArray(value)){
             return Shiro[object][value] === true;
