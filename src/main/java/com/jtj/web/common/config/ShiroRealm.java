@@ -26,6 +26,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,12 +56,27 @@ public class ShiroRealm extends AuthorizingRealm {
             info.addRole("system-administrator-role");
             info.addStringPermission("system-administrator-permission");
         }
-        //权限
-        info.addRole(user.getRole().getName());
-        List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
+        //网点
         List<Point> points = pointDao.getAuthorizedPoint(user.getId(),user.getRoleId());
-        List<String> stringPermissions = permissions.stream().map(Permission::getName).collect(Collectors.toList());
+        //角色
+        info.addRole(user.getRole().getId()+"");
+        //权限
+        List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
+        //List<String> stringPermissions = permissions.stream().map(Permission::getName).collect(Collectors.toList());
+        List<String> stringPermissions = permissions.stream().map(item -> {
+            String[] temps = item.getName().split(":");
+            List<String> tempList = new ArrayList<>();
+            for (int x = 0; x < temps.length; x++){
+                StringBuilder sb = new StringBuilder(temps[0]);
+                for (int y = 1; y <= x; y++){
+                    sb.append(":").append(temps[y]);
+                }
+                tempList.add(sb.toString());
+            }
+            return tempList;
+        }).flatMap(Collection::stream).distinct().collect(Collectors.toList());
         info.addStringPermissions(stringPermissions);
+        //session
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         session.setAttribute(Constant.SESSION_USER,user);
