@@ -20,7 +20,7 @@
 - spring boot
 - spring cloud
 - mybatis
-- apache shiro````
+- apache shiro
 - gson
 #### 前端：
 - spring thymeleaf
