@@ -76,7 +76,9 @@ const RouteUtils = {
                 RouteConfig.put({
                     methods:{
                         PermissionName:function(name){
-                            return Permission.hasName(name);
+                            //return Permission.hasName(name);
+                            //todo del
+                            return true;
                         }
                     }
                 });
@@ -102,8 +104,8 @@ const AppRouter = new VueRouter({
 function updateMenuStatus(hook,status) {
     if (hook.name === null) return;
     let route = Routes[hook.name];
-    if (route.menu === undefined) return;
-    let menu = MenuRoutes[route.menu];
+    if (route.code === undefined) return;
+    let menu = MenuRoutes[route.code];
     menu.isActive = status;
 }
 

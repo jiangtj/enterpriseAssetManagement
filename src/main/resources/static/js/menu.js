@@ -81,8 +81,9 @@ const MenuUtils = {
             let item = menus[i];
             if (item.url !== undefined && item.url !== null && item.url !== "") {
                 if (!item.code) item.code = "menu:" + item.url;
-                MenuUtils.pushMenuRoute(item.menu, item)
+                MenuUtils.pushMenuRoute(item.code, item)
             }
+            if (item.list !== undefined) MenuUtils.pushMenuRoutes(item.list);
         }
     }
 };
