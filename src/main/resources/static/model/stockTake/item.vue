@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-shiro="http://www.w3.org/1999/xhtml">
     <div>
         <!-- 头部标签 -->
         <header-label :data="headerLabel"></header-label>
@@ -34,7 +34,7 @@
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="updateToAbnormal(props.row)"  v-if="PermissionName('stockTake:updateToAbnormal') && props.row.status === 1" class="btn btn-table btn-danger btn-rounded" type="button">标记异常</button>
+                                <button @click="updateToAbnormal(props.row)" v-shiro:permission="'stockTake:updateToAbnormal'"  v-if="props.row.status === 1" class="btn btn-table btn-danger btn-rounded" type="button">标记异常</button>
                             </template>
                         </tt-table>
                     </div>

@@ -45,12 +45,12 @@ const AppMenu = [
         logical:Logical.OR,
         icon:"fa-cogs",
         list:[
-            {name:"用户管理",url:"/system/user",staticUrl:"/model/system/user.vue"},
-            {name:"角色管理",url:"/system/role",staticUrl:"/model/system/role.vue"},
-            {name:"权限管理",url:"/system/permission",staticUrl:"/model/system/permission.vue"},
+            {name:"用户管理",permission:["sys:user","system-administrator-permission"],logical:Logical.OR,url:"/system/user",staticUrl:"/model/system/user.vue"},
+            {name:"角色管理",role:"system-administrator-role",url:"/system/role",staticUrl:"/model/system/role.vue"},
+            {name:"权限管理",role:"system-administrator-role",url:"/system/permission",staticUrl:"/model/system/permission.vue"},
             {name:"菜单管理",url:"/system/menu",staticUrl:"/model/system/menu.vue"},
-            {name:"资源类型",url:"/system/assetType",staticUrl:"/model/system/assetType.vue"},
-            {name:"网点管理",url:"/system/point",staticUrl:"/model/system/point.vue"},
+            {name:"资源类型",permission:"sys:assetType",url:"/system/assetType",staticUrl:"/model/system/assetType.vue"},
+            {name:"网点管理",role:"system-administrator-role",url:"/system/point",staticUrl:"/model/system/point.vue"},
         ]
     }
 ];

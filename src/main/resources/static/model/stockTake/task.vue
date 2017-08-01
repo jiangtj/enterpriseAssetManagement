@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-shiro="http://www.w3.org/1999/xhtml">
     <div>
         <!-- 头部标签 -->
         <header-label :data="headerLabel"></header-label>
@@ -15,8 +15,8 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked && PermissionName('stockTake:update')" class="btn btn-outline btn-primary" type="button">修改</button>
-                                <button @click="deleteAll()" v-if="hasChecked && PermissionName('stockTake:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
+                                <button @click="showUpdateModal(tableSelectData[0])" v-shiro:permission="'stockTake:update'" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
+                                <button @click="deleteAll()" v-shiro:permission="'stockTake:delete'" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -33,9 +33,9 @@
                     <div class="table-responsive">
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="updateAmount(props.row)"  v-if="PermissionName('stockTake:updateAmount')" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
-                                <button @click="routerPushToItem(props.row)"  v-if="PermissionName('stockTake:getItemList')" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
-                                <button @click="close(props.row)"  v-if="PermissionName('stockTake:close') && props.row.status === 1" class="btn btn-table btn-danger btn-rounded" type="button">关闭</button>
+                                <button @click="updateAmount(props.row)" v-shiro:permission="'stockTake:updateAmount'" class="btn btn-table btn-primary btn-rounded" type="button">更新</button>
+                                <button @click="routerPushToItem(props.row)" v-shiro:permission="'stockTake:getItemList'" class="btn btn-table btn-primary btn-rounded" type="button">明细</button>
+                                <button @click="close(props.row)" v-shiro:permission="'stockTake:close'"  v-if="props.row.status === 1" class="btn btn-table btn-danger btn-rounded" type="button">关闭</button>
                             </template>
                         </tt-table>
                     </div>

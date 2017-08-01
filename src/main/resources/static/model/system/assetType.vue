@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-shiro="http://www.w3.org/1999/xhtml">
     <div>
         <!-- 头部标签 -->
         <header-label :data="headerLabel"></header-label>
@@ -20,9 +20,9 @@
 
                                 <div class="btn-toolbar pull-right" role="toolbar">
                                     <div class="btn-group">
-                                        <button @click="showAddModal()"  v-if="PermissionName('assetType:add')" class="btn btn-outline btn-primary" type="button">新增</button>
-                                        <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked && PermissionName('assetType:update')" class="btn btn-outline btn-primary" type="button">修改</button>
-                                        <button @click="deleteAll()" v-if="hasChecked && PermissionName('assetType:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
+                                        <button @click="showAddModal()" v-shiro:permission="'assetType:add'" class="btn btn-outline btn-primary" type="button">新增</button>
+                                        <button @click="showUpdateModal(tableSelectData[0])" v-shiro:permission="'assetType:update'" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
+                                        <button @click="deleteAll()" v-shiro:permission="'assetType:delete'" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                                     </div>
                                     <div class="btn-group">
                                         <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -39,7 +39,7 @@
                             <div class="table-responsive">
                                 <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                                     <template slot="tt-body-operation" scope="props">
-                                        <button @click="showUpdateModal(props.row)" v-if="PermissionName('assetType:update')" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
+                                        <button @click="showUpdateModal(props.row)" v-shiro:permission="'assetType:update'" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                                     </template>
                                 </tt-table>
                             </div>

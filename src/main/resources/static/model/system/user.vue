@@ -17,9 +17,9 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showAddModal()" v-if="PermissionName('user:add')"  class="btn btn-outline btn-primary" type="button">新增</button>
-                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked && PermissionName('user:update')" class="btn btn-outline btn-primary" type="button">修改</button>
-                                <button @click="deleteAll()" v-if="hasChecked && PermissionName('user:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
+                                <button @click="showAddModal()"  class="btn btn-outline btn-primary" type="button">新增</button>
+                                <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
+                                <button @click="deleteAll()" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -39,8 +39,8 @@
                                 {{props.row.role.name}}
                             </template>
                             <template slot="tt-body-operation" scope="props">
-                                <button @click="showUpdateModal(props.row)" v-if="PermissionName('user:update')" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
-                                <button @click="showPointModal(props.row)" v-if="PermissionName('user:updatePoint')" class="btn btn-table btn-primary btn-rounded" type="button">网点</button>
+                                <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
+                                <button @click="showPointModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">网点</button>
                                 <button @click="showPasswordModal(props.row)" class="btn btn-table btn-danger btn-rounded" type="button">重置密码</button>
                             </template>
                         </tt-table>

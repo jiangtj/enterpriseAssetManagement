@@ -73,7 +73,7 @@ const RouteUtils = {
                     let js = tempText.substring(scriptStart,scriptEnd);
                     eval(js);
                 }
-                RouteConfig.put({
+                /*RouteConfig.put({
                     methods:{
                         PermissionName:function(name){
                             //return Permission.hasName(name);
@@ -81,7 +81,7 @@ const RouteUtils = {
                             return true;
                         }
                     }
-                });
+                });*/
 
                 let option = {template:view};
                 option = jQuery.extend(true,option, RouteConfig.get());

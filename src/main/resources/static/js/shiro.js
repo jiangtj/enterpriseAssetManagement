@@ -57,7 +57,7 @@ const ShiroVue = function (el, binding) {
             flag = Shiro.requiresPermissions(binding.value,innerLogical);
             break;
     }
-    el.disabled = !flag;
+    el.style.display = flag?"inherit":"none";
 };
 
 if (Vue !== undefined) Vue.directive("shiro",ShiroVue);

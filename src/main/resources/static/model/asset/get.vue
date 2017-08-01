@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-shiro="http://www.w3.org/1999/xhtml">
     <div>
         <!-- 头部标签 -->
         <header-label :data="headerLabel"></header-label>
@@ -18,10 +18,10 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showUpdateModal(3,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:updateStatus')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 3?'完成':'维修'}}</button>
-                                <button @click="showUpdateModal(4,tableSelectData[0])" v-if="hasOneChecked && PermissionName('asset:updateStatus')" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 4?'撤回报废':'报废'}}</button>
-                                <button @click="openStockTake()" v-if="PermissionName('asset:addStockTake')" class="btn btn-outline btn-primary" type="button">开启盘点</button>
-                                <button @click="deleteAll()" v-if="hasChecked && PermissionName('asset:delete')" class="btn btn-outline btn-danger" type="button">删除</button>
+                                <button @click="showUpdateModal(3,tableSelectData[0])" v-if="hasOneChecked" v-shiro:permission="'asset:updateStatus'" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 3?'完成':'维修'}}</button>
+                                <button @click="showUpdateModal(4,tableSelectData[0])" v-if="hasOneChecked" v-shiro:permission="'asset:updateStatus'" class="btn btn-outline btn-primary" type="button">{{tableSelectData[0].status === 4?'撤回报废':'报废'}}</button>
+                                <button @click="openStockTake()" v-shiro:permission="'asset:addStockTake'" class="btn btn-outline btn-primary" type="button">开启盘点</button>
+                                <button @click="deleteAll()" v-if="hasChecked" v-shiro:permission="'asset:delete'" class="btn btn-outline btn-danger" type="button">删除</button>
                             </div>
                             <div class="btn-group">
                                 <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -39,7 +39,7 @@
                         <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="showQRCodeModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">QRCode</button>
-                                <button @click="showOperationRecordModal(props.row)"  v-if="PermissionName('asset:getOperationRecordByUuid')" class="btn btn-table btn-primary btn-rounded" type="button">操作记录</button>
+                                <button @click="showOperationRecordModal(props.row)" v-shiro:permission="'asset:record:getByUuid'" class="btn btn-table btn-primary btn-rounded" type="button">操作记录</button>
                             </template>
                         </tt-table>
                     </div>
