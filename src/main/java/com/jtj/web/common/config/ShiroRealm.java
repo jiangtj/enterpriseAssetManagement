@@ -64,7 +64,7 @@ public class ShiroRealm extends AuthorizingRealm {
         List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
         //List<String> stringPermissions = permissions.stream().map(Permission::getName).collect(Collectors.toList());
         List<String> stringPermissions = permissions.stream().map(item -> {
-            String[] temps = item.getName().split(":");
+            String[] temps = item.getCode().split(":");
             List<String> tempList = new ArrayList<>();
             for (int x = 0; x < temps.length; x++){
                 StringBuilder sb = new StringBuilder(temps[0]);

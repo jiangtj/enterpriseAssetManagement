@@ -14,7 +14,6 @@
 
                         <div class="btn-toolbar pull-right" role="toolbar">
                             <div class="btn-group">
-                                <button @click="showAddMiniModal()" class="btn btn-outline btn-primary" type="button">Quick</button>
                                 <button @click="showAddModal()" class="btn btn-outline btn-primary" type="button">新增</button>
                                 <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
                                 <button @click="deleteAll()" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
@@ -52,8 +51,8 @@
                 <div class="row">
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
-                        <tt-simple-input v-if="!quick" label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input label="url" v-model="fromModalData.data.url" required></tt-simple-input>
+                        <tt-simple-input label="code" v-model="fromModalData.data.code" required></tt-simple-input>
+                        <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
                     </div>
                     <!--<div class="col-sm-6">
                         <h4>权限配置</h4>
@@ -100,8 +99,8 @@
                     title:{
                         $index:"序号",
                         id:"权限id",
+                        code:"code",
                         name:"名称",
-                        url:"url",
                         operation:{name:"操作",width:"60px"}
                     },
                     data:[]

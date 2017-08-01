@@ -32,11 +32,6 @@ public class PermissionController {
         return permissionService.add(permission);
     }
 
-    @PostMapping("/addQuick")
-    public ResultDto<Object> addQuick(Permission permission){
-        return permissionService.addQuick(permission);
-    }
-
     @PostMapping("/delete")
     public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
         return permissionService.delete(ids);

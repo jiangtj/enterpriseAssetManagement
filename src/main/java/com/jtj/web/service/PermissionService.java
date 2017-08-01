@@ -17,6 +17,4 @@ import java.util.List;
 public interface PermissionService extends BaseService<Permission,PermissionDto> {
 
     ResultDto<List<KeyValue>> getMap();
-
-    ResultDto<Object> addQuick(Permission permission);
 }

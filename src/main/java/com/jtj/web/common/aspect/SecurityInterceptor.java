@@ -66,7 +66,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
         //拥有权限，则放行
         List<Permission> permissions = (List<Permission>) session.getAttribute(Constant.SESSION_PERMISSION);
         for (Permission permission : permissions){
-            if (permission.getUrl().equals(servletPath)) return true;
+            //if (permission.getUrl().equals(servletPath)) return true;
         }
 
         httpServletResponse.setContentType("application/json");

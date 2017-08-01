@@ -5,18 +5,18 @@
 <mapper namespace="com.jtj.web.dao.PermissionDao">
 
     <insert id="add">
-        INSERT INTO auth_permission(name, url)
-        VALUES (#{name},#{url})
+        INSERT INTO auth_permission(code, name)
+        VALUES (#{code},#{name})
     </insert>
 
     <update id="update">
         UPDATE auth_permission
         <set>
-            <if test=" name != '' and name != null ">
-                name = #{name},
+            <if test=" code != '' and code != null ">
+                code = #{code},
             </if>
-            <if test="url != null and url != ''">
-                url = #{url},
+            <if test="name != null and name != ''">
+                name = #{name},
             </if>
         </set>
         WHERE id = #{id}
@@ -30,11 +30,11 @@
     </delete>
 
     <sql id="permissionConditions">
+        <if test="code != null and code != ''">
+            AND ${alias}.code LIKE CONCAT('%',#{code},'%')
+        </if>
         <if test="name != null and name != ''">
             AND ${alias}.name = #{name}
-        </if>
-        <if test="url != null and url != ''">
-            AND ${alias}.url = #{url}
         </if>
     </sql>
 
@@ -64,7 +64,7 @@
     <select id="getMap" resultType="KeyValue">
         SELECT
             ap.id "key",
-            ap.name "value"
+            ap.code "value"
         FROM auth_permission ap
     </select>
 
