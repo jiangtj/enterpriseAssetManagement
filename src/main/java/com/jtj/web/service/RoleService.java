@@ -19,7 +19,7 @@ public interface RoleService extends BaseService<Role,RoleDto> {
 
     ResultDto<Object> getPermission(Long roleId);
 
-    ResultDto<Object> updatePermission(Long roleId, Long[] menuIds);
+    ResultDto<Object> updatePermission(Long roleId, Long[] permissionIds);
 
     ResultDto<Object> updatePoint(Long roleId, Long[] pointIds);
 }

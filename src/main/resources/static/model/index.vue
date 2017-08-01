@@ -9,6 +9,11 @@
                     <small>
                         从购置、领用、盘点、借用归还、维修到报废进行全方位准确监管，以“快捷”、“精准”和功能全面为优势的管理类系统.
                     </small>
+                    <h3>
+                        <a href="/swagger-ui.html">接口文档</a>
+                    </h3>
+                </div>
+                <div class="text-center m-t-lg">
                 </div>
             </div>
         </div>

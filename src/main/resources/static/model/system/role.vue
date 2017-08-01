@@ -95,19 +95,9 @@
                     <p>请选择当前角色所需的权限（点击选择，>>全选）</p>
                     <form id="form" action="#" class="wizard-big">
                         <select class="form-control dual_select" multiple>
-                            <option v-for="item in " value="United States">United States</option>
-                            <option value="United States">United States</option>
-                            <option value="United Kingdom">United Kingdom</option>
-                            <option value="Australia">Australia</option>
-                            <option selected value="Austria">Austria</option>
-                            <option selected value="Bahamas">Bahamas</option>
-                            <option value="Barbados">Barbados</option>
-                            <option value="Belgium">Belgium</option>
-                            <option value="Bermuda">Bermuda</option>
-                            <option value="Brazil">Brazil</option>
-                            <option value="Bulgaria">Bulgaria</option>
-                            <option value="Cameroon">Cameroon</option>
-                            <option value="Canada">Canada</option>
+                            <option v-for="item in permissionModalData.items" :value="item.id" :selected="item.isSelected">
+                                {{item.code+"("+item.name+")"}}
+                            </option>
                         </select>
                     </form>
                 </div>
@@ -185,6 +175,7 @@
                 },
                 permissionModalData:{
                     data:{},
+                    items:[],
                     submit:function () {}
                 },
                 pointModalData:{
@@ -208,6 +199,11 @@
             },
             pointModal:function () {
                 return new ModalBuilder("#point-modal");
+            },
+            dualSelect:function () {
+                return $('.dual_select').bootstrapDualListbox({
+                    selectorMinimalHeight: 200
+                });
             }
         },
         created:function () {
@@ -216,9 +212,6 @@
         beforeMount:function () {
         },
         mounted:function () {
-            $('.dual_select').bootstrapDualListbox({
-                selectorMinimalHeight: 200
-            });
         },
         methods: {
             getTablePaginationList:function (index,size) {
@@ -276,16 +269,23 @@
                 let self = this;
                 //self.updatePermissionTree();
                 Server.role.getPermission.setData({roleId:obj.id}).post(data => {
-                    debugger;
+                    let temp = data.object.all;
+                    $.each(temp,function (index,item) {
+                        $.each(data.object.role,function (ri,rt) {
+                            if (item.code === rt) item.isSelected = true;
+                        });
+                        if (!item.isSelected) item.isSelected = false;
+                    });
+                    self.permissionModalData.items = temp;
+                    Vue.nextTick(function () {
+                        self.dualSelect.bootstrapDualListbox('refresh');
+                    });
                 });
                 self.permissionModalData.data = {id:obj.id};
                 self.permissionModalData.submit = function () {
-                    let tree = $('#permission-tree').jstree(true);
-                    let menuIds = tree.get_bottom_selected().toString();
-                    //let menuIds = tree.get_top_selected().toString();
                     Server.role.updatePermission.setData({
                         roleId:obj.id,
-                        menuIds:menuIds
+                        permissionIds:(self.dualSelect.val()||"").toString()
                     }).post(() => self.permissionModal.hide())
                 };
                 self.permissionModal.show();

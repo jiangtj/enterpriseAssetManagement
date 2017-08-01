@@ -52,40 +52,22 @@ public class RoleServiceImpl
         ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
         List<Permission> all = permissionDao.getAll();
         List<Permission> role = roleDao.getPermission(roleId);
+        List<String> rolePermissions = role.stream().map(Permission::getCode).collect(Collectors.toList());
         Map<String,Object> map = new HashMap<>();
         map.put("all",all);
-        map.put("role",role);
+        map.put("role",rolePermissions);
         result.setObject(map);
         return result;
     }
 
     @Override
-    public ResultDto<Object> updatePermission(Long roleId, Long[] menuIds) {
+    public ResultDto<Object> updatePermission(Long roleId, Long[] permissionIds) {
         ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+        //清除权限
         roleDao.clearPermission(roleId);
-        if (menuIds.length == 0) return result;
-        List<Long> menuIdList = Arrays.asList(menuIds);
-        List<Menu> menuList = menuDao.getMenuByIds(menuIdList);
-        Set<Long> needList = menuList.stream().map(Menu::getPid).collect(Collectors.toSet());
-        //获取向上菜单信息
-        while (needList.size() != 0){
-            List<Menu> tempList = menuDao.getMenuByIds(needList);
-            menuList.addAll(tempList);
-            needList = tempList.stream().map(Menu::getPid).collect(Collectors.toSet());
-        }
-        //获取向下菜单信息
-        while (menuIdList.size() != 0){
-            List<Menu> tempList = menuDao.getMenuByPids(menuIdList);
-            menuList.addAll(tempList);
-            menuIdList = tempList.stream().map(Menu::getId).collect(Collectors.toList());
-        }
-        //获取权限
-        Set<Long> permissionSet = menuList.stream()
-                .filter(item -> item.getPermissionId() != null)
-                .map(Menu::getPermissionId)
-                .collect(Collectors.toSet());
         //添加权限
-        roleDao.addPermission(roleId,permissionSet);
+        if (permissionIds.length == 0) return result;
+        roleDao.addPermission(roleId,Arrays.asList(permissionIds));
         return result;
     }
 
