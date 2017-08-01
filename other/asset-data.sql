@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mine-ali
-Source Server Version : 50717
-Source Host           : 112.74.167.105:3306
+Source Server         : mysql-mine
+Source Server Version : 50714
+Source Host           : localhost:3306
 Source Database       : asset
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-05-23 12:48:58
+Date: 2017-08-01 23:53:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `assets_item` (
   KEY `ai@assets_type_id` (`assets_type_id`) USING BTREE,
   CONSTRAINT `assets_item_ibfk_1` FOREIGN KEY (`assets_type_id`) REFERENCES `assets_type` (`id`),
   CONSTRAINT `assets_item_ibfk_2` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_item
@@ -81,7 +81,6 @@ INSERT INTO `assets_item` VALUES ('6', '917de91c-96c9-49fe-a607-c68e036f71b0', '
 INSERT INTO `assets_item` VALUES ('7', '0bd3ed09-9842-45ed-a2fc-3ec7e28bffa6', 'z6', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:54', '2017-05-03 19:56:54');
 INSERT INTO `assets_item` VALUES ('8', '1eaa891f-cc02-487d-b5ef-5dbedabca45a', 'z7', '测试物品', '100.00', '4', '4', '4', '2017-05-03 19:56:56', '2017-05-03 20:14:44');
 INSERT INTO `assets_item` VALUES ('9', 'a13c624e-f42a-4aba-b452-c246b10c68be', 'z8', '测试物品', '100.00', '1', '4', '4', '2017-05-03 19:56:58', '2017-05-03 19:56:58');
-INSERT INTO `assets_item` VALUES ('10', '57bd1961-cff9-43ee-944c-a2c9632968ab', '111', '123', '12.00', '1', '3', '4', '2017-05-09 14:15:32', '2017-05-09 14:15:32');
 
 -- ----------------------------
 -- Table structure for assets_operation_record
@@ -96,7 +95,7 @@ CREATE TABLE `assets_operation_record` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_operation_record
@@ -124,7 +123,6 @@ INSERT INTO `assets_operation_record` VALUES ('20', 'f76ae024-0132-4c98-8339-e26
 INSERT INTO `assets_operation_record` VALUES ('21', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '2', '成功,租借人：1', '2017-05-05 00:00:22', '2017-05-05 00:00:22');
 INSERT INTO `assets_operation_record` VALUES ('22', 'fcd2ed78-3f68-4db8-811d-56f47c593c63', '1', '3', '成功,归还人：1', '2017-05-05 00:00:49', '2017-05-05 00:00:49');
 INSERT INTO `assets_operation_record` VALUES ('23', 'f0da55e0-8e89-462d-915a-46d66863bf9a', '1', '3', '成功,归还人：1', '2017-05-05 00:03:02', '2017-05-05 00:03:02');
-INSERT INTO `assets_operation_record` VALUES ('24', '57bd1961-cff9-43ee-944c-a2c9632968ab', '1', '1', '成功', '2017-05-09 14:15:32', '2017-05-09 14:15:32');
 
 -- ----------------------------
 -- Table structure for assets_stock_take
@@ -219,7 +217,7 @@ CREATE TABLE `assets_type` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of assets_type
@@ -228,6 +226,7 @@ INSERT INTO `assets_type` VALUES ('1', '计算机类', '1', '0', '1', '2017-04-2
 INSERT INTO `assets_type` VALUES ('2', '其他', '1', '0', '99', '2017-04-29 20:00:23', '2017-04-29 20:00:23');
 INSERT INTO `assets_type` VALUES ('3', '台式机', '2', '1', '1', '2017-04-29 20:01:28', '2017-04-29 20:01:28');
 INSERT INTO `assets_type` VALUES ('4', '笔记本', '2', '1', '2', '2017-04-29 20:01:35', '2017-04-29 20:01:35');
+INSERT INTO `assets_type` VALUES ('5', '测试机', '3', '3', '1', '2017-07-24 12:56:47', '2017-07-24 12:58:12');
 
 -- ----------------------------
 -- Table structure for auth_menu
@@ -260,25 +259,25 @@ INSERT INTO `auth_menu` VALUES ('2', '资源管理', 'Asset', '1', '0', '2', '1'
 INSERT INTO `auth_menu` VALUES ('4', '报表分析', 'Report ', '1', '0', '3', '1', 'fa-pie-chart', null, null, null, '2017-04-26 22:11:41', '2017-04-26 22:11:41');
 INSERT INTO `auth_menu` VALUES ('5', '系统管理', 'System', '1', '0', '99', '1', 'fa-cogs', null, null, null, '2017-04-26 22:12:16', '2017-04-26 22:12:16');
 INSERT INTO `auth_menu` VALUES ('6', '用户管理', 'User', '2', '5', '1', '1', null, '/system/user', '/model/system/user.vue', '4', '2017-04-26 22:13:37', '2017-04-27 10:20:18');
-INSERT INTO `auth_menu` VALUES ('7', '角色管理', 'Role', '2', '5', '2', '1', null, '/system/role', '/model/system/role.vue', '5', '2017-04-26 22:14:32', '2017-04-27 10:20:24');
+INSERT INTO `auth_menu` VALUES ('7', '角色管理', 'Role', '2', '5', '2', '1', null, '/system/role', '/model/system/role.vue', null, '2017-04-26 22:14:32', '2017-04-27 10:20:24');
 INSERT INTO `auth_menu` VALUES ('8', '权限管理', 'Permission', '2', '5', '3', '1', null, '/system/permission', '/model/system/permission.vue', '9', '2017-04-26 22:15:12', '2017-04-27 10:20:28');
-INSERT INTO `auth_menu` VALUES ('9', '菜单管理', 'Menu', '2', '5', '4', '1', null, '/system/menu', '/model/system/menu.vue', '14', '2017-04-26 22:15:43', '2017-04-27 10:20:33');
+INSERT INTO `auth_menu` VALUES ('9', '菜单管理', 'Menu', '2', '5', '4', '1', null, '/system/menu', '/model/system/menu.vue', null, '2017-04-26 22:15:43', '2017-04-27 10:20:33');
 INSERT INTO `auth_menu` VALUES ('10', '用户添加', 'userAdd', '3', '6', '1', '2', null, null, null, '1', '2017-04-27 10:22:43', '2017-04-27 10:22:43');
 INSERT INTO `auth_menu` VALUES ('11', '用户删除', 'userDel', '3', '6', '2', '2', null, null, null, '2', '2017-04-27 10:23:30', '2017-04-27 10:23:30');
 INSERT INTO `auth_menu` VALUES ('12', '用户修改', 'userUpdate', '3', '6', '3', '2', null, null, null, '3', '2017-04-27 10:25:45', '2017-04-27 10:25:45');
-INSERT INTO `auth_menu` VALUES ('13', '角色添加', 'roleAdd', '3', '7', '1', '2', null, null, null, '6', '2017-04-27 14:59:12', '2017-04-27 14:59:12');
-INSERT INTO `auth_menu` VALUES ('14', '角色删除', 'roleDel', '3', '7', '2', '2', null, null, null, '7', '2017-04-27 14:59:36', '2017-04-27 14:59:36');
-INSERT INTO `auth_menu` VALUES ('15', '角色修改', 'roleUpdate', '3', '7', '3', '2', null, null, null, '8', '2017-04-27 15:00:39', '2017-04-27 15:00:39');
-INSERT INTO `auth_menu` VALUES ('16', '权限添加', 'permissionAdd', '3', '8', '1', '2', null, null, null, '10', '2017-04-27 15:01:16', '2017-04-27 15:01:16');
-INSERT INTO `auth_menu` VALUES ('17', '权限快速添加', 'permissionQuick', '3', '8', '2', '2', null, null, null, '11', '2017-04-27 15:02:00', '2017-04-27 15:02:00');
-INSERT INTO `auth_menu` VALUES ('18', '权限删除', 'permissionDel', '3', '8', '3', '2', null, null, null, '12', '2017-04-27 15:02:47', '2017-04-27 15:02:47');
-INSERT INTO `auth_menu` VALUES ('19', '权限修改', 'Permission', '3', '8', '4', '2', null, null, null, '13', '2017-04-27 15:03:48', '2017-04-27 15:03:48');
-INSERT INTO `auth_menu` VALUES ('20', '菜单添加', 'MenuAdd', '3', '9', '1', '2', null, null, null, '15', '2017-04-27 15:04:34', '2017-04-27 15:04:34');
-INSERT INTO `auth_menu` VALUES ('21', '菜单删除', 'MenuDel', '3', '9', '2', '2', null, null, null, '16', '2017-04-27 15:05:05', '2017-04-27 15:05:05');
-INSERT INTO `auth_menu` VALUES ('22', '菜单修改', 'MenuUpdate', '3', '9', '3', '2', null, null, null, '17', '2017-04-27 15:05:42', '2017-04-27 15:05:42');
-INSERT INTO `auth_menu` VALUES ('23', '菜单列表获取', 'MenuGetMenu', '3', '9', '4', '2', null, null, null, '18', '2017-04-27 15:11:40', '2017-04-27 15:52:52');
+INSERT INTO `auth_menu` VALUES ('13', '角色添加', 'roleAdd', '3', '7', '1', '2', null, null, null, null, '2017-04-27 14:59:12', '2017-04-27 14:59:12');
+INSERT INTO `auth_menu` VALUES ('14', '角色删除', 'roleDel', '3', '7', '2', '2', null, null, null, null, '2017-04-27 14:59:36', '2017-04-27 14:59:36');
+INSERT INTO `auth_menu` VALUES ('15', '角色修改', 'roleUpdate', '3', '7', '3', '2', null, null, null, null, '2017-04-27 15:00:39', '2017-04-27 15:00:39');
+INSERT INTO `auth_menu` VALUES ('16', '权限添加', 'permissionAdd', '3', '8', '1', '2', null, null, null, null, '2017-04-27 15:01:16', '2017-04-27 15:01:16');
+INSERT INTO `auth_menu` VALUES ('17', '权限快速添加', 'permissionQuick', '3', '8', '2', '2', null, null, null, null, '2017-04-27 15:02:00', '2017-04-27 15:02:00');
+INSERT INTO `auth_menu` VALUES ('18', '权限删除', 'permissionDel', '3', '8', '3', '2', null, null, null, null, '2017-04-27 15:02:47', '2017-04-27 15:02:47');
+INSERT INTO `auth_menu` VALUES ('19', '权限修改', 'Permission', '3', '8', '4', '2', null, null, null, null, '2017-04-27 15:03:48', '2017-04-27 15:03:48');
+INSERT INTO `auth_menu` VALUES ('20', '菜单添加', 'MenuAdd', '3', '9', '1', '2', null, null, null, null, '2017-04-27 15:04:34', '2017-04-27 15:04:34');
+INSERT INTO `auth_menu` VALUES ('21', '菜单删除', 'MenuDel', '3', '9', '2', '2', null, null, null, null, '2017-04-27 15:05:05', '2017-04-27 15:05:05');
+INSERT INTO `auth_menu` VALUES ('22', '菜单修改', 'MenuUpdate', '3', '9', '3', '2', null, null, null, null, '2017-04-27 15:05:42', '2017-04-27 15:05:42');
+INSERT INTO `auth_menu` VALUES ('23', '菜单列表获取', 'MenuGetMenu', '3', '9', '4', '2', null, null, null, null, '2017-04-27 15:11:40', '2017-04-27 15:52:52');
 INSERT INTO `auth_menu` VALUES ('24', '资源类型', 'AssetType', '2', '5', '5', '1', null, '/system/assetType', '/model/system/assetType.vue', '32', '2017-04-29 19:02:04', '2017-05-05 21:14:07');
-INSERT INTO `auth_menu` VALUES ('25', '网点管理', 'Point', '2', '5', '6', '1', null, '/system/point', '/model/system/point.vue', '38', '2017-04-30 19:32:38', '2017-05-05 21:14:14');
+INSERT INTO `auth_menu` VALUES ('25', '网点管理', 'Point', '2', '5', '6', '1', null, '/system/point', '/model/system/point.vue', null, '2017-04-30 19:32:38', '2017-05-05 21:14:14');
 INSERT INTO `auth_menu` VALUES ('26', '资产添加', 'AssetAdd', '2', '2', '1', '1', null, '/asset/add', '/model/asset/add.vue', '20', '2017-05-02 19:57:00', '2017-05-05 20:45:26');
 INSERT INTO `auth_menu` VALUES ('27', '资产列表', 'AssetGet', '2', '2', '2', '1', null, '/asset/get', '/model/asset/get.vue', '23', '2017-05-02 20:20:52', '2017-05-05 20:45:35');
 INSERT INTO `auth_menu` VALUES ('28', '借还登记', 'AssetBorrow', '2', '2', '3', '1', null, '/asset/borrow', '/model/asset/borrow.vue', '25', '2017-05-02 22:39:49', '2017-05-05 20:45:55');
@@ -304,22 +303,22 @@ INSERT INTO `auth_menu` VALUES ('48', '盘点任务修改', 'zzz', '3', '32', '2
 INSERT INTO `auth_menu` VALUES ('49', '盘点任务更新', 'zzz', '3', '32', '3', '2', null, null, null, '51', '2017-05-05 21:08:49', '2017-05-05 21:08:49');
 INSERT INTO `auth_menu` VALUES ('50', '盘点明细查看', 'zzz', '3', '32', '4', '2', null, null, null, '52', '2017-05-05 21:10:12', '2017-05-05 21:10:12');
 INSERT INTO `auth_menu` VALUES ('51', '用户网点配置', 'zzz', '3', '6', '4', '2', null, null, null, '54', '2017-05-05 21:11:26', '2017-05-05 21:11:26');
-INSERT INTO `auth_menu` VALUES ('52', '角色网点配置', 'zzz', '3', '7', '4', '2', null, null, null, '43', '2017-05-05 21:12:03', '2017-05-05 21:12:03');
-INSERT INTO `auth_menu` VALUES ('53', '角色权限配置', 'zzz', '3', '7', '5', '2', null, null, null, '44', '2017-05-05 21:12:29', '2017-05-05 21:12:29');
-INSERT INTO `auth_menu` VALUES ('54', '菜单pid查询', 'zzz', '3', '9', '5', '2', null, null, null, '19', '2017-05-05 21:13:19', '2017-05-05 21:13:19');
-INSERT INTO `auth_menu` VALUES ('55', '菜单pid查询', 'zzz', '3', '7', '6', '2', null, null, null, '19', '2017-05-05 21:13:45', '2017-05-05 21:13:45');
-INSERT INTO `auth_menu` VALUES ('56', '网点pid', 'zzz', '3', '6', '5', '2', null, null, null, '40', '2017-05-05 21:14:42', '2017-05-05 21:14:42');
-INSERT INTO `auth_menu` VALUES ('58', '网点pid', 'zzz', '3', '7', '7', '2', null, null, null, '40', '2017-05-05 21:15:56', '2017-05-05 21:15:56');
+INSERT INTO `auth_menu` VALUES ('52', '角色网点配置', 'zzz', '3', '7', '4', '2', null, null, null, null, '2017-05-05 21:12:03', '2017-05-05 21:12:03');
+INSERT INTO `auth_menu` VALUES ('53', '角色权限配置', 'zzz', '3', '7', '5', '2', null, null, null, null, '2017-05-05 21:12:29', '2017-05-05 21:12:29');
+INSERT INTO `auth_menu` VALUES ('54', '菜单pid查询', 'zzz', '3', '9', '5', '2', null, null, null, null, '2017-05-05 21:13:19', '2017-05-05 21:13:19');
+INSERT INTO `auth_menu` VALUES ('55', '菜单pid查询', 'zzz', '3', '7', '6', '2', null, null, null, null, '2017-05-05 21:13:45', '2017-05-05 21:13:45');
+INSERT INTO `auth_menu` VALUES ('56', '网点pid', 'zzz', '3', '6', '5', '2', null, null, null, null, '2017-05-05 21:14:42', '2017-05-05 21:14:42');
+INSERT INTO `auth_menu` VALUES ('58', '网点pid', 'zzz', '3', '7', '7', '2', null, null, null, null, '2017-05-05 21:15:56', '2017-05-05 21:15:56');
 INSERT INTO `auth_menu` VALUES ('59', '资源类型pid', 'zzz', '3', '24', '1', '2', null, null, null, '34', '2017-05-05 21:16:35', '2017-05-05 21:16:35');
 INSERT INTO `auth_menu` VALUES ('60', '资源类型删除', 'zzz', '3', '24', '1', '2', null, null, null, '29', '2017-05-05 21:16:59', '2017-05-05 21:16:59');
 INSERT INTO `auth_menu` VALUES ('61', '资源类型修改', 'zzz', '3', '24', '3', '2', null, null, null, '31', '2017-05-05 21:17:34', '2017-05-05 21:17:34');
 INSERT INTO `auth_menu` VALUES ('62', '资源类型type', 'zzz', '3', '24', '4', '2', null, null, null, '33', '2017-05-05 21:17:59', '2017-05-05 21:17:59');
 INSERT INTO `auth_menu` VALUES ('63', '资源类型添加', 'zzz', '3', '24', '5', '2', null, null, null, '28', '2017-05-05 21:18:32', '2017-05-05 21:18:32');
-INSERT INTO `auth_menu` VALUES ('64', '网点pid', 'zzz', '3', '25', '1', '2', null, null, null, '40', '2017-05-05 21:19:57', '2017-05-05 21:19:57');
-INSERT INTO `auth_menu` VALUES ('65', '网点添加', 'zzz', '3', '25', '1', '2', null, null, null, '35', '2017-05-05 21:20:17', '2017-05-05 21:20:17');
-INSERT INTO `auth_menu` VALUES ('66', '网点删除', 'zzz', '3', '25', '1', '2', null, null, null, '36', '2017-05-05 21:20:31', '2017-05-05 21:20:31');
-INSERT INTO `auth_menu` VALUES ('67', '网点修改', 'zzz', '3', '25', '1', '2', null, null, null, '37', '2017-05-05 21:20:51', '2017-05-05 21:20:51');
-INSERT INTO `auth_menu` VALUES ('68', '网点tree', 'zzz', '3', '25', '1', '2', null, null, null, '39', '2017-05-05 21:21:18', '2017-05-05 21:21:18');
+INSERT INTO `auth_menu` VALUES ('64', '网点pid', 'zzz', '3', '25', '1', '2', null, null, null, null, '2017-05-05 21:19:57', '2017-05-05 21:19:57');
+INSERT INTO `auth_menu` VALUES ('65', '网点添加', 'zzz', '3', '25', '1', '2', null, null, null, null, '2017-05-05 21:20:17', '2017-05-05 21:20:17');
+INSERT INTO `auth_menu` VALUES ('66', '网点删除', 'zzz', '3', '25', '1', '2', null, null, null, null, '2017-05-05 21:20:31', '2017-05-05 21:20:31');
+INSERT INTO `auth_menu` VALUES ('67', '网点修改', 'zzz', '3', '25', '1', '2', null, null, null, null, '2017-05-05 21:20:51', '2017-05-05 21:20:51');
+INSERT INTO `auth_menu` VALUES ('68', '网点tree', 'zzz', '3', '25', '1', '2', null, null, null, null, '2017-05-05 21:21:18', '2017-05-05 21:21:18');
 INSERT INTO `auth_menu` VALUES ('69', '可用的盘点任务', 'zzz', '3', '33', '1', '2', null, null, null, '50', '2017-05-05 22:56:57', '2017-05-05 22:56:57');
 INSERT INTO `auth_menu` VALUES ('70', '盘点关闭', 'StockTakeClose', '3', '32', '5', '2', null, null, null, '57', '2017-05-08 11:35:40', '2017-05-08 11:35:40');
 
@@ -329,72 +328,50 @@ INSERT INTO `auth_menu` VALUES ('70', '盘点关闭', 'StockTakeClose', '3', '32
 DROP TABLE IF EXISTS `auth_permission`;
 CREATE TABLE `auth_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '权限id',
-  `name` varchar(50) NOT NULL COMMENT '权限名称',
-  `url` varchar(50) NOT NULL COMMENT '请求路径',
+  `code` varchar(50) NOT NULL COMMENT '权限code',
+  `name` varchar(250) NOT NULL COMMENT '权限名称',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique@name` (`name`) USING BTREE
+  UNIQUE KEY `unique@name` (`code`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
 -- ----------------------------
-INSERT INTO `auth_permission` VALUES ('1', 'user:add', '/user/add', '2017-04-17 22:47:12', '2017-04-27 09:37:45');
-INSERT INTO `auth_permission` VALUES ('2', 'user:delete', '/user/delete', '2017-04-27 09:38:25', '2017-04-27 09:38:25');
-INSERT INTO `auth_permission` VALUES ('3', 'user:update', '/user/update', '2017-04-27 09:39:27', '2017-04-27 09:39:27');
-INSERT INTO `auth_permission` VALUES ('4', 'user:getList', '/user/getList', '2017-04-27 09:40:46', '2017-04-27 10:05:59');
-INSERT INTO `auth_permission` VALUES ('5', 'role:getList', '/role/getList', '2017-04-27 10:06:29', '2017-04-27 10:06:29');
-INSERT INTO `auth_permission` VALUES ('6', 'role:add', '/role/add', '2017-04-27 10:06:39', '2017-04-27 10:06:54');
-INSERT INTO `auth_permission` VALUES ('7', 'role:delete', '/role/delete', '2017-04-27 10:07:09', '2017-04-27 10:07:09');
-INSERT INTO `auth_permission` VALUES ('8', 'role:update', '/role/update', '2017-04-27 10:07:18', '2017-04-27 10:07:18');
-INSERT INTO `auth_permission` VALUES ('9', 'permission:getList', '/permission/getList', '2017-04-27 10:07:26', '2017-04-27 10:07:26');
-INSERT INTO `auth_permission` VALUES ('10', 'permission:add', '/permission/add', '2017-04-27 10:07:34', '2017-04-27 10:07:34');
-INSERT INTO `auth_permission` VALUES ('11', 'permission:addQuick', '/permission/addQuick', '2017-04-27 10:07:45', '2017-04-27 10:07:45');
-INSERT INTO `auth_permission` VALUES ('12', 'permission:delete', '/permission/delete', '2017-04-27 10:07:56', '2017-04-27 10:07:56');
-INSERT INTO `auth_permission` VALUES ('13', 'permission:update', '/permission/update', '2017-04-27 10:08:05', '2017-04-27 10:08:05');
-INSERT INTO `auth_permission` VALUES ('14', 'menu:getList', '/menu/getList', '2017-04-27 10:08:13', '2017-04-27 10:08:13');
-INSERT INTO `auth_permission` VALUES ('15', 'menu:add', '/menu/add', '2017-04-27 10:08:21', '2017-04-27 10:08:21');
-INSERT INTO `auth_permission` VALUES ('16', 'menu:delete', '/menu/delete', '2017-04-27 10:08:30', '2017-04-27 10:08:30');
-INSERT INTO `auth_permission` VALUES ('17', 'menu:update', '/menu/update', '2017-04-27 10:08:37', '2017-04-27 10:08:37');
-INSERT INTO `auth_permission` VALUES ('18', 'menu:getMenu', '/menu/getMenu', '2017-04-27 10:08:45', '2017-04-27 10:08:45');
-INSERT INTO `auth_permission` VALUES ('19', 'menu:getMapByPid', '/menu/getMapByPid', '2017-04-27 10:08:53', '2017-05-05 20:39:57');
-INSERT INTO `auth_permission` VALUES ('20', 'asset:add', '/asset/add', '2017-05-05 20:34:15', '2017-05-05 20:34:15');
-INSERT INTO `auth_permission` VALUES ('21', 'asset:delete', '/asset/delete', '2017-05-05 20:34:28', '2017-05-05 20:34:28');
-INSERT INTO `auth_permission` VALUES ('22', 'asset:update', '/asset/update', '2017-05-05 20:34:37', '2017-05-05 20:34:37');
-INSERT INTO `auth_permission` VALUES ('23', 'asset:getList', '/asset/getList', '2017-05-05 20:34:50', '2017-05-05 20:34:50');
-INSERT INTO `auth_permission` VALUES ('24', 'asset:getOperationRecordByUuid', '/asset/getOperationRecordByUuid', '2017-05-05 20:35:05', '2017-05-05 20:35:05');
-INSERT INTO `auth_permission` VALUES ('25', 'asset:borrowAsset', '/asset/borrowAsset', '2017-05-05 20:35:20', '2017-05-05 20:35:20');
-INSERT INTO `auth_permission` VALUES ('26', 'asset:returnAsset', '/asset/returnAsset', '2017-05-05 20:35:40', '2017-05-05 20:35:40');
-INSERT INTO `auth_permission` VALUES ('27', 'asset:updateStatus', '/asset/updateStatus', '2017-05-05 20:37:46', '2017-05-05 20:37:46');
-INSERT INTO `auth_permission` VALUES ('28', 'assetType:add', '/assetType/add', '2017-05-05 20:38:07', '2017-05-05 20:38:07');
-INSERT INTO `auth_permission` VALUES ('29', 'assetType:delete', '/assetType/delete', '2017-05-05 20:38:16', '2017-05-05 20:38:16');
-INSERT INTO `auth_permission` VALUES ('31', 'assetType:update', '/assetType/update', '2017-05-05 20:38:46', '2017-05-05 20:38:46');
-INSERT INTO `auth_permission` VALUES ('32', 'assetType:getList', '/assetType/getList', '2017-05-05 20:38:57', '2017-05-05 20:38:57');
-INSERT INTO `auth_permission` VALUES ('33', 'assetType:getType', '/assetType/getType', '2017-05-05 20:39:06', '2017-05-05 20:39:06');
-INSERT INTO `auth_permission` VALUES ('34', 'assetType:getMapByPid', '/assetType/getMapByPid', '2017-05-05 20:39:18', '2017-05-05 20:39:18');
-INSERT INTO `auth_permission` VALUES ('35', 'point:add', '/point/add', '2017-05-05 20:40:33', '2017-05-05 20:40:33');
-INSERT INTO `auth_permission` VALUES ('36', 'point:delete', '/point/delete', '2017-05-05 20:40:39', '2017-05-05 20:40:39');
-INSERT INTO `auth_permission` VALUES ('37', 'point:update', '/point/update', '2017-05-05 20:40:45', '2017-05-05 20:40:45');
-INSERT INTO `auth_permission` VALUES ('38', 'point:getList', '/point/getList', '2017-05-05 20:40:52', '2017-05-05 20:40:52');
-INSERT INTO `auth_permission` VALUES ('39', 'point:getPoint', '/point/getPoint', '2017-05-05 20:41:03', '2017-05-05 20:41:03');
-INSERT INTO `auth_permission` VALUES ('40', 'point:getMapByPid', '/point/getMapByPid', '2017-05-05 20:41:10', '2017-05-05 20:41:10');
-INSERT INTO `auth_permission` VALUES ('41', 'report:getOverall', '/report/getOverall', '2017-05-05 20:41:31', '2017-05-05 20:41:31');
-INSERT INTO `auth_permission` VALUES ('42', 'report:getBorrow', '/report/getBorrow', '2017-05-05 20:41:36', '2017-05-05 20:41:36');
-INSERT INTO `auth_permission` VALUES ('43', 'role:updatePoint', '/role/updatePoint', '2017-05-05 20:41:59', '2017-05-05 20:41:59');
-INSERT INTO `auth_permission` VALUES ('44', 'role:updatePermission', '/role/updatePermission', '2017-05-05 20:42:10', '2017-05-05 20:42:10');
-INSERT INTO `auth_permission` VALUES ('45', 'stockTake:add', '/stockTake/add', '2017-05-05 20:42:59', '2017-05-05 20:42:59');
-INSERT INTO `auth_permission` VALUES ('46', 'stockTake:delete', '/stockTake/delete', '2017-05-05 20:43:04', '2017-05-05 20:43:04');
-INSERT INTO `auth_permission` VALUES ('47', 'stockTake:update', '/stockTake/update', '2017-05-05 20:43:10', '2017-05-05 20:43:10');
-INSERT INTO `auth_permission` VALUES ('48', 'stockTake:getList', '/stockTake/getList', '2017-05-05 20:43:17', '2017-05-05 20:43:17');
-INSERT INTO `auth_permission` VALUES ('49', 'stockTake:handle', '/stockTake/handle', '2017-05-05 20:43:23', '2017-05-05 20:43:23');
-INSERT INTO `auth_permission` VALUES ('50', 'stockTake:getAvailableMap', '/stockTake/getAvailableMap', '2017-05-05 20:43:38', '2017-05-05 20:43:38');
-INSERT INTO `auth_permission` VALUES ('51', 'stockTake:updateAmount', '/stockTake/updateAmount', '2017-05-05 20:43:46', '2017-05-05 20:43:46');
-INSERT INTO `auth_permission` VALUES ('52', 'stockTake:getItemList', '/stockTake/getItemList', '2017-05-05 20:43:55', '2017-05-05 20:43:55');
-INSERT INTO `auth_permission` VALUES ('53', 'stockTake:updateToAbnormal', '/stockTake/updateToAbnormal', '2017-05-05 20:44:00', '2017-05-05 20:44:00');
-INSERT INTO `auth_permission` VALUES ('54', 'user:updatePoint', '/user/updatePoint', '2017-05-05 20:44:27', '2017-05-05 20:44:27');
-INSERT INTO `auth_permission` VALUES ('56', 'asset:addStockTake', '/asset/addStockTake', '2017-05-05 20:56:21', '2017-05-05 20:56:21');
-INSERT INTO `auth_permission` VALUES ('57', 'stockTake:close', '/stockTake/close', '2017-05-08 11:34:15', '2017-05-08 11:34:15');
+INSERT INTO `auth_permission` VALUES ('1', 'sys:user:add', '用户添加', '2017-04-17 22:47:12', '2017-08-01 13:26:47');
+INSERT INTO `auth_permission` VALUES ('2', 'sys:user:delete', '用户删除', '2017-04-27 09:38:25', '2017-08-01 13:26:49');
+INSERT INTO `auth_permission` VALUES ('3', 'sys:user:update', '用户更新', '2017-04-27 09:39:27', '2017-08-01 13:26:51');
+INSERT INTO `auth_permission` VALUES ('4', 'sys:user:getList', '用户列表', '2017-04-27 09:40:46', '2017-08-01 13:26:55');
+INSERT INTO `auth_permission` VALUES ('9', 'sys:develop', '开发模式', '2017-04-27 10:07:26', '2017-08-01 13:27:47');
+INSERT INTO `auth_permission` VALUES ('20', 'asset:add', '资产添加', '2017-05-05 20:34:15', '2017-08-01 13:29:14');
+INSERT INTO `auth_permission` VALUES ('21', 'asset:delete', '资产删除', '2017-05-05 20:34:28', '2017-08-01 13:29:22');
+INSERT INTO `auth_permission` VALUES ('22', 'asset:update', '资产更新', '2017-05-05 20:34:37', '2017-08-01 13:29:28');
+INSERT INTO `auth_permission` VALUES ('23', 'asset:getList', '资产列表', '2017-05-05 20:34:50', '2017-08-01 13:29:34');
+INSERT INTO `auth_permission` VALUES ('24', 'asset:record:getByUuid', '资产记录列表', '2017-05-05 20:35:05', '2017-08-01 13:30:18');
+INSERT INTO `auth_permission` VALUES ('25', 'asset:borrow:add', '资产租借', '2017-05-05 20:35:20', '2017-08-01 13:30:49');
+INSERT INTO `auth_permission` VALUES ('26', 'asset::borrow:return', '资产归还', '2017-05-05 20:35:40', '2017-08-01 13:31:37');
+INSERT INTO `auth_permission` VALUES ('27', 'asset:updateStatus', '资产状态更新', '2017-05-05 20:37:46', '2017-08-01 13:31:49');
+INSERT INTO `auth_permission` VALUES ('28', 'sys:assetType:add', '资产类型添加', '2017-05-05 20:38:07', '2017-08-01 13:33:02');
+INSERT INTO `auth_permission` VALUES ('29', 'sys:assetType:delete', '资产类型删除', '2017-05-05 20:38:16', '2017-08-01 13:33:11');
+INSERT INTO `auth_permission` VALUES ('31', 'sys:assetType:update', '资产类型更新', '2017-05-05 20:38:46', '2017-08-01 13:33:18');
+INSERT INTO `auth_permission` VALUES ('32', 'sys:assetType:getList', '资产类型列表', '2017-05-05 20:38:57', '2017-08-01 13:33:26');
+INSERT INTO `auth_permission` VALUES ('33', 'sys:assetType:getType', '资产类型xx', '2017-05-05 20:39:06', '2017-08-01 13:33:41');
+INSERT INTO `auth_permission` VALUES ('34', 'sys:assetType:getMapByPid', '资产类型xx', '2017-05-05 20:39:18', '2017-08-01 13:33:47');
+INSERT INTO `auth_permission` VALUES ('41', 'report:getOverall', '报表总揽', '2017-05-05 20:41:31', '2017-08-01 13:34:23');
+INSERT INTO `auth_permission` VALUES ('42', 'report:getBorrow', '报表借还', '2017-05-05 20:41:36', '2017-08-01 13:34:32');
+INSERT INTO `auth_permission` VALUES ('45', 'stockTake:add', '盘点添加', '2017-05-05 20:42:59', '2017-08-01 13:35:05');
+INSERT INTO `auth_permission` VALUES ('46', 'stockTake:delete', '盘点删除', '2017-05-05 20:43:04', '2017-08-01 13:35:22');
+INSERT INTO `auth_permission` VALUES ('47', 'stockTake:update', '盘点更新', '2017-05-05 20:43:10', '2017-08-01 13:35:28');
+INSERT INTO `auth_permission` VALUES ('48', 'stockTake:getList', '盘点列表', '2017-05-05 20:43:17', '2017-08-01 13:35:36');
+INSERT INTO `auth_permission` VALUES ('49', 'stockTake:handle', '盘点处理', '2017-05-05 20:43:23', '2017-08-01 13:35:46');
+INSERT INTO `auth_permission` VALUES ('50', 'stockTake:getAvailableMap', '盘点xx', '2017-05-05 20:43:38', '2017-08-01 13:36:00');
+INSERT INTO `auth_permission` VALUES ('51', 'stockTake:updateAmount', '盘点数量更新', '2017-05-05 20:43:46', '2017-08-01 13:36:10');
+INSERT INTO `auth_permission` VALUES ('52', 'stockTake:getItemList', '盘点明显列表', '2017-05-05 20:43:55', '2017-08-01 13:36:20');
+INSERT INTO `auth_permission` VALUES ('53', 'stockTake:updateToAbnormal', '盘点标记异常', '2017-05-05 20:44:00', '2017-08-01 13:36:37');
+INSERT INTO `auth_permission` VALUES ('54', 'user:updatePoint', '用户网点更新', '2017-05-05 20:44:27', '2017-08-01 13:36:55');
+INSERT INTO `auth_permission` VALUES ('56', 'asset:stockTake:add', '资产盘点开启', '2017-05-05 20:56:21', '2017-08-01 13:37:56');
+INSERT INTO `auth_permission` VALUES ('57', 'stockTake:close', '盘点关闭', '2017-05-08 11:34:15', '2017-08-01 13:37:11');
 
 -- ----------------------------
 -- Table structure for auth_role
@@ -407,7 +384,7 @@ CREATE TABLE `auth_role` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_role
@@ -418,7 +395,6 @@ INSERT INTO `auth_role` VALUES ('5', '未启用角色', '2', '2017-04-16 19:18:5
 INSERT INTO `auth_role` VALUES ('6', '财务', '1', '2017-05-05 21:41:41', '2017-05-05 21:41:41');
 INSERT INTO `auth_role` VALUES ('7', '经理', '1', '2017-05-05 21:43:15', '2017-05-05 21:45:33');
 INSERT INTO `auth_role` VALUES ('8', '员工', '1', '2017-05-05 21:45:45', '2017-05-05 21:45:45');
-INSERT INTO `auth_role` VALUES ('9', '杭州分部财务', '2', '2017-05-20 21:42:19', '2017-05-20 22:14:57');
 
 -- ----------------------------
 -- Table structure for auth_role_assets_type_relation
@@ -456,7 +432,7 @@ CREATE TABLE `auth_role_permission_relation` (
   KEY `rp@permission_id` (`permission_id`) USING BTREE,
   CONSTRAINT `auth_role_permission_relation_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE CASCADE,
   CONSTRAINT `auth_role_permission_relation_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_role_permission_relation
@@ -465,21 +441,7 @@ INSERT INTO `auth_role_permission_relation` VALUES ('113', '4', '1', '2017-05-05
 INSERT INTO `auth_role_permission_relation` VALUES ('114', '4', '2', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('115', '4', '3', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('116', '4', '4', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('117', '4', '5', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('118', '4', '6', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('119', '4', '7', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('120', '4', '8', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('121', '4', '9', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('122', '4', '10', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('123', '4', '11', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('124', '4', '12', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('125', '4', '13', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('126', '4', '14', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('127', '4', '15', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('128', '4', '16', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('129', '4', '17', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('130', '4', '18', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('131', '4', '19', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('132', '4', '20', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('133', '4', '21', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('134', '4', '22', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
@@ -493,16 +455,8 @@ INSERT INTO `auth_role_permission_relation` VALUES ('141', '4', '31', '2017-05-0
 INSERT INTO `auth_role_permission_relation` VALUES ('142', '4', '32', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('143', '4', '33', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('144', '4', '34', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('145', '4', '35', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('146', '4', '36', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('147', '4', '37', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('148', '4', '38', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('149', '4', '39', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('150', '4', '40', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('151', '4', '41', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('152', '4', '42', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('153', '4', '43', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
-INSERT INTO `auth_role_permission_relation` VALUES ('154', '4', '44', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('155', '4', '46', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('156', '4', '47', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
 INSERT INTO `auth_role_permission_relation` VALUES ('157', '4', '48', '2017-05-05 22:57:19', '2017-05-05 22:57:19');
@@ -527,31 +481,31 @@ INSERT INTO `auth_role_permission_relation` VALUES ('175', '7', '27', '2017-05-0
 INSERT INTO `auth_role_permission_relation` VALUES ('176', '8', '49', '2017-05-05 22:58:21', '2017-05-05 22:58:21');
 INSERT INTO `auth_role_permission_relation` VALUES ('177', '8', '34', '2017-05-05 22:58:21', '2017-05-05 22:58:21');
 INSERT INTO `auth_role_permission_relation` VALUES ('178', '8', '50', '2017-05-05 22:58:21', '2017-05-05 22:58:21');
-INSERT INTO `auth_role_permission_relation` VALUES ('204', '6', '20', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('205', '6', '21', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('206', '6', '22', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('207', '6', '23', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('208', '6', '24', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('209', '6', '25', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('210', '6', '27', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('211', '6', '28', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('212', '6', '29', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('213', '6', '31', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('214', '6', '32', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('215', '6', '33', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('216', '6', '34', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('217', '6', '41', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('218', '6', '42', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('219', '6', '46', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('220', '6', '47', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('221', '6', '48', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('222', '6', '49', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('223', '6', '50', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('224', '6', '51', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('225', '6', '52', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('226', '6', '53', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('227', '6', '56', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
-INSERT INTO `auth_role_permission_relation` VALUES ('228', '6', '57', '2017-05-20 21:58:26', '2017-05-20 21:58:26');
+INSERT INTO `auth_role_permission_relation` VALUES ('179', '6', '20', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('180', '6', '21', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('181', '6', '22', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('182', '6', '23', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('183', '6', '24', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('184', '6', '25', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('185', '6', '27', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('186', '6', '28', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('187', '6', '29', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('188', '6', '31', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('189', '6', '32', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('190', '6', '33', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('191', '6', '34', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('192', '6', '41', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('193', '6', '42', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('194', '6', '46', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('195', '6', '47', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('196', '6', '48', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('197', '6', '49', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('198', '6', '50', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('199', '6', '51', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('200', '6', '52', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('201', '6', '53', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('202', '6', '56', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('203', '6', '57', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
 
 -- ----------------------------
 -- Table structure for auth_role_point_relation
@@ -568,7 +522,7 @@ CREATE TABLE `auth_role_point_relation` (
   KEY `rp1@point_id` (`point_id`) USING BTREE,
   CONSTRAINT `auth_role_point_relation_ibfk_1` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE CASCADE,
   CONSTRAINT `auth_role_point_relation_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_role_point_relation
@@ -585,8 +539,6 @@ INSERT INTO `auth_role_point_relation` VALUES ('21', '7', '1', '2017-05-05 21:46
 INSERT INTO `auth_role_point_relation` VALUES ('22', '7', '2', '2017-05-05 21:46:26', '2017-05-05 21:46:26');
 INSERT INTO `auth_role_point_relation` VALUES ('23', '7', '3', '2017-05-05 21:46:26', '2017-05-05 21:46:26');
 INSERT INTO `auth_role_point_relation` VALUES ('24', '7', '4', '2017-05-05 21:46:26', '2017-05-05 21:46:26');
-INSERT INTO `auth_role_point_relation` VALUES ('25', '9', '2', '2017-05-20 21:42:28', '2017-05-20 21:42:28');
-INSERT INTO `auth_role_point_relation` VALUES ('26', '9', '4', '2017-05-20 21:42:28', '2017-05-20 21:42:28');
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -607,7 +559,7 @@ CREATE TABLE `auth_user` (
   KEY `user@point_id` (`point_id`) USING BTREE,
   CONSTRAINT `auth_user_ibfk_1` FOREIGN KEY (`point_id`) REFERENCES `point` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `auth_user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_user
@@ -617,8 +569,7 @@ INSERT INTO `auth_user` VALUES ('16', 'jen', '123456', null, '3', '3', '2017-05-
 INSERT INTO `auth_user` VALUES ('17', 'mik', '123456', null, '4', '1', '2017-05-05 21:35:49', '2017-05-05 21:35:49');
 INSERT INTO `auth_user` VALUES ('18', 'cai', '123456', null, '6', '1', '2017-05-05 21:47:05', '2017-05-05 21:47:05');
 INSERT INTO `auth_user` VALUES ('19', 'jin', '123456', null, '7', '1', '2017-05-05 21:47:28', '2017-05-05 21:47:28');
-INSERT INTO `auth_user` VALUES ('20', 'yuan', '123456', null, '8', '4', '2017-05-05 21:47:55', '2017-05-10 22:34:19');
-INSERT INTO `auth_user` VALUES ('21', 'yuan2', '123456', null, '8', '3', '2017-05-20 22:13:17', '2017-05-20 22:13:17');
+INSERT INTO `auth_user` VALUES ('20', 'yuan', '123456', null, '8', '4', '2017-05-05 21:47:55', '2017-05-05 21:47:55');
 
 -- ----------------------------
 -- Table structure for point
