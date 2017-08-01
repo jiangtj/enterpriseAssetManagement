@@ -15,19 +15,22 @@
 - 系统：window/linux
 - 运行环境：支持chrome、edge、foxfire、safari最新版,**不支持ie**
 
-### 框架
+### 框架  
+
 #### 后台：
 - spring boot
 - spring cloud
 - mybatis
 - apache shiro
-- gson
+- gson  
+
 #### 前端：
 - spring thymeleaf
 - vue.js
-- jQuery
+- jQuery  
+
 #### 其他：
-- swagger2
+- swagger2  
 
 ### java 运行
 
