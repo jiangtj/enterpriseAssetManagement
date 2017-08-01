@@ -8,10 +8,10 @@ const Shiro = {
     stringPermissions:{},
     init:function (roles,stringPermissions) {
         jQuery.each(roles,function (index,item) {
-            Shiro.roles[item.name] = true;
+            Shiro.roles[item] = true;
         });
         jQuery.each(stringPermissions,function (index,item) {
-            Shiro.stringPermissions[item.name] = true;
+            Shiro.stringPermissions[item] = true;
         });
     },
     compareObject:function (object,value,logical) {
@@ -22,34 +22,42 @@ const Shiro = {
             return Shiro[object][value] === true;
         }
         //logical.OR
-        if (logical === logical.OR) {
-            jQuery.each(value,function (index,item) {
-                if (Shiro[object][item]){
+        if (logical === Logical.OR) {
+            for (let i in value){
+                if (Shiro[object][value[i]]){
                     return true;
                 }
-            });
+            }
             return false;
         }
         //logical.AND
-        jQuery.each(value,function (index,item) {
-            if (!Shiro[object][item]){
+        for (let i in value){
+            if (!Shiro[object][value[i]]){
                 return false;
             }
-        });
+        }
         return true;
     },
     requiresRoles:function (value,logical) {
-        Shiro.compareObject("roles",value,logical)
+        return Shiro.compareObject("roles",value,logical)
     },
     requiresPermissions:function (value,logical) {
-        Shiro.compareObject("stringPermissions",value,logical)
+        return Shiro.compareObject("stringPermissions",value,logical)
     }
 };
 
-Shiro.init(sessionRole,sessionPermission);
-
 const ShiroVue = function (el, binding) {
-    alert(binding.value);
-    //if (binding.arg === "role")
+    let innerLogical = binding.modifiers.or?Logical.OR:Logical.AND;
+    switch (binding.arg) {
+        case "role":
+            Shiro.requiresRoles(binding.value,innerLogical);
+            break;
+        case "permission":
+            Shiro.requiresPermissions(binding.value,innerLogical);
+            break;
+    }
 };
-Vue.directive("shiro",ShiroVue);
+
+if (Vue !== undefined) Vue.directive("shiro",ShiroVue);
+
+Shiro.init(sessionRole,sessionPermission);

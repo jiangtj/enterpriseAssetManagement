@@ -14,18 +14,19 @@ const SlotsUtils = {
 
 //todo 整合菜单为单个递归组件
 Vue.component("tt-menu-root",{
-    props: ['data','menu'],
+    props: ['data'],
     render:function (createElement) {
         let self = this;
+        //权限
+        if (!Shiro.requiresRoles(self.data.role,self.data.logical) ||
+            !Shiro.requiresPermissions(self.data.permission,self.data.logical)){
+            return null;
+        }
+
         let elements = [];
         if (!self.isEmpty(self.data.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
         elements.push(createElement("span",{class:["nav-label"]},self.data.name));
-        if (self.isNext(self.data.id)) {
-            elements.push(createElement("span",{class:["fa","arrow"]}));
-        }else {
-            //todo ...
-            if (self.isEmpty(self.data.url)) return null;
-        }
+        if (!self.isEmpty(self.data.list)) elements.push(createElement("span",{class:["fa","arrow"]}));
         return createElement(self.isEmpty(self.data.url)?"a":"router-link",{attrs:{to:self.data.url}},elements)
     },
     computed:{
@@ -33,12 +34,6 @@ Vue.component("tt-menu-root",{
     methods:{
         isEmpty:function (value) {
             return value === null || value === undefined || value === "";
-        },
-        isNext:function (id) {
-            for (let i in this.menu){
-                if (this.menu[i].pid === id) return true;
-            }
-            return false;
         }
     }
 });
@@ -47,15 +42,23 @@ Vue.component("tt-menu-second",{
     props: ['data'],
     render:function (createElement) {
         let self = this;
-        if (self.data.length === 0) return null;
+
+        if (self.isEmpty(self.data)) return null;
+
         return createElement("ul",{class:["nav","nav-second-level","collapse"]},$.map(this.data,function (item) {
-            let elements = [];
-            if (!self.isEmpty(item.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
-            //elements.push(createElement("span",item.name));
-            elements.push(item.name);
-            return createElement("li",{class:{'active':item.isActive}},[
-                createElement(self.isEmpty(item.url)?"a":"router-link",{attrs:{to:item.url}},elements)
-            ])
+
+            if (Shiro.requiresRoles(self.data.role,self.data.logical) &&
+                Shiro.requiresPermissions(self.data.permission,self.data.logical)){
+
+                let elements = [];
+                if (!self.isEmpty(item.icon)) elements.push(createElement("i",{class:["fa",self.data.icon]}));
+                //elements.push(createElement("span",item.name));
+                elements.push(item.name);
+                return createElement("li",{class:{'active':item.isActive}},[
+                    createElement(self.isEmpty(item.url)?"a":"router-link",{attrs:{to:item.url}},elements)
+                ])
+
+            }
         }));
     },
     computed:{

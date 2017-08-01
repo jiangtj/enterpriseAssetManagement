@@ -27,7 +27,7 @@
         var baseUrl = [[${#httpServletRequest.getContextPath()}]];
         var sessionUser = [[${session.user}]];
         var sessionPermission = [[${session.permission}]];
-        var sessionRole = [[${session.point}]];
+        var sessionRole = [[${session.role}]];
         var sessionPoint = [[${session.point}]];
     </script>
 
@@ -80,9 +80,9 @@
                     </ul>
 
                 </li>-->
-                <li v-for="n in menuLevel1" v-bind:class="{'active':n.isActive}">
-                    <tt-menu-root :data="n" :menu="menu"></tt-menu-root>
-                    <tt-menu-second :data="getNextMenu(n.id)"></tt-menu-second>
+                <li v-for="n in menu" v-bind:class="{'active':n.isActive}">
+                    <tt-menu-root :data="n"></tt-menu-root>
+                    <tt-menu-second :data="n.list"></tt-menu-second>
                 </li>
             </ul>
 
@@ -196,6 +196,7 @@
 <script th:src="@{/js/plugins/qrcode/jquery.qrcode.min.js}"></script>
 
 <!-- Custom javascript -->
+<script th:src="@{/js/shiro.js}"></script>
 <script th:src="@{/js/md5.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/web.js}"></script>
