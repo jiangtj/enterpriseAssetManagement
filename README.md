@@ -8,9 +8,6 @@
 修改密码接口未开发，所以，，暂时不能改密码ヾ(･ω･`｡)
 
 
-> 计划使用Spring Security框架重写用户模块。
- 
-
 ### 环境
 - JDK环境：jdk 8+
 - 数据库：mysql 5.7.14
@@ -19,8 +16,18 @@
 - 运行环境：支持chrome、edge、foxfire、safari最新版,**不支持ie**
 
 ### 框架
-- 后台：spring boot : (ssm) spring + spring mvc + mybatis
-- 前端：spring thymeleaf + vue.js
+#### 后台：
+- spring boot
+- spring cloud
+- mybatis
+- apache shiro````
+- gson
+#### 前端：
+- spring thymeleaf
+- vue.js
+- jQuery
+#### 其他：
+- swagger2
 
 ### java 运行
 
