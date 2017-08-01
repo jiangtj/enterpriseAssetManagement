@@ -22,4 +22,6 @@ public interface PermissionDao extends BaseDao<Permission,PermissionDto>{
     List<KeyValue> getMap();
 
     List<Permission> getByRoleId(@Param("id") Long roleId);
+
+    List<Permission> getAll();
 }

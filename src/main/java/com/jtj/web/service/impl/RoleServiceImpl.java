@@ -4,20 +4,16 @@ import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.MenuDao;
+import com.jtj.web.dao.PermissionDao;
 import com.jtj.web.dao.PointDao;
 import com.jtj.web.dao.RoleDao;
 import com.jtj.web.dto.RoleDto;
-import com.jtj.web.entity.KeyValue;
-import com.jtj.web.entity.Menu;
-import com.jtj.web.entity.Point;
-import com.jtj.web.entity.Role;
+import com.jtj.web.entity.*;
 import com.jtj.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +31,8 @@ public class RoleServiceImpl
     private MenuDao menuDao;
     @Autowired
     private PointDao pointDao;
+    @Autowired
+    private PermissionDao permissionDao;
 
     @Override
     public ResultDto<Object> delete(Long[] ids) throws AssetException {
@@ -46,6 +44,18 @@ public class RoleServiceImpl
     public ResultDto<List<KeyValue>> getRoleMap() {
         ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject(roleDao.getRoleMap());
+        return result;
+    }
+
+    @Override
+    public ResultDto<Object> getPermission(Long roleId) {
+        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+        List<Permission> all = permissionDao.getAll();
+        List<Permission> role = roleDao.getPermission(roleId);
+        Map<String,Object> map = new HashMap<>();
+        map.put("all",all);
+        map.put("role",role);
+        result.setObject(map);
         return result;
     }
 

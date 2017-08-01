@@ -50,6 +50,10 @@
         LIMIT #{begin},#{offset}
     </select>
 
+    <select id="getAll" resultType="Permission">
+        SELECT ap.* FROM auth_permission ap
+    </select>
+
     <select id="getNum" resultType="int">
         SELECT
         count(1)

@@ -45,9 +45,14 @@ public class RoleController {
         return roleService.getList(dto);
     }
 
+    @PostMapping("/getPermission")
+    public ResultDto<Object> getPermission(@RequestParam Long roleId){
+        return roleService.getPermission(roleId);
+    }
+
     @PostMapping("/updatePermission")
-    public ResultDto<Object> updatePermission(@RequestParam Long roleId,@RequestParam Long[] menuIds){
-        return roleService.updatePermission(roleId,menuIds);
+    public ResultDto<Object> updatePermission(@RequestParam Long roleId,@RequestParam Long[] permissionIds){
+        return roleService.updatePermission(roleId,permissionIds);
     }
 
     @PostMapping("/updatePoint")

@@ -74,10 +74,10 @@
         </tt-modal>
 
         <!-- 权限弹出框 -->
-        <tt-modal id="permission-modal" title="配置权限" size="sm">
+        <!--<tt-modal id="permission-modal" title="配置权限" size="sm">
             <form role="form" class="validation">
                 <div class="row">
-                    <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
+                    <div class="col-sm-12">&lt;!&ndash;<div class="col-sm-6 b-r">&ndash;&gt;
                         <div id="permission-tree"></div>
                     </div>
                 </div>
@@ -88,6 +88,36 @@
                     </div>
                 </div>
             </form>
+        </tt-modal>-->
+        <tt-modal id="permission-modal" title="配置权限">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p>请选择当前角色所需的权限（点击选择，>>全选）</p>
+                    <form id="form" action="#" class="wizard-big">
+                        <select class="form-control dual_select" multiple>
+                            <option v-for="item in " value="United States">United States</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Australia">Australia</option>
+                            <option selected value="Austria">Austria</option>
+                            <option selected value="Bahamas">Bahamas</option>
+                            <option value="Barbados">Barbados</option>
+                            <option value="Belgium">Belgium</option>
+                            <option value="Bermuda">Bermuda</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Bulgaria">Bulgaria</option>
+                            <option value="Cameroon">Cameroon</option>
+                            <option value="Canada">Canada</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="row tt-row-footer">
+                <div class="col-sm-12">
+                    <button @click="permissionModalData.submit" class="btn btn-sm btn-primary pull-right" type="button"><strong>确认</strong></button>
+                    <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right tt-modal-cancel" type="button"><strong>取消</strong></button>
+                </div>
+            </div>
         </tt-modal>
 
         <!-- 网点弹出框 -->
@@ -100,8 +130,8 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <button @click="pointModalData.submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button"><strong>确认</strong></button>
-                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel" type="button"><strong>取消</strong></button>
+                        <button @click="pointModalData.submit" class="btn btn-sm btn-primary pull-right" type="button"><strong>确认</strong></button>
+                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right tt-modal-cancel" type="button"><strong>取消</strong></button>
                     </div>
                 </div>
             </form>
@@ -186,6 +216,9 @@
         beforeMount:function () {
         },
         mounted:function () {
+            $('.dual_select').bootstrapDualListbox({
+                selectorMinimalHeight: 200
+            });
         },
         methods: {
             getTablePaginationList:function (index,size) {
@@ -241,7 +274,10 @@
             },
             showPermissionModal:function (obj) {
                 let self = this;
-                self.updatePermissionTree();
+                //self.updatePermissionTree();
+                Server.role.getPermission.setData({roleId:obj.id}).post(data => {
+                    debugger;
+                });
                 self.permissionModalData.data = {id:obj.id};
                 self.permissionModalData.submit = function () {
                     let tree = $('#permission-tree').jstree(true);

@@ -2,6 +2,7 @@ package com.jtj.web.dao;
 
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.KeyValue;
+import com.jtj.web.entity.Permission;
 import com.jtj.web.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +29,6 @@ public interface RoleDao extends BaseDao<Role,RoleDto> {
     int clearPoint(@Param("roleId") Long roleId);
 
     int addPoint(@Param("roleId") Long roleId,@Param("pointIds") Collection<Long> pointIds);
+
+    List<Permission> getPermission(@Param("roleId") Long roleId);
 }
