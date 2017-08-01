@@ -79,8 +79,9 @@ const MenuUtils = {
     pushMenuRoutes: function (menus) {
         for (let i = 0; i < menus.length; i++) {
             let item = menus[i];
+            item.isActive = false;
             if (item.url !== undefined && item.url !== null && item.url !== "") {
-                if (!item.code) item.code = "menu:" + item.url;
+                if (!item.code) item.code = "menu#" + item.url;
                 MenuUtils.pushMenuRoute(item.code, item)
             }
             if (item.list !== undefined) MenuUtils.pushMenuRoutes(item.list);

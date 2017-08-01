@@ -48,14 +48,16 @@ const Shiro = {
 
 const ShiroVue = function (el, binding) {
     let innerLogical = binding.modifiers.or?Logical.OR:Logical.AND;
+    let flag = true;
     switch (binding.arg) {
         case "role":
-            Shiro.requiresRoles(binding.value,innerLogical);
+            flag = Shiro.requiresRoles(binding.value,innerLogical);
             break;
         case "permission":
-            Shiro.requiresPermissions(binding.value,innerLogical);
+            flag = Shiro.requiresPermissions(binding.value,innerLogical);
             break;
     }
+    el.disabled = !flag;
 };
 
 if (Vue !== undefined) Vue.directive("shiro",ShiroVue);
