@@ -7,7 +7,10 @@ import java.util.*;
 /**
  * 日期工具类
  * Created by maokefeng on 2016/8/17.
+ * because has a new api jsr 310.
+ * it will be stead of java.util.date
  */
+@Deprecated
 public class DateUtils {
 
     public enum DateStyle {

@@ -4,20 +4,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.Date;
+import java.time.Instant;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
  * 2017/4/8.
  */
 @Component
-@Deprecated
-public class StringToDateConverter implements Converter<String,Date> {
+public class StringToInstantConverter implements Converter<String,Instant> {
     @Override
-    public Date convert(String source) {
+    public Instant convert(String source) {
         if (StringUtils.isEmpty(source) || "NaN".equals(source)){
             return null;
         }
-        return new Date(Long.parseLong(source));
+        return Instant.ofEpochSecond(Long.parseLong(source));
     }
 }
