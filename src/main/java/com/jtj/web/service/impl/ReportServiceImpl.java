@@ -1,15 +1,9 @@
 package com.jtj.web.service.impl;
 
-import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.utils.DateUtils;
-import com.jtj.web.dao.PermissionDao;
 import com.jtj.web.dao.ReportDao;
-import com.jtj.web.dto.PermissionDto;
-import com.jtj.web.entity.KeyValue;
-import com.jtj.web.entity.Permission;
-import com.jtj.web.service.PermissionService;
 import com.jtj.web.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,9 +41,9 @@ public class ReportServiceImpl implements ReportService {
             tempTime = DateUtils.addDay(tempTime,1);
             dateList.add(tempTime);
         }
-        endTime = DateUtils.addDay(endTime,1);
+        Date endTimeNextDay = DateUtils.addDay(endTime,1);
 
-        result.setObject(reportDao.getBorrow(startTime,endTime,dateList));
+        result.setObject(reportDao.getBorrow(startTime,endTimeNextDay,dateList));
         return result;
     }
 }

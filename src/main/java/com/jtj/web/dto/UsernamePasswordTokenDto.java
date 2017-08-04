@@ -8,6 +8,8 @@ import org.apache.shiro.authc.UsernamePasswordToken;
  */
 public class UsernamePasswordTokenDto extends UsernamePasswordToken {
 
+    private Long loginTime;
+
     public UsernamePasswordTokenDto(String username, String password, Long loginTime) {
         super(username, password);
         this.loginTime = loginTime;
@@ -17,8 +19,6 @@ public class UsernamePasswordTokenDto extends UsernamePasswordToken {
         super(username, password, rememberMe);
         this.loginTime = loginTime;
     }
-
-    private Long loginTime;
 
     public Long getTime() {
         return loginTime;

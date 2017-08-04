@@ -1,9 +1,7 @@
 package com.jtj.web.service.impl;
 
+import com.jtj.web.common.*;
 import com.jtj.web.common.exception.AssetException;
-import com.jtj.web.common.PageDto;
-import com.jtj.web.common.ResultCode;
-import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.BaseDao;
 import com.jtj.web.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by MrTT (jiang.taojie@foxmail.com)
  * 2017/3/15.
  */
-public class BaseServiceImpl<Entity,Dto,Dao extends BaseDao<Entity,Dto>>
-        implements BaseService<Entity,Dto> {
+public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends BaseDao<E,T>>
+        implements BaseService<E,T> {
 
     @Autowired
-    private Dao dao;
+    private D dao;
 
 
     @Override
-    public ResultDto<Object> add(Entity t) {
+    public ResultDto<Object> add(E t) {
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(dao.add(t) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         return result;
@@ -43,16 +41,16 @@ public class BaseServiceImpl<Entity,Dto,Dao extends BaseDao<Entity,Dto>>
     }
 
     @Override
-    public ResultDto<Object> update(Entity t) {
+    public ResultDto<Object> update(E t) {
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(dao.update(t) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
         return result;
     }
 
     @Override
-    public ResultDto<PageDto<Entity>> getList(Dto dto) {
-        ResultDto<PageDto<Entity>> result = new ResultDto<>(ResultCode.SUCCESS);
-        PageDto<Entity> page = new PageDto<>();
+    public ResultDto<PageDto<E>> getList(T dto) {
+        ResultDto<PageDto<E>> result = new ResultDto<>(ResultCode.SUCCESS);
+        PageDto<E> page = new PageDto<>();
         page.setList(dao.getList(dto));
         page.setCount(dao.getNum(dto));
         result.setObject(page);

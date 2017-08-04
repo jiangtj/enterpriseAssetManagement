@@ -1,6 +1,5 @@
 package com.jtj.web.common.config;
 
-import com.jtj.web.common.aspect.SecurityInterceptor;
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +17,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     /*@Autowired
     private RequestMappingHandlerAdapter handlerAdapter;*/
 
-    @Bean
-    public SecurityInterceptor getSecurityInterceptor() {
-        return new SecurityInterceptor();
-    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -30,7 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    Logger.Level feignLoggerLevel() {
+    public Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
     }
 

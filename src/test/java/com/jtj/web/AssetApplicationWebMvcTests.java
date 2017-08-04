@@ -1,23 +1,16 @@
 package com.jtj.web;
 
-import com.jtj.web.controller.PublicController;
 import com.jtj.web.service.*;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(PublicController.class)
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(PublicController.class)
 public class AssetApplicationWebMvcTests {
 
 	@Autowired
@@ -34,8 +27,9 @@ public class AssetApplicationWebMvcTests {
 	@MockBean
 	private PointService pointService;
 
-	@Test
+	//@Test
 	public void contextLoads() throws Exception {
+		//this is a example ,bu I'm not use it
 		MvcResult result = this.mvc.perform(get("/public/map/role")).andExpect(status().isOk()).andReturn();
 		System.err.println("------------------");
 	}
