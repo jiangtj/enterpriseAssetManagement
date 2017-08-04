@@ -1,5 +1,6 @@
 # enterpriseAssetManagement
 企业固定资产管理系统  
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/10b70ef4eea14dad9280115ec3b5d44d)](https://www.codacy.com/app/116749895/enterpriseAssetManagement?utm_source=github.com&utm_medium=referral&utm_content=JiangTJ/enterpriseAssetManagement&utm_campaign=badger)
 [![build status](https://gitlab.com/JiangTJ/enterpriseAssetManagement/badges/master/build.svg)](https://gitlab.com/JiangTJ/enterpriseAssetManagement/commits/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/10b70ef4eea14dad9280115ec3b5d44d)](https://www.codacy.com/app/116749895/enterpriseAssetManagement?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JiangTJ/enterpriseAssetManagement&amp;utm_campaign=Badge_Grade)
 
