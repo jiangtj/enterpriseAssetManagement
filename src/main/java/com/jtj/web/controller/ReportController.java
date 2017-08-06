@@ -4,12 +4,13 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.service.ReportService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -30,7 +31,8 @@ public class ReportController {
 
     @PostMapping("/getBorrow")
     @RequiresPermissions("report:getBorrow")
-    public ResultDto<Object> getBorrow(@RequestParam Date startTime,@RequestParam Date endTime){
+    public ResultDto<Object> getBorrow(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startTime,
+                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endTime){
         return reportService.getBorrow(startTime,endTime);
     }
 

@@ -101,8 +101,9 @@
                 let self = this;
                 if (ValidationUtils.check(".validation")) {
                     self.conditions = {
-                        startTime: $('#time1 input').datepicker('getDate').getTime(),
-                        endTime: $('#time2 input').datepicker('getDate').getTime()
+                        //startTime: $('#time1 input').datepicker('getDate').getTime(),
+                        startTime: $('#time1 input').val(),
+                        endTime: $('#time2 input').val()
                     };
                     Server.report.getBorrow.setData(self.conditions).post(data => {
                         self.chartData.labels = $.map(data.object,(item) => item.date);

@@ -1,12 +1,9 @@
 package com.jtj.web.service;
 
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.dto.AssetDto;
-import com.jtj.web.entity.Asset;
-import com.jtj.web.entity.Borrow;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -17,5 +14,5 @@ public interface ReportService {
 
     ResultDto<Object> getOverall();
 
-    ResultDto<Object> getBorrow(Date startTime, Date endTime);
+    ResultDto<Object> getBorrow(LocalDate startTime, LocalDate endTime);
 }

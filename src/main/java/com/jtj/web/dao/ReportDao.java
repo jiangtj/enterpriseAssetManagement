@@ -1,12 +1,10 @@
 package com.jtj.web.dao;
 
-import com.jtj.web.dto.AssetDto;
-import com.jtj.web.entity.Asset;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +18,6 @@ public interface ReportDao{
 
     Map<String,Object> getOverall();
 
-    List<Map<String,Object>> getBorrow(@Param("startTime") Date startTime,@Param("endTime") Date endTime,
-                                       @Param("dateList") List<Date> dateList);
+    List<Map<String,Object>> getBorrow(@Param("startTime") LocalDate startTime, @Param("endTime") LocalDate endTime,
+                                       @Param("dateList") List<LocalDate> dateList);
 }

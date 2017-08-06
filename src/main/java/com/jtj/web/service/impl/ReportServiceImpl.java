@@ -2,14 +2,13 @@ package com.jtj.web.service.impl;
 
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.common.utils.DateUtils;
 import com.jtj.web.dao.ReportDao;
 import com.jtj.web.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,20 +29,15 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ResultDto<Object> getBorrow(Date startTime, Date endTime) {
+    public ResultDto<Object> getBorrow(LocalDate start, LocalDate end) {
         ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
-
-        Integer days = DateUtils.getIntervalDays(startTime, endTime);
-        Date tempTime = startTime;
-        List<Date> dateList = new ArrayList<>();
-        dateList.add(tempTime);
-        for (int i =0;i<days;i++){
-            tempTime = DateUtils.addDay(tempTime,1);
-            dateList.add(tempTime);
+        List<LocalDate> dateList = new ArrayList<>();
+        LocalDate temp = start;
+        while (end.isAfter(temp)){
+            temp = temp.plusDays(1);
+            dateList.add(temp);
         }
-        Date endTimeNextDay = DateUtils.addDay(endTime,1);
-
-        result.setObject(reportDao.getBorrow(startTime,endTimeNextDay,dateList));
+        result.setObject(reportDao.getBorrow(start,end.plusDays(1),dateList));
         return result;
     }
 }
