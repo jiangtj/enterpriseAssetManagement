@@ -1,4 +1,4 @@
-package com.jtj.web.common.config;
+package com.jtj.web.common.shiro;
 
 import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;

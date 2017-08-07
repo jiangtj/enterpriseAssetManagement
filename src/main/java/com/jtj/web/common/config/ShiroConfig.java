@@ -1,11 +1,14 @@
 package com.jtj.web.common.config;
 
+import com.jtj.web.common.shiro.MyAuthorizationAttributeSourceAdvisor;
+import com.jtj.web.common.shiro.MyFormAuthenticationFilter;
+import com.jtj.web.common.shiro.MyPermissionsAuthorizationFilter;
+import com.jtj.web.common.shiro.ShiroRealm;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -77,7 +80,8 @@ public class ShiroConfig {
         shiroFilter.setSecurityManager(sm);
 
         Map<String, Filter> filters = new HashMap<>();
-        filters.put("authc", new FormAuthenticationFilter());
+        filters.put("authc", new MyFormAuthenticationFilter());
+        filters.put("perms", new MyPermissionsAuthorizationFilter());
 
         shiroFilter.setFilters(filters);
         return shiroFilter;
@@ -85,7 +89,7 @@ public class ShiroConfig {
 
     @Bean
     public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(SecurityManager securityManager){
-        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        AuthorizationAttributeSourceAdvisor advisor = new MyAuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager);
         return advisor;
     }
