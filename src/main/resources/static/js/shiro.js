@@ -6,12 +6,24 @@ const Logical = {
 const Shiro = {
     roles:{},
     stringPermissions:{},
+    perms:{},
     init:function (roles,stringPermissions) {
         jQuery.each(roles,function (index,item) {
             Shiro.roles[item] = true;
         });
         jQuery.each(stringPermissions,function (index,item) {
-            Shiro.stringPermissions[item] = true;
+            //Shiro.stringPermissions[item] = true;
+            let tempArr = item.split(":");
+            let tempObj = Shiro.perms;
+            for (let i=0;i<tempArr.length;i++){
+                if (!tempObj[tempArr[i]]) {
+                    tempObj[tempArr[i]] = {
+                        able:true,
+                        node:{}
+                    }
+                }
+                tempObj = tempObj[tempArr[i]].node;
+            }
         });
     },
     compareObject:function (object,value,logical) {
@@ -42,7 +54,46 @@ const Shiro = {
         return Shiro.compareObject("roles",value,logical)
     },
     requiresPermissions:function (value,logical) {
-        return Shiro.compareObject("stringPermissions",value,logical)
+        //return Shiro.compareObject("stringPermissions",value,logical)
+        //null
+        if (value === undefined || value === null) return true;
+
+        //value is str
+        let valuePerms = jQuery.isArray(value)?value:[value];
+
+        //logical.OR
+        if (logical === Logical.OR) {
+            for (let vi in valuePerms){
+                let tempArr = valuePerms[vi].split(":");
+                let tempObj = Shiro.perms;
+                let tempFlag;
+                for (let i=0;i<tempArr.length;i++){
+                    if (!tempObj[tempArr[i]]) {
+                        tempObj[tempArr[i]] = {
+                            node:{}
+                        }
+                    }
+                    tempFlag = tempObj[tempArr[i]].able;
+                    if (!tempFlag) break;
+                    tempObj = tempObj[tempArr[i]].node;
+                }
+                if (tempFlag) return true;
+            }
+            return false;
+        }
+
+        //logical.AND
+        for (let vi in valuePerms){
+            let tempArr = valuePerms[vi].split(":");
+            let tempObj = Shiro.perms;
+            for (let i=0;i<tempArr.length;i++){
+                if (!tempObj[tempArr[i]]) return false;
+                if (!tempObj[tempArr[i]].able) return false;
+                tempObj = tempObj[tempArr[i]].node;
+            }
+        }
+        return true;
+
     }
 };
 

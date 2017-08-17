@@ -26,8 +26,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,8 +60,8 @@ public class ShiroRealm extends AuthorizingRealm {
         info.addRole(user.getRole().getId()+"");
         //权限
         List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
-        //List<String> stringPermissions = permissions.stream().map(Permission::getName).collect(Collectors.toList());
-        List<String> stringPermissions = permissions.stream().map(item -> {
+        List<String> stringPermissions = permissions.stream().map(Permission::getCode).collect(Collectors.toList());
+        /*List<String> stringPermissions = permissions.stream().map(item -> {
             String[] temps = item.getCode().split(":");
             List<String> tempList = new ArrayList<>();
             for (int x = 0; x < temps.length; x++){
@@ -74,7 +72,7 @@ public class ShiroRealm extends AuthorizingRealm {
                 tempList.add(sb.toString());
             }
             return tempList;
-        }).flatMap(Collection::stream).distinct().collect(Collectors.toList());
+        }).flatMap(Collection::stream).distinct().collect(Collectors.toList());*/
         info.addStringPermissions(stringPermissions);
         //session
         Subject subject = SecurityUtils.getSubject();

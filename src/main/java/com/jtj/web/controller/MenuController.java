@@ -1,8 +1,8 @@
 package com.jtj.web.controller;
 
-import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.MenuDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
@@ -21,6 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/menu")
+@Deprecated
 //todo may be able to del this
 public class MenuController {
 
