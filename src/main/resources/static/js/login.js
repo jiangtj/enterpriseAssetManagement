@@ -11,7 +11,7 @@ const loginApp = new Vue({
             let time = now.getTime();
             let MD5Password = hex_md5(this.password+time);
             new WebBuilder("/public/login")
-                .setIntercepts(defaultIntercept)
+                .addIntercept(defaultIntercept)
                 .setData({
                     name:this.username,
                     password:MD5Password,

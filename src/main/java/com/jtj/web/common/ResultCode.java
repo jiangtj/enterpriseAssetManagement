@@ -10,6 +10,10 @@ package com.jtj.web.common;
  */
 public enum ResultCode {
     SUCCESS("000000","成功"),
+    SUCCESS_GET("000001","查询成功"),
+    SUCCESS_PUT("000002","添加成功"),
+    SUCCESS_POST("000003","修改成功"),
+    SUCCESS_DELETE("000004","删除成功"),
     USER_INFO_NON_EXISTENT("150001","不存在该用户"),
     USER_TIME_ERROR("190002","请求时间异常"),
     USER_PASSWORD_ERROR("190003","密码错误"),

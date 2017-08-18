@@ -1,7 +1,12 @@
 //ajax请求
 const Web = {
     baseUrl:null,
-    innerOptions:null,
+    innerOptions:{
+        dataType:"json",
+        fail:function () {}
+    },
+    globalIntercepts:[],
+    //url
     buildUrl:function (url) {
         if (url === undefined) return null;
         if (url.charAt(0) === "/"){
@@ -17,21 +22,26 @@ const Web = {
         }
         return url;
     },
-    isSuccess:function(obj){
-        return obj.code.charAt(1) === "0";
-    },
-    setPrototype:function (options) {
-        jQuery.extend(true, WebBuilder.prototype, options);
-    },
-    setDefault:function (options) {
-        Web.innerOptions = options;
-    },
-    setBaseUrl:function (url) {
-        Web.baseUrl = url;
-    },
     go:function (url) {
         window.location.href = Web.buildUrl(url);
     },
+    setBaseUrl:function (url) {
+        Web.baseUrl = url;
+        return this;
+    },
+    isSuccess:function(obj){
+        return obj.code.charAt(1) === "0";
+    },
+    //WebBuilder
+    setDefault:function (options) {
+        jQuery.extend(true,Web.innerOptions,options);
+        return this;
+    },
+    addIntercept:function (intercept) {
+        Web.globalIntercepts.push(intercept);
+        return this;
+    },
+    //数据
     updateDate:function (data) {
         jQuery.each(data,function (key,value) {
             Web.updateObject(key,value,data);
@@ -54,16 +64,10 @@ const Web = {
     }
 };
 
-function WebBuilder(url,defaultOptions) {
+function WebBuilder(url) {
     this.options = {};
-    this.innerOptions = {};
-    this.defaultOptions = jQuery.extend(true,{
-        dataType:"json"
-    },Web.innerOptions,defaultOptions);
     this.options.intercepts = [];
-    let tempIntercepts  = this.defaultOptions.intercepts || [];
-    this.defaultOptions.intercepts = jQuery.isFunction(tempIntercepts)?[tempIntercepts]:tempIntercepts;
-    this.defaultOptions.url = Web.buildUrl(url);
+    this.options.url = Web.buildUrl(url);
 }
 jQuery.extend(true,WebBuilder.prototype,{
     url:function (url) {
@@ -97,8 +101,13 @@ jQuery.extend(true,WebBuilder.prototype,{
         this.options.async = async;
         return this;
     },
-    setIntercepts:function (intercepts) {
-        this.options.intercepts = jQuery.isFunction(intercepts)?[intercepts]:intercepts;
+    addIntercept:function (intercept) {
+        this.options.intercepts.push(intercept);
+        return this;
+    },
+    //被拦截进入
+    setFail:function (callback) {
+        this.options.fail = callback;
         return this;
     },
     setSuccess:function (callback) {
@@ -110,25 +119,30 @@ jQuery.extend(true,WebBuilder.prototype,{
         return this;
     }
 });
-jQuery.each(['get','post','execute'],function (i,method) {
+jQuery.each(['get','put','post','delete','execute'],function (i,method) {
     WebBuilder.prototype[method] = function (callback) {
-        if (method !== 'execute') this.options.type = method;
-        if (jQuery.isFunction(callback)){
-            this.options.success = callback;
-        }else {
-            jQuery.extend(true,this.options,callback);
-        }
 
-        let tempOptions = jQuery.extend(true,{},this.defaultOptions,this.options);
-        let tempIntercepts = [];
-        tempIntercepts = this.defaultOptions.intercepts.concat(this.options.intercepts);
-        this.options = {};
-        this.options.intercepts = [];
+        let tempOptions = jQuery.extend(true,{},Web.innerOptions,this.options);
+        if (method !== 'execute') tempOptions.type = method;
+        if (jQuery.isFunction(callback)){
+            tempOptions.success = callback;
+        }else {
+            jQuery.extend(true,tempOptions,callback);
+        }
 
         let tempSuccess = tempOptions.success;
         tempOptions.success = function (request, status, thrown) {
-            for (let i in tempIntercepts){
-                if (tempIntercepts[i](request, status, thrown,tempOptions)) return;
+            for (let i in Web.globalIntercepts) {
+                if (Web.globalIntercepts[i](request, status, thrown,tempOptions)) {
+                    tempOptions.fail(request, status, thrown,tempOptions);
+                    return;
+                }
+            }
+            for (let i in tempOptions.intercepts) {
+                if (tempOptions.intercepts[i](request, status, thrown,tempOptions)) {
+                    tempOptions.fail(request, status, thrown,tempOptions);
+                    return;
+                }
             }
             tempSuccess(request, status, thrown);
         };

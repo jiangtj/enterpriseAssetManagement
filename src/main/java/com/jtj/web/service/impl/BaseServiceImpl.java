@@ -21,7 +21,7 @@ public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends Ba
     @Override
     public ResultDto<Object> add(E t) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(dao.add(t) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        result.setResultCode(dao.add(t) == 1?ResultCode.SUCCESS_PUT:ResultCode.OPERATE_FAIL);
         return result;
     }
 
@@ -32,7 +32,7 @@ public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends Ba
         int count = dao.delete(ids);
         int all = ids.length;
         if (count == all){
-            result.setResultCode(ResultCode.SUCCESS);
+            result.setResultCode(ResultCode.SUCCESS_DELETE);
             return result;
         }
         result.setResultCode(ResultCode.OPERATE_FAIL);
@@ -43,13 +43,13 @@ public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends Ba
     @Override
     public ResultDto<Object> update(E t) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(dao.update(t) == 1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        result.setResultCode(dao.update(t) == 1?ResultCode.SUCCESS_POST:ResultCode.OPERATE_FAIL);
         return result;
     }
 
     @Override
     public ResultDto<PageDto<E>> getList(T dto) {
-        ResultDto<PageDto<E>> result = new ResultDto<>(ResultCode.SUCCESS);
+        ResultDto<PageDto<E>> result = new ResultDto<>(ResultCode.SUCCESS_GET);
         PageDto<E> page = new PageDto<>();
         page.setList(dao.getList(dto));
         page.setCount(dao.getNum(dto));
