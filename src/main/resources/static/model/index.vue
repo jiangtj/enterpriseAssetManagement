@@ -12,6 +12,9 @@
                     <h3>
                         <a href="/swagger-ui.html">接口文档</a>
                     </h3>
+                    <h3>
+                        <a href="https://wrapbootstrap.com/theme/inspinia-responsive-admin-theme-WB0R5L90S">前端页面模版地址</a>
+                    </h3>
                 </div>
                 <div class="text-center m-t-lg">
                 </div>
