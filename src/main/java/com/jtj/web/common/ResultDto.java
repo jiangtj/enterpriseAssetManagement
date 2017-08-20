@@ -1,7 +1,6 @@
 package com.jtj.web.common;
 
-import com.jtj.web.common.ResultCode;
-import com.jtj.web.common.utils.GsonUtils;
+import com.jtj.web.common.utils.JacksonUtils;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -64,6 +63,6 @@ public class ResultDto<T> {
 
     @Override
     public String toString() {
-        return GsonUtils.toJson(this);
+        return JacksonUtils.toJson(this);
     }
 }

@@ -1,17 +1,12 @@
 package com.jtj.web.feign;
 
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.common.utils.GsonUtils;
+import com.jtj.web.common.utils.JacksonUtils;
 import com.jtj.web.entity.KeyValue;
-import feign.Client;
-import feign.Feign;
-import feign.codec.Decoder;
-import feign.codec.Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +36,7 @@ public class TestController {
         //异步
         CompletableFuture<ResultDto<List<KeyValue>>> a = CompletableFuture.supplyAsync(() -> {
             ResultDto<List<KeyValue>> result = service.getRoleMap();
-            logger.error(GsonUtils.toJson(result));
+            logger.error(JacksonUtils.toJson(result));
             return result;
         });
         return "success";
