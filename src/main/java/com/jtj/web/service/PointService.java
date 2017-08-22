@@ -18,6 +18,8 @@ public interface PointService extends BaseService<Point,PointDto> {
 
     ResultDto<List<Point>> getPoint(PointDto dto);
 
+    List<Point> getAllPoint();
+
     ResultDto<List<KeyValue>> getMapByPid(Long pid);
 
     ResultDto<List<Point>> getPublicPoint(HttpSession session);

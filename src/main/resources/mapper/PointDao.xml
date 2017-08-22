@@ -139,4 +139,8 @@
         </foreach>
     </select>
 
+    <select id="getAllPoint" resultType="Point">
+        SELECT p.* FROM point p
+    </select>
+
 </mapper>

@@ -2,6 +2,8 @@ package com.jtj.web.entity;
 
 import com.jtj.web.common.BaseEntity;
 
+import java.util.List;
+
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/4/29 19:25 End.
@@ -13,6 +15,7 @@ public class Point extends BaseEntity {
     private Integer level;
     private Integer order;
     private Boolean selected;
+    private List<Point> nodes;
 
     public String getName() {
         return name;
@@ -52,5 +55,13 @@ public class Point extends BaseEntity {
 
     public void setSelected(Boolean selected) {
         this.selected = selected;
+    }
+
+    public List<Point> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<Point> nodes) {
+        this.nodes = nodes;
     }
 }

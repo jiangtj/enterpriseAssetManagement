@@ -215,6 +215,10 @@
                                 pid:node.id==="#"?0:node.id
                             }).post(data => {
                                 let list = $.map(data.object,(item,index) => {
+
+                                    //todo 过滤跟节点，tree need fix
+                                    if (item.id === item.pid) return undefined;
+
                                     item.parent = item.pid===0?"#":item.pid;
                                     item.text = item.name;
                                     item.children = true;

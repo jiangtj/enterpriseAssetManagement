@@ -36,8 +36,8 @@ deploy:docker:
   - docker push  $DOCKER_ID_USER/asset-run
 
   # build db
-  - docker build -t $DOCKER_ID_USER/asset-db docker-db
-  - docker push  $DOCKER_ID_USER/asset-db
+#  - docker build -t $DOCKER_ID_USER/asset-db docker-db
+#  - docker push  $DOCKER_ID_USER/asset-db
 
   # docker-gitlab-registry
   # 该镜像存放的服务器中国无法访问

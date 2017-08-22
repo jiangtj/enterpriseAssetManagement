@@ -1,8 +1,6 @@
 package com.jtj.web.dao;
 
-import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.dto.PointDto;
-import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,4 +28,6 @@ public interface PointDao extends BaseDao<Point,PointDto>{
     List<Point> getPointByIds(@Param("ids") List<Long> pointIdList);
 
     List<Point> getPointByPids(@Param("pids") List<Long> pointIdList);
+
+    List<Point> getAllPoint();
 }
