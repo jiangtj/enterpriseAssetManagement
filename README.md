@@ -6,7 +6,7 @@
 > 示例：[企业固定资产管理系统](http://www.kurome.xin:8080/)  
 超级管理员 用户名:admin 密码:123456  
 在用户管理中所有的用户密码与超管一致  
-修改密码接口未开发，所以，，暂时不能改密码ヾ(･ω･`｡)
+毕设的原因，大部分模块都未完善，在逐步调整ヾ(･ω･`｡)
 
 
 ### 环境
@@ -22,8 +22,7 @@
 - spring boot
 - spring cloud
 - mybatis
-- apache shiro
-- gson  
+- apache shiro  
 
 #### 前端：
 - spring thymeleaf
@@ -40,8 +39,8 @@
 1. java 运行 `java -jar asset.war --server.port=8080`,其中`server.port`设置端口号，该配置可写于`application.properties`中
 
 ### 注意
-- 运行环境需要先搭建好
-- 建议用户导入asset-data.sql _（后续会添加安装界面，以便初始化数据）_
+- 需java运行环境
+- 数据库需导入asset.sql
 - 默认user-id 为 1 的用户拥有最大权限，必要时修改数据库中用户id
 - 后台运行方式，linux 使用`nohup`，windows 使用`javaw`代替`java`
 
