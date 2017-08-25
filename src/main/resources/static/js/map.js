@@ -1,7 +1,7 @@
 //列表
 const Map = new Vue({
     data:{
-        sessionPoint:sessionPoint,
+        sessionPoint:[],
         selectedPoint:[]
     },
     computed:{

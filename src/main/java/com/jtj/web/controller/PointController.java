@@ -53,6 +53,11 @@ public class PointController {
         return pointService.getPoint(dto);
     }
 
+    @GetMapping("/getPointTree")
+    public ResultDto<List<Point>> getPointTree(){
+        return pointService.getPointTree();
+    }
+
     @PostMapping("/getMapByPid")
     public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid){
         return pointService.getMapByPid(pid);

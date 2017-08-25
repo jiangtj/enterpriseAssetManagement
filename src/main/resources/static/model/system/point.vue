@@ -208,12 +208,12 @@
             },
             updateTree:function () {
                 let self = this;
-                Server.point.getPointById.path({id:0}).execute(data => {
+                Server.point.getPointTree.execute(data => {
                     let treeData = data.object;
-                    App.changeForJsTree(treeData);
+                    App.changeListTreeForJsTree(treeData);
                     $('#menu-tree').jstree({
                         'core' : {
-                            'data' :[treeData]
+                            'data' :treeData
                         }
                     }).on('changed.jstree', function (e, data) {
                         self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
@@ -221,32 +221,6 @@
                         self.getTableList();
                     });
                 });
-                /*$('#menu-tree').jstree({
-                    'core' : {
-                        'data' :function (node,callback) {
-                            Server.point.getPointByPid.setData({
-                                pid:node.id==="#"?0:node.id
-                            }).post(data => {
-                                let list = $.map(data.object,(item,index) => {
-
-                                    //todo 过滤跟节点，tree need fix
-                                    if (item.id === item.pid) return undefined;
-
-                                    item.parent = item.pid===0?"#":item.pid;
-                                    item.text = item.name;
-                                    item.children = true;
-                                    item.icon = 'fa fa-folder';
-                                    return item;
-                                });
-                                callback.call(this,list)
-                            });
-                        }
-
-                }).on('changed.jstree', function (e, data) {
-                    self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
-                    self.pname = data.node.text;
-                    self.getTableList();
-                });}*/
             }
         }
     });

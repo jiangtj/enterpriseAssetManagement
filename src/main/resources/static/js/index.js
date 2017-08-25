@@ -61,29 +61,14 @@ const App = new Vue({
             let self = this;
             Server.point.getQueryRootPoint.post(data => {
                 self.point.root.query = data.object;
-                let temps = $.extend(true,{},data.object);
-                self.changeForJsTree(temps);
+                let temps = [$.extend(true,{},data.object)];
+                Map.selectedPoint = [];
+                self.changeListTreeToList(temps);
+                self.changeListTreeForJsTree(temps);
 
                 $('#sidebar-point-tree').jstree({
                     'core' : {
-                        'data' : [temps]
-                            /*function (node,callback) {
-                            Server.point.getPointByPid.setData({
-                                pid:node.id==="#"?self.point.root.query.id:node.id
-                            }).post(data => {
-                                let list = $.map(data.object,(item,index) => {
-
-                                    if (item.id === item.pid) return undefined;
-
-                                    item.parent = item.pid===self.point.root.query.id?"#":item.pid;
-                                    item.text = item.name;
-                                    item.children = true;
-                                    item.icon = 'fa fa-folder';
-                                    return item;
-                                });
-                                callback.call(this,list)
-                            });
-                        }*/
+                        'data' : temps
                     },
                     "checkbox" : {
                         "keep_selected_style" : false,
@@ -97,14 +82,24 @@ const App = new Vue({
 
             });
         },
-        changeForJsTree:function (item) {
+        changeListTreeToList:function (array) {
             let self = this;
-            if (!item) return;
-            item.text = item.name;
-            item.icon = 'fa fa-folder';
-            item.children = item.nodes;
-            $.each(item.nodes,function (index,item) {
-                self.changeForJsTree(item);
+            if (!array) return;
+            $.each(array,function (index,item) {
+                if (item) {
+                    Map.sessionPoint.push(item);
+                    self.changeListTreeToList(item.nodes);
+                }
+            })
+        },
+        changeListTreeForJsTree:function (items) {
+            let self = this;
+            if (!items) return;
+            $.each(items,function (index,item) {
+                item.text = item.name;
+                item.icon = 'fa fa-folder';
+                item.children = item.nodes;
+                self.changeListTreeForJsTree(item.nodes);
             })
         }
     }

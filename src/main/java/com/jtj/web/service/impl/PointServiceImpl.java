@@ -39,6 +39,7 @@ public class PointServiceImpl
     //if you has redis, you can put it into redis
     private static Map<Long,Point> allPointMap = new HashMap<>();
     private static List<Point> allPointList = new ArrayList<>();
+    private static List<Point> allRootPointList = new ArrayList<>();
 
     @Override
     public ResultDto<Object> add(Point t) {
@@ -85,13 +86,17 @@ public class PointServiceImpl
         synchronized (this){
             allPointMap = new HashMap<>();
             allPointList = new ArrayList<>();
+            allRootPointList = new ArrayList<>();
             allPointList = pointConfig.isEnabled()?pointClient.getPoint():pointDao.getAllPoint();
             Map<Long,Point> temp = allPointList.stream().collect(Collectors.toMap(Point::getId, y->{
                 y.setNodes(new ArrayList<>());
                 return y;
             }));
             allPointList.forEach(point -> {
-                if (Objects.equals(point.getPid(), point.getId())) return;
+                if (Objects.equals(point.getPid(), point.getId()) || point.getPid() == 0) {
+                    allRootPointList.add(point);
+                    return;
+                }
                 Point p = temp.get(point.getPid());
                 p.getNodes().add(point);
             });
@@ -99,6 +104,14 @@ public class PointServiceImpl
         }
 
         return allPointList;
+    }
+
+    @Override
+    public ResultDto<List<Point>> getPointTree() {
+        ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
+        if (allRootPointList.size() == 0) getAllPoint();
+        result.setObject(allRootPointList);
+        return result;
     }
 
     @Override
@@ -111,9 +124,14 @@ public class PointServiceImpl
                     .collect(Collectors.toList()));
             return result;
         }
-        //todo 调整js tree
-        //todo issue1 id为0的总部不能删除
-        //todo issue2 前端控件多次调用接口
+
+        //pid为0，返回所有根节点
+        if (pid == 0){
+            if (allRootPointList.size() == 0) getAllPoint();
+            result.setObject(allRootPointList.stream().map(item->new KeyValue(item.getId()+"",item.getName()))
+                    .collect(Collectors.toList()));
+            return result;
+        }
 
         //pid存在返回子节点
         Point point = allPointMap.get(pid);
@@ -133,9 +151,6 @@ public class PointServiceImpl
         return result;
     }
 
-    //todo "system-point-subordinate:query"
-    //"system-point-subordinate:query:edit"
-    //"system-point-subordinate:query:globe"
     @Override
     public List<Point> getQueryPoint() {
         Point point = getQueryRootPoint();

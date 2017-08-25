@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-08-22 21:51:24
+Date: 2017-08-25 23:16:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -334,7 +334,7 @@ CREATE TABLE `auth_permission` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@name` (`code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -372,6 +372,9 @@ INSERT INTO `auth_permission` VALUES ('53', 'stockTake:updateToAbnormal', '盘�
 INSERT INTO `auth_permission` VALUES ('54', 'user:updatePoint', '用户网点更新', '2017-05-05 20:44:27', '2017-08-01 13:36:55');
 INSERT INTO `auth_permission` VALUES ('56', 'asset:stockTake:add', '资产盘点开启', '2017-05-05 20:56:21', '2017-08-01 13:37:56');
 INSERT INTO `auth_permission` VALUES ('57', 'stockTake:close', '盘点关闭', '2017-05-08 11:34:15', '2017-08-01 13:37:11');
+INSERT INTO `auth_permission` VALUES ('58', 'system-point-subordinate:query', '网点下级查询', '2017-08-25 22:31:09', '2017-08-25 22:31:09');
+INSERT INTO `auth_permission` VALUES ('59', 'system-point-subordinate:query:edit', '网点下级管理', '2017-08-25 22:31:32', '2017-08-25 22:31:32');
+INSERT INTO `auth_permission` VALUES ('60', 'system-point-subordinate:query:globe', '网点全局查询', '2017-08-25 22:31:54', '2017-08-25 22:31:54');
 
 -- ----------------------------
 -- Table structure for auth_role
@@ -567,7 +570,7 @@ CREATE TABLE `auth_user` (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'admin', '123456', 'Hi~~~ wo', '4', '4', '2017-01-31 22:39:53', '2017-05-05 21:40:21');
+INSERT INTO `auth_user` VALUES ('1', 'admin', '123456', 'Hi~~~ wo', '4', '1', '2017-01-31 22:39:53', '2017-08-25 20:52:13');
 INSERT INTO `auth_user` VALUES ('16', 'jen', '123456', null, '3', '3', '2017-05-05 21:34:58', '2017-05-05 21:34:58');
 INSERT INTO `auth_user` VALUES ('17', 'mik', '123456', null, '4', '1', '2017-05-05 21:35:49', '2017-05-05 21:35:49');
 INSERT INTO `auth_user` VALUES ('18', 'cai', '123456', null, '6', '1', '2017-05-05 21:47:05', '2017-05-05 21:47:05');
@@ -592,8 +595,7 @@ CREATE TABLE `point` (
 -- ----------------------------
 -- Records of point
 -- ----------------------------
-INSERT INTO `point` VALUES ('0', '总部', '0', '0', '1', '2017-08-22 21:06:13', '2017-08-22 21:06:25');
-INSERT INTO `point` VALUES ('1', '浙江总部', '1', '0', '1', '2017-04-30 19:34:38', '2017-04-30 19:34:38');
+INSERT INTO `point` VALUES ('1', '浙江总部', '1', '0', '1', '2017-04-30 19:34:38', '2017-08-25 22:10:07');
 INSERT INTO `point` VALUES ('2', '杭州分部', '2', '1', '1', '2017-04-30 19:34:56', '2017-04-30 19:34:56');
 INSERT INTO `point` VALUES ('3', '嘉兴分部', '2', '1', '2', '2017-04-30 19:35:13', '2017-04-30 19:35:13');
 INSERT INTO `point` VALUES ('4', '西湖区办事点', '3', '2', '1', '2017-04-30 19:35:42', '2017-08-04 23:01:55');

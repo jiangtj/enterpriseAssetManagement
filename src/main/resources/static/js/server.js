@@ -68,6 +68,7 @@ ServerUtils.config({
     },
     point:{
         getPoint:new WebBuilder("/point/getPoint"),
+        getPointTree:new WebBuilder("/point/getPointTree",{type:"get"}),
         getMapByPid:new WebBuilder("/point/getMapByPid"),
         getPointByPid:new WebBuilder("/point/getPointByPid"),
         getPointById:new WebBuilder("/point/get/{id}",{type:"get"}),
