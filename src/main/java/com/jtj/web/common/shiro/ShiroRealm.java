@@ -10,7 +10,6 @@ import com.jtj.web.dao.PointDao;
 import com.jtj.web.dao.UserDao;
 import com.jtj.web.dto.UsernamePasswordTokenDto;
 import com.jtj.web.entity.Permission;
-import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -54,25 +53,11 @@ public class ShiroRealm extends AuthorizingRealm {
             info.addRole("system-administrator-role");
             info.addStringPermission("system-administrator-permission");
         }
-        //网点
-        List<Point> points = pointDao.getAuthorizedPoint(user.getId(),user.getRoleId());
         //角色
         info.addRole(user.getRole().getId()+"");
         //权限
         List<Permission> permissions = permissionDao.getByRoleId(user.getRoleId());
         List<String> stringPermissions = permissions.stream().map(Permission::getCode).collect(Collectors.toList());
-        /*List<String> stringPermissions = permissions.stream().map(item -> {
-            String[] temps = item.getCode().split(":");
-            List<String> tempList = new ArrayList<>();
-            for (int x = 0; x < temps.length; x++){
-                StringBuilder sb = new StringBuilder(temps[0]);
-                for (int y = 1; y <= x; y++){
-                    sb.append(":").append(temps[y]);
-                }
-                tempList.add(sb.toString());
-            }
-            return tempList;
-        }).flatMap(Collection::stream).distinct().collect(Collectors.toList());*/
         info.addStringPermissions(stringPermissions);
         //session
         Subject subject = SecurityUtils.getSubject();
@@ -80,7 +65,6 @@ public class ShiroRealm extends AuthorizingRealm {
         session.setAttribute(Constant.SESSION_USER,user);
         session.setAttribute(Constant.SESSION_PERMISSION,info.getStringPermissions());
         session.setAttribute(Constant.SESSION_ROLE,info.getRoles());
-        session.setAttribute(Constant.SESSION_POINT,points);
         return info;
     }
 

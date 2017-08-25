@@ -17,7 +17,6 @@ public class Constant {
 
     public final static String SESSION_PERMISSION = "permission";
     public final static String SESSION_ROLE = "role";
-    public final static String SESSION_POINT = "point";
 
     public static List<Dictionary> dictionaries = new ArrayList<>();
 

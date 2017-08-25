@@ -211,7 +211,7 @@
                 $('#menu-tree').jstree({
                     'core' : {
                         'data' :function (node,callback) {
-                            Server.point.getPoint.setData({
+                            Server.point.getPointByPid.setData({
                                 pid:node.id==="#"?0:node.id
                             }).post(data => {
                                 let list = $.map(data.object,(item,index) => {

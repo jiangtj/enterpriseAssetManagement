@@ -6,11 +6,9 @@ import com.jtj.web.dto.MenuDto;
 import com.jtj.web.dto.UsernamePasswordTokenDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Menu;
-import com.jtj.web.entity.Point;
 import com.jtj.web.service.*;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -83,12 +80,6 @@ public class PublicController {
     @PostMapping("/getMenu")
     public ResultDto<List<Menu>> getMenu(MenuDto dto){
         return menuService.getMenu(dto);
-    }
-
-    @ResponseBody
-    @PostMapping("/getPoint")
-    public ResultDto<List<Point>> getPoint(HttpSession session){
-        return pointService.getPublicPoint(session);
     }
 
 }

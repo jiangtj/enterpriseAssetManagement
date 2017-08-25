@@ -2,7 +2,7 @@ package com.jtj.web.entity;
 
 import com.jtj.web.common.BaseEntity;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -17,6 +17,9 @@ public class User extends BaseEntity {
     private Role role;//角色对象
     private Long pointId;//角色id
     private Point point;//角色对象
+
+    private List<Point> queryPoints;
+    private List<Point> editPoints;
 
     public String getName() {
         return name;
@@ -72,5 +75,21 @@ public class User extends BaseEntity {
 
     public void setPoint(Point point) {
         this.point = point;
+    }
+
+    public List<Point> getQueryPoints() {
+        return queryPoints;
+    }
+
+    public void setQueryPoints(List<Point> queryPoints) {
+        this.queryPoints = queryPoints;
+    }
+
+    public List<Point> getEditPoints() {
+        return editPoints;
+    }
+
+    public void setEditPoints(List<Point> editPoints) {
+        this.editPoints = editPoints;
     }
 }

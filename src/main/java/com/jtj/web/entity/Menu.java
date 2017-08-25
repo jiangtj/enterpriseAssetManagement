@@ -6,6 +6,7 @@ import com.jtj.web.common.BaseEntity;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/4/18 21:06 End.
  */
+@Deprecated
 public class Menu extends BaseEntity {
 
     private String name;

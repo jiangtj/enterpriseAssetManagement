@@ -1,8 +1,9 @@
 package com.jtj.web.controller;
 
-import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.PageDto;
+import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.PointDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
@@ -58,6 +59,18 @@ public class PointController {
     @PostMapping("/getMapByPid")
     public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid){
         return pointService.getMapByPid(pid);
+    }
+
+    @PostMapping("/getPointByPid")
+    public ResultDto<List<Point>> getPointByPid(@RequestParam("pid") Long pid){
+        return pointService.getPointByPid(pid);
+    }
+
+    @PostMapping("/getQueryRootPoint")
+    public ResultDto<Point> getQueryRootPoint(){
+        ResultDto<Point> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(pointService.getQueryRootPoint());
+        return result;
     }
 
 }

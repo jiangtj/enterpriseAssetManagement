@@ -69,7 +69,8 @@ ServerUtils.config({
     point:{
         getPoint:new WebBuilder("/point/getPoint"),
         getMapByPid:new WebBuilder("/point/getMapByPid"),
-        getPublicPoint:new WebBuilder("/public/getPoint")
+        getPointByPid:new WebBuilder("/point/getPointByPid"),
+        getQueryRootPoint:new WebBuilder("/point/getQueryRootPoint")
     },
     asset:{
         getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid"),

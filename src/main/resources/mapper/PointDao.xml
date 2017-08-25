@@ -105,20 +105,6 @@
         SELECT p.* FROM point p WHERE p.id = #{id}
     </select>
 
-    <select id="getAuthorizedPoint" resultType="Point">
-        SELECT
-        p.*
-        FROM point p
-        WHERE
-            p.id = (
-                SELECT ifnull(au.point_id,0) FROM auth_user au WHERE au.id = #{userId}
-            ) OR
-            p.id IN (
-                SELECT arpr.point_id FROM auth_role_point_relation arpr WHERE arpr.role_id = #{roleId}
-            )
-        ORDER BY p.pid ASC ,p.`order` ASC
-    </select>
-
     <select id="getPointByIds" resultType="Point">
         SELECT
         p.*

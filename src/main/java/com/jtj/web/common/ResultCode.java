@@ -11,8 +11,8 @@ package com.jtj.web.common;
 public enum ResultCode {
     SUCCESS("000000","成功"),
     SUCCESS_GET("000001","查询成功"),
-    SUCCESS_PUT("000002","添加成功"),
-    SUCCESS_POST("000003","修改成功"),
+    SUCCESS_PUT("000002","修改成功"),
+    SUCCESS_POST("000003","添加成功"),
     SUCCESS_DELETE("000004","删除成功"),
     USER_INFO_NON_EXISTENT("150001","不存在该用户"),
     USER_TIME_ERROR("190002","请求时间异常"),
@@ -21,6 +21,8 @@ public enum ResultCode {
     ASSET_NOT_ONLY("260002","当前条件下，资产不唯一"),
     UNAUTHORIZED("960000","未授权"),
     OPERATE_FAIL("980001","操作失败"),
+    NOT_DELETE_ROOT("970002","根节点不能删除"),
+    NOT_FOUND("970003","资源不存在"),
     UN_KNOWN_ERROR("999999","未知错误");
 
     private String code;

@@ -6,7 +6,12 @@ const App = new Vue({
         baseUrl:baseUrl,
         user: sessionUser,
         permission: sessionPermission,
-        point: sessionPoint,
+        point:{
+            root:{
+                query:null,
+                edit:null
+            }
+        },
         menu:AppMenu,
         alwaysTrue:true,
         selectedPoint:[]
@@ -20,9 +25,11 @@ const App = new Vue({
         }
     },
     created:function () {
+        let self = this;
         if (this.user.pointId) {
             this.selectedPoint.push(this.user.pointId);
             Map.selectedPoint.push(this.user.pointId);
+            this.point.root.edit = this.user.pointId;
         }
     },
     mounted:function () {
@@ -52,40 +59,53 @@ const App = new Vue({
         },
         updateSidebarTree:function () {
             let self = this;
-            $('#sidebar-point-tree').jstree({
-                'core' : {
-                    'data' :function (node,callback) {
-                        /*Server.point.getPublicPoint.setData({
-                            pid:node.id==="#"?0:node.id
-                        }).post(data => {
-                        });*/
-                        //todo 根节点节点判断有误，待修复
-                        let max=99;
-                        $.each(self.point,function (index,item) {
-                            if (max > item.level) max = item.level;
-                        });
-                        let list = $.map(self.point,(item,index) => {
-                            item.parent = item.level===max?"#":item.pid;
-                            item.text = item.name;
-                            item.icon = 'fa fa-folder';
-                            if ($.inArray(item.id,self.selectedPoint) !== -1){
-                                item.state = {};
-                                item.state.selected = true;
-                            }
-                            return item;
-                        });
-                        callback.call(this,list);
-                    }
-                },
-                "checkbox" : {
-                    "keep_selected_style" : false,
-                    "three_state":false
-                },
-                "plugins": ["checkbox"]
-            }).on('changed.jstree', function (e, data) {
-                self.selectedPoint = data.selected;
-                Map.selectedPoint = data.selected;
+            Server.point.getQueryRootPoint.post(data => {
+                self.point.root.query = data.object;
+                let temps = $.extend(true,{},data.object);
+                self.changeForJsTree(temps);
+
+                $('#sidebar-point-tree').jstree({
+                    'core' : {
+                        'data' : [temps]
+                            /*function (node,callback) {
+                            Server.point.getPointByPid.setData({
+                                pid:node.id==="#"?self.point.root.query.id:node.id
+                            }).post(data => {
+                                let list = $.map(data.object,(item,index) => {
+
+                                    if (item.id === item.pid) return undefined;
+
+                                    item.parent = item.pid===self.point.root.query.id?"#":item.pid;
+                                    item.text = item.name;
+                                    item.children = true;
+                                    item.icon = 'fa fa-folder';
+                                    return item;
+                                });
+                                callback.call(this,list)
+                            });
+                        }*/
+                    },
+                    "checkbox" : {
+                        "keep_selected_style" : false,
+                        "three_state":false
+                    },
+                    "plugins": ["checkbox"]
+                }).on('changed.jstree', function (e, data) {
+                    self.selectedPoint = data.selected;
+                    Map.selectedPoint = data.selected;
+                });
+
             });
+        },
+        changeForJsTree:function (item) {
+            let self = this;
+            if (!item) return;
+            item.text = item.name;
+            item.icon = 'fa fa-folder';
+            item.children = item.nodes;
+            $.each(item.nodes,function (index,item) {
+                self.changeForJsTree(item);
+            })
         }
     }
 });
