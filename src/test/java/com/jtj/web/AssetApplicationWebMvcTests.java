@@ -1,6 +1,9 @@
 package com.jtj.web;
 
-import com.jtj.web.service.*;
+import com.jtj.web.service.PointService;
+import com.jtj.web.service.RoleService;
+import com.jtj.web.service.SystemService;
+import com.jtj.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,8 +25,6 @@ public class AssetApplicationWebMvcTests {
 	private RoleService roleService;
 	@MockBean
 	private SystemService systemService;
-	@MockBean
-	private MenuService menuService;
 	@MockBean
 	private PointService pointService;
 

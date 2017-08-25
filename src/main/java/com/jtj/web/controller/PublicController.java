@@ -2,11 +2,12 @@ package com.jtj.web.controller;
 
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.dto.MenuDto;
 import com.jtj.web.dto.UsernamePasswordTokenDto;
 import com.jtj.web.entity.KeyValue;
-import com.jtj.web.entity.Menu;
-import com.jtj.web.service.*;
+import com.jtj.web.service.PointService;
+import com.jtj.web.service.RoleService;
+import com.jtj.web.service.SystemService;
+import com.jtj.web.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -33,8 +34,6 @@ public class PublicController {
     private RoleService roleService;
     @Autowired
     private SystemService systemService;
-    @Autowired
-    private MenuService menuService;
     @Autowired
     private PointService pointService;
 
@@ -74,12 +73,6 @@ public class PublicController {
     public ResultDto<List<KeyValue>> getDictionaryMap(@PathVariable("table") String table,
                                                       @PathVariable("column") String column){
         return systemService.getDictionaryMap(table, column);
-    }
-
-    @ResponseBody
-    @PostMapping("/getMenu")
-    public ResultDto<List<Menu>> getMenu(MenuDto dto){
-        return menuService.getMenu(dto);
     }
 
 }

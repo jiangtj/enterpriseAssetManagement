@@ -17,12 +17,6 @@ const App = new Vue({
         selectedPoint:[]
     },
     computed:{
-        menuLevel1:function(){
-            return this.getMenuLevelData(1)
-        },
-        menuLevel2:function(){
-            return this.getMenuLevelData(2)
-        }
     },
     created:function () {
         let self = this;
@@ -44,17 +38,6 @@ const App = new Vue({
         getMenuLevelData:function (level) {
             return $.map(this.menu, function (item) {
                 if (item.level === level) return item;
-            });
-        },
-        hasNextLevelMenu:function (id) {
-            for (let i in this.menu){
-                if (this.menu[i].pid === id) return true;
-            }
-            return false;
-        },
-        getNextMenu:function (id) {
-            return $.map(this.menu, function (item) {
-                if (item.pid === id) return item;
             });
         },
         updateSidebarTree:function () {

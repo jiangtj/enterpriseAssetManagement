@@ -1,14 +1,16 @@
 package com.jtj.web.service.impl;
 
-import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.dao.MenuDao;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dao.PermissionDao;
 import com.jtj.web.dao.PointDao;
 import com.jtj.web.dao.RoleDao;
 import com.jtj.web.dto.RoleDto;
-import com.jtj.web.entity.*;
+import com.jtj.web.entity.KeyValue;
+import com.jtj.web.entity.Permission;
+import com.jtj.web.entity.Point;
+import com.jtj.web.entity.Role;
 import com.jtj.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,6 @@ public class RoleServiceImpl
 
     @Autowired
     private RoleDao roleDao;
-    @Autowired
-    private MenuDao menuDao;
     @Autowired
     private PointDao pointDao;
     @Autowired

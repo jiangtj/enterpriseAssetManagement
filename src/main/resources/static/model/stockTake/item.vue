@@ -128,7 +128,6 @@
             }
         },
         created:function () {
-            debugger;
             this.conditions.stockTakeId = App.$route.query.stockTakeId;
             if (this.conditions.stockTakeId) this.getTableList();
         },

@@ -1,17 +1,12 @@
 package com.jtj.web.service.impl;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.AssetTypeDao;
-import com.jtj.web.dao.MenuDao;
 import com.jtj.web.dto.AssetTypeDto;
-import com.jtj.web.dto.MenuDto;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
-import com.jtj.web.entity.Menu;
 import com.jtj.web.service.AssetTypeService;
-import com.jtj.web.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
