@@ -11,10 +11,7 @@ import com.jtj.web.service.PointService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -64,6 +61,11 @@ public class PointController {
     @PostMapping("/getPointByPid")
     public ResultDto<List<Point>> getPointByPid(@RequestParam("pid") Long pid){
         return pointService.getPointByPid(pid);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResultDto<Point> getPointById(@PathVariable("id") Long id){
+        return pointService.getPointById(id);
     }
 
     @PostMapping("/getQueryRootPoint")

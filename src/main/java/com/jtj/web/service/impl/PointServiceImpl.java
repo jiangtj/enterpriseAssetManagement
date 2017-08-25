@@ -195,6 +195,14 @@ public class PointServiceImpl
         return result;
     }
 
+    @Override
+    public ResultDto<Point> getPointById(Long id) {
+        ResultDto<Point> result = new ResultDto<>(ResultCode.SUCCESS);
+        if (allPointMap == null || allPointMap.size() == 0) getAllPoint();
+        result.setObject(allPointMap.get(id));
+        return result;
+    }
+
     private boolean checkAuthenticationPoint(long pointId, Point point) {
         if (point == null) return false;
         if (point.getId() == pointId) return true;

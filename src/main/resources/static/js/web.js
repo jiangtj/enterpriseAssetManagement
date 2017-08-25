@@ -64,10 +64,12 @@ const Web = {
     }
 };
 
-function WebBuilder(url) {
-    this.options = {};
-    this.options.intercepts = [];
-    this.options.url = Web.buildUrl(url);
+function WebBuilder(url,defaultOptions) {
+    this.defaultOptions = defaultOptions;
+    if (!this.defaultOptions) this.defaultOptions = {};
+    this.defaultOptions.url = Web.buildUrl(url);
+    if (!this.defaultOptions.intercepts) this.defaultOptions.intercepts = [];
+    this.options = $.extend(true,{},this.defaultOptions);
 }
 jQuery.extend(true,WebBuilder.prototype,{
     url:function (url) {
@@ -117,12 +119,19 @@ jQuery.extend(true,WebBuilder.prototype,{
     setError:function (callback) {
         this.options.error = callback;
         return this;
+    },
+    path:function (map) {
+        for (let key in map){
+            let reg = new RegExp("{"+key+"}","g");
+            this.options.url=this.options.url.replace(reg,map[key]);
+        }
+        return this;
     }
 });
 jQuery.each(['get','put','post','delete','execute'],function (i,method) {
     WebBuilder.prototype[method] = function (callback) {
 
-        let tempOptions = jQuery.extend(true,{},Web.innerOptions,this.options);
+        let tempOptions = jQuery.extend(true,{},Web.innerOptions,this.defaultOptions,this.options);
         if (method !== 'execute') tempOptions.type = method;
         if (jQuery.isFunction(callback)){
             tempOptions.success = callback;
@@ -146,6 +155,8 @@ jQuery.each(['get','put','post','delete','execute'],function (i,method) {
             }
             tempSuccess(request, status, thrown);
         };
+
+        this.options = $.extend(true,{},this.defaultOptions);
 
         return jQuery.ajax(tempOptions);
     }

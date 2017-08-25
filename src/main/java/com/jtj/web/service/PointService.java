@@ -29,4 +29,6 @@ public interface PointService extends BaseService<Point,PointDto> {
     Point getAuthenticationPoint(BasePointDto dto);
 
     ResultDto<List<Point>> getPointByPid(Long pid);
+
+    ResultDto<Point> getPointById(Long id);
 }

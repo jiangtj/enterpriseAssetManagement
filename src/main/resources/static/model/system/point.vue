@@ -208,7 +208,20 @@
             },
             updateTree:function () {
                 let self = this;
-                $('#menu-tree').jstree({
+                Server.point.getPointById.path({id:0}).execute(data => {
+                    let treeData = data.object;
+                    App.changeForJsTree(treeData);
+                    $('#menu-tree').jstree({
+                        'core' : {
+                            'data' :[treeData]
+                        }
+                    }).on('changed.jstree', function (e, data) {
+                        self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
+                        self.pname = data.node.text;
+                        self.getTableList();
+                    });
+                });
+                /*$('#menu-tree').jstree({
                     'core' : {
                         'data' :function (node,callback) {
                             Server.point.getPointByPid.setData({
@@ -228,12 +241,12 @@
                                 callback.call(this,list)
                             });
                         }
-                    }
+
                 }).on('changed.jstree', function (e, data) {
                     self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
                     self.pname = data.node.text;
                     self.getTableList();
-                });
+                });}*/
             }
         }
     });

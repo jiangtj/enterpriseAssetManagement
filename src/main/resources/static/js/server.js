@@ -70,6 +70,7 @@ ServerUtils.config({
         getPoint:new WebBuilder("/point/getPoint"),
         getMapByPid:new WebBuilder("/point/getMapByPid"),
         getPointByPid:new WebBuilder("/point/getPointByPid"),
+        getPointById:new WebBuilder("/point/get/{id}",{type:"get"}),
         getQueryRootPoint:new WebBuilder("/point/getQueryRootPoint")
     },
     asset:{
