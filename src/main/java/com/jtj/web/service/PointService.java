@@ -26,7 +26,7 @@ public interface PointService extends BaseService<Point,PointDto> {
 
     List<Point> getQueryPoint();
 
-    Point getQueryRootPoint();
+    List<Point> getQueryRootPoint();
 
     Point getAuthenticationPoint(BasePointDto dto);
 

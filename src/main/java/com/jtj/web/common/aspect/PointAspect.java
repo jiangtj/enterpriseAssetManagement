@@ -55,9 +55,11 @@ public class PointAspect {
                 //全局权限
                 if (subject.isPermitted("system-point-subordinate:query:globe") ||
                         (user.getPoint().getId() == 0 && subject.isPermitted("system-point-subordinate:query"))){
-                    if (dto.getPointIds() != null || dto.getPointIds().size() == 1){
-                        dto.setPointId(dto.getPointIds().get(0));
-                        dto.setPointIds(null);
+                    if (dto.getPointIds() != null){
+                        if (dto.getPointIds().size() == 1){
+                            dto.setPointId(dto.getPointIds().get(0));
+                            dto.setPointIds(null);
+                        }
                     }
                     return;
                 }

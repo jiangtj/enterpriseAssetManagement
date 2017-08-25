@@ -153,9 +153,9 @@ public class PointServiceImpl
 
     @Override
     public List<Point> getQueryPoint() {
-        Point point = getQueryRootPoint();
+        List<Point> point = getQueryRootPoint();
         List<Point> points = new ArrayList<>();
-        points.add(point);
+        points.addAll(point);
         Subject subject = SecurityUtils.getSubject();
         if (!subject.isPermitted("system-point-subordinate:query")) {
             return points;
@@ -167,7 +167,8 @@ public class PointServiceImpl
             List<Point> pre = lists.get(i-1);
             points = new ArrayList<>();
             for (Point p1:pre){
-                points.addAll(p1.getNodes());
+                if (p1 != null)
+                    points.addAll(p1.getNodes());
             }
             if (points.size() == 0) break;
             lists.add(points);
@@ -177,14 +178,17 @@ public class PointServiceImpl
     }
 
     @Override
-    public Point getQueryRootPoint() {
+    public List<Point> getQueryRootPoint() {
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
         if (allPointMap == null || allPointMap.size() == 0) getAllPoint();
         if (subject.isPermitted("system-point-subordinate:query:globe")) {
-            return allPointMap.get(0L);
+            if (allRootPointList.size() == 0) getAllPoint();
+            return allRootPointList;
         }
-        return allPointMap.get(user.getPointId());
+        List<Point> points = new ArrayList<>();
+        points.add(allPointMap.get(user.getPointId()));
+        return points;
     }
 
     @Override

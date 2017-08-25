@@ -44,7 +44,7 @@ const App = new Vue({
             let self = this;
             Server.point.getQueryRootPoint.post(data => {
                 self.point.root.query = data.object;
-                let temps = [$.extend(true,{},data.object)];
+                let temps = $.extend(true,[],data.object);
                 Map.selectedPoint = [];
                 self.changeListTreeToList(temps);
                 self.changeListTreeForJsTree(temps);

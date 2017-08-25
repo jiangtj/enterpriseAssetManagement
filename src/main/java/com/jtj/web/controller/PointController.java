@@ -74,8 +74,8 @@ public class PointController {
     }
 
     @PostMapping("/getQueryRootPoint")
-    public ResultDto<Point> getQueryRootPoint(){
-        ResultDto<Point> result = new ResultDto<>(ResultCode.SUCCESS);
+    public ResultDto<List<Point>> getQueryRootPoint(){
+        ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject(pointService.getQueryRootPoint());
         return result;
     }
