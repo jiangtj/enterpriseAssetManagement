@@ -22,6 +22,7 @@ public enum ResultCode {
     UNAUTHORIZED("960000","未授权"),
     OPERATE_FAIL("980001","操作失败"),
     NOT_DELETE_ROOT("970002","根节点不能删除"),
+    NOT_DELETE_USED("970003","不能删除被占用的资源"),
     NOT_FOUND("970003","资源不存在"),
     UN_KNOWN_ERROR("999999","未知错误");
 

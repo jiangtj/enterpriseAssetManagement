@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-08-25 23:16:42
+Date: 2017-08-28 00:07:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -334,7 +334,7 @@ CREATE TABLE `auth_permission` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique@name` (`code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -375,6 +375,7 @@ INSERT INTO `auth_permission` VALUES ('57', 'stockTake:close', '盘点关闭', '
 INSERT INTO `auth_permission` VALUES ('58', 'system-point-subordinate:query', '网点下级查询', '2017-08-25 22:31:09', '2017-08-25 22:31:09');
 INSERT INTO `auth_permission` VALUES ('59', 'system-point-subordinate:query:edit', '网点下级管理', '2017-08-25 22:31:32', '2017-08-25 22:31:32');
 INSERT INTO `auth_permission` VALUES ('60', 'system-point-subordinate:query:globe', '网点全局查询', '2017-08-25 22:31:54', '2017-08-25 22:31:54');
+INSERT INTO `auth_permission` VALUES ('61', 'sys:point', '网点管理', '2017-08-27 22:36:26', '2017-08-27 22:36:26');
 
 -- ----------------------------
 -- Table structure for auth_role
@@ -435,7 +436,7 @@ CREATE TABLE `auth_role_permission_relation` (
   KEY `rp@permission_id` (`permission_id`) USING BTREE,
   CONSTRAINT `auth_role_permission_relation_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE CASCADE,
   CONSTRAINT `auth_role_permission_relation_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=310 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_role_permission_relation
@@ -479,39 +480,43 @@ INSERT INTO `auth_role_permission_relation` VALUES ('200', '6', '52', '2017-05-0
 INSERT INTO `auth_role_permission_relation` VALUES ('201', '6', '53', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
 INSERT INTO `auth_role_permission_relation` VALUES ('202', '6', '56', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
 INSERT INTO `auth_role_permission_relation` VALUES ('203', '6', '57', '2017-05-08 11:36:37', '2017-05-08 11:36:37');
-INSERT INTO `auth_role_permission_relation` VALUES ('204', '4', '1', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('205', '4', '2', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('206', '4', '3', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('207', '4', '4', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('208', '4', '9', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('209', '4', '20', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('210', '4', '21', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('211', '4', '22', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('212', '4', '23', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('213', '4', '24', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('214', '4', '25', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('215', '4', '26', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('216', '4', '27', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('217', '4', '28', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('218', '4', '29', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('219', '4', '31', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('220', '4', '32', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('221', '4', '33', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('222', '4', '34', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('223', '4', '41', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('224', '4', '42', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('225', '4', '45', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('226', '4', '46', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('227', '4', '47', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('228', '4', '48', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('229', '4', '49', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('230', '4', '50', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('231', '4', '51', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('232', '4', '52', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('233', '4', '53', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('234', '4', '54', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('235', '4', '56', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
-INSERT INTO `auth_role_permission_relation` VALUES ('236', '4', '57', '2017-08-04 22:11:51', '2017-08-04 22:11:51');
+INSERT INTO `auth_role_permission_relation` VALUES ('273', '4', '1', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('274', '4', '2', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('275', '4', '3', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('276', '4', '4', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('277', '4', '9', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('278', '4', '20', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('279', '4', '21', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('280', '4', '22', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('281', '4', '23', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('282', '4', '24', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('283', '4', '25', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('284', '4', '26', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('285', '4', '27', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('286', '4', '28', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('287', '4', '29', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('288', '4', '31', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('289', '4', '32', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('290', '4', '33', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('291', '4', '34', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('292', '4', '41', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('293', '4', '42', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('294', '4', '45', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('295', '4', '46', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('296', '4', '47', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('297', '4', '48', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('298', '4', '49', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('299', '4', '50', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('300', '4', '51', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('301', '4', '52', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('302', '4', '53', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('303', '4', '54', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('304', '4', '56', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('305', '4', '57', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('306', '4', '58', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('307', '4', '59', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('308', '4', '60', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
+INSERT INTO `auth_role_permission_relation` VALUES ('309', '4', '61', '2017-08-28 00:06:37', '2017-08-28 00:06:37');
 
 -- ----------------------------
 -- Table structure for auth_role_point_relation

@@ -38,7 +38,6 @@
                             </template>
                             <template slot="tt-body-operation" scope="props">
                                 <button @click="showPermissionModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">权限</button>
-                                <button @click="showPointModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">网点</button>
                                 <button @click="showUpdateModal(props.row)" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                             </template>
                         </tt-table>

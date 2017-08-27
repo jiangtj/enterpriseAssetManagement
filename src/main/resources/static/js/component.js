@@ -614,3 +614,55 @@ Vue.component("tt-simple-tree-children",{
         }
     }
 });
+
+//todo 解析树形数据，data传入树形数据，nodes为data节点名称（若为函数则传入id调用），监听select值并调用父组件函数返回值
+Vue.component("tt-simple-tree-root-v2",{
+    props: ['data','value','label','nodes'],
+    template:'<div class="form-group tt-from-input">' +
+    '<label>{{label}}</label>' +
+    '<tt-simple-tree-children :pid="0" :func="getData"></tt-simple-tree-children>' +
+    '</div>',
+    data:function () {
+        return {
+            object:null,
+            innerPid:this.pid||"pid"
+        }
+    },
+    created:function () {
+        let self = this;
+        if (jQuery.isFunction(self.data.nodes)) {
+            self.getData = self.data;
+        }else {
+            self.object = self.data;
+        }
+    },
+    methods:{
+        getData:function (pid) {
+            let self = this;
+            return jQuery.map(self.object,function (item) {
+                if (item[self.innerPid] === pid) return item;
+            })
+        }
+    }
+});
+Vue.component("tt-simple-tree-children-v2",{
+    props: ['pid','func'],
+    template:'<div v-if="data.length !== 0">' +
+    '<select v-model="selectModel" class="form-control">' +
+    '<option :value="null">---- 请选择 ----</option>' +
+    '<option v-for="item in data" :value="item.key">{{ item.value }}</option>' +
+    '</select>' +
+    '<tt-simple-tree-children v-if="selectModel" :pid="selectModel" :func="func"></tt-simple-tree-children>' +
+    '</div>',
+    data:function () {
+        return {
+            data:[],
+            selectModel:null
+        }
+    },
+    created:function () {
+        this.data = this.func(this.pid);
+    },
+    methods:{
+    }
+});

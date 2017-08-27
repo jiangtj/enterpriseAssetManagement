@@ -65,6 +65,9 @@ public class PointServiceImpl
             if (id == 0) {
                 return new ResultDto<>(ResultCode.NOT_DELETE_ROOT);
             }
+            if (allPointMap.get(id).getNodes().size() != 0){
+                return new ResultDto<>(ResultCode.NOT_DELETE_USED);
+            }
         }
         return super.delete(ids);
     }
