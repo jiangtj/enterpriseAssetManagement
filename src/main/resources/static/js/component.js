@@ -617,52 +617,115 @@ Vue.component("tt-simple-tree-children",{
 
 //todo 解析树形数据，data传入树形数据，nodes为data节点名称（若为函数则传入id调用），监听select值并调用父组件函数返回值
 Vue.component("tt-simple-tree-root-v2",{
-    props: ['data','value','label','nodes'],
+    props: ['label','value','data','nodes',"option"],
     template:'<div class="form-group tt-from-input">' +
     '<label>{{label}}</label>' +
-    '<tt-simple-tree-children :pid="0" :func="getData"></tt-simple-tree-children>' +
+    '<tt-simple-tree-children-v2 :data="tree" :nodes="innerNodes" :inner-key="innerKey" :inner-value="innerValue" ' +
+    ':pid="0" :call="call" :default-value="defaultValue"></tt-simple-tree-children-v2>' +
     '</div>',
     data:function () {
         return {
             object:null,
-            innerPid:this.pid||"pid"
+            tree:this.data||[],
+            innerNodes:this.nodes||"nodes",
+            innerKey:"key",
+            innerValue:"value",
+        }
+    },
+    computed:{
+        defaultValue:function () {
+            if (!this.value) return null;
+            let temp = this.getDefaultValue(this.tree,this.value);
+            return temp.split(":");
         }
     },
     created:function () {
-        let self = this;
-        if (jQuery.isFunction(self.data.nodes)) {
-            self.getData = self.data;
-        }else {
-            self.object = self.data;
+        if (this.option){
+            this.innerKey = this.option.key||"key";
+            this.innerValue = this.option.value||"value"
         }
     },
     methods:{
-        getData:function (pid) {
-            let self = this;
-            return jQuery.map(self.object,function (item) {
-                if (item[self.innerPid] === pid) return item;
-            })
+        call:function (object) {
+            this.$emit('input',object);
+        },
+        getDefaultValue:function (tree,value) {
+            let self =this;
+            for (let i in tree) {
+                if (tree[i][self.innerNodes]) {
+                    let temp = self.getDefaultValue(tree[i][self.innerNodes],value);
+                    if (temp) {
+                        return tree[i][self.innerKey] + ":" +temp;
+                    }
+                }
+                if (tree[i][self.innerKey] === value) {
+                    return value;
+                }
+            }
         }
     }
 });
 Vue.component("tt-simple-tree-children-v2",{
-    props: ['pid','func'],
+    props: ['data','nodes',"inner-key","inner-value",'pid','call','default-value'],
     template:'<div v-if="data.length !== 0">' +
     '<select v-model="selectModel" class="form-control">' +
     '<option :value="null">---- 请选择 ----</option>' +
-    '<option v-for="item in data" :value="item.key">{{ item.value }}</option>' +
+    '<option v-for="item in data" :value="item">{{ item[innerValue] }}</option>' +
     '</select>' +
-    '<tt-simple-tree-children v-if="selectModel" :pid="selectModel" :func="func"></tt-simple-tree-children>' +
+    '<tt-simple-tree-children-v2 v-if="hasNext" :data="selectModel[nodes]" :nodes="nodes" :inner-key="innerKey" :inner-value="innerValue" ' +
+    ':pid="selectModel[innerKey]" :call="call" :default-value="defaultValue2"></tt-simple-tree-children-v2>' +
     '</div>',
     data:function () {
         return {
-            data:[],
-            selectModel:null
+            selectModel:null,
+            defaultValue2:null
         }
     },
+    computed:{
+        hasNext:function () {
+            if (!this.selectModel) return false;
+            return this.selectModel[this.nodes];
+        },
+        /*defaultValue2:function () {
+            if (!this.defaultValue) return null;
+            let self = this;
+            if (self.defaultValue.length >= 1){
+                $.each(self.data,function (index,item) {
+                    if (item[self.innerKey] === self.defaultValue[0]) {
+                        self.selectModel = item;
+                    }
+                });
+            }
+            if (this.defaultValue.length < 2) return null;
+            let temp = $.extend(true,[],this.defaultValue);
+            return temp.splice(0,1);
+        }*/
+    },
     created:function () {
-        this.data = this.func(this.pid);
+        this.changeByDefault(this.defaultValue);
+        console.log(this.defaultValue2);
+        console.log(this.defaultValue);
+        console.log(this.data);
     },
     methods:{
+        changeByDefault:function (value) {
+            if (!value) return null;
+            let self = this;
+            if (value.length >= 1){
+                $.each(self.data,function (index,item) {
+                    if (item[self.innerKey] === value[0]) {
+                        self.selectModel = item;
+                    }
+                });
+            }
+            if (value.length < 2) return null;
+            let temp = $.extend(true,[],value);
+            self.defaultValue2=temp.splice(1,temp.length);
+        }
+    },
+    watch:{
+        defaultValue:function (value) {
+            this.changeByDefault(value);
+        }
     }
 });
