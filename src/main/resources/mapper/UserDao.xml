@@ -91,6 +91,9 @@
             <if test="roleId != null ">
                 role_id = #{roleId},
             </if>
+            <if test="pointId != null and pointId != 0 ">
+                point_id = #{pointId},
+            </if>
         </set>
         WHERE id = #{id}
     </update>
@@ -101,12 +104,5 @@
             #{item}
         </foreach>
     </delete>
-
-    <update id="updatePoint">
-        UPDATE auth_user
-        SET point_id = #{pointId}
-        WHERE id = #{id}
-    </update>
-
 
 </mapper>

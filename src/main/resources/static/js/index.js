@@ -8,8 +8,8 @@ const App = new Vue({
         permission: sessionPermission,
         point:{
             root:{
-                query:null,
-                edit:null
+                query:[],
+                edit:[]
             }
         },
         menu:AppMenu,

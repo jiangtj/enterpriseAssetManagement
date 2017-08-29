@@ -617,16 +617,16 @@ Vue.component("tt-simple-tree-children",{
 
 //解析树形数据，data传入树形数据，nodes为data节点名称（若为函数则传入id调用），监听select值并调用父组件函数返回值
 Vue.component("tt-simple-tree-root-v2",{
-    props: ['label','value','data','nodes',"option"],
+    props: ['label','value','data','nodes','option','required','root-required'],
     template:'<div class="form-group tt-from-input">' +
     '<label>{{label}}</label>' +
     '<tt-simple-tree-children-v2 :data="tree" :nodes="innerNodes" :inner-key="innerKey" :inner-value="innerValue" ' +
-    ':pid="0" :call="call" :default-value="defaultValue" :inner-level="0"></tt-simple-tree-children-v2>' +
+    ':pid="null" :call="call" :default-value="defaultValue" :inner-level="0" :required="required" :root-required="rootRequired"></tt-simple-tree-children-v2>' +
     '</div>',
     data:function () {
         return {
             object:null,
-            tree:this.data||[],
+            //tree:this.data||[],
             innerNodes:this.nodes||"nodes",
             innerKey:"key",
             innerValue:"value",
@@ -636,7 +636,11 @@ Vue.component("tt-simple-tree-root-v2",{
         defaultValue:function () {
             if (!this.value) return null;
             let temp = this.getDefaultValue(this.tree,this.value);
-            return temp.split(":");
+            if (!temp) return null;
+            return temp.toString().split(":");
+        },
+        tree:function () {
+            return this.data||[];
         }
     },
     created:function () {
@@ -658,7 +662,7 @@ Vue.component("tt-simple-tree-root-v2",{
                         return tree[i][self.innerKey] + ":" +temp;
                     }
                 }
-                if (tree[i][self.innerKey] === value) {
+                if (tree[i][self.innerKey].toString() === value.toString()) {
                     return value;
                 }
             }
@@ -666,14 +670,14 @@ Vue.component("tt-simple-tree-root-v2",{
     }
 });
 Vue.component("tt-simple-tree-children-v2",{
-    props: ['data','nodes',"inner-key","inner-value",'pid','call','default-value','inner-level'],
+    props: ['data','nodes',"inner-key","inner-value",'pid','call','default-value','inner-level','required','root-required'],
     template:'<div v-if="data.length !== 0">' +
-    '<select v-model="selectModel" class="form-control">' +
+    '<select v-model="selectModel" class="form-control" :required="required||rootRequired">' +
     '<option :value="null">---- 请选择 ----</option>' +
     '<option v-for="item in data" :value="item">{{ item[innerValue] }}</option>' +
     '</select>' +
     '<tt-simple-tree-children-v2 v-if="hasNext" :data="selectModel[nodes]" :nodes="nodes" :inner-key="innerKey" :inner-value="innerValue" ' +
-    ':pid="selectModel[innerKey]" :call="call" :default-value="defaultValue" :inner-level="level"></tt-simple-tree-children-v2>' +
+    ':pid="selectModel[innerKey]" :call="call" :default-value="defaultValue" :inner-level="level" :required="required"></tt-simple-tree-children-v2>' +
     '</div>',
     data:function () {
         return {
@@ -694,16 +698,20 @@ Vue.component("tt-simple-tree-children-v2",{
     },
     methods:{
         changeByDefault:function (value) {
-            if (!value) return;
             let self = this;
+            if (!value) {
+                self.selectModel = null;
+                return;
+            }
             if (value.length > self.innerLevel){
                 for (let i in self.data) {
-                    if (self.data[i][self.innerKey] === value[self.innerLevel]) {
+                    if (self.data[i][self.innerKey].toString() === value[self.innerLevel]) {
                         self.selectModel = self.data[i];
                         return;
                     }
                 }
             }
+            self.selectModel = null;
         }
     },
     watch:{

@@ -14,5 +14,4 @@ public interface UserService extends BaseService<User,UserDto> {
 
     ResultDto<User> getUserById(long id);
 
-    ResultDto<Object> updatePoint(Long id,Long Long);
 }

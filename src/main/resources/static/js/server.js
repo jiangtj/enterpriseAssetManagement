@@ -47,7 +47,6 @@ const ServerUtils = {
 ServerUtils.base("user","role","permission","menu","assetType","point","asset","report","stockTake");
 ServerUtils.config({
     user:{
-        updatePoint:new WebBuilder("/user/updatePoint")
     },
     role:{
         getPermission:new WebBuilder("/role/getPermission"),

@@ -1,15 +1,18 @@
 package com.jtj.web.controller;
 
-import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -43,8 +46,4 @@ public class UserController {
         return userService.getList(dto);
     }
 
-    @PostMapping("/updatePoint")
-    public ResultDto<Object> updatePoint(@RequestParam Long id,@RequestParam Long pointId) {
-        return userService.updatePoint(id,pointId);
-    }
 }
