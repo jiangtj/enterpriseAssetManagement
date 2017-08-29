@@ -615,13 +615,13 @@ Vue.component("tt-simple-tree-children",{
     }
 });
 
-//todo 解析树形数据，data传入树形数据，nodes为data节点名称（若为函数则传入id调用），监听select值并调用父组件函数返回值
+//解析树形数据，data传入树形数据，nodes为data节点名称（若为函数则传入id调用），监听select值并调用父组件函数返回值
 Vue.component("tt-simple-tree-root-v2",{
     props: ['label','value','data','nodes',"option"],
     template:'<div class="form-group tt-from-input">' +
     '<label>{{label}}</label>' +
     '<tt-simple-tree-children-v2 :data="tree" :nodes="innerNodes" :inner-key="innerKey" :inner-value="innerValue" ' +
-    ':pid="0" :call="call" :default-value="defaultValue"></tt-simple-tree-children-v2>' +
+    ':pid="0" :call="call" :default-value="defaultValue" :emit-func="emitInput"></tt-simple-tree-children-v2>' +
     '</div>',
     data:function () {
         return {
@@ -662,18 +662,21 @@ Vue.component("tt-simple-tree-root-v2",{
                     return value;
                 }
             }
+        },
+        emitInput:function (value) {
+            this.$emit('input',value);
         }
     }
 });
 Vue.component("tt-simple-tree-children-v2",{
-    props: ['data','nodes',"inner-key","inner-value",'pid','call','default-value'],
+    props: ['data','nodes',"inner-key","inner-value",'pid','call','default-value','emit-func'],
     template:'<div v-if="data.length !== 0">' +
     '<select v-model="selectModel" class="form-control">' +
     '<option :value="null">---- 请选择 ----</option>' +
     '<option v-for="item in data" :value="item">{{ item[innerValue] }}</option>' +
     '</select>' +
     '<tt-simple-tree-children-v2 v-if="hasNext" :data="selectModel[nodes]" :nodes="nodes" :inner-key="innerKey" :inner-value="innerValue" ' +
-    ':pid="selectModel[innerKey]" :call="call" :default-value="defaultValue2"></tt-simple-tree-children-v2>' +
+    ':pid="selectModel[innerKey]" :call="call" :default-value="defaultValue2" :emit-func="emitFunc"></tt-simple-tree-children-v2>' +
     '</div>',
     data:function () {
         return {
@@ -685,27 +688,10 @@ Vue.component("tt-simple-tree-children-v2",{
         hasNext:function () {
             if (!this.selectModel) return false;
             return this.selectModel[this.nodes];
-        },
-        /*defaultValue2:function () {
-            if (!this.defaultValue) return null;
-            let self = this;
-            if (self.defaultValue.length >= 1){
-                $.each(self.data,function (index,item) {
-                    if (item[self.innerKey] === self.defaultValue[0]) {
-                        self.selectModel = item;
-                    }
-                });
-            }
-            if (this.defaultValue.length < 2) return null;
-            let temp = $.extend(true,[],this.defaultValue);
-            return temp.splice(0,1);
-        }*/
+        }
     },
     created:function () {
         this.changeByDefault(this.defaultValue);
-        console.log(this.defaultValue2);
-        console.log(this.defaultValue);
-        console.log(this.data);
     },
     methods:{
         changeByDefault:function (value) {
@@ -721,11 +707,22 @@ Vue.component("tt-simple-tree-children-v2",{
             if (value.length < 2) return null;
             let temp = $.extend(true,[],value);
             self.defaultValue2=temp.splice(1,temp.length);
+            console.log(this.defaultValue);
         }
     },
     watch:{
         defaultValue:function (value) {
             this.changeByDefault(value);
+        },
+        selectModel:function (item) {
+            if (item === null) {
+                this.emitFunc(this.pid);
+                return;
+            }
+            this.emitFunc(item[this.innerKey]);
+        },
+        data:function (value) {
+            this.selectModel = null;
         }
     }
 });
