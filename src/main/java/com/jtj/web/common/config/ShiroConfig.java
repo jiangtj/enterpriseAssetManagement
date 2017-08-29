@@ -66,7 +66,7 @@ public class ShiroConfig {
         filterChainDefinitionMapping.put("/", "anon");
         filterChainDefinitionMapping.put("/error", "anon");
         filterChainDefinitionMapping.put("/init", "anon");
-        filterChainDefinitionMapping.put("/welcome", "anon");
+        filterChainDefinitionMapping.put("/about", "anon");
         filterChainDefinitionMapping.put("/public/**", "anon");
         filterChainDefinitionMapping.put("/css/**", "anon");
         filterChainDefinitionMapping.put("/example/**", "anon");

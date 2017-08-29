@@ -22,7 +22,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String all(){
-        return "welcome";
+        return "about";
     }
 
     @GetMapping("/login")
@@ -30,9 +30,9 @@ public class IndexController {
         return "login";
     }
 
-    @GetMapping("/welcome")
+    @GetMapping("/about")
     public String welcome(){
-        return "welcome";
+        return "about";
     }
 
     @GetMapping("/index")
