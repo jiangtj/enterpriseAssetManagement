@@ -45,6 +45,9 @@ public class PublicController {
         Subject subject = SecurityUtils.getSubject();
         subject.login(new UsernamePasswordTokenDto(name,password,true,time));
 
+        //触发获取权限
+        SecurityUtils.getSubject().hasRole("doGetAuthorizationInfo");
+
         ResultDto<Object> result = new ResultDto<>();
         result.setResultCode(ResultCode.SUCCESS);
         return result;

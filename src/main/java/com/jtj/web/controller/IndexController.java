@@ -1,9 +1,7 @@
 package com.jtj.web.controller;
 
 import com.jtj.web.service.SystemService;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/1/24 22:37 End.
  */
-@Controller
+//@Controller
+//see common/config/WebConfig
+@Deprecated
 public class IndexController {
 
     @Autowired
@@ -37,8 +37,6 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(){
-        //触发获取权限
-        SecurityUtils.getSubject().hasRole("doGetAuthorizationInfo");
         return "index";
     }
 
