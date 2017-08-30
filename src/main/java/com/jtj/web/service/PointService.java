@@ -33,4 +33,6 @@ public interface PointService extends BaseService<Point,PointDto> {
     ResultDto<List<Point>> getPointByPid(Long pid);
 
     ResultDto<Point> getPointById(Long id);
+
+    void refresh();
 }

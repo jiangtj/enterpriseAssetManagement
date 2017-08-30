@@ -87,8 +87,8 @@ jQuery.extend(true,WebBuilder.prototype,{
             return this;
         }
         //json
-        Web.updateDate(data);
-        this.options.data =data;
+        //Web.updateDate(data);
+        this.options.data =jQuery.param(data);
         return this;
     },
     setMethod:function (method) {
@@ -120,11 +120,36 @@ jQuery.extend(true,WebBuilder.prototype,{
         this.options.error = callback;
         return this;
     },
-    path:function (map) {
-        for (let key in map){
-            let reg = new RegExp("{"+key+"}","g");
-            this.options.url=this.options.url.replace(reg,map[key]);
+    path:function (keyOrJson,value) {
+        //string
+        if (Object.prototype.toString.call(keyOrJson) === "[object String]"){
+            if (value === null || value === undefined) return this;
+            let reg = new RegExp("{"+keyOrJson+"}","g");
+            this.options.url=this.options.url.replace(reg,value);
+            return this;
         }
+        //json
+        for (let key in keyOrJson){
+            let reg = new RegExp("{"+key+"}","g");
+            this.options.url=this.options.url.replace(reg,keyOrJson[key]);
+        }
+        return this;
+    },
+    param:function (keyOrJson,value) {
+        if (this.options.param) this.options.param += "&";
+        else this.options.param = "";
+        //string
+        if (Object.prototype.toString.call(keyOrJson) === "[object String]"){
+            this.options.param += keyOrJson + "=" +value;
+            return this;
+        }
+        //json
+        this.options.param += $.param(keyOrJson,true);
+        return this;
+    },
+    body:function (json) {
+        this.options.contentType = "application/json;charset=utf-8";
+        this.options.data = JSON.stringify(json);
         return this;
     }
 });
@@ -132,6 +157,7 @@ jQuery.each(['get','put','post','delete','execute'],function (i,method) {
     WebBuilder.prototype[method] = function (callback) {
 
         let tempOptions = jQuery.extend(true,{},Web.innerOptions,this.defaultOptions,this.options);
+        if (tempOptions.param) tempOptions.url = tempOptions.url + "?" +tempOptions.param;
         if (method !== 'execute') tempOptions.type = method;
         if (jQuery.isFunction(callback)){
             tempOptions.success = callback;

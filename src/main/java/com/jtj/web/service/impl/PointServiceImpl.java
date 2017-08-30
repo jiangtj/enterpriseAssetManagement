@@ -65,7 +65,7 @@ public class PointServiceImpl
             if (id == 0) {
                 return new ResultDto<>(ResultCode.NOT_DELETE_ROOT);
             }
-            if (allPointMap.get(id).getNodes().size() != 0){
+            if (getAllPointMap().get(id).getNodes().size() != 0){
                 return new ResultDto<>(ResultCode.NOT_DELETE_USED);
             }
         }
@@ -86,25 +86,7 @@ public class PointServiceImpl
         if (allPointList.size() != 0)
             return allPointList;
 
-        synchronized (this){
-            allPointMap = new HashMap<>();
-            allPointList = new ArrayList<>();
-            allRootPointList = new ArrayList<>();
-            allPointList = pointConfig.isEnabled()?pointClient.getPoint():pointDao.getAllPoint();
-            Map<Long,Point> temp = allPointList.stream().collect(Collectors.toMap(Point::getId, y->{
-                y.setNodes(new ArrayList<>());
-                return y;
-            }));
-            allPointList.forEach(point -> {
-                if (Objects.equals(point.getPid(), point.getId()) || point.getPid() == 0) {
-                    allRootPointList.add(point);
-                    return;
-                }
-                Point p = temp.get(point.getPid());
-                p.getNodes().add(point);
-            });
-            allPointMap = temp;
-        }
+        initPointData();
 
         return allPointList;
     }
@@ -137,11 +119,7 @@ public class PointServiceImpl
         }
 
         //pid存在返回子节点
-        Point point = allPointMap.get(pid);
-        if (point == null && allPointList.size() == 0) {
-            getAllPoint();
-            point = allPointMap.get(pid);
-        }
+        Point point = getAllPointMap().get(pid);
 
         if (point == null){
             result.setResultCode(ResultCode.NOT_FOUND);
@@ -184,13 +162,12 @@ public class PointServiceImpl
     public List<Point> getQueryRootPoint() {
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
-        if (allPointMap == null || allPointMap.size() == 0) getAllPoint();
         if (subject.isPermitted("system-point-subordinate:query:globe")) {
             if (allRootPointList.size() == 0) getAllPoint();
             return allRootPointList;
         }
         List<Point> points = new ArrayList<>();
-        points.add(allPointMap.get(user.getPointId()));
+        points.add(getAllPointMap().get(user.getPointId()));
         return points;
     }
 
@@ -200,11 +177,11 @@ public class PointServiceImpl
         User user = (User) subject.getPrincipal();
         long pointId = dto.getPointId() == null?0L:dto.getPointId();
         if (subject.isPermitted("point-subordinate-query:point-globe-query")) {
-            return allPointMap.get(pointId);
+            return getAllPointMap().get(pointId);
         }
         if (subject.isPermitted("point-subordinate-query")){
             boolean flag = checkAuthenticationPoint(pointId,user.getPoint());
-            return flag?allPointMap.get(pointId):user.getPoint();
+            return flag?getAllPointMap().get(pointId):user.getPoint();
         }
         return user.getPoint();
     }
@@ -212,17 +189,42 @@ public class PointServiceImpl
     @Override
     public ResultDto<List<Point>> getPointByPid(Long pid) {
         ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        if (allPointMap == null || allPointMap.size() == 0) getAllPoint();
-        result.setObject(allPointMap.get(pid).getNodes());
+        result.setObject(getAllPointMap().get(pid).getNodes());
         return result;
     }
 
     @Override
     public ResultDto<Point> getPointById(Long id) {
         ResultDto<Point> result = new ResultDto<>(ResultCode.SUCCESS);
-        if (allPointMap == null || allPointMap.size() == 0) getAllPoint();
-        result.setObject(allPointMap.get(id));
+        result.setObject(getAllPointMap().get(id));
         return result;
+    }
+
+    private void initPointData() {
+        synchronized (this){
+            if (allPointList.size() == 0 ) refresh();
+        }
+    }
+
+    @Override
+    public void refresh() {
+        allPointMap = new HashMap<>();
+        allPointList = new ArrayList<>();
+        allRootPointList = new ArrayList<>();
+        allPointList = pointConfig.isEnabled()?pointClient.getPoint():pointDao.getAllPoint();
+        Map<Long,Point> temp = allPointList.stream().collect(Collectors.toMap(Point::getId, y->{
+            y.setNodes(new ArrayList<>());
+            return y;
+        }));
+        allPointList.forEach(point -> {
+            if (Objects.equals(point.getPid(), point.getId()) || point.getPid() == 0) {
+                allRootPointList.add(point);
+                return;
+            }
+            Point p = temp.get(point.getPid());
+            p.getNodes().add(point);
+        });
+        allPointMap = temp;
     }
 
     private boolean checkAuthenticationPoint(long pointId, Point point) {
@@ -233,5 +235,10 @@ public class PointServiceImpl
             if (checkAuthenticationPoint(pointId,node)) return true;
         }
         return false;
+    }
+
+    private Map<Long, Point> getAllPointMap() {
+        if (allPointMap == null || allPointMap.size() == 0) initPointData();
+        return allPointMap;
     }
 }

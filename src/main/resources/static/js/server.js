@@ -66,12 +66,15 @@ ServerUtils.config({
         getMapByPid:new WebBuilder("/assetType/getMapByPid")
     },
     point:{
-        getPoint:new WebBuilder("/point/getPoint"),
-        getPointTree:new WebBuilder("/point/getPointTree",{type:"get"}),
-        getMapByPid:new WebBuilder("/point/getMapByPid"),
-        getPointByPid:new WebBuilder("/point/getPointByPid"),
+        list:new WebBuilder("/point/list",{type:"get"}),
+        add:new WebBuilder("/point/add",{type:"post"}),
+        delete:new WebBuilder("/point/delete",{type:"delete"}),
+        update:new WebBuilder("/point/update",{type:"put"}),
+        getPointTree:new WebBuilder("/point/tree",{type:"get"}),
+        getMapByPid:new WebBuilder("/point/map",{type:"get"}),
+        getPointByPid:new WebBuilder("/point/get",{type:"get"}),
         getPointById:new WebBuilder("/point/get/{id}",{type:"get"}),
-        getQueryRootPoint:new WebBuilder("/point/getQueryRootPoint")
+        getQueryRootPoint:new WebBuilder("/point/root/query",{type:"get"})
     },
     asset:{
         getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid"),

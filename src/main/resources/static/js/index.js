@@ -42,7 +42,7 @@ const App = new Vue({
         },
         updateSidebarTree:function () {
             let self = this;
-            Server.point.getQueryRootPoint.post(data => {
+            Server.point.getQueryRootPoint.execute(data => {
                 self.point.root.query = data.object;
                 let temps = $.extend(true,[],data.object);
                 Map.selectedPoint = [];

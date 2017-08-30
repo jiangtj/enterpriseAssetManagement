@@ -109,23 +109,6 @@
             </div>
         </tt-modal>
 
-        <!-- 网点弹出框 -->
-        <tt-modal id="point-modal" title="配置网点" size="sm">
-            <form role="form" class="validation">
-                <div class="row">
-                    <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
-                        <div id="point-tree"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button @click="pointModalData.submit" class="btn btn-sm btn-primary pull-right" type="button"><strong>确认</strong></button>
-                        <button data-dismiss="modal"  class="btn btn-sm btn-default pull-right tt-modal-cancel" type="button"><strong>取消</strong></button>
-                    </div>
-                </div>
-            </form>
-        </tt-modal>
-
         <div class="clearfix"></div>
         <br />
         <br />
@@ -195,9 +178,6 @@
             },
             permissionModal:function () {
                 return new ModalBuilder("#permission-modal");
-            },
-            pointModal:function () {
-                return new ModalBuilder("#point-modal");
             },
             dualSelect:function () {
                 return $('.dual_select').bootstrapDualListbox({
@@ -308,57 +288,6 @@
                                 callback.call(this, list)
                             });
                         }
-                    },
-                    "plugins": ["checkbox"]
-                });
-            },
-            showPointModal:function (obj) {
-                let self = this;
-                let tempTree = $('#point-tree').jstree(true);
-                if (tempTree) tempTree.destroy();
-                //$('#point-tree').jstree(true).destroy();
-                self.updatePointTree(obj);
-                self.pointModalData.data = {id:obj.id};
-                self.pointModalData.submit = function () {
-                    let tree = $('#point-tree').jstree(true);
-                    let pointIds = tree.get_top_selected().toString();
-                    Server.role.updatePoint.setData({
-                        roleId:obj.id,
-                        pointIds:pointIds
-                    }).post(() => self.pointModal.hide())
-                };
-                self.pointModal.show();
-            },
-            updatePointTree:function (obj) {
-                let self = this;
-                $('#point-tree').jstree({
-                    'core': {
-                        'data': function (node, callback) {
-                            Server.point.getPoint.setData({
-                                pid: node.id === "#" ? 0 : node.id,
-                                roleId:obj.id
-                            }).post(data => {
-                                let list = $.map(data.object, (item, index) => {
-                                    //todo 已选择权限状态变更
-                                    item.parent = item.pid === 0 ? "#" : item.pid;
-                                    item.text = item.name;
-                                    item.icon = 'fa fa-folder';
-                                    item.children = true;
-
-                                    if (item.selected) {
-                                        item.state = {};
-                                        item.state.selected = true;
-                                    }
-
-                                    return item;
-                                });
-                                callback.call(this, list)
-                            });
-                        }
-                    },
-                    "checkbox" : {
-                        "three_state":false,
-                        "cascade":"down+undetermined"
                     },
                     "plugins": ["checkbox"]
                 });

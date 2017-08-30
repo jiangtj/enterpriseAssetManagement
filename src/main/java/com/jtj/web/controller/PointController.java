@@ -32,49 +32,43 @@ public class PointController {
 
     @ApiOperation(value = "添加网点")
     @PostMapping("/add")
-    public ResultDto<Object> add(Point point){
+    public ResultDto<Object> add(@RequestBody Point point){
         return pointService.add(point);
     }
 
     @ApiOperation(value = "删除网点")
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
         return pointService.delete(ids);
     }
 
     @ApiOperation(value = "更新网点")
-    @PostMapping("/update")
-    public ResultDto<Object> update(Point type) {
-        return pointService.update(type);
+    @PutMapping("/update")
+    public ResultDto<Object> update(@RequestBody Point point) {
+        return pointService.update(point);
     }
 
     @ApiOperation(value = "网点列表")
-    @PostMapping("/getList")
+    @GetMapping("/list")
     public ResultDto<PageDto<Point>> getList(PointDto dto){
         return pointService.getList(dto);
     }
 
-    @ApiOperation(value = "？？")
-    @PostMapping("/getPoint")
-    public ResultDto<List<Point>> getPoint(PointDto dto){
-        return pointService.getPoint(dto);
-    }
-
     @ApiOperation(value = "网点树")
-    @GetMapping("/getPointTree")
+    @GetMapping("/tree")
     public ResultDto<List<Point>> getPointTree(){
         return pointService.getPointTree();
     }
 
     @ApiOperation(value = "获取网点")
-    @PostMapping("/getMapByPid")
+    @GetMapping("/map")
     public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid){
         return pointService.getMapByPid(pid);
     }
 
     @ApiOperation(value = "获取网点")
-    @PostMapping("/getPointByPid")
-    public ResultDto<List<Point>> getPointByPid(@RequestParam("pid") Long pid){
+    @GetMapping("/get")
+    public ResultDto<List<Point>> getPointByPid(@RequestParam(value = "pid",required = false) Long pid){
         return pointService.getPointByPid(pid);
     }
 
@@ -85,10 +79,18 @@ public class PointController {
     }
 
     @ApiOperation(value = "获取网点")
-    @PostMapping("/getQueryRootPoint")
+    @GetMapping("/root/query")
     public ResultDto<List<Point>> getQueryRootPoint(){
         ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
         result.setObject(pointService.getQueryRootPoint());
+        return result;
+    }
+
+    @ApiOperation(value = "刷新网点缓存数据")
+    @PostMapping("/refresh")
+    public ResultDto<List<Point>> refresh(){
+        ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
+        pointService.refresh();
         return result;
     }
 
