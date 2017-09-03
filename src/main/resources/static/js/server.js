@@ -77,8 +77,8 @@ ServerUtils.config({
     },
     asset:{
         getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid"),
-        borrowAsset:new WebBuilder("/asset/borrowAsset"),
-        returnAsset:new WebBuilder("/asset/returnAsset"),
+        borrowAsset:new WebBuilder("/asset/borrow",{type:"post"}),
+        returnAsset:new WebBuilder("/asset/return",{type:"post"}),
         updateStatus:new WebBuilder("/asset/updateStatus"),
         addStockTake:new WebBuilder("/asset/addStockTake")
     },

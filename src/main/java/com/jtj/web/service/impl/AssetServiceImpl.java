@@ -61,7 +61,7 @@ public class AssetServiceImpl
         //todo 权限判断
         String uuid = assets.get(0).getUuid();
         result.setResultCode(updateAssetStatus(uuid, Constant.AssetStatus.BORROW) == 1?
-                ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+                ResultCode.SUCCESS_OPERATE:ResultCode.OPERATE_FAIL);
         assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.BORROW,
                 result.getTitle()+",租借人："+borrow.getUserId());
         borrow.setUuid(uuid);
@@ -86,7 +86,7 @@ public class AssetServiceImpl
         }
         String uuid = assets.get(0).getUuid();
         result.setResultCode(updateAssetStatus(uuid, Constant.AssetStatus.NORMAL) == 1?
-                ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+                ResultCode.SUCCESS_OPERATE:ResultCode.OPERATE_FAIL);
         assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.RETURN,
                 result.getTitle()+",归还人："+borrow.getUserId());
         borrow.setUuid(uuid);

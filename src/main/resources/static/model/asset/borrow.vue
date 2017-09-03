@@ -120,7 +120,7 @@
                 let date = $('.datepicker').datepicker('getDate');
                 self.data.expectReturnTime = date.getTime();
                 if (ValidationUtils.check(".validation")) {
-                    Server.asset.borrowAsset.setData(self.data).post(() => {
+                    Server.asset.borrowAsset.body(self.data).execute(() => {
                         self.clear();
                     });
                 }
@@ -135,7 +135,7 @@
                 let date = $('.datepicker').datepicker('getDate');
                 self.data.returnTime = date.getTime();
                 if (ValidationUtils.check(".validation")) {
-                    Server.asset.returnAsset.setData(self.data).post(() => {
+                    Server.asset.returnAsset.body(self.data).execute(() => {
                         self.clear();
                     });
                 }

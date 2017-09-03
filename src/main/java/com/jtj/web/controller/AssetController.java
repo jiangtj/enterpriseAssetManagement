@@ -1,13 +1,13 @@
 package com.jtj.web.controller;
 
-import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.AssetAndStockTakeNameDto;
 import com.jtj.web.dto.AssetDto;
-import com.jtj.web.entity.Borrow;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.AssetOperationRecord;
+import com.jtj.web.entity.Borrow;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
 import com.jtj.web.service.StockTakeService;
@@ -62,15 +62,15 @@ public class AssetController {
         return assetOperationRecordService.getOperationRecordByUuid(uuid);
     }
 
-    @PostMapping("/borrowAsset")
+    @PostMapping("/borrow")
     @RequiresPermissions("asset:borrow:add")
-    public ResultDto<Object> borrowAsset(Borrow borrow) {
+    public ResultDto<Object> borrowAsset(@RequestBody Borrow borrow) {
         return assetService.borrowAsset(borrow);
     }
 
-    @PostMapping("/returnAsset")
+    @PostMapping("/return")
     @RequiresPermissions("asset:borrow:return")
-    public ResultDto<Object> returnAsset(Borrow borrow) {
+    public ResultDto<Object> returnAsset(@RequestBody Borrow borrow) {
         return assetService.returnAsset(borrow);
     }
 
