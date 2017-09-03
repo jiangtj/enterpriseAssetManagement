@@ -1,6 +1,9 @@
 package com.jtj.web.common;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jtj.web.common.utils.JacksonUtils;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -11,6 +14,9 @@ public class ResultDto<T> {
     private String title;
     private String message;
     private T object;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime time = LocalDateTime.now();
 
     public ResultDto() {
     }
@@ -64,5 +70,13 @@ public class ResultDto<T> {
     @Override
     public String toString() {
         return JacksonUtils.toJson(this);
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 }

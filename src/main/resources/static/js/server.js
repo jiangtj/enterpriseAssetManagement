@@ -18,10 +18,9 @@ const defaultIntercept = function (response,status,thrown,context) {
 Web.setBaseUrl(baseUrl).addIntercept(defaultIntercept);
 
 Web.setDefault({
-    error:function (XMLHttpRequest, textStatus, errorThrown) {
-        debugger;
-        ToastrUtils.show("系统错误","ajax请求出错，可能原因授权过期，请重新登录！",9);
-        console.log(XMLHttpRequest);
+    error:function (request) {
+        ToastrUtils.showResult(request.responseJSON);
+        console.log(request);
     }
 });
 

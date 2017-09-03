@@ -6,6 +6,8 @@ import com.jtj.web.common.exception.ResultInterf;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,23 +23,25 @@ public class ResultExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResultDto<Object> handle(Exception e){
+    public ResponseEntity<ResultDto<Object>> handle(Exception e){
         if (e instanceof ResultInterf){
             ResultInterf exception = (ResultInterf) e;
             ResultDto<Object> result = exception.getResult();
             logger.warn(result.toString());
-            return result;
+            return new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }
 
         if (e instanceof UnauthorizedException){
             ResultDto<Object> result = new ResultDto<>(ResultCode.UNAUTHORIZED);
             result.setMessage(e.getMessage());
             logger.warn(result.toString());
-            return result;
+            return new ResponseEntity<>(result,HttpStatus.UNAUTHORIZED);
         }
 
         logger.error("error",e);
-        return new ResultDto<>(ResultCode.UN_KNOWN_ERROR);
+        ResultDto<Object> result = new ResultDto<>(ResultCode.UN_KNOWN_ERROR);
+        result.setMessage(e.getMessage());
+        return new ResponseEntity<>(result,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
