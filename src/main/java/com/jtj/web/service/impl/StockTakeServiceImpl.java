@@ -10,7 +10,10 @@ import com.jtj.web.dao.StockTakeDao;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
 import com.jtj.web.dto.StockTakeItemDto;
-import com.jtj.web.entity.*;
+import com.jtj.web.entity.KeyValue;
+import com.jtj.web.entity.StockTake;
+import com.jtj.web.entity.StockTakeItem;
+import com.jtj.web.entity.User;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.StockTakeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +80,7 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
         //todo 权限判断
         String uuid = itemList.get(0).getUuid();
         result.setResultCode(updateItemStatus(itemList.get(0).getStockTakeId(),uuid, Constant.StockTakeItemStatus.NORMAL) == 1?
-                ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+                ResultCode.SUCCESS_OPERATE:ResultCode.OPERATE_FAIL);
         assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.PAN, result.getTitle());
         return result;
     }
@@ -92,7 +95,7 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
     @Override
     public ResultDto<StockTake> updateAmount(Long id) {
         ResultDto<StockTake> result = new ResultDto<>();
-        result.setResultCode(stockTakeDao.updateAmount(id)==1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        result.setResultCode(stockTakeDao.updateAmount(id)==1?ResultCode.SUCCESS_OPERATE:ResultCode.OPERATE_FAIL);
         result.setObject(stockTakeDao.getById(id));
         return result;
     }
@@ -110,7 +113,7 @@ public class StockTakeServiceImpl extends BaseServiceImpl<StockTake,StockTakeDto
     @Override
     public ResultDto<Object> updateToAbnormal(Long id) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(updateItemStatusById(id,Constant.StockTakeItemStatus.ABNORMAL)==1?ResultCode.SUCCESS:ResultCode.OPERATE_FAIL);
+        result.setResultCode(updateItemStatusById(id,Constant.StockTakeItemStatus.ABNORMAL)==1?ResultCode.SUCCESS_OPERATE:ResultCode.OPERATE_FAIL);
         return result;
     }
 

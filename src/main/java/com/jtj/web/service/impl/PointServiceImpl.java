@@ -56,6 +56,7 @@ public class PointServiceImpl
     @Override
     public ResultDto<Object> update(Point t) {
         if (t.getId() == 0) t.setPid(0L);
+        //todo
         return super.update(t);
     }
 

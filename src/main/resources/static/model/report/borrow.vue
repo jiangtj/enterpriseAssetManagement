@@ -105,7 +105,7 @@
                         startTime: $('#time1 input').val(),
                         endTime: $('#time2 input').val()
                     };
-                    Server.report.getBorrow.setData(self.conditions).post(data => {
+                    Server.report.getBorrow.param(self.conditions).execute(data => {
                         self.chartData.labels = $.map(data.object,(item) => item.date);
                         self.chartData.datasets[0].data = $.map(data.object,(item) => item.borrowNum);
                         self.chartData.datasets[1].data = $.map(data.object,(item) => item.returnNum);

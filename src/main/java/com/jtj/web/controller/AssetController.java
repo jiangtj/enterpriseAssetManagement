@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -34,31 +35,31 @@ public class AssetController {
 
     @PostMapping("/add")
     @RequiresPermissions("asset:add")
-    public ResultDto<Object> add(Asset asset){
+    public ResultDto<Object> add(@RequestBody Asset asset){
         return assetService.add(asset);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @RequiresPermissions("asset:delete")
     public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
         return assetService.delete(ids);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @RequiresPermissions("asset:update")
-    public ResultDto<Object> update(Asset asset) {
+    public ResultDto<Object> update(@RequestBody Asset asset) {
         return assetService.update(asset);
     }
 
-    @PostMapping("/getList")
+    @GetMapping("/list")
     @RequiresPermissions("asset:getList")
     public ResultDto<PageDto<Asset>> getList(AssetDto dto){
         return assetService.getList(dto);
     }
 
-    @PostMapping("/getOperationRecordByUuid")
+    @GetMapping("/getOperationRecordByUuid")
     @RequiresPermissions("asset:record:getByUuid")
-    public ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(String uuid){
+    public ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(@RequestParam String uuid){
         return assetOperationRecordService.getOperationRecordByUuid(uuid);
     }
 
@@ -74,15 +75,15 @@ public class AssetController {
         return assetService.returnAsset(borrow);
     }
 
-    @PostMapping("/updateStatus")
+    @PutMapping("/updateStatus")
     @RequiresPermissions("asset:updateStatus")
-    public ResultDto<Object> updateStatus(@RequestParam String uuid,@RequestParam Integer status,@RequestParam String remark) {
-        return assetService.updateStatus(uuid,status,remark);
+    public ResultDto<Object> updateStatus(@RequestBody Map<String,Object> map) {
+        return assetService.updateStatus((String) map.get("uuid"),(Integer) map.get("status"),(String) map.get("remark"));
     }
 
     @PostMapping("/addStockTake")
     @RequiresPermissions("asset:stockTake:add")
-    public ResultDto<Object> addStockTake(AssetAndStockTakeNameDto dto) {
+    public ResultDto<Object> addStockTake(@RequestBody AssetAndStockTakeNameDto dto) {
         return stockTakeService.addByAsset(dto.getName(),dto.getConditions());
     }
 

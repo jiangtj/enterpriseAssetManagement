@@ -28,21 +28,21 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @PostMapping("/add")
-    public ResultDto<Object> add(Permission permission){
+    public ResultDto<Object> add(@RequestBody Permission permission){
         return permissionService.add(permission);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
         return permissionService.delete(ids);
     }
 
-    @PostMapping("/update")
-    public ResultDto<Object> update(Permission permission) {
+    @PutMapping("/update")
+    public ResultDto<Object> update(@RequestBody Permission permission) {
         return permissionService.update(permission);
     }
 
-    @PostMapping("/getList")
+    @GetMapping("/list")
     public ResultDto<PageDto<Permission>> getList(PermissionDto dto){
         return permissionService.getList(dto);
     }

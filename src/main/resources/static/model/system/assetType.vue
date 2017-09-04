@@ -20,9 +20,9 @@
 
                                 <div class="btn-toolbar pull-right" role="toolbar">
                                     <div class="btn-group">
-                                        <button @click="showAddModal()" v-shiro:permission="'assetType:add'" class="btn btn-outline btn-primary" type="button">新增</button>
-                                        <button @click="showUpdateModal(tableSelectData[0])" v-shiro:permission="'assetType:update'" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
-                                        <button @click="deleteAll()" v-shiro:permission="'assetType:delete'" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
+                                        <button @click="showAddModal()" v-shiro:permission="'sys:assetType:add'" class="btn btn-outline btn-primary" type="button">新增</button>
+                                        <button @click="showUpdateModal(tableSelectData[0])" v-shiro:permission="'sys:assetType:update'" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
+                                        <button @click="deleteAll()" v-shiro:permission="'sys:assetType:delete'" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                                     </div>
                                     <div class="btn-group">
                                         <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -39,7 +39,7 @@
                             <div class="table-responsive">
                                 <tt-table v-bind:data="tableData" :selection = "true" v-model="tableSelectData">
                                     <template slot="tt-body-operation" scope="props">
-                                        <button @click="showUpdateModal(props.row)" v-shiro:permission="'assetType:update'" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
+                                        <button @click="showUpdateModal(props.row)" v-shiro:permission="'sys:assetType:update'" class="btn btn-table btn-primary btn-rounded" type="button">修改</button>
                                     </template>
                                 </tt-table>
                             </div>
@@ -153,7 +153,7 @@
             },
             getTableList:function () {
                 let self = this;
-                Server.assetType.getList.setData(self.conditions).post(data => {
+                Server.assetType.list.param(self.conditions).execute(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -170,7 +170,7 @@
                 let self = this;
                 return function () {
                     if (ValidationUtils.check(".validation")){
-                        func.setData(self.fromModalData.data).post(() => {
+                        func.body(self.fromModalData.data).execute(() => {
                             self.fromModal.hide();
                             self.getTableList();
                         })
@@ -181,7 +181,7 @@
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.assetType.delete.setData("ids="+ids).post(() => self.getTableList());
+                    Server.assetType.delete.param("ids",ids).execute(() => self.getTableList());
                 });
             },
             showAddModal:function () {
@@ -201,7 +201,7 @@
             },
             getTypeMapById:function (id) {
                 let self;
-                Server.assetType.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
+                Server.assetType.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
                     self = data.object;
                 });
                 return self;
@@ -211,10 +211,10 @@
                 $('#menu-tree').jstree({
                     'core' : {
                         'data' :function (node,callback) {
-                            Server.assetType.getType.setData({
+                            Server.assetType.getType.param({
                                 pid:node.id==="#"?0:node.id,
                                 type:1
-                            }).post(data => {
+                            }).execute(data => {
                                 let list = $.map(data.object,(item,index) => {
                                     item.parent = item.pid===0?"#":item.pid;
                                     item.text = item.name;

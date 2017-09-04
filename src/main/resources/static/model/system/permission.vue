@@ -143,7 +143,7 @@
             },
             getTableList:function () {
                 let self = this;
-                Server.permission.getList.setData(self.conditions).post(data => {
+                Server.permission.list.param(self.conditions).execute(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -160,7 +160,7 @@
                 let self = this;
                 return function () {
                     if (ValidationUtils.check(".validation")){
-                        func.setData(self.fromModalData.data).post(() => {
+                        func.body(self.fromModalData.data).execute(() => {
                             self.fromModal.hide();
                             self.getTableList();
                         })
@@ -171,7 +171,7 @@
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.permission.delete.setData("ids="+ids).post(() => self.getTableList());
+                    Server.permission.delete.param("ids",ids).execute(() => self.getTableList());
                 });
             },
             showAddModal:function () {

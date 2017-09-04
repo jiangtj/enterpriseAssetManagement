@@ -203,7 +203,7 @@
             },
             getTableList:function () {
                 let self = this;
-                Server.asset.getList.setData(self.conditions).post(data => {
+                Server.asset.list.param(self.conditions).execute(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -220,7 +220,7 @@
                 let self = this;
                 return function () {
                     if (ValidationUtils.check(".validation")){
-                        func.setData(self.fromModalData.data).post(() => {
+                        func.body(self.fromModalData.data).execute(() => {
                             self.fromModal.hide();
                             self.getTableList();
                         })
@@ -231,7 +231,7 @@
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.asset.delete.setData("ids="+ids).post(() => self.getTableList());
+                    Server.asset.delete.param("ids",ids).execute(() => self.getTableList());
                 });
             },
             showUpdateModal:function (status,obj) {
@@ -244,14 +244,14 @@
             },
             showOperationRecordModal:function (obj) {
                 let self =this;
-                Server.asset.getOperationRecordByUuid.setData("uuid="+obj.uuid).post((data) =>{
+                Server.asset.getOperationRecordByUuid.param("uuid",obj.uuid).execute((data) =>{
                     self.operationRecordData.data = data.object;
                 });
                 self.operationRecordModal.show();
             },
             getTypeMapById:function (id) {
                 let self;
-                Server.assetType.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
+                Server.assetType.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
                     self = data.object;
                 });
                 return self;
@@ -266,7 +266,7 @@
             addStockTake:function () {
                 let self = this;
                 if (ValidationUtils.check(".validation")){
-                    Server.asset.addStockTake.setData(self.stockTakeData).post(()=>{
+                    Server.asset.addStockTake.body(self.stockTakeData).execute(()=>{
                         self.stockTakeModal.hide();
                     })
                 }

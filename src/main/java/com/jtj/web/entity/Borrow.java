@@ -1,10 +1,10 @@
 package com.jtj.web.entity;
 
-import com.jtj.web.common.BaseDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jtj.web.common.BaseEntity;
-import com.jtj.web.entity.Asset;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -15,7 +15,9 @@ public class Borrow extends BaseEntity {
 
     private String userId;
     private String uuid;
-    private Date expectReturnTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate expectReturnTime;
     private String remark;
     private Integer status;
     private Date returnTime;
@@ -38,11 +40,11 @@ public class Borrow extends BaseEntity {
         this.uuid = uuid;
     }
 
-    public Date getExpectReturnTime() {
+    public LocalDate getExpectReturnTime() {
         return expectReturnTime;
     }
 
-    public void setExpectReturnTime(Date expectReturnTime) {
+    public void setExpectReturnTime(LocalDate expectReturnTime) {
         this.expectReturnTime = expectReturnTime;
     }
 

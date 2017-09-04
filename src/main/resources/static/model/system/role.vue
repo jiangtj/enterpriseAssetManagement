@@ -201,7 +201,7 @@
             },
             getTableList:function () {
                 let self = this;
-                Server.role.getList.setData(self.conditions).post(data => {
+                Server.role.list.param(self.conditions).execute(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -218,7 +218,7 @@
                 let self = this;
                 return function () {
                     if (ValidationUtils.check(".validation")){
-                        func.setData(self.fromModalData.data).post(() => {
+                        func.body(self.fromModalData.data).execute(() => {
                             self.fromModal.hide();
                             self.getTableList();
                         })
@@ -229,7 +229,7 @@
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.role.delete.setData("ids="+ids).post(() => self.getTableList());
+                    Server.role.delete.param("ids",ids).execute(() => self.getTableList());
                 });
             },
             showAddModal:function () {
@@ -247,7 +247,7 @@
             showPermissionModal:function (obj) {
                 let self = this;
                 //self.updatePermissionTree();
-                Server.role.getPermission.setData({roleId:obj.id}).post(data => {
+                Server.role.getPermission.param({roleId:obj.id}).execute(data => {
                     let temp = data.object.all;
                     $.each(temp,function (index,item) {
                         $.each(data.object.role,function (ri,rt) {
@@ -262,35 +262,12 @@
                 });
                 self.permissionModalData.data = {id:obj.id};
                 self.permissionModalData.submit = function () {
-                    Server.role.updatePermission.setData({
+                    Server.role.updatePermission.body({
                         roleId:obj.id,
                         permissionIds:(self.dualSelect.val()||"").toString()
-                    }).post(() => self.permissionModal.hide())
+                    }).execute(() => self.permissionModal.hide())
                 };
                 self.permissionModal.show();
-            },
-            updatePermissionTree:function () {
-                let self = this;
-                $('#permission-tree').jstree({
-                    'core': {
-                        'data': function (node, callback) {
-                            Server.menu.getMenu.setData({
-                                pid: node.id === "#" ? 0 : node.id
-                            }).post(data => {
-                                let list = $.map(data.object, (item, index) => {
-                                    //todo 已选择权限状态变更
-                                    item.parent = item.pid === 0 ? "#" : item.pid;
-                                    item.text = item.name;
-                                    item.children = true;
-                                    item.icon = item.type === 1 ? 'fa fa-folder' : 'none';
-                                    return item;
-                                });
-                                callback.call(this, list)
-                            });
-                        }
-                    },
-                    "plugins": ["checkbox"]
-                });
             }
         }
     });

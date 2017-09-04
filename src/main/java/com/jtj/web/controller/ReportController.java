@@ -5,7 +5,7 @@ import com.jtj.web.service.ReportService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,13 +23,13 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
-    @PostMapping("/getOverall")
+    @GetMapping("/getOverall")
     @RequiresPermissions("report:getOverall")
     public ResultDto<Object> getOverall(){
         return reportService.getOverall();
     }
 
-    @PostMapping("/getBorrow")
+    @GetMapping("/getBorrow")
     @RequiresPermissions("report:getBorrow")
     public ResultDto<Object> getBorrow(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startTime,
                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endTime){

@@ -55,7 +55,7 @@
             let ctx4 = document.getElementById("doughnutChart").getContext("2d");
             self.myPieChart = new Chart(ctx4, {type: 'doughnut', data: self.pieData, options:doughnutOptions});
 
-            Server.report.getOverall.post((data) => {
+            Server.report.getOverall.execute((data) => {
                 let temp = [];
                 $.each(data.object,function (key,value) {
                     temp.push(value);

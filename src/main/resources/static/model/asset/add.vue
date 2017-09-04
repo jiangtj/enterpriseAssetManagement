@@ -83,7 +83,7 @@
             add:function () {
                 let self = this;
                 if (ValidationUtils.check(".validation")){
-                    Server.asset.add.setData(self.data).post(() => {
+                    Server.asset.add.body(self.data).execute(() => {
                         self.clear();
                     })
                 }
@@ -94,7 +94,7 @@
             },
             getTypeMapById:function (id) {
                 let self;
-                Server.assetType.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
+                Server.assetType.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
                     self = data.object;
                 });
                 return self;

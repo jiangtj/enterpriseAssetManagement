@@ -1,17 +1,20 @@
 package com.jtj.web.controller;
 
-import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.Role;
 import com.jtj.web.service.RoleService;
+import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -26,38 +29,41 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/add")
-    public ResultDto<Object> add(Role role){
+    public ResultDto<Object> add(@RequestBody Role role){
         return roleService.add(role);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
         return roleService.delete(ids);
     }
 
-    @PostMapping("/update")
-    public ResultDto<Object> update(Role role) {
+    @PutMapping("/update")
+    public ResultDto<Object> update(@RequestBody Role role) {
         return roleService.update(role);
     }
 
-    @PostMapping("/getList")
+    @GetMapping("/list")
     public ResultDto<PageDto<Role>> getList(RoleDto dto){
         return roleService.getList(dto);
     }
 
-    @PostMapping("/getPermission")
+    @GetMapping("/getPermission")
     public ResultDto<Object> getPermission(@RequestParam Long roleId){
         return roleService.getPermission(roleId);
     }
 
-    @PostMapping("/updatePermission")
-    public ResultDto<Object> updatePermission(@RequestParam Long roleId,@RequestParam Long[] permissionIds){
-        return roleService.updatePermission(roleId,permissionIds);
+    @PutMapping("/updatePermission")
+    public ResultDto<Object> updatePermission(@RequestBody Map<String,Object> map){
+        List<Long> longs = Arrays.stream(MapUtils.getString(map,"permissionIds").split(","))
+                .map(Long::parseLong).collect(Collectors.toList());
+        return roleService.updatePermission(MapUtils.getLong(map,"roleId"),
+                longs.toArray(new Long[longs.size()]));
     }
 
-    @PostMapping("/updatePoint")
+    /*@PutMapping("/updatePoint")
     public ResultDto<Object> updatePoint(@RequestParam Long roleId,@RequestParam Long[] pointIds){
         return roleService.updatePoint(roleId,pointIds);
-    }
+    }*/
 
 }

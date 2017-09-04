@@ -143,7 +143,7 @@
             },
             getTableList:function () {
                 let self = this;
-                Server.stockTake.getList.setData(self.conditions).post(data => {
+                Server.stockTake.list.param(self.conditions).execute(data => {
                     self.tableData.data = data.object.list;
                     self.pagination.count = data.object.count;
                     self.initFromEmpty();
@@ -160,7 +160,7 @@
                 let self = this;
                 return function () {
                     if (ValidationUtils.check(".validation")){
-                        func.setData(self.fromModalData.data).post(() => {
+                        func.body(self.fromModalData.data).execute(() => {
                             self.fromModal.hide();
                             self.getTableList();
                         })
@@ -171,7 +171,7 @@
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.stockTake.delete.setData("ids="+ids).post(() => self.getTableList());
+                    Server.stockTake.delete.param("ids=",ids).execute(() => self.getTableList());
                 });
             },
             showUpdateModal:function (obj) {
@@ -181,7 +181,7 @@
                 this.fromModal.show();
             },
             updateAmount:function (obj) {
-                Server.stockTake.updateAmount.setData("id="+obj.id).post((data) => {
+                Server.stockTake.updateAmount.body({id:obj.id}).execute((data) => {
                     $.extend(true,obj,data.object);
                 })
             },
@@ -191,7 +191,7 @@
             close:function (obj) {
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
-                    Server.stockTake.close.setData("id=" + obj.id).post((data) => {
+                    Server.stockTake.close.body({id:obj.id}).execute((data) => {
                         $.extend(true, obj, data.object);
                     })
                 });

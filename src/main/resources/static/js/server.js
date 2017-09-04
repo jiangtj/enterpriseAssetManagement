@@ -30,10 +30,10 @@ const ServerUtils = {
         let tempArr = jQuery.isArray(arr)?arr:arguments;
         jQuery.each(tempArr,function (index,item) {
             Server[item] = {
-                getList:new WebBuilder("/"+item+"/getList"),
-                add:new WebBuilder("/"+item+"/add"),
-                delete:new WebBuilder("/"+item+"/delete"),
-                update:new WebBuilder("/"+item+"/update"),
+                list:new WebBuilder("/"+item+"/list",{type:"get"}),
+                add:new WebBuilder("/"+item+"/add",{type:"post"}),
+                delete:new WebBuilder("/"+item+"/delete",{type:"delete"}),
+                update:new WebBuilder("/"+item+"/update",{type:"put"}),
             }
         });
         return ServerUtils;
@@ -43,32 +43,22 @@ const ServerUtils = {
     }
 };
 
-ServerUtils.base("user","role","permission","menu","assetType","point","asset","report","stockTake");
+ServerUtils.base("user","role","permission","assetType","point","asset","report","stockTake");
 ServerUtils.config({
     user:{
     },
     role:{
-        getPermission:new WebBuilder("/role/getPermission"),
-        updatePermission:new WebBuilder("/role/updatePermission"),
-        updatePoint:new WebBuilder("/role/updatePoint")
+        getPermission:new WebBuilder("/role/getPermission",{type:"get"}),
+        updatePermission:new WebBuilder("/role/updatePermission",{type:"put"}),
+        updatePoint:new WebBuilder("/role/updatePoint",{type:"put"})
     },
     permission:{
-        addQuick:new WebBuilder("/permission/addQuick")
-    },
-    menu:{
-        getMenu:new WebBuilder("/menu/getMenu"),
-        getPublicMenu:new WebBuilder("/public/getMenu"),
-        getMapByPid:new WebBuilder("/menu/getMapByPid")
     },
     assetType:{
-        getType:new WebBuilder("/assetType/getType"),
-        getMapByPid:new WebBuilder("/assetType/getMapByPid")
+        getType:new WebBuilder("/assetType/getType",{type:"get"}),
+        getMapByPid:new WebBuilder("/assetType/getMapByPid",{type:"get"})
     },
     point:{
-        list:new WebBuilder("/point/list",{type:"get"}),
-        add:new WebBuilder("/point/add",{type:"post"}),
-        delete:new WebBuilder("/point/delete",{type:"delete"}),
-        update:new WebBuilder("/point/update",{type:"put"}),
         getPointTree:new WebBuilder("/point/tree",{type:"get"}),
         getMapByPid:new WebBuilder("/point/map",{type:"get"}),
         getPointByPid:new WebBuilder("/point/get",{type:"get"}),
@@ -76,22 +66,22 @@ ServerUtils.config({
         getQueryRootPoint:new WebBuilder("/point/root/query",{type:"get"})
     },
     asset:{
-        getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid"),
+        getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid",{type:"get"}),
         borrowAsset:new WebBuilder("/asset/borrow",{type:"post"}),
         returnAsset:new WebBuilder("/asset/return",{type:"post"}),
-        updateStatus:new WebBuilder("/asset/updateStatus"),
-        addStockTake:new WebBuilder("/asset/addStockTake")
+        updateStatus:new WebBuilder("/asset/updateStatus",{type:"put"}),
+        addStockTake:new WebBuilder("/asset/addStockTake",{type:"post"})
     },
     report:{
-        getOverall:new WebBuilder("/report/getOverall"),
-        getBorrow:new WebBuilder("/report/getBorrow"),
+        getOverall:new WebBuilder("/report/getOverall",{type:"get"}),
+        getBorrow:new WebBuilder("/report/getBorrow",{type:"get"}),
     },
     stockTake:{
-        handle:new WebBuilder("/stockTake/handle"),
-        updateAmount:new WebBuilder("/stockTake/updateAmount"),
-        getItemList:new WebBuilder("/stockTake/getItemList"),
-        updateToAbnormal:new WebBuilder("/stockTake/updateToAbnormal"),
-        close:new WebBuilder("/stockTake/close")
+        handle:new WebBuilder("/stockTake/handle",{type:"post"}),
+        updateAmount:new WebBuilder("/stockTake/updateAmount",{type:"put"}),
+        getItemList:new WebBuilder("/stockTake/getItemList",{type:"get"}),
+        updateToAbnormal:new WebBuilder("/stockTake/updateToAbnormal",{type:"put"}),
+        close:new WebBuilder("/stockTake/close",{type:"post"})
     }
 });
 

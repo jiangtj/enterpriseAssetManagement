@@ -9,10 +9,7 @@ import com.jtj.web.service.UserService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -27,21 +24,21 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/add")
-    public ResultDto<Object> add(User user){
+    public ResultDto<Object> add(@RequestBody User user){
         return userService.add(user);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
         return userService.delete(ids);
     }
 
-    @PostMapping("/update")
-    public ResultDto<Object> update(User user) {
+    @PutMapping("/update")
+    public ResultDto<Object> update(@RequestBody User user) {
         return userService.update(user);
     }
 
-    @PostMapping("/getList")
+    @GetMapping("/list")
     public ResultDto<PageDto<User>> getList(UserDto dto){
         return userService.getList(dto);
     }

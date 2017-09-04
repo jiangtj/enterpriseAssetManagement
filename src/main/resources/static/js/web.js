@@ -80,17 +80,6 @@ jQuery.extend(true,WebBuilder.prototype,{
         jQuery.extend(true,this.options,options);
         return this;
     },
-    setData:function (data) {
-        //string
-        if (Object.prototype.toString.call(data) === "[object String]"){
-            this.options.data = data;
-            return this;
-        }
-        //json
-        //Web.updateDate(data);
-        this.options.data =jQuery.param(data);
-        return this;
-    },
     setMethod:function (method) {
         this.options.type = method;
         return this;
@@ -140,6 +129,7 @@ jQuery.extend(true,WebBuilder.prototype,{
         else this.options.param = "";
         //string
         if (Object.prototype.toString.call(keyOrJson) === "[object String]"){
+            if (jQuery.isArray(value)) value = value.join(",");
             this.options.param += keyOrJson + "=" +value;
             return this;
         }

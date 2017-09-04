@@ -145,7 +145,7 @@
             getTableList:function () {
                 let self = this;
                 if (ValidationUtils.check(".validation")) {
-                    Server.stockTake.getItemList.setData(self.conditions).post(data => {
+                    Server.stockTake.getItemList.param(self.conditions).execute(data => {
                         self.tableData.data = data.object.list;
                         self.pagination.count = data.object.count;
                         self.initFromEmpty();
@@ -161,7 +161,7 @@
             },
             getTypeMapById:function (id) {
                 let self;
-                Server.assetType.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
+                Server.assetType.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
                     self = data.object;
                 });
                 return self;
@@ -169,7 +169,7 @@
             updateToAbnormal:function (obj) {
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
-                    Server.stockTake.updateToAbnormal.setData("id="+obj.id).post(() => self.getTableList());
+                    Server.stockTake.updateToAbnormal.body({id:obj.id}).execute(() => self.getTableList());
                 });
             }
         }

@@ -18,7 +18,7 @@
                             <label class="col-sm-2 control-label">预期/归还时间</label>
                             <div class="col-sm-10">
                                 <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-                                <input name="time" type="text" class="form-control datepicker">
+                                <input id="expect-return-time" name="time" type="text" class="form-control datepicker">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -117,8 +117,7 @@
                     ToastrUtils.show("uuid与资产编号不能同时为空！","",9);
                     return;
                 }
-                let date = $('.datepicker').datepicker('getDate');
-                self.data.expectReturnTime = date.getTime();
+                self.data.expectReturnTime = $('#expect-return-time').val();
                 if (ValidationUtils.check(".validation")) {
                     Server.asset.borrowAsset.body(self.data).execute(() => {
                         self.clear();
@@ -157,7 +156,7 @@
             },
             getTypeMapById:function (id) {
                 let self;
-                Server.assetType.getMapByPid.setData("pid="+id).setAsync(false).post((data) => {
+                Server.assetType.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
                     self = data.object;
                 });
                 return self;
