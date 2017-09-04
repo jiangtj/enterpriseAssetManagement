@@ -40,9 +40,10 @@
 
 ### 注意
 - 需java运行环境
-- 数据库需导入asset.sql
+- 需数据库导入other/asset.sql
 - 默认user-id 为 1 的用户拥有最大权限，必要时修改数据库中用户id
 - 后台运行方式，linux 使用`nohup`，windows 使用`javaw`代替`java`
+- 若要支持ie，需修改所有js中es6语法为es5，理论上支持ie9+
 
 ### docker 运行
 
