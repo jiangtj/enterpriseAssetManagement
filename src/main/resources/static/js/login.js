@@ -8,14 +8,14 @@ const loginApp = new Vue({
     methods:{
         login:function () {
             let now=new Date();
-            let time = now.getTime();
+            let time = parseInt(now.getTime()/1000);
             let MD5Password = hex_md5(this.password+time);
             new WebBuilder("/public/login")
                 .addIntercept(defaultIntercept)
-                .setData({
-                    name:this.username,
+                .body({
+                    username:this.username,
                     password:MD5Password,
-                    time:time
+                    loginTime:time
                 })
                 .post(function (data) {
                     Web.go("/index");

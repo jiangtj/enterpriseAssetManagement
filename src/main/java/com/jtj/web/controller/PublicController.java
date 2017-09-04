@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -37,13 +35,13 @@ public class PublicController {
     @Autowired
     private PointService pointService;
 
-    @ApiOperation(value="获取用户列表", notes="xxxx")
+    @ApiOperation("用户登录")
     @ResponseBody
     @PostMapping("/login")
-    public ResultDto<Object> login(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name,
-                                   @RequestParam("password") String password,@RequestParam("time") Long time){
+    public ResultDto<Object> login(@RequestBody UsernamePasswordTokenDto token){
         Subject subject = SecurityUtils.getSubject();
-        subject.login(new UsernamePasswordTokenDto(name,password,true,time));
+        token.setRememberMe(false);
+        subject.login(token);
 
         //触发获取权限
         SecurityUtils.getSubject().hasRole("doGetAuthorizationInfo");
@@ -53,6 +51,7 @@ public class PublicController {
         return result;
     }
 
+    @ApiOperation("用户登出")
     @ResponseBody
     @PostMapping("/logout")
     public ResultDto<Object> logout(){
@@ -65,12 +64,14 @@ public class PublicController {
         return result;
     }
 
+    @ApiOperation("角色列表")
     @ResponseBody
     @GetMapping("/map/role")
     public ResultDto<List<KeyValue>> getRoleMap(){
         return roleService.getRoleMap();
     }
 
+    @ApiOperation("字典列表")
     @ResponseBody
     @GetMapping("/map/dictionary/{table}/{column}")
     public ResultDto<List<KeyValue>> getDictionaryMap(@PathVariable("table") String table,

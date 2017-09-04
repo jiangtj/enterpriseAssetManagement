@@ -25,7 +25,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,10 +80,10 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new AuthenticationAssetException(result);
         }
 
-        Long time = token.getTime();
-        Long serverTime = new Date().getTime();
+        Long time = token.getLoginTime();
+        Long serverTime = Instant.now().getEpochSecond();
         Long timeInterval = serverTime -time;
-        if (timeInterval > 10*60*1000 || timeInterval < -10*60*1000){
+        if (timeInterval >= 10*60 || timeInterval <= -10*60){
             result.setResultCode(ResultCode.USER_TIME_ERROR);
             result.setMessage("请校准时间后再次登录!");
             throw new AuthenticationAssetException(result);

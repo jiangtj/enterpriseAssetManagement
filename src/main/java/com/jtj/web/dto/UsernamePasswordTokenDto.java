@@ -10,6 +10,10 @@ public class UsernamePasswordTokenDto extends UsernamePasswordToken {
 
     private Long loginTime;
 
+    public UsernamePasswordTokenDto(){
+
+    }
+
     public UsernamePasswordTokenDto(String username, String password, Long loginTime) {
         super(username, password);
         this.loginTime = loginTime;
@@ -20,11 +24,11 @@ public class UsernamePasswordTokenDto extends UsernamePasswordToken {
         this.loginTime = loginTime;
     }
 
-    public Long getTime() {
+    public Long getLoginTime() {
         return loginTime;
     }
 
-    public void setTime(Long loginTime) {
+    public void setLoginTime(Long loginTime) {
         this.loginTime = loginTime;
     }
 }
