@@ -35,18 +35,18 @@ const App = new Vue({
                 Web.go("/login");
             });
         },
-        getMenuLevelData:function (level) {
-            return $.map(this.menu, function (item) {
-                if (item.level === level) return item;
-            });
-        },
         updateSidebarTree:function () {
             let self = this;
             Server.point.getQueryRootPoint.execute(data => {
                 self.point.root.query = data.object;
                 let temps = $.extend(true,[],data.object);
-                Map.selectedPoint = [];
                 self.changeListTreeToList(temps);
+                $.each(Map.sessionPoint,function (index,item) {
+                    if (item.id === self.user.pointId){
+                        item.state = {};
+                        item.state.selected = true;
+                    }
+                });
                 self.changeListTreeForJsTree(temps);
 
                 $('#sidebar-point-tree').jstree({
