@@ -87,8 +87,8 @@ jQuery.extend(true,WebBuilder.prototype,{
             return this;
         }
         //json
-        //Web.updateDate(data);
-        this.options.data =jQuery.param(data);
+        Web.updateDate(data);
+        //this.options.data =jQuery.param(data);
         return this;
     },
     setMethod:function (method) {
