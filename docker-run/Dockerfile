@@ -16,11 +16,11 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
 
 # war
 RUN mkdir /javaweb
-COPY asset.war /javaweb/
+COPY asset.jar /javaweb/
 
 # RUN mkdir /javaweb/temp
 # VOLUME ["/javaweb/temp"]
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/javaweb/asset.war"]
+ENTRYPOINT ["java","-jar","/javaweb/asset.jar"]

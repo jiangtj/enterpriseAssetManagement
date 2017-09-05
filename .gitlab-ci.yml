@@ -17,7 +17,7 @@ build:maven:
   script: "mvn package -B"
   artifacts:
     paths:
-      - target/asset.war
+      - target/asset.jar
   only:
     - master
 
@@ -26,7 +26,7 @@ deploy:docker:
   script:
   - ls -a
   - ls -a target
-  - cp target/asset.war docker-run/
+  - cp target/asset.jar docker-run/
 
   # docker login
   - docker login -u $DOCKER_ID_USER -p $DOCKER_ID_PASSWORD
