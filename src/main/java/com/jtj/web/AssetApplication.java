@@ -1,11 +1,11 @@
 package com.jtj.web;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@EnableFeignClients
-@SpringCloudApplication
+//@EnableFeignClients
+//@SpringCloudApplication
+@SpringBootApplication
 public class AssetApplication {
 
 	public static void main(String[] args) {

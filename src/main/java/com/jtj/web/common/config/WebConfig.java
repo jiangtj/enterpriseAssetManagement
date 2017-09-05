@@ -1,7 +1,5 @@
 package com.jtj.web.common.config;
 
-import feign.Logger;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -15,13 +13,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    /*@Autowired
-    private RequestMappingHandlerAdapter handlerAdapter;*/
-
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(getSecurityInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 
@@ -34,23 +28,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         super.addViewControllers(registry);
     }
 
-    @Bean
+    /*@Bean
     public Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
-    }
-
-    /*@PostConstruct
-    public void genericConversionService() {
-        ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter
-                .getWebBindingInitializer();
-        if (initializer.getConversionService() != null) {
-            GenericConversionService genericConversionService = (GenericConversionService) initializer
-                    .getConversionService();
-            //string to date
-            genericConversionService.addConverter(new StringToDateConverter());
-        }
-
     }*/
-
 
 }

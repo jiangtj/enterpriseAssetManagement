@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Dalston.SR2</spring-cloud.version>
+		<!--<spring-cloud.version>Dalston.SR2</spring-cloud.version>-->
 		<mybatis-spring-boot.version>1.3.1</mybatis-spring-boot.version>
 		<mybatis-typehandlers.version>1.0.2</mybatis-typehandlers.version>
 		<shiro-spring.version>1.3.2</shiro-spring.version>
@@ -111,7 +111,7 @@
 		</dependency>
 
 		<!-- Spring Cloud -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
@@ -122,11 +122,11 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-hystrix</artifactId>
-		</dependency>
+		</dependency>-->
 
 	</dependencies>
 
-	<dependencyManagement>
+	<!--<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -136,7 +136,7 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement>-->
 
 	<build>
 		<plugins>

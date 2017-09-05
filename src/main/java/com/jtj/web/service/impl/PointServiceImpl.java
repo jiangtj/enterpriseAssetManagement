@@ -3,14 +3,12 @@ package com.jtj.web.service.impl;
 import com.jtj.web.common.BasePointDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
-import com.jtj.web.common.config.PointConfig;
 import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dao.PointDao;
 import com.jtj.web.dto.PointDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
-import com.jtj.web.feign.PointClient;
 import com.jtj.web.service.PointService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -31,10 +29,6 @@ public class PointServiceImpl
 
     @Autowired
     private PointDao pointDao;
-    @Autowired
-    private PointConfig pointConfig;
-    @Autowired
-    private PointClient pointClient;
 
     //if you has redis, you can put it into redis
     private static Map<Long,Point> allPointMap = new HashMap<>();
@@ -212,7 +206,7 @@ public class PointServiceImpl
         allPointMap = new HashMap<>();
         allPointList = new ArrayList<>();
         allRootPointList = new ArrayList<>();
-        allPointList = pointConfig.isEnabled()?pointClient.getPoint():pointDao.getAllPoint();
+        allPointList = pointDao.getAllPoint();
         Map<Long,Point> temp = allPointList.stream().collect(Collectors.toMap(Point::getId, y->{
             y.setNodes(new ArrayList<>());
             return y;

@@ -20,7 +20,6 @@
 
 #### 后台：
 - spring boot
-- spring cloud
 - mybatis
 - apache shiro  
 

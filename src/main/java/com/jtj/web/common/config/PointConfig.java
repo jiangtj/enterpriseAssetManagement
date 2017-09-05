@@ -1,14 +1,14 @@
 package com.jtj.web.common.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/8/21 21:59 End.
  */
-@Component
+@Deprecated
+//@Component
 @ConfigurationProperties("point.client")
 public class PointConfig {
 

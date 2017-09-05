@@ -1,11 +1,11 @@
 package com.jtj.web.common.shiro;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.aop.AuthorizingAnnotationHandler;
 import org.apache.shiro.subject.Subject;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -36,7 +36,7 @@ public class MyPermissionAnnotationHandler extends AuthorizingAnnotationHandler 
             //todo 无状态请求 判断权限
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             String securityKey = request.getParameter("securityKey");
-            if (StringUtils.isNotEmpty(securityKey)){
+            if (!StringUtils.isEmpty(securityKey)){
                 throw new AuthorizationException("现在暂未开通无状态权限");
             }
 
