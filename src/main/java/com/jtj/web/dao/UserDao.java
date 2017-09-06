@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2016/12/23 23:26 End.
@@ -24,4 +22,5 @@ public interface UserDao extends BaseDao<User,UserDto> {
 
     int updatePoint(@Param("id") Long id,@Param("pointId") Long pointId);
 
+    int updateToNewPoint(@Param("from") Long from,@Param("to") Long to);
 }

@@ -9,13 +9,15 @@ import com.jtj.web.dao.RoleDao;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Permission;
-import com.jtj.web.entity.Point;
 import com.jtj.web.entity.Role;
 import com.jtj.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -68,27 +70,6 @@ public class RoleServiceImpl
         //添加权限
         if (permissionIds.length == 0) return result;
         roleDao.addPermission(roleId,Arrays.asList(permissionIds));
-        return result;
-    }
-
-    @Override
-    public ResultDto<Object> updatePoint(Long roleId, Long[] pointIds) {
-        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
-        roleDao.clearPoint(roleId);
-        if (pointIds.length == 0) return result;
-        List<Long> pointIdList= Arrays.asList(pointIds);
-        List<Point> pointList = pointDao.getPointByIds(pointIdList);
-        //获取向下菜单信息
-        while (pointIdList.size() != 0){
-            List<Point> tempList = pointDao.getPointByPids(pointIdList);
-            pointList.addAll(tempList);
-            pointIdList = tempList.stream().map(Point::getId).collect(Collectors.toList());
-        }
-        //获取权限
-        Set<Long> pointSet = pointList.stream()
-                .map(Point::getId)
-                .collect(Collectors.toSet());
-        roleDao.addPoint(roleId,pointSet);
         return result;
     }
 }

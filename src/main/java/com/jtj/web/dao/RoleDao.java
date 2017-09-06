@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -25,10 +24,6 @@ public interface RoleDao extends BaseDao<Role,RoleDto> {
     int clearPermission(@Param("roleId") Long roleId);
 
     int addPermission(@Param("roleId") Long roleId,@Param("permissionIds") Collection<Long> permissionIds);
-
-    int clearPoint(@Param("roleId") Long roleId);
-
-    int addPoint(@Param("roleId") Long roleId,@Param("pointIds") Collection<Long> pointIds);
 
     List<Permission> getPermission(@Param("roleId") Long roleId);
 }

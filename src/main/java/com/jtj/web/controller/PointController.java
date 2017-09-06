@@ -37,9 +37,9 @@ public class PointController {
     }
 
     @ApiOperation(value = "删除网点")
-    @DeleteMapping("/delete")
-    public ResultDto<Object> delete(@RequestParam("ids") Long[] ids) throws AssetException {
-        return pointService.delete(ids);
+    @DeleteMapping("/delete/{id}")
+    public ResultDto<Object> deleteById(@PathVariable("id") Long id) throws AssetException {
+        return pointService.deleteById(id);
     }
 
     @ApiOperation(value = "更新网点")

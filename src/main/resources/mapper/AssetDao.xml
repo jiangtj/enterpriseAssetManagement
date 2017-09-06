@@ -90,4 +90,9 @@
         WHERE uuid = #{uuid}
     </update>
 
+    <update id="updateToNewPoint">
+        UPDATE assets_item SET point_id = #{to}
+        WHERE point_id = #{from}
+    </update>
+
 </mapper>

@@ -10,6 +10,7 @@ public class UserDto extends BaseDto {
 
     private String name;
     private Long roleId;
+    private Long pointId;
 
     public String getName() {
         return name;
@@ -25,5 +26,13 @@ public class UserDto extends BaseDto {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Long getPointId() {
+        return pointId;
+    }
+
+    public void setPointId(Long pointId) {
+        this.pointId = pointId;
     }
 }

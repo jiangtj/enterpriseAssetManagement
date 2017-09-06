@@ -17,8 +17,6 @@ import java.util.List;
 @Component
 public interface PointDao extends BaseDao<Point,PointDto>{
 
-    List<Point> getPoint(PointDto dto);
-
     List<KeyValue> getMapByPid(@Param("pid") Long pid);
 
     Point getById(@Param("id") Long id);

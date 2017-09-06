@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public interface PointService extends BaseService<Point,PointDto> {
 
-    ResultDto<List<Point>> getPoint(PointDto dto);
+    ResultDto<Object> deleteById(Long id) throws AssetException;
 
     List<Point> getAllPoint();
 

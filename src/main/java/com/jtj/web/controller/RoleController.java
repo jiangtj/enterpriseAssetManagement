@@ -61,9 +61,4 @@ public class RoleController {
                 longs.toArray(new Long[longs.size()]));
     }
 
-    /*@PutMapping("/updatePoint")
-    public ResultDto<Object> updatePoint(@RequestParam Long roleId,@RequestParam Long[] pointIds){
-        return roleService.updatePoint(roleId,pointIds);
-    }*/
-
 }

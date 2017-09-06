@@ -80,17 +80,6 @@
         </foreach>
     </insert>
 
-    <delete id="clearPoint">
-        DELETE FROM auth_role_point_relation WHERE role_id = #{roleId}
-    </delete>
-
-    <insert id="addPoint">
-        INSERT INTO auth_role_point_relation(role_id, point_id) VALUES
-        <foreach collection="pointIds" item="item" separator=",">
-            (#{roleId},#{item})
-        </foreach>
-    </insert>
-
     <select id="getPermission" resultType="Permission">
         SELECT
         ap.*

@@ -59,6 +59,7 @@ ServerUtils.config({
         getMapByPid:new WebBuilder("/assetType/getMapByPid",{type:"get"})
     },
     point:{
+        deleteById:new WebBuilder("/point/delete/{id}",{type:"delete"}),
         getPointTree:new WebBuilder("/point/tree",{type:"get"}),
         getMapByPid:new WebBuilder("/point/map",{type:"get"}),
         getPointByPid:new WebBuilder("/point/get",{type:"get"}),

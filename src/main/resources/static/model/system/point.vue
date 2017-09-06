@@ -22,7 +22,7 @@
                                     <div class="btn-group">
                                         <button @click="showAddModal()" class="btn btn-outline btn-primary" type="button">新增</button>
                                         <button @click="showUpdateModal(tableSelectData[0])" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
-                                        <button @click="deleteAll()" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
+                                        <button @click="deleteOne()" v-if="hasOneChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                                     </div>
                                     <div class="btn-group">
                                         <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -177,11 +177,17 @@
                     }
                 };
             },
-            deleteAll:function () {
+            /*deleteAll:function () {
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
                     let ids = $.map(self.tableSelectData,item => item.id);
                     Server.point.delete.param({ids:ids}).execute(() => self.getTableList());
+                });
+            },*/
+            deleteOne:function () {
+                let self = this;
+                SweetAlertUtils.show().sure(function () {
+                    Server.point.deleteById.path("id",self.tableSelectData[0].id).execute(() => self.getTableList());
                 });
             },
             showAddModal:function () {

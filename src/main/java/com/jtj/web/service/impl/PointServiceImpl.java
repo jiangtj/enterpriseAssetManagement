@@ -4,8 +4,12 @@ import com.jtj.web.common.BasePointDto;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.exception.AssetException;
+import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.PointDao;
+import com.jtj.web.dao.UserDao;
+import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.PointDto;
+import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
@@ -14,6 +18,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,6 +34,10 @@ public class PointServiceImpl
 
     @Autowired
     private PointDao pointDao;
+    @Autowired
+    private AssetDao assetDao;
+    @Autowired
+    private UserDao userDao;
 
     //if you has redis, you can put it into redis
     private static Map<Long,Point> allPointMap = new HashMap<>();
@@ -58,25 +67,29 @@ public class PointServiceImpl
     }
 
     @Override
-    public ResultDto<Object> delete(Long[] ids) throws AssetException {
-        for (Long id : ids) {
-            if (id == 0) {
-                throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_ROOT));
-            }
-            if (getAllPointMap().get(id).getNodes().size() != 0){
-                throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_USED));
-            }
+    @Transactional(rollbackFor = AssetException.class)
+    public ResultDto<Object> deleteById(Long id) throws AssetException {
+        Point point = getAllPointMap().get(id);
+        if (point.getNodes().size() != 0){
+            throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_USED));
         }
-        ResultDto<Object> result = super.delete(ids);
+        if (point.getPid() == 0 || Objects.equals(point.getPid(), id)) {
+            //根节点，如果存在用户不能删除
+            UserDto userDto = new UserDto();
+            userDto.setPointId(point.getId());
+            if (userDao.getNum(userDto) != 0)
+                throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_ROOT));
+            //根节点，如果存在资产不能删除
+            AssetDto assetDto = new AssetDto();
+            assetDto.setPointId(point.getId());
+            if (assetDao.getNum(assetDto) != 0)
+                throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_ROOT));
+        }else {
+            userDao.updateToNewPoint(id,point.getPid());
+            assetDao.updateToNewPoint(id,point.getPid());
+        }
+        ResultDto<Object> result = super.delete(new Long[]{id});
         refresh();
-        return result;
-    }
-
-    @Override
-    public ResultDto<List<Point>> getPoint(PointDto dto) {
-        ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        List<Point> pointList =  pointDao.getPoint(dto);
-        result.setObject(pointList);
         return result;
     }
 
