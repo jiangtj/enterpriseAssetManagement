@@ -21,7 +21,8 @@ public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends Ba
     @Override
     public ResultDto<Object> add(E t) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(dao.add(t) == 1?ResultCode.SUCCESS_POST:ResultCode.OPERATE_FAIL);
+        dao.add(t);
+        result.setResultCode(ResultCode.SUCCESS_POST);
         return result;
     }
 
@@ -43,7 +44,8 @@ public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends Ba
     @Override
     public ResultDto<Object> update(E t) {
         ResultDto<Object> result = new ResultDto<>();
-        result.setResultCode(dao.update(t) == 1?ResultCode.SUCCESS_PUT:ResultCode.OPERATE_FAIL);
+        dao.update(t);
+        result.setResultCode(ResultCode.SUCCESS_PUT);
         return result;
     }
 

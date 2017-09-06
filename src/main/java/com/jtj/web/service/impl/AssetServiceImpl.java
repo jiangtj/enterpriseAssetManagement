@@ -3,6 +3,7 @@ package com.jtj.web.service.impl;
 import com.jtj.web.common.Constant;
 import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.common.utils.BeanUtils;
 import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.BorrowDao;
@@ -13,6 +14,7 @@ import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -44,19 +46,20 @@ public class AssetServiceImpl
     }
 
     @Override
-    public ResultDto<Object> borrowAsset(Borrow borrow) {
+    @Transactional(rollbackFor = Exception.class)
+    public ResultDto<Object> borrowAsset(Borrow borrow) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
         AssetDto dto = BeanUtils.fromBean(borrow.getAsset(),AssetDto.class);
         dto.setStatus(Constant.AssetStatus.NORMAL.getId());
         List<Asset> assets = assetDao.getList(dto);
         if (assets.size() == 0){
             result.setResultCode(ResultCode.ASSET_NON_EXISTENT);
-            return result;
+            throw new AssetException(result);
         }
         if (assets.size() > 1){
             result.setResultCode(ResultCode.ASSET_NOT_ONLY);
             result.setMessage("请使用uuid或者添加更多条件");
-            return result;
+            throw new AssetException(result);
         }
         //todo 权限判断
         String uuid = assets.get(0).getUuid();
@@ -70,19 +73,20 @@ public class AssetServiceImpl
     }
 
     @Override
-    public ResultDto<Object> returnAsset(Borrow borrow) {
+    @Transactional(rollbackFor = Exception.class)
+    public ResultDto<Object> returnAsset(Borrow borrow) throws AssetException {
         ResultDto<Object> result = new ResultDto<>();
         AssetDto dto = BeanUtils.fromBean(borrow.getAsset(),AssetDto.class);
         dto.setStatus(Constant.AssetStatus.BORROW.getId());
         List<Asset> assets = assetDao.getList(dto);
         if (assets.size() == 0){
             result.setResultCode(ResultCode.ASSET_NON_EXISTENT);
-            return result;
+            throw new AssetException(result);
         }
         if (assets.size() > 1){
             result.setResultCode(ResultCode.ASSET_NOT_ONLY);
             result.setMessage("请使用uuid或者添加更多条件");
-            return result;
+            throw new AssetException(result);
         }
         String uuid = assets.get(0).getUuid();
         result.setResultCode(updateAssetStatus(uuid, Constant.AssetStatus.NORMAL) == 1?

@@ -65,13 +65,13 @@ public class AssetController {
 
     @PostMapping("/borrow")
     @RequiresPermissions("asset:borrow:add")
-    public ResultDto<Object> borrowAsset(@RequestBody Borrow borrow) {
+    public ResultDto<Object> borrowAsset(@RequestBody Borrow borrow) throws AssetException {
         return assetService.borrowAsset(borrow);
     }
 
     @PostMapping("/return")
     @RequiresPermissions("asset:borrow:return")
-    public ResultDto<Object> returnAsset(@RequestBody Borrow borrow) {
+    public ResultDto<Object> returnAsset(@RequestBody Borrow borrow) throws AssetException {
         return assetService.returnAsset(borrow);
     }
 

@@ -44,27 +44,32 @@ public class PointServiceImpl
             Point type = pointDao.getById(t.getPid());
             t.setLevel(type.getLevel() + 1);
         }
-        return super.add(t);
+        ResultDto<Object> result = super.add(t);
+        refresh();
+        return result;
     }
 
     @Override
     public ResultDto<Object> update(Point t) {
         if (t.getId() == 0) t.setPid(0L);
-        //todo
-        return super.update(t);
+        ResultDto<Object> result = super.update(t);
+        refresh();
+        return result;
     }
 
     @Override
     public ResultDto<Object> delete(Long[] ids) throws AssetException {
         for (Long id : ids) {
             if (id == 0) {
-                return new ResultDto<>(ResultCode.NOT_DELETE_ROOT);
+                throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_ROOT));
             }
             if (getAllPointMap().get(id).getNodes().size() != 0){
-                return new ResultDto<>(ResultCode.NOT_DELETE_USED);
+                throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_USED));
             }
         }
-        return super.delete(ids);
+        ResultDto<Object> result = super.delete(ids);
+        refresh();
+        return result;
     }
 
     @Override
@@ -95,7 +100,7 @@ public class PointServiceImpl
     }
 
     @Override
-    public ResultDto<List<KeyValue>> getMapByPid(Long pid) {
+    public ResultDto<List<KeyValue>> getMapByPid(Long pid) throws AssetException {
         ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
 
         //pid不存在返回全部
@@ -117,8 +122,7 @@ public class PointServiceImpl
         Point point = getAllPointMap().get(pid);
 
         if (point == null){
-            result.setResultCode(ResultCode.NOT_FOUND);
-            return result;
+            throw new AssetException(new ResultDto<>(ResultCode.NOT_FOUND));
         }
 
         result.setObject(point.getNodes().stream().map(item->new KeyValue(item.getId()+"",item.getName()))

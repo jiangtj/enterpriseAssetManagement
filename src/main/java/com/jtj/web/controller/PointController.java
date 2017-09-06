@@ -62,7 +62,7 @@ public class PointController {
 
     @ApiOperation(value = "获取网点")
     @GetMapping("/map")
-    public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid){
+    public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid) throws AssetException {
         return pointService.getMapByPid(pid);
     }
 
