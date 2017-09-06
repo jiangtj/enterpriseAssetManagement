@@ -35,6 +35,9 @@ const App = new Vue({
                 Web.go("/login");
             });
         },
+        showMoreInfo:function () {
+            $("#user-more-info").modal("show");
+        },
         updateSidebarTree:function () {
             let self = this;
             Server.point.getQueryRootPoint.execute(data => {

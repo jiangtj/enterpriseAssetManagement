@@ -6,12 +6,12 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.exception.AuthenticationAssetException;
 import com.jtj.web.common.utils.MD5String;
 import com.jtj.web.dao.PermissionDao;
-import com.jtj.web.dao.PointDao;
 import com.jtj.web.dao.UserDao;
 import com.jtj.web.dto.UsernamePasswordTokenDto;
 import com.jtj.web.entity.Permission;
+import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
-import com.jtj.web.service.UserService;
+import com.jtj.web.service.PointService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -36,17 +36,17 @@ import java.util.stream.Collectors;
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
-    private UserService userService;
-    @Autowired
     private UserDao userDao;
     @Autowired
     private PermissionDao permissionDao;
     @Autowired
-    private PointDao pointDao;
+    private PointService pointService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User)principalCollection.getPrimaryPrincipal();
+        Point point = pointService.getPointById(user.getPointId()).getObject();
+        user.setPoint(point);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //系统管理员
         if (user.getId() == 1){

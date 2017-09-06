@@ -45,7 +45,9 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a v-on:click="logout">Logout</a></li>
+                            <li><a v-on:click="showMoreInfo">详情</a></li>
+                            <li class="divider"></li>
+                            <li><a v-on:click="logout">退出</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">
@@ -170,6 +172,41 @@
         </div>
 
     </div>
+
+
+
+    <!-- 个人信息 -->
+    <tt-modal id="user-more-info" title="我的信息">
+        <form role="form" class="validation">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <div><p class="form-control-static">{{user.id}}</p></div>
+                    </div>
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <div><p class="form-control-static">{{user.name}}</p></div>
+                    </div>
+                    <div class="form-group">
+                        <label>角色</label>
+                        <div><p class="form-control-static">{{user.role.name}}</p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>网点</label>
+                        <div><p class="form-control-static">{{user.point.name}}</p></div>
+                    </div>
+                    <div class="form-group">
+                        <label>描述</label>
+                        <div><p class="form-control-static">{{user.description}}</p></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </tt-modal>
+
 </div>
 
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
