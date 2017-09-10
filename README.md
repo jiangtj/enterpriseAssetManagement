@@ -39,7 +39,7 @@
 
 ### 注意
 - 需java运行环境
-- 需数据库导入other/asset.sql
+- 第一次启动，需添加`--spring.datasource.initialize=true`参数，以初始化数据库（*目前仍处于开发阶段，数据库结构可能存在调整，且不提供版本更新sql，数据库文件放在resources目录下*）
 - 默认user-id 为 1 的用户拥有最大权限，必要时修改数据库中用户id
 - 后台运行方式，linux 使用`nohup`，windows 使用`javaw`代替`java`
 - 若要支持ie，需修改所有js中es6语法为es5，理论上支持ie9+
@@ -52,6 +52,7 @@ docker  run -p 80:8080 \
    -e 'SPRING_DATASOURCE_URL=jdbc:mysql://192.169.2.2:3306/asset?useUnicode=true&characterEncoding=utf-8&useSSL=false' \
    -e 'SPRING_DATASOURCE_USERNAME=root' \
    -e 'SPRING_DATASOURCE_PASSWORD=pw' \
+   -e 'SPRING_DATASOURCE_INITIALIZE=true' \
    kurome/asset-run  
 ```  
 - 在网页端，输入docker虚拟环境ip地址即可  
