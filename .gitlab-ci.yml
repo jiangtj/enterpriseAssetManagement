@@ -14,7 +14,7 @@ stages:
 build:maven:
   image: maven:3-jdk-8
   stage: build
-  script: "mvn package -B"
+  script: "mvn package -B -Dmaven.test.skip=true"
   artifacts:
     paths:
       - target/asset.jar
