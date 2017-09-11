@@ -41,7 +41,7 @@
         </if>
     </sql>
 
-    <select id="getList" resultType="Asset">
+    <select id="getList" resultType="Borrow">
         SELECT
         ab.*
         FROM assets_borrow ab
@@ -50,7 +50,7 @@
                 <property name="alias" value="ab"/>
             </include>
         </where>
-        ORDER BY ab.create_time DESC
+        ORDER BY ab.status ASC ,ab.create_time DESC
         <if test="offset != 0">
             LIMIT #{begin},#{offset}
         </if>
@@ -65,6 +65,17 @@
                 <property name="alias" value="ab"/>
             </include>
         </where>
+    </select>
+
+    <select id="getMyBorrow" resultType="Borrow">
+        SELECT
+            ab.*,
+            ai.name "asset.name",
+            at.name "asset.assetsTypeName"
+        FROM assets_borrow ab
+            LEFT JOIN assets_item ai ON ab.uuid = ai.uuid
+            LEFT JOIN assets_type at ON ai.assets_type_id = at.id
+        WHERE ab.status = 1 AND ab.user_id = #{userId}
     </select>
 
     <update id="updateStatus">

@@ -14,7 +14,7 @@ const AppMenu = [
         list:[
             {name:"资产添加",permission:"asset:add",url:"/asset/add",staticUrl:"/model/asset/add.vue"},
             {name:"资产列表",permission:"asset:getList",url:"/asset/get",staticUrl:"/model/asset/get.vue"},
-            {name:"借还登记",permission:"asset:borrow",url:"/asset/borrow",staticUrl:"/model/asset/borrow.vue"}
+            {name:"借还登记",permission:"asset:borrow:operation",url:"/asset/borrow",staticUrl:"/model/asset/borrow.vue"}
         ]
     },
     {

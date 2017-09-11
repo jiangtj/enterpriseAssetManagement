@@ -11,8 +11,8 @@ INSERT INTO `auth_permission` VALUES ('21', 'asset:delete', '资产删除', '201
 INSERT INTO `auth_permission` VALUES ('22', 'asset:update', '资产更新', '2017-05-05 20:34:37', '2017-08-01 13:29:28');
 INSERT INTO `auth_permission` VALUES ('23', 'asset:getList', '资产列表', '2017-05-05 20:34:50', '2017-08-01 13:29:34');
 INSERT INTO `auth_permission` VALUES ('24', 'asset:record:getByUuid', '资产记录列表', '2017-05-05 20:35:05', '2017-08-01 13:30:18');
-INSERT INTO `auth_permission` VALUES ('25', 'asset:borrow:add', '资产租借', '2017-05-05 20:35:20', '2017-08-01 13:30:49');
-INSERT INTO `auth_permission` VALUES ('26', 'asset:borrow:return', '资产归还', '2017-05-05 20:35:40', '2017-08-17 23:03:12');
+INSERT INTO `auth_permission` VALUES ('25', 'asset:borrow:operation', '资产租借操作', '2017-05-05 20:35:20', '2017-08-01 13:30:49');
+INSERT INTO `auth_permission` VALUES ('26', 'asset:borrow:list', '资产租借列表', '2017-05-05 20:35:40', '2017-08-17 23:03:12');
 INSERT INTO `auth_permission` VALUES ('27', 'asset:updateStatus', '资产状态更新', '2017-05-05 20:37:46', '2017-08-01 13:31:49');
 INSERT INTO `auth_permission` VALUES ('28', 'sys:assetType:add', '资产类型添加', '2017-05-05 20:38:07', '2017-08-01 13:33:02');
 INSERT INTO `auth_permission` VALUES ('29', 'sys:assetType:delete', '资产类型删除', '2017-05-05 20:38:16', '2017-08-01 13:33:11');

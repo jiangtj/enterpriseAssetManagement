@@ -7,7 +7,6 @@ import com.jtj.web.dto.AssetAndStockTakeNameDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.AssetOperationRecord;
-import com.jtj.web.entity.Borrow;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
 import com.jtj.web.service.StockTakeService;
@@ -61,18 +60,6 @@ public class AssetController {
     @RequiresPermissions("asset:record:getByUuid")
     public ResultDto<List<AssetOperationRecord>> getOperationRecordByUuid(@RequestParam String uuid){
         return assetOperationRecordService.getOperationRecordByUuid(uuid);
-    }
-
-    @PostMapping("/borrow")
-    @RequiresPermissions("asset:borrow:add")
-    public ResultDto<Object> borrowAsset(@RequestBody Borrow borrow) throws AssetException {
-        return assetService.borrowAsset(borrow);
-    }
-
-    @PostMapping("/return")
-    @RequiresPermissions("asset:borrow:return")
-    public ResultDto<Object> returnAsset(@RequestBody Borrow borrow) throws AssetException {
-        return assetService.returnAsset(borrow);
     }
 
     @PutMapping("/updateStatus")

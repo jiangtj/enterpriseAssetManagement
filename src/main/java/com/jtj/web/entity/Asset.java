@@ -17,6 +17,7 @@ public class Asset extends BaseEntity {
     private Integer status;
     private String statusName;
     private Integer assetsTypeId;
+    private String assetsTypeName;
     private Long pointId;
 
     public String getUuid() {
@@ -81,5 +82,13 @@ public class Asset extends BaseEntity {
 
     public void setPointId(Long pointId) {
         this.pointId = pointId;
+    }
+
+    public String getAssetsTypeName() {
+        return assetsTypeName;
+    }
+
+    public void setAssetsTypeName(String assetsTypeName) {
+        this.assetsTypeName = assetsTypeName;
     }
 }

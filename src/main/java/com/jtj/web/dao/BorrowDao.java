@@ -1,11 +1,12 @@
 package com.jtj.web.dao;
 
 import com.jtj.web.dto.BorrowDto;
-import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.Borrow;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
@@ -17,4 +18,5 @@ public interface BorrowDao extends BaseDao<Borrow,BorrowDto>{
 
     int updateStatus(Borrow borrow);
 
+    List<Borrow> getMyBorrow(@Param("userId") Long id);
 }

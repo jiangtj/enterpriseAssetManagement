@@ -68,10 +68,14 @@ ServerUtils.config({
     },
     asset:{
         getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid",{type:"get"}),
-        borrowAsset:new WebBuilder("/asset/borrow",{type:"post"}),
-        returnAsset:new WebBuilder("/asset/return",{type:"post"}),
+        borrowAsset:new WebBuilder("/borrow/add",{type:"post"}),
+        returnAsset:new WebBuilder("/borrow/return",{type:"post"}),
         updateStatus:new WebBuilder("/asset/updateStatus",{type:"put"}),
         addStockTake:new WebBuilder("/asset/addStockTake",{type:"post"})
+    },
+    borrow:{
+        me:new WebBuilder("/borrow/me",{type:"get"}),
+        borrowBySelf:new WebBuilder("/borrow/add/me",{type:"post"}),
     },
     report:{
         getOverall:new WebBuilder("/report/getOverall",{type:"get"}),
@@ -86,82 +90,3 @@ ServerUtils.config({
     }
 });
 
-
-/*
-const Server = {
-    user:{
-        getList:new WebBuilder("/user/getList"),
-        add:new WebBuilder("/user/add"),
-        delete:new WebBuilder("/user/delete"),
-        update:new WebBuilder("/user/update"),
-        updatePoint:new WebBuilder("/user/updatePoint")
-    },
-    role:{
-        getList:new WebBuilder("/role/getList"),
-        add:new WebBuilder("/role/add"),
-        delete:new WebBuilder("/role/delete"),
-        update:new WebBuilder("/role/update"),
-        getPermission:new WebBuilder("/role/getPermission"),
-        updatePermission:new WebBuilder("/role/updatePermission"),
-        updatePoint:new WebBuilder("/role/updatePoint")
-    },
-    permission:{
-        getList:new WebBuilder("/permission/getList"),
-        add:new WebBuilder("/permission/add"),
-        addQuick:new WebBuilder("/permission/addQuick"),
-        delete:new WebBuilder("/permission/delete"),
-        update:new WebBuilder("/permission/update")
-    },
-    menu:{
-        getList:new WebBuilder("/menu/getList"),
-        add:new WebBuilder("/menu/add"),
-        delete:new WebBuilder("/menu/delete"),
-        update:new WebBuilder("/menu/update"),
-        getMenu:new WebBuilder("/menu/getMenu"),
-        getPublicMenu:new WebBuilder("/public/getMenu"),
-        getMapByPid:new WebBuilder("/menu/getMapByPid")
-    },
-    assetType:{
-        getList:new WebBuilder("/assetType/getList"),
-        add:new WebBuilder("/assetType/add"),
-        delete:new WebBuilder("/assetType/delete"),
-        update:new WebBuilder("/assetType/update"),
-        getType:new WebBuilder("/assetType/getType"),
-        getMapByPid:new WebBuilder("/assetType/getMapByPid")
-    },
-    point:{
-        getList:new WebBuilder("/point/getList"),
-        add:new WebBuilder("/point/add"),
-        delete:new WebBuilder("/point/delete"),
-        update:new WebBuilder("/point/update"),
-        getPoint:new WebBuilder("/point/getPoint"),
-        getMapByPid:new WebBuilder("/point/getMapByPid"),
-        getPublicPoint:new WebBuilder("/public/getPoint")
-    },
-    asset:{
-        getList:new WebBuilder("/asset/getList"),
-        add:new WebBuilder("/asset/add"),
-        delete:new WebBuilder("/asset/delete"),
-        update:new WebBuilder("/asset/update"),
-        getOperationRecordByUuid:new WebBuilder("/asset/getOperationRecordByUuid"),
-        borrowAsset:new WebBuilder("/asset/borrowAsset"),
-        returnAsset:new WebBuilder("/asset/returnAsset"),
-        updateStatus:new WebBuilder("/asset/updateStatus"),
-        addStockTake:new WebBuilder("/asset/addStockTake")
-    },
-    report:{
-        getOverall:new WebBuilder("/report/getOverall"),
-        getBorrow:new WebBuilder("/report/getBorrow"),
-    },
-    stockTake:{
-        handle:new WebBuilder("/stockTake/handle"),
-        getList:new WebBuilder("/stockTake/getList"),
-        add:new WebBuilder("/stockTake/add"),
-        delete:new WebBuilder("/stockTake/delete"),
-        updateAmount:new WebBuilder("/stockTake/updateAmount"),
-        getItemList:new WebBuilder("/stockTake/getItemList"),
-        updateToAbnormal:new WebBuilder("/stockTake/updateToAbnormal"),
-        close:new WebBuilder("/stockTake/close")
-    }
-};
-*/
