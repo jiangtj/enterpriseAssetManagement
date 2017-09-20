@@ -11,7 +11,12 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">借/还人id</label>
-                            <div class="col-sm-10"><input name="userId" v-model="data.userId" type="text" class="form-control" required></div>
+                            <div class="col-sm-10">
+                                <select id="chosen-user" v-model="data.userId" class="form-control select2-ajax" required>
+                                    <option>---- 请选择 ----</option>
+                                </select>
+                                <!--<input name="userId" v-model="data.userId" type="text" class="form-control" required>-->
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
@@ -100,6 +105,7 @@
             this.clear();
         },
         mounted:function () {
+            let self = this;
             $('.datepicker').datepicker({
                 todayBtn: "linked",
                 format: 'yyyy-mm-dd',
@@ -107,7 +113,32 @@
                 forceParse: false,
                 calendarWeeks: true,
                 autoclose: true
-            })
+            });
+            $('.select2-ajax').select2({
+                ajax: {
+                    url: Web.buildUrl("/borrow/users"),
+                    data: function (params) {
+                        if (!params.term) return;
+                        return {
+                            name: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        if (!data.object) return {};
+                        return {
+                            results:$.map(data.object,function (item) {
+                                return {
+                                    id:item.key,
+                                    text:item.value
+                                }
+                            })
+                        }
+                    }
+                }
+            }).on('select2:select', function (e) {
+                let data = e.params.data;
+                self.data.userId = data.id;
+            });
         },
         methods:{
             assetBorrow:function () {

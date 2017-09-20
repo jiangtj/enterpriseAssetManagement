@@ -113,4 +113,12 @@
         WHERE point_id = #{from}
     </update>
 
+    <select id="getKeyValueByName" resultType="KeyValue">
+        SELECT
+        au.id "key",
+        au.name "value"
+        FROM auth_user au
+        WHERE au.name LIKE concat('%',#{name},'%')
+    </select>
+
 </mapper>

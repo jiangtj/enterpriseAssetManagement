@@ -1,10 +1,13 @@
 package com.jtj.web.dao;
 
 import com.jtj.web.dto.UserDto;
+import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -23,4 +26,6 @@ public interface UserDao extends BaseDao<User,UserDto> {
     int updatePoint(@Param("id") Long id,@Param("pointId") Long pointId);
 
     int updateToNewPoint(@Param("from") Long from,@Param("to") Long to);
+
+    List<KeyValue> getKeyValueByName(String name);
 }

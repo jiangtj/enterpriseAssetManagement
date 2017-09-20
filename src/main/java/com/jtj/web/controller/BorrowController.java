@@ -5,6 +5,7 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.BorrowDto;
 import com.jtj.web.entity.Borrow;
+import com.jtj.web.entity.KeyValue;
 import com.jtj.web.service.BorrowService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,12 @@ public class BorrowController {
     @RequiresPermissions("asset:borrow:list")
     public ResultDto<PageDto<Borrow>> getList(BorrowDto dto){
         return borrowService.getList(dto);
+    }
+
+    @GetMapping("/users")
+    @RequiresPermissions("asset:borrow:operation")
+    public ResultDto<List<KeyValue>> getUsers(String name){
+        return borrowService.getUsers(name);
     }
 
 }
