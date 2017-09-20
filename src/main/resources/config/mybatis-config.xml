@@ -14,20 +14,4 @@
         <!-- 开启驼峰命名转换:Table(create_time) -> Entity(createTime) -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-
-    <typeHandlers>
-        <!-- jsr310 -->
-        <typeHandler handler="org.apache.ibatis.type.InstantTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.LocalDateTimeTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.LocalDateTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.LocalTimeTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.OffsetDateTimeTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.OffsetTimeTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.ZonedDateTimeTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.YearTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.MonthTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.YearMonthTypeHandler" />
-        <typeHandler handler="org.apache.ibatis.type.JapaneseDateTypeHandler" />
-    </typeHandlers>
-
 </configuration>
