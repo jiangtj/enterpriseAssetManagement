@@ -139,7 +139,6 @@ public class RandomStringUtils {
     /**
      * 唯一码生成器 返回值26位 数字字符串（yyyyMMddHHmmssSSS+11位随机数）
      *
-     * @param name
      * @return
      */
     public static String getNextVal() {

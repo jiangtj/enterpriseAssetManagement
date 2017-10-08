@@ -20,7 +20,7 @@ public class BeanUtils {
         BeanCopier copier = BeanCopier.create(source.getClass(), targetClass, converter != null);
         T target = null;
         try {
-            target = targetClass.newInstance();
+            target = targetClass.getDeclaredConstructor().newInstance();
         } catch (Exception ignore) {}
         copier.copy(source,target,converter);
         return target;
