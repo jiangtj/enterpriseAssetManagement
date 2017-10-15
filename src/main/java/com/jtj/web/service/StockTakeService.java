@@ -5,7 +5,10 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.dto.StockTakeDto;
 import com.jtj.web.dto.StockTakeItemDto;
-import com.jtj.web.entity.*;
+import com.jtj.web.entity.KeyValue;
+import com.jtj.web.entity.StockTake;
+import com.jtj.web.entity.StockTakeItem;
+import com.jtj.web.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

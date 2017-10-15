@@ -16,6 +16,7 @@ import com.jtj.web.entity.StockTakeItem;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.StockTakeService;
+import com.jtj.web.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;

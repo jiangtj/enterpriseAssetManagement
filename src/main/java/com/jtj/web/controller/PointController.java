@@ -90,7 +90,7 @@ public class PointController {
     @PostMapping("/refresh")
     public ResultDto<List<Point>> refresh(){
         ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        pointService.refresh();
+        pointService.refreshTreeData();
         return result;
     }
 

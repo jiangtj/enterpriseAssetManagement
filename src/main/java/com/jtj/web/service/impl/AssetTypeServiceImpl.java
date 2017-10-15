@@ -7,6 +7,7 @@ import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.service.AssetTypeService;
+import com.jtj.web.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

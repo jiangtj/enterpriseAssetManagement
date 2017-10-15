@@ -9,6 +9,7 @@ import com.jtj.web.dto.AssetDto;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
+import com.jtj.web.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

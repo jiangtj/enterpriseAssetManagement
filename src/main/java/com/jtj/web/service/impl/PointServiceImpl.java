@@ -14,6 +14,8 @@ import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.PointService;
+import com.jtj.web.service.base.BaseServiceImpl;
+import com.jtj.web.service.base.TreeEntity;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,21 @@ public class PointServiceImpl
     //if you has redis, you can put it into redis
     private static Map<Long,Point> allPointMap = new HashMap<>();
     private static List<Point> allPointList = new ArrayList<>();
-    private static List<Point> allRootPointList = new ArrayList<>();
+
+    @Override
+    public List<Point> getTreeResource() {
+        return pointDao.getAllPoint();
+    }
+
+    @Override
+    public List<Point> getTreeListResource() {
+        return allPointList;
+    }
+
+    @Override
+    public Map<Long, Point> getTreeMapResource() {
+        return allPointMap;
+    }
 
     @Override
     public ResultDto<Object> add(Point t) {
@@ -54,7 +70,7 @@ public class PointServiceImpl
             t.setLevel(type.getLevel() + 1);
         }
         ResultDto<Object> result = super.add(t);
-        refresh();
+        refreshTreeData();
         result.setMessage("请刷新当前页面！");
         return result;
     }
@@ -63,14 +79,14 @@ public class PointServiceImpl
     public ResultDto<Object> update(Point t) {
         if (t.getId() == 0) t.setPid(0L);
         ResultDto<Object> result = super.update(t);
-        refresh();
+        refreshTreeData();
         return result;
     }
 
     @Override
     @Transactional(rollbackFor = AssetException.class)
     public ResultDto<Object> deleteById(Long id) throws AssetException {
-        Point point = getAllPointMap().get(id);
+        Point point = getTreeMap().get(id);
         if (point.getNodes().size() != 0){
             throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_USED));
         }
@@ -90,26 +106,14 @@ public class PointServiceImpl
             assetDao.updateToNewPoint(id,point.getPid());
         }
         ResultDto<Object> result = super.delete(new Long[]{id});
-        refresh();
+        refreshTreeData();
         return result;
-    }
-
-    @Override
-    public List<Point> getAllPoint() {
-
-        if (allPointList.size() != 0)
-            return allPointList;
-
-        initPointData();
-
-        return allPointList;
     }
 
     @Override
     public ResultDto<List<Point>> getPointTree() {
         ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        if (allRootPointList.size() == 0) getAllPoint();
-        result.setObject(allRootPointList);
+        result.setObject(getTreeRoot());
         return result;
     }
 
@@ -119,28 +123,30 @@ public class PointServiceImpl
 
         //pid不存在返回全部
         if (pid == null) {
-            result.setObject(getAllPoint().stream().map(item->new KeyValue(item.getId()+"",item.getName()))
+            result.setObject(getTreeList().stream().map(item->new KeyValue(item.getId()+"",item.getName()))
                     .collect(Collectors.toList()));
             return result;
         }
 
         //pid为0，返回所有根节点
         if (pid == 0){
-            if (allRootPointList.size() == 0) getAllPoint();
-            result.setObject(allRootPointList.stream().map(item->new KeyValue(item.getId()+"",item.getName()))
+            result.setObject(getTreeRoot().stream().map(item->new KeyValue(item.getId()+"",item.getName()))
                     .collect(Collectors.toList()));
             return result;
         }
 
         //pid存在返回子节点
-        Point point = getAllPointMap().get(pid);
+        Point point = getTreeMap().get(pid);
 
         if (point == null){
             throw new AssetException(new ResultDto<>(ResultCode.NOT_FOUND));
         }
 
-        result.setObject(point.getNodes().stream().map(item->new KeyValue(item.getId()+"",item.getName()))
-                .collect(Collectors.toList()));
+        result.setObject(point.getNodes().stream()
+                .map(item->{
+                    Point point1 = (Point) item;
+                    return new KeyValue(point1.getId()+"",point1.getName());
+                }).collect(Collectors.toList()));
 
         return result;
     }
@@ -160,9 +166,13 @@ public class PointServiceImpl
         while (points.size() != 0){
             List<Point> pre = lists.get(i-1);
             points = new ArrayList<>();
-            for (Point p1:pre){
-                if (p1 != null)
-                    points.addAll(p1.getNodes());
+            for (TreeEntity p1:pre){
+                if (p1 != null) {
+                    List<Point> points1 = p1.getNodes().stream()
+                            .map(item -> ((Point) item))
+                            .collect(Collectors.toList());
+                    points.addAll(points1);
+                }
             }
             if (points.size() == 0) break;
             lists.add(points);
@@ -176,11 +186,10 @@ public class PointServiceImpl
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
         if (subject.isPermitted("system-point-subordinate:query:globe")) {
-            if (allRootPointList.size() == 0) getAllPoint();
-            return allRootPointList;
+            return getTreeRoot();
         }
         List<Point> points = new ArrayList<>();
-        points.add(getAllPointMap().get(user.getPointId()));
+        points.add(getTreeMap().get(user.getPointId()));
         return points;
     }
 
@@ -190,11 +199,11 @@ public class PointServiceImpl
         User user = (User) subject.getPrincipal();
         long pointId = dto.getPointId() == null?0L:dto.getPointId();
         if (subject.isPermitted("point-subordinate-query:point-globe-query")) {
-            return getAllPointMap().get(pointId);
+            return getTreeMap().get(pointId);
         }
         if (subject.isPermitted("point-subordinate-query")){
             boolean flag = checkAuthenticationPoint(pointId,user.getPoint());
-            return flag?getAllPointMap().get(pointId):user.getPoint();
+            return flag?getTreeMap().get(pointId):user.getPoint();
         }
         return user.getPoint();
     }
@@ -202,56 +211,27 @@ public class PointServiceImpl
     @Override
     public ResultDto<List<Point>> getPointByPid(Long pid) {
         ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject(getAllPointMap().get(pid).getNodes());
+        List<Point> points = getTreeMap().get(pid).getNodes().stream()
+                .map(item -> ((Point) item))
+                .collect(Collectors.toList());
+        result.setObject(points);
         return result;
     }
 
     @Override
     public ResultDto<Point> getPointById(Long id) {
         ResultDto<Point> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject(getAllPointMap().get(id));
+        result.setObject(getTreeMap().get(id));
         return result;
     }
 
-    private void initPointData() {
-        synchronized (this){
-            if (allPointList.size() == 0 ) refresh();
-        }
-    }
-
-    @Override
-    public void refresh() {
-        allPointMap = new HashMap<>();
-        allPointList = new ArrayList<>();
-        allRootPointList = new ArrayList<>();
-        allPointList = pointDao.getAllPoint();
-        Map<Long,Point> temp = allPointList.stream().collect(Collectors.toMap(Point::getId, y->{
-            y.setNodes(new ArrayList<>());
-            return y;
-        }));
-        allPointList.forEach(point -> {
-            if (Objects.equals(point.getPid(), point.getId()) || point.getPid() == 0) {
-                allRootPointList.add(point);
-                return;
-            }
-            Point p = temp.get(point.getPid());
-            p.getNodes().add(point);
-        });
-        allPointMap = temp;
-    }
-
-    private boolean checkAuthenticationPoint(long pointId, Point point) {
+    private boolean checkAuthenticationPoint(long pointId, TreeEntity point) {
         if (point == null) return false;
         if (point.getId() == pointId) return true;
         if (point.getNodes() == null) return false;
-        for (Point node : point.getNodes()){
+        for (TreeEntity node : point.getNodes()){
             if (checkAuthenticationPoint(pointId,node)) return true;
         }
         return false;
-    }
-
-    private Map<Long, Point> getAllPointMap() {
-        if (allPointMap == null || allPointMap.size() == 0) initPointData();
-        return allPointMap;
     }
 }

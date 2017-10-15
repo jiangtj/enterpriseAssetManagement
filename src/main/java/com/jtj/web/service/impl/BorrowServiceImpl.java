@@ -16,6 +16,7 @@ import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.BorrowService;
+import com.jtj.web.service.base.BaseServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;

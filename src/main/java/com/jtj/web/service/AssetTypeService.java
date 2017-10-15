@@ -4,6 +4,7 @@ import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
+import com.jtj.web.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

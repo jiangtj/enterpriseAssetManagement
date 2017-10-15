@@ -1,21 +1,17 @@
 package com.jtj.web.entity;
 
-import com.jtj.web.common.BaseEntity;
-
-import java.util.List;
+import com.jtj.web.service.base.TreeEntity;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/4/29 19:25 End.
  */
-public class Point extends BaseEntity {
+public class Point extends TreeEntity {
 
     private String name;
-    private Long pid;
     private Integer level;
     private Integer order;
     private Boolean selected;
-    private List<Point> nodes;
 
     public String getName() {
         return name;
@@ -23,14 +19,6 @@ public class Point extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
     }
 
     public Integer getLevel() {
@@ -55,13 +43,5 @@ public class Point extends BaseEntity {
 
     public void setSelected(Boolean selected) {
         this.selected = selected;
-    }
-
-    public List<Point> getNodes() {
-        return nodes;
-    }
-
-    public void setNodes(List<Point> nodes) {
-        this.nodes = nodes;
     }
 }

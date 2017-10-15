@@ -6,6 +6,8 @@ import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.PointDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
+import com.jtj.web.service.base.BaseService;
+import com.jtj.web.service.base.TreeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +17,9 @@ import java.util.List;
  * 2016/12/23 23:26 End.
  */
 @Service
-public interface PointService extends BaseService<Point,PointDto> {
+public interface PointService extends BaseService<Point,PointDto>, TreeService<Point> {
 
     ResultDto<Object> deleteById(Long id) throws AssetException;
-
-    List<Point> getAllPoint();
 
     ResultDto<List<Point>> getPointTree();
 
@@ -34,6 +34,4 @@ public interface PointService extends BaseService<Point,PointDto> {
     ResultDto<List<Point>> getPointByPid(Long pid);
 
     ResultDto<Point> getPointById(Long id);
-
-    void refresh();
 }

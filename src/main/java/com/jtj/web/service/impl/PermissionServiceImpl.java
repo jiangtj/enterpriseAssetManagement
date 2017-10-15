@@ -7,6 +7,7 @@ import com.jtj.web.dto.PermissionDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Permission;
 import com.jtj.web.service.PermissionService;
+import com.jtj.web.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

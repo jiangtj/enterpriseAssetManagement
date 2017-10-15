@@ -1,10 +1,10 @@
 package com.jtj.web.service;
 
-import com.jtj.web.common.PageDto;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.PermissionDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Permission;
+import com.jtj.web.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

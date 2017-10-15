@@ -3,6 +3,7 @@ package com.jtj.web.service;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.entity.Asset;
+import com.jtj.web.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 /**

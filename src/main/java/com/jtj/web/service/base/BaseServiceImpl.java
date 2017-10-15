@@ -1,9 +1,8 @@
-package com.jtj.web.service.impl;
+package com.jtj.web.service.base;
 
 import com.jtj.web.common.*;
 import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dao.BaseDao;
-import com.jtj.web.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

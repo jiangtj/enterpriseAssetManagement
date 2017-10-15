@@ -1,4 +1,4 @@
-package com.jtj.web.service;
+package com.jtj.web.service.base;
 
 import com.jtj.web.common.BaseDto;
 import com.jtj.web.common.BaseEntity;
