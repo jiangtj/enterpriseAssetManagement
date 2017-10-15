@@ -55,6 +55,7 @@ public class PointServiceImpl
         }
         ResultDto<Object> result = super.add(t);
         refresh();
+        result.setMessage("请刷新当前页面！");
         return result;
     }
 

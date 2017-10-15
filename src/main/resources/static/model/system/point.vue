@@ -61,8 +61,7 @@
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input v-if="conditions.pid || isUpdate" label="父节点" v-model="fromModalData.data.pid" disabled="disabled"></tt-simple-input>
-                        <tt-simple-tree-root v-else label="父节点" v-model="fromModalData.data.pid" :data="getPointMapById"></tt-simple-tree-root>
+                        <tt-simple-tree-root-v2 label="父节点" v-model="fromModalData.data.pid" :data="tree.point" :option="{key:'id',value:'name'}"></tt-simple-tree-root-v2>
                         <tt-simple-input label="排序" v-model="fromModalData.data.order" required></tt-simple-input>
                     </div>
                 </div>
@@ -122,7 +121,9 @@
                     empty:null,
                     submit:function () {}
                 },
-                isUpdate:false
+                tree:{
+                    point:[]
+                }
             }
         },
         computed:{
@@ -137,7 +138,11 @@
             }
         },
         created:function () {
+            let self = this;
             this.getTableList();
+            Server.point.getPointTree.execute(data => {
+                self.tree.point = data.object;
+            });
         },
         beforeMount:function () {
         },
@@ -177,13 +182,6 @@
                     }
                 };
             },
-            /*deleteAll:function () {
-                let self = this;
-                SweetAlertUtils.show().sure(function () {
-                    let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.point.delete.param({ids:ids}).execute(() => self.getTableList());
-                });
-            },*/
             deleteOne:function () {
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
@@ -194,14 +192,12 @@
                 this.fromModalData.title = "添加";
                 this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
                 this.fromModalData.data.pid = this.conditions.pid;
-                this.isUpdate = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.point.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
-                this.isUpdate = true;
                 this.fromModalData.submit = this.getSubmitFunc(Server.point.update);
                 this.fromModal.show();
             },

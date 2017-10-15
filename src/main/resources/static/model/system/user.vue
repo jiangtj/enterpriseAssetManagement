@@ -171,7 +171,7 @@
             self.getTableList();
             Server.point.getPointTree.execute(data => {
                 self.tree.point = data.object;
-            })
+            });
         },
         beforeMount:function () {
         },

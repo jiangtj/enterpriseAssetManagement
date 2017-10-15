@@ -1,17 +1,3 @@
-const SlotsUtils = {
-    get:function (slots,nodes) {
-        if (slots != null){
-            return [slots];
-        }else {
-            return nodes;
-        }
-    },
-    getItem:function (slots,node) {
-        return slots || node;
-    }
-};
-
-
 //todo 整合菜单为单个递归组件
 Vue.component("tt-menu-root",{
     props: ['data'],
