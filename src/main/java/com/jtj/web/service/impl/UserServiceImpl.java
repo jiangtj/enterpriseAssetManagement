@@ -9,7 +9,6 @@ import com.jtj.web.dao.UserDao;
 import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.UserService;
-import com.jtj.web.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +19,7 @@ import java.util.List;
  * 2016/12/23 23:26 End.
  */
 @Service
-public class UserServiceImpl
-        extends BaseServiceImpl<User,UserDto,UserDao>
-        implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
@@ -30,6 +27,11 @@ public class UserServiceImpl
     private PermissionDao permissionDao;
     @Autowired
     private PointDao pointDao;
+
+    @Override
+    public UserDao getRepository() {
+        return userDao;
+    }
 
     @Override
     public ResultDto<User> getUserById(long id){
