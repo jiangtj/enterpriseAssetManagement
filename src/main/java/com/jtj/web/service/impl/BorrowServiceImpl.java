@@ -9,14 +9,12 @@ import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.BorrowDao;
 import com.jtj.web.dao.UserDao;
 import com.jtj.web.dto.AssetDto;
-import com.jtj.web.dto.BorrowDto;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.Borrow;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.BorrowService;
-import com.jtj.web.service.base.BaseServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +30,7 @@ import java.util.List;
  * 2017/3/15.
  */
 @Service
-public class BorrowServiceImpl
-        extends BaseServiceImpl<Borrow,BorrowDto,BorrowDao>
-        implements BorrowService {
+public class BorrowServiceImpl implements BorrowService {
 
     @Autowired
     private BorrowDao borrowDao;
@@ -44,6 +40,11 @@ public class BorrowServiceImpl
     private AssetDao assetDao;
     @Autowired
     private UserDao userDao;
+
+    @Override
+    public BorrowDao getRepository() {
+        return borrowDao;
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

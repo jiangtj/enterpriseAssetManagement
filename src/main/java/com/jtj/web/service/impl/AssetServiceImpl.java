@@ -5,11 +5,9 @@ import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.BorrowDao;
-import com.jtj.web.dto.AssetDto;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
-import com.jtj.web.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +18,7 @@ import java.util.UUID;
  * 2017/3/15.
  */
 @Service
-public class AssetServiceImpl
-        extends BaseServiceImpl<Asset,AssetDto,AssetDao>
-        implements AssetService {
+public class AssetServiceImpl implements AssetService {
 
     @Autowired
     private AssetDao assetDao;
@@ -32,10 +28,17 @@ public class AssetServiceImpl
     private BorrowDao borrowDao;
 
     @Override
+    public AssetDao getRepository() {
+        return assetDao;
+    }
+
+    @Override
     public ResultDto<Object> add(Asset t) {
+        ResultDto<Object> result = new ResultDto<>();
         String uuid = UUID.randomUUID().toString();
         t.setUuid(uuid);
-        ResultDto<Object> result = super.add(t);
+        assetDao.add(t);
+        result.setResultCode(ResultCode.SUCCESS_POST);
         assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.ADD,result.getTitle());
         return result;
     }

@@ -8,13 +8,11 @@ import com.jtj.web.dao.AssetDao;
 import com.jtj.web.dao.PointDao;
 import com.jtj.web.dao.UserDao;
 import com.jtj.web.dto.AssetDto;
-import com.jtj.web.dto.PointDto;
 import com.jtj.web.dto.UserDto;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.PointService;
-import com.jtj.web.service.base.BaseServiceImpl;
 import com.jtj.web.service.base.TreeEntity;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -30,9 +28,7 @@ import java.util.stream.Collectors;
  * 2017/3/15.
  */
 @Service
-public class PointServiceImpl
-        extends BaseServiceImpl<Point,PointDto,PointDao>
-        implements PointService {
+public class PointServiceImpl implements PointService {
 
     @Autowired
     private PointDao pointDao;
@@ -44,6 +40,11 @@ public class PointServiceImpl
     //if you has redis, you can put it into redis
     private static Map<Long,Point> allPointMap = new HashMap<>();
     private static List<Point> allPointList = new ArrayList<>();
+
+    @Override
+    public PointDao getRepository() {
+        return pointDao;
+    }
 
     @Override
     public List<Point> getTreeResource() {
@@ -69,7 +70,9 @@ public class PointServiceImpl
             Point type = pointDao.getById(t.getPid());
             t.setLevel(type.getLevel() + 1);
         }
-        ResultDto<Object> result = super.add(t);
+        ResultDto<Object> result = new ResultDto<>();
+        pointDao.add(t);
+        result.setResultCode(ResultCode.SUCCESS_POST);
         refreshTreeData();
         result.setMessage("请刷新当前页面！");
         return result;
@@ -78,7 +81,9 @@ public class PointServiceImpl
     @Override
     public ResultDto<Object> update(Point t) {
         if (t.getId() == 0) t.setPid(0L);
-        ResultDto<Object> result = super.update(t);
+        ResultDto<Object> result = new ResultDto<>();
+        pointDao.update(t);
+        result.setResultCode(ResultCode.SUCCESS_PUT);
         refreshTreeData();
         return result;
     }
@@ -105,7 +110,9 @@ public class PointServiceImpl
             userDao.updateToNewPoint(id,point.getPid());
             assetDao.updateToNewPoint(id,point.getPid());
         }
-        ResultDto<Object> result = super.delete(new Long[]{id});
+        ResultDto<Object> result = new ResultDto<>();
+        int count = pointDao.delete(new Long[]{id});
+        result.setResultCode(ResultCode.SUCCESS_PUT);
         refreshTreeData();
         return result;
     }

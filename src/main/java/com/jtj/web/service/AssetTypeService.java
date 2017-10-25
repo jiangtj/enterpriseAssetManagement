@@ -1,10 +1,11 @@
 package com.jtj.web.service;
 
 import com.jtj.web.common.ResultDto;
+import com.jtj.web.dao.AssetTypeDao;
 import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
-import com.jtj.web.service.base.BaseService;
+import com.jtj.web.service.base.CurdService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * 2016/12/23 23:26 End.
  */
 @Service
-public interface AssetTypeService extends BaseService<AssetType,AssetTypeDto> {
+public interface AssetTypeService extends CurdService<AssetType,AssetTypeDto,AssetTypeDao> {
 
     ResultDto<List<AssetType>> getType(AssetTypeDto dto);
 

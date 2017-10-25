@@ -3,31 +3,27 @@ package com.jtj.web.service.base;
 import com.jtj.web.common.*;
 import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dao.BaseDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by MrTT (jiang.taojie@foxmail.com)
- * 2017/3/15.
+ * 2017/10/16.
  */
-public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends BaseDao<E,T>>
-        implements BaseService<E,T> {
+public interface CurdService<E extends BaseEntity,T extends BaseDto,D extends BaseDao<E,T>> {
 
-    @Autowired
-    private D dao;
+    D getRepository();
 
-
-    @Override
-    public ResultDto<Object> add(E t) {
+    default ResultDto<Object> add(E t) {
+        D dao = getRepository();
         ResultDto<Object> result = new ResultDto<>();
         dao.add(t);
         result.setResultCode(ResultCode.SUCCESS_POST);
         return result;
     }
 
-    @Override
     @Transactional(rollbackFor=Exception.class)
-    public ResultDto<Object> delete(Long[] ids) throws AssetException {
+    default ResultDto<Object> delete(Long[] ids) throws AssetException {
+        D dao = getRepository();
         ResultDto<Object> result = new ResultDto<>();
         int count = dao.delete(ids);
         int all = ids.length;
@@ -40,16 +36,16 @@ public class BaseServiceImpl<E extends BaseEntity,T extends BaseDto,D extends Ba
         throw new AssetException(result);
     }
 
-    @Override
-    public ResultDto<Object> update(E t) {
+    default ResultDto<Object> update(E t) {
+        D dao = getRepository();
         ResultDto<Object> result = new ResultDto<>();
         dao.update(t);
         result.setResultCode(ResultCode.SUCCESS_PUT);
         return result;
     }
 
-    @Override
-    public ResultDto<PageDto<E>> getList(T dto) {
+    default ResultDto<PageDto<E>> getList(T dto) {
+        D dao = getRepository();
         ResultDto<PageDto<E>> result = new ResultDto<>(ResultCode.SUCCESS_GET);
         PageDto<E> page = new PageDto<>();
         page.setList(dao.getList(dto));

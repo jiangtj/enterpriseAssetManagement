@@ -7,7 +7,6 @@ import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.service.AssetTypeService;
-import com.jtj.web.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +17,19 @@ import java.util.List;
  * 2017/3/15.
  */
 @Service
-public class AssetTypeServiceImpl
-        extends BaseServiceImpl<AssetType,AssetTypeDto,AssetTypeDao>
-        implements AssetTypeService {
+public class AssetTypeServiceImpl implements AssetTypeService {
 
     @Autowired
     private AssetTypeDao assetTypeDao;
 
     @Override
+    public AssetTypeDao getRepository() {
+        return assetTypeDao;
+    }
+
+    @Override
     public ResultDto<Object> add(AssetType t) {
+        ResultDto<Object> result = new ResultDto<>();
         if (t.getPid() == null) {
             t.setPid(0L);
             t.setLevel(1);
@@ -34,7 +37,9 @@ public class AssetTypeServiceImpl
             AssetType type = assetTypeDao.getById(t.getPid());
             t.setLevel(type.getLevel() + 1);
         }
-        return super.add(t);
+        assetTypeDao.add(t);
+        result.setResultCode(ResultCode.SUCCESS_POST);
+        return result;
     }
 
     @Override
