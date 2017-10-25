@@ -3,11 +3,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/10b70ef4eea14dad9280115ec3b5d44d)](https://www.codacy.com/app/116749895/enterpriseAssetManagement?utm_source=github.com&utm_medium=referral&utm_content=JiangTJ/enterpriseAssetManagement&utm_campaign=badger)
 [![build status](https://gitlab.com/JiangTJ/enterpriseAssetManagement/badges/master/build.svg)](https://gitlab.com/JiangTJ/enterpriseAssetManagement/commits/master)
 
-> 示例：[企业固定资产管理系统](http://www.kurome.xin:8080/)  
-超级管理员 用户名:admin 密码:123456  
-在用户管理中所有的用户密码与超管一致  
-大部分模块都未完善，在逐步调整ヾ(･ω･`｡)
-
 
 ### 环境
 - JDK环境：jdk 8+
