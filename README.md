@@ -28,7 +28,7 @@
 
 ### java 运行
 
-1. 下载源码，maven编译获取jar包或者您可以访问该项目的[*gitlab pipelines*](https://gitlab.com/JiangTJ/enterpriseAssetManagement/pipelines)下载
+1. 下载源码，maven编译获取jar包或者您可以访问该项目的[**gitlab pipelines**](https://gitlab.com/JiangTJ/enterpriseAssetManagement/pipelines)下载
 1. 配置数据库，请仿照`application-dev.properties`，创建相应的配置文件`application.properties`，并与war包放在相同目录或者config/下
 1. java 运行 `java -jar asset.jar --server.port=8080`,其中`server.port`设置端口号，该配置可写于`application.properties`中
 
