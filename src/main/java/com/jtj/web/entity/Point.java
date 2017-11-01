@@ -6,10 +6,9 @@ import com.jtj.web.service.base.TreeEntity;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/4/29 19:25 End.
  */
-public class Point extends TreeEntity {
+public class Point extends TreeEntity<Point> {
 
     private String name;
-    private Integer level;
     private Integer order;
     private Boolean selected;
 
@@ -19,14 +18,6 @@ public class Point extends TreeEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Integer getOrder() {

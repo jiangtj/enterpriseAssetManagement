@@ -5,8 +5,8 @@
 <mapper namespace="com.jtj.web.dao.PointDao">
 
     <insert id="add">
-        INSERT INTO point(name, level, pid, `order`)
-        VALUES (#{name},#{level},#{pid},#{order})
+        INSERT INTO point(name, pid, `order`)
+        VALUES (#{name},#{pid},#{order})
     </insert>
 
     <update id="update">
@@ -15,13 +15,9 @@
             <if test=" name != '' and name != null ">
                 name = #{name},
             </if>
-            <!-- 暂不支持父节点修改 -->
-            <!--<if test="level != null">
-                level = #{level},
-            </if>
             <if test="pid != null">
                 pid = #{pid},
-            </if>-->
+            </if>
             <if test="order != null">
                 `order` = #{order},
             </if>
@@ -42,9 +38,6 @@
         </if>
         <if test="name != null and name != ''">
             AND ${alias}.name = #{name}
-        </if>
-        <if test="level != null">
-            AND ${alias}.level = #{level}
         </if>
         <if test="pid != null">
             AND ${alias}.pid = #{pid}

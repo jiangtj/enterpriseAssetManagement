@@ -10,7 +10,6 @@ public class PointDto extends BaseDto {
 
     private String name;
     private Long pid;
-    private Integer level;
     private Integer order;
     private Integer roleId;
 
@@ -28,14 +27,6 @@ public class PointDto extends BaseDto {
 
     public void setPid(Long pid) {
         this.pid = pid;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Integer getOrder() {

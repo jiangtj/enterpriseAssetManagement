@@ -90,7 +90,7 @@ INSERT INTO `auth_role_permission_relation` VALUES ('309', '1', '61', '2017-08-2
 -- ----------------------------
 -- Records of point
 -- ----------------------------
-INSERT INTO `point` (`id`, `name`, `level`, `pid`, `order`, `create_time`, `update_time`) VALUES ('1', '浙江总部', '1', '0', '1', '2017-04-30 19:34:38', '2017-08-25 22:10:07');
+INSERT INTO `point` (`id`, `name`, `pid`, `order`, `create_time`, `update_time`) VALUES ('1', '浙江总部', '1', '0', '2017-04-30 19:34:38', '2017-08-25 22:10:07');
 
 -- ----------------------------
 -- Records of auth_user

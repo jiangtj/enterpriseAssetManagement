@@ -107,7 +107,6 @@
                         id:"网点id",
                         name:"名称",
                         pid:"父id",
-                        level:"级别",
                         order:"排序",
                         operation:{name:"操作",width:"60px"}
                     },

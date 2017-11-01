@@ -8,10 +8,10 @@ import java.util.List;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/10/15 23:03 End.
  */
-public class TreeEntity extends BaseEntity {
+public class TreeEntity<T extends TreeEntity<T>> extends BaseEntity {
 
     private Long pid;
-    private List<TreeEntity> nodes;
+    private List<T> nodes;
 
     public Long getPid() {
         return pid;
@@ -21,11 +21,11 @@ public class TreeEntity extends BaseEntity {
         this.pid = pid;
     }
 
-    public List<TreeEntity> getNodes() {
+    public List<T> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<TreeEntity> nodes) {
+    public void setNodes(List<T> nodes) {
         this.nodes = nodes;
     }
 }

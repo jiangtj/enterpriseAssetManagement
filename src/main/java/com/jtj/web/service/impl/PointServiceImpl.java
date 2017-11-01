@@ -13,7 +13,6 @@ import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.Point;
 import com.jtj.web.entity.User;
 import com.jtj.web.service.PointService;
-import com.jtj.web.service.base.TreeEntity;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +64,6 @@ public class PointServiceImpl implements PointService {
     public ResultDto<Object> add(Point t) {
         if (t.getPid() == null) {
             t.setPid(0L);
-            t.setLevel(1);
-        }else {
-            Point type = pointDao.getById(t.getPid());
-            t.setLevel(type.getLevel() + 1);
         }
         ResultDto<Object> result = new ResultDto<>();
         pointDao.add(t);
@@ -80,7 +75,9 @@ public class PointServiceImpl implements PointService {
 
     @Override
     public ResultDto<Object> update(Point t) {
-        if (t.getId() == 0) t.setPid(0L);
+        if (t.getPid() == null) {
+            t.setPid(0L);
+        }
         ResultDto<Object> result = new ResultDto<>();
         pointDao.update(t);
         result.setResultCode(ResultCode.SUCCESS_PUT);
@@ -150,10 +147,8 @@ public class PointServiceImpl implements PointService {
         }
 
         result.setObject(point.getNodes().stream()
-                .map(item->{
-                    Point point1 = (Point) item;
-                    return new KeyValue(point1.getId()+"",point1.getName());
-                }).collect(Collectors.toList()));
+                .map(item-> new KeyValue(item.getId()+"",item.getName()))
+                .collect(Collectors.toList()));
 
         return result;
     }
@@ -173,12 +168,9 @@ public class PointServiceImpl implements PointService {
         while (points.size() != 0){
             List<Point> pre = lists.get(i-1);
             points = new ArrayList<>();
-            for (TreeEntity p1:pre){
+            for (Point p1:pre){
                 if (p1 != null) {
-                    List<Point> points1 = p1.getNodes().stream()
-                            .map(item -> ((Point) item))
-                            .collect(Collectors.toList());
-                    points.addAll(points1);
+                    points.addAll(p1.getNodes());
                 }
             }
             if (points.size() == 0) break;
@@ -218,9 +210,7 @@ public class PointServiceImpl implements PointService {
     @Override
     public ResultDto<List<Point>> getPointByPid(Long pid) {
         ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        List<Point> points = getTreeMap().get(pid).getNodes().stream()
-                .map(item -> ((Point) item))
-                .collect(Collectors.toList());
+        List<Point> points = getTreeMap().get(pid).getNodes();
         result.setObject(points);
         return result;
     }
@@ -232,11 +222,11 @@ public class PointServiceImpl implements PointService {
         return result;
     }
 
-    private boolean checkAuthenticationPoint(long pointId, TreeEntity point) {
+    private boolean checkAuthenticationPoint(long pointId, Point point) {
         if (point == null) return false;
         if (point.getId() == pointId) return true;
         if (point.getNodes() == null) return false;
-        for (TreeEntity node : point.getNodes()){
+        for (Point node : point.getNodes()){
             if (checkAuthenticationPoint(pointId,node)) return true;
         }
         return false;

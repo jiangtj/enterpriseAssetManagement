@@ -58,10 +58,10 @@
     <!-- Custom javascript -->
     <!--<script th:src="@{/js/jquery.md5.js}"></script>-->
     <script th:src="@{/js/md5.js}"></script>
-    <script th:src="@{/js/common.js}"></script>
-    <script th:src="@{/js/web.js}"></script>
-    <script th:src="@{/js/server.js}"></script>
-    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/common.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+    <script th:src="@{/js/web.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+    <script th:src="@{/js/server.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
+    <script th:src="@{/js/login.js(_r=${#strings.randomAlphanumeric(5)})}"></script>
     <script>if (window.module) module = window.module;</script>
 
 </body>
