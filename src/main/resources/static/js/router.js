@@ -49,7 +49,7 @@ const RouteUtils = {
             name:name,
             data:{},
             component: function (resolve) {
-                let url = item.staticUrl;//获取url
+                let url = item.staticUrl+"?_r="+Math.random();//获取url
                 let tempText = "";
                 //动态获取静态模板
                 new WebBuilder(url).setAsync(false).setType("text").get(function (data) {

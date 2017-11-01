@@ -41,6 +41,13 @@ public class PointServiceImpl implements PointService {
     private static List<Point> allPointList = new ArrayList<>();
 
     @Override
+    public Point getRootResource() {
+        Point point = new Point();
+        point.setName("root");
+        return point;
+    }
+
+    @Override
     public PointDao getRepository() {
         return pointDao;
     }

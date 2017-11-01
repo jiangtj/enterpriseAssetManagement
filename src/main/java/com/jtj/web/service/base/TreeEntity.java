@@ -28,4 +28,9 @@ public class TreeEntity<T extends TreeEntity<T>> extends BaseEntity {
     public void setNodes(List<T> nodes) {
         this.nodes = nodes;
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

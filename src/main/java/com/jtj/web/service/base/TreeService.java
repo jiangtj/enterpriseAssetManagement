@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/10/15 22:27 End.
  */
-public interface TreeService<T extends TreeEntity> {
+public interface TreeService<T extends TreeEntity<T>> {
+
+    T getRootResource();
 
     List<T> getTreeResource();
 
@@ -60,8 +62,15 @@ public interface TreeService<T extends TreeEntity> {
             return getTreeMapResource();
         List<T> treeList = getTreeList();
         Map<Long,T> temp = treeList.stream().collect(Collectors.toMap(TreeEntity::getId, y->y));
+        T root = getRootResource();
+        root.setPid(-100L);
+        root.setNodes(new ArrayList<>());
+        root.setId(-100L);
+        temp.put(0L,root);
         treeList.forEach(tree -> {
             if (Objects.equals(tree.getPid(), tree.getId()) || tree.getPid() == 0) {
+                T p = temp.get(0L);
+                p.getNodes().add(tree);
                 return;
             }
             T p = temp.get(tree.getPid());
@@ -76,9 +85,10 @@ public interface TreeService<T extends TreeEntity> {
         return temp;
     }
     default List<T> getTreeRoot(){
-        return getTreeList().stream()
+        /*return getTreeList().stream()
                 .filter(item -> Objects.equals(item.getPid(), item.getId()) || item.getPid() == 0)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
+        return getTreeMap().get(0L).getNodes();
     }
 
 }
