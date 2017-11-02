@@ -486,7 +486,7 @@ Vue.component('tt-modal', {
                 },'×'/*&times;*/)
             ])
         );
-        bodyTitleElement.push(createElement('div',{ class:{'col-sm-10':true}},[createElement('h3',self.title)]));
+        bodyTitleElement.push(createElement('div',{ class:{'col-sm-12':true}, style:{width:"80%"}},[createElement('h3',self.title)]));
         //body节点
         let bodyElement = [];
         bodyElement.push(createElement('div',{class:{'row':true}},bodyTitleElement));
