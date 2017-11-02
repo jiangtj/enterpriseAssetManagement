@@ -636,7 +636,14 @@ Vue.component("tt-simple-tree-root-v2",{
         }
     },
     methods:{
-        call:function (object) {
+        call:function (object,pre) {
+            if (!this.defaultValue||!object||pre){
+                this.$emit('input',object);
+                return;
+            }
+            if (this.defaultValue.indexOf(object.toString()) !== -1){
+                return;
+            }
             this.$emit('input',object);
         },
         getDefaultValue:function (tree,value) {
@@ -706,7 +713,7 @@ Vue.component("tt-simple-tree-children-v2",{
         },
         selectModel:function (item) {
             if (item === null) {
-                this.call(this.pid);
+                this.call(this.pid,true);
                 return;
             }
             this.call(item[this.innerKey]);
