@@ -22,8 +22,6 @@ public interface PointService extends CurdService<Point,PointDto,PointDao>, Tree
 
     ResultDto<Object> deleteById(Long id) throws AssetException;
 
-    ResultDto<List<Point>> getPointTree();
-
     ResultDto<List<KeyValue>> getMapByPid(Long pid) throws AssetException;
 
     List<Point> getQueryPoint();
@@ -31,8 +29,4 @@ public interface PointService extends CurdService<Point,PointDto,PointDao>, Tree
     List<Point> getQueryRootPoint();
 
     Point getAuthenticationPoint(BasePointDto dto);
-
-    ResultDto<List<Point>> getPointByPid(Long pid);
-
-    ResultDto<Point> getPointById(Long id);
 }

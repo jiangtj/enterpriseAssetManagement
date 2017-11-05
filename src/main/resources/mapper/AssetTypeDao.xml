@@ -99,8 +99,8 @@
         ORDER BY at.`order` ASC
     </select>
 
-    <select id="getById" resultType="AssetType">
-        SELECT at.* FROM assets_type at WHERE at.id = #{id}
+    <select id="getAll" resultType="AssetType">
+        SELECT * FROM assets_type
     </select>
 
 </mapper>

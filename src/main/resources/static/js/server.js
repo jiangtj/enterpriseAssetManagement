@@ -55,6 +55,7 @@ ServerUtils.config({
     permission:{
     },
     assetType:{
+        getTypeTree:new WebBuilder("/assetType/tree",{type:"get"}),
         getType:new WebBuilder("/assetType/getType",{type:"get"}),
         getMapByPid:new WebBuilder("/assetType/getMapByPid",{type:"get"})
     },

@@ -122,26 +122,12 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public ResultDto<List<Point>> getPointTree() {
-        ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject(getTreeRoot());
-        return result;
-    }
-
-    @Override
     public ResultDto<List<KeyValue>> getMapByPid(Long pid) throws AssetException {
         ResultDto<List<KeyValue>> result = new ResultDto<>(ResultCode.SUCCESS);
 
         //pid不存在返回全部
         if (pid == null) {
             result.setObject(getTreeList().stream().map(item->new KeyValue(item.getId()+"",item.getName()))
-                    .collect(Collectors.toList()));
-            return result;
-        }
-
-        //pid为0，返回所有根节点
-        if (pid == 0){
-            result.setObject(getTreeRoot().stream().map(item->new KeyValue(item.getId()+"",item.getName()))
                     .collect(Collectors.toList()));
             return result;
         }
@@ -212,21 +198,6 @@ public class PointServiceImpl implements PointService {
             return flag?getTreeMap().get(pointId):user.getPoint();
         }
         return user.getPoint();
-    }
-
-    @Override
-    public ResultDto<List<Point>> getPointByPid(Long pid) {
-        ResultDto<List<Point>> result = new ResultDto<>(ResultCode.SUCCESS);
-        List<Point> points = getTreeMap().get(pid).getNodes();
-        result.setObject(points);
-        return result;
-    }
-
-    @Override
-    public ResultDto<Point> getPointById(Long id) {
-        ResultDto<Point> result = new ResultDto<>(ResultCode.SUCCESS);
-        result.setObject(getTreeMap().get(id));
-        return result;
     }
 
     private boolean checkAuthenticationPoint(long pointId, Point point) {

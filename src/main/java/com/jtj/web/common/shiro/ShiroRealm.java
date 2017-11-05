@@ -45,7 +45,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User)principalCollection.getPrimaryPrincipal();
-        Point point = pointService.getPointById(user.getPointId()).getObject();
+        Point point = pointService.getResultTreeEntityById(user.getPointId()).getObject();
         user.setPoint(point);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //系统管理员

@@ -61,8 +61,7 @@
                     <div class="col-sm-12"><!--<div class="col-sm-6 b-r">-->
                         <h4 class="m-t-none m-b">基本信息</h4>
                         <tt-simple-input label="名称" v-model="fromModalData.data.name" required></tt-simple-input>
-                        <tt-simple-input v-if="conditions.pid || isUpdate" label="父节点" v-model="fromModalData.data.pid" disabled="disabled"></tt-simple-input>
-                        <tt-simple-tree-root v-else label="父节点" v-model="fromModalData.data.pid" :data="getTypeMapById"></tt-simple-tree-root>
+                        <tt-simple-tree-root-v2 label="父节点" v-model="fromModalData.data.pid" :data="tree.assetType" :option="{key:'id',value:'name'}"></tt-simple-tree-root-v2>
                         <tt-simple-input label="排序" v-model="fromModalData.data.order" required></tt-simple-input>
                     </div>
                 </div>
@@ -122,7 +121,9 @@
                     empty:null,
                     submit:function () {}
                 },
-                isUpdate:false
+                tree:{
+                    assetType:[]
+                }
             }
         },
         computed:{
@@ -137,7 +138,11 @@
             }
         },
         created:function () {
+            let self = this;
             this.getTableList();
+            Server.assetType.getTypeTree.execute(data => {
+                self.tree.assetType = data.object;
+            });
         },
         beforeMount:function () {
         },
@@ -188,14 +193,12 @@
                 this.fromModalData.title = "添加";
                 this.fromModalData.data = JsonUtils.copy(this.fromModalData.empty);
                 this.fromModalData.data.pid = this.conditions.pid;
-                this.isUpdate = false;
                 this.fromModalData.submit = this.getSubmitFunc(Server.assetType.add);
                 this.fromModal.show();
             },
             showUpdateModal:function (obj) {
                 this.fromModalData.title = "修改";
                 this.fromModalData.data = JsonUtils.copy(obj);
-                this.isUpdate = true;
                 this.fromModalData.submit = this.getSubmitFunc(Server.assetType.update);
                 this.fromModal.show();
             },
@@ -208,28 +211,18 @@
             },
             updateTree:function () {
                 let self = this;
-                $('#menu-tree').jstree({
-                    'core' : {
-                        'data' :function (node,callback) {
-                            Server.assetType.getType.param({
-                                pid:node.id==="#"?0:node.id,
-                                type:1
-                            }).execute(data => {
-                                let list = $.map(data.object,(item,index) => {
-                                    item.parent = item.pid===0?"#":item.pid;
-                                    item.text = item.name;
-                                    item.children = true;
-                                    item.icon = 'fa fa-folder';
-                                    return item;
-                                });
-                                callback.call(this,list)
-                            });
+                Server.assetType.getTypeTree.execute(data => {
+                    let treeData = data.object;
+                    App.changeListTreeForJsTree(treeData);
+                    $('#menu-tree').jstree({
+                        'core' : {
+                            'data' :treeData
                         }
-                    }
-                }).on('changed.jstree', function (e, data) {
-                    self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
-                    self.pname = data.node.text;
-                    self.getTableList();
+                    }).on('changed.jstree', function (e, data) {
+                        self.conditions.pid = self.conditions.pid === data.node.id ? null : data.node.id;
+                        self.pname = data.node.text;
+                        self.getTableList();
+                    });
                 });
             }
         }

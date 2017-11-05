@@ -57,7 +57,7 @@ public class PointController {
     @ApiOperation(value = "网点树")
     @GetMapping("/tree")
     public ResultDto<List<Point>> getPointTree(){
-        return pointService.getPointTree();
+        return pointService.getResultTree();
     }
 
     @ApiOperation(value = "获取网点")
@@ -69,13 +69,13 @@ public class PointController {
     @ApiOperation(value = "获取网点")
     @GetMapping("/get")
     public ResultDto<List<Point>> getPointByPid(@RequestParam(value = "pid",required = false) Long pid){
-        return pointService.getPointByPid(pid);
+        return pointService.getResultTreeNodesByPid(pid);
     }
 
     @ApiOperation(value = "获取网点")
     @GetMapping("/get/{id}")
     public ResultDto<Point> getPointById(@PathVariable("id") Long id){
-        return pointService.getPointById(id);
+        return pointService.getResultTreeEntityById(id);
     }
 
     @ApiOperation(value = "获取网点")

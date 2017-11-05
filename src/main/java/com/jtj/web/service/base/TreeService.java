@@ -1,5 +1,7 @@
 package com.jtj.web.service.base;
 
+import com.jtj.web.common.ResultCode;
+import com.jtj.web.common.ResultDto;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -84,11 +86,27 @@ public interface TreeService<T extends TreeEntity<T>> {
             }
         return temp;
     }
+
     default List<T> getTreeRoot(){
-        /*return getTreeList().stream()
-                .filter(item -> Objects.equals(item.getPid(), item.getId()) || item.getPid() == 0)
-                .collect(Collectors.toList());*/
         return getTreeMap().get(0L).getNodes();
+    }
+
+    default ResultDto<List<T>> getResultTree() {
+        ResultDto<List<T>> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(getTreeRoot());
+        return result;
+    }
+
+    default ResultDto<List<T>> getResultTreeNodesByPid(Long pid) {
+        ResultDto<List<T>> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(getTreeMap().get(pid).getNodes());
+        return result;
+    }
+
+    default ResultDto<T> getResultTreeEntityById(Long id) {
+        ResultDto<T> result = new ResultDto<>(ResultCode.SUCCESS);
+        result.setObject(getTreeMap().get(id));
+        return result;
     }
 
 }

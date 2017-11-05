@@ -1,12 +1,14 @@
 package com.jtj.web.controller;
 
 import com.jtj.web.common.PageDto;
+import com.jtj.web.common.ResultCode;
 import com.jtj.web.common.ResultDto;
 import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.AssetTypeDto;
 import com.jtj.web.entity.AssetType;
 import com.jtj.web.entity.KeyValue;
 import com.jtj.web.service.AssetTypeService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +60,18 @@ public class AssetTypeController {
     //todo map permissions
     public ResultDto<List<KeyValue>> getMapByPid(@RequestParam("pid") Long pid){
         return assetTypeService.getMapByPid(pid);
+    }
+
+    @ApiOperation(value = "刷新缓存数据")
+    @PostMapping("/refresh")
+    public ResultDto<List<Object>> refresh(){
+        assetTypeService.refreshTreeData();
+        return new ResultDto<>(ResultCode.SUCCESS);
+    }
+
+    @GetMapping("/tree")
+    public ResultDto<List<AssetType>> getPointTree(){
+        return assetTypeService.getResultTree();
     }
 
 }
