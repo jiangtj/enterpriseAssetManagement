@@ -38,6 +38,12 @@ public class AssetTypeController {
         return assetTypeService.delete(ids);
     }
 
+    @DeleteMapping("/delete/{id}")
+    @RequiresPermissions("sys:assetType:delete")
+    public ResultDto<Object> deleteById(@PathVariable("id") Long id) throws AssetException {
+        return assetTypeService.deleteById(id);
+    }
+
     @PutMapping("/update")
     @RequiresPermissions("sys:assetType:update")
     public ResultDto<Object> update(@RequestBody AssetType type) {

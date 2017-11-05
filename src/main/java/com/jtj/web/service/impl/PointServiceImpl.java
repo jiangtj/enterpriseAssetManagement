@@ -116,7 +116,7 @@ public class PointServiceImpl implements PointService {
         }
         ResultDto<Object> result = new ResultDto<>();
         int count = pointDao.delete(new Long[]{id});
-        result.setResultCode(ResultCode.SUCCESS_PUT);
+        result.setResultCode(ResultCode.SUCCESS_DELETE);
         refreshTreeData();
         return result;
     }

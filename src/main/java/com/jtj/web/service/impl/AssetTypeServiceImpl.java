@@ -62,14 +62,11 @@ public class AssetTypeServiceImpl implements AssetTypeService {
         ResultDto<Object> result = new ResultDto<>();
         if (t.getPid() == null) {
             t.setPid(0L);
-            t.setLevel(1);
-        }else {
-            AssetType type = assetTypeDao.getById(t.getPid());
-            t.setLevel(type.getLevel() + 1);
         }
         assetTypeDao.add(t);
         refreshTreeData();
         result.setResultCode(ResultCode.SUCCESS_POST);
+        result.setMessage("请刷新当前页面！");
         return result;
     }
 
@@ -79,6 +76,7 @@ public class AssetTypeServiceImpl implements AssetTypeService {
         assetTypeDao.update(t);
         refreshTreeData();
         result.setResultCode(ResultCode.SUCCESS_PUT);
+        result.setMessage("请刷新当前页面！");
         return result;
     }
 
@@ -90,11 +88,25 @@ public class AssetTypeServiceImpl implements AssetTypeService {
         if (count == all){
             refreshTreeData();
             result.setResultCode(ResultCode.SUCCESS_DELETE);
+            result.setMessage("请刷新当前页面！");
             return result;
         }
         result.setResultCode(ResultCode.OPERATE_FAIL);
         result.setMessage("存在"+(all - count)+"/"+all+"数据有误！");
         throw new AssetException(result);
+    }
+
+    @Override
+    public ResultDto<Object> deleteById(Long id) throws AssetException {
+        ResultDto<Object> result = new ResultDto<>();
+        AssetType assetType = getTreeMap().get(id);
+        if (assetType.getNodes().size() != 0){
+            throw new AssetException(new ResultDto<>(ResultCode.NOT_DELETE_USED));
+        }
+        assetTypeDao.delete(new Long[]{id});
+        result.setResultCode(ResultCode.SUCCESS_DELETE);
+        result.setMessage("请刷新当前页面！");
+        return result;
     }
 
     @Override

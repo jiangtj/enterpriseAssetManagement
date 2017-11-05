@@ -1,7 +1,6 @@
 package com.jtj.web.dto;
 
 import com.jtj.web.common.BaseDto;
-import com.jtj.web.common.BaseEntity;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
@@ -11,7 +10,6 @@ public class AssetTypeDto extends BaseDto {
 
     private String name;
     private Long pid;
-    private Integer level;
     private Integer order;
 
     public String getName() {
@@ -28,14 +26,6 @@ public class AssetTypeDto extends BaseDto {
 
     public void setPid(Long pid) {
         this.pid = pid;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Integer getOrder() {

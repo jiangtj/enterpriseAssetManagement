@@ -9,7 +9,6 @@ import com.jtj.web.service.base.TreeEntity;
 public class AssetType extends TreeEntity<AssetType> {
 
     private String name;
-    private Integer level;
     private Integer order;
 
     public String getName() {
@@ -18,14 +17,6 @@ public class AssetType extends TreeEntity<AssetType> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Integer getOrder() {

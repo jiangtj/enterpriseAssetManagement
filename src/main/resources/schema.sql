@@ -119,7 +119,6 @@ DROP TABLE IF EXISTS `assets_type`;
 CREATE TABLE `assets_type` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类型id',
   `name` varchar(50) NOT NULL COMMENT '类型名称',
-  `level` int(8) NOT NULL COMMENT '级别',
   `pid` bigint(20) NOT NULL COMMENT '父节点id',
   `order` int(8) NOT NULL COMMENT '同一个父节点下面的排序',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

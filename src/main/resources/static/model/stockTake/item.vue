@@ -14,7 +14,7 @@
                         <tt-simple-input label="uuid" v-model="conditions.uuid"></tt-simple-input>
                         <tt-simple-input label="资产编号" v-model="conditions.customsId"></tt-simple-input>
                         <tt-simple-input label="名称" v-model="conditions.name"></tt-simple-input>
-                        <tt-simple-tree-root label="类型" v-model="conditions.assetsTypeId" :data="getTypeMapById"></tt-simple-tree-root>
+                        <tt-simple-tree-root-v2 label="类型" v-model="conditions.assetsTypeId" :data="tree.assetType" :option="{key:'id',value:'name'}"></tt-simple-tree-root-v2>
                         <tt-simple-select label="网点" v-model="conditions.pointId" :data="Map.point" show-undefined></tt-simple-select>
                         <tt-simple-select label="状态" v-model="conditions.status" :data="Map.stockTakeItemStatus" show-undefined></tt-simple-select>
 
@@ -107,6 +107,9 @@
                 stockTakeData:{
                     conditions:null,
                     name:null
+                },
+                tree:{
+                    assetType:[]
                 }
             }
         },
@@ -130,6 +133,10 @@
         created:function () {
             this.conditions.stockTakeId = App.$route.query.stockTakeId;
             if (this.conditions.stockTakeId) this.getTableList();
+            let self = this;
+            Server.assetType.getTypeTree.execute(data => {
+                self.tree.assetType = data.object;
+            });
         },
         beforeMount:function () {
         },
@@ -158,13 +165,6 @@
                     let empty = self.tableData.data.length === 0?null:self.tableData.data[0];
                     self.fromModalData.empty = JsonUtils.setNull(empty);
                 }
-            },
-            getTypeMapById:function (id) {
-                let self;
-                Server.assetType.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
-                    self = data.object;
-                });
-                return self;
             },
             updateToAbnormal:function (obj) {
                 let self = this;

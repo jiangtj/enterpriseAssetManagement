@@ -22,7 +22,7 @@
                                     <div class="btn-group">
                                         <button @click="showAddModal()" v-shiro:permission="'sys:assetType:add'" class="btn btn-outline btn-primary" type="button">新增</button>
                                         <button @click="showUpdateModal(tableSelectData[0])" v-shiro:permission="'sys:assetType:update'" v-if="hasOneChecked" class="btn btn-outline btn-primary" type="button">修改</button>
-                                        <button @click="deleteAll()" v-shiro:permission="'sys:assetType:delete'" v-if="hasChecked" class="btn btn-outline btn-danger" type="button">删除</button>
+                                        <button @click="deleteAll()" v-shiro:permission="'sys:assetType:delete'" v-if="hasOneChecked" class="btn btn-outline btn-danger" type="button">删除</button>
                                     </div>
                                     <div class="btn-group">
                                         <button @click="getTableList" class="btn btn-primary" type="button">搜索</button>
@@ -107,7 +107,6 @@
                         id:"类型id",
                         name:"名称",
                         pid:"父id",
-                        level:"级别",
                         order:"排序",
                         operation:{name:"操作",width:"60px"}
                     },
@@ -182,11 +181,10 @@
                     }
                 };
             },
-            deleteAll:function () {
+            deleteOne:function () {
                 let self = this;
                 SweetAlertUtils.show().sure(function () {
-                    let ids = $.map(self.tableSelectData,item => item.id);
-                    Server.assetType.delete.param("ids",ids).execute(() => self.getTableList());
+                    Server.assetType.deleteById.path("id",self.tableSelectData[0].id).execute(() => self.getTableList());
                 });
             },
             showAddModal:function () {
@@ -201,13 +199,6 @@
                 this.fromModalData.data = JsonUtils.copy(obj);
                 this.fromModalData.submit = this.getSubmitFunc(Server.assetType.update);
                 this.fromModal.show();
-            },
-            getTypeMapById:function (id) {
-                let self;
-                Server.assetType.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
-                    self = data.object;
-                });
-                return self;
             },
             updateTree:function () {
                 let self = this;

@@ -100,7 +100,7 @@ INSERT INTO `auth_user` (`id`, `name`, `password`, `description`, `role_id`, `po
 -- ----------------------------
 -- Records of assets_type
 -- ----------------------------
-INSERT INTO `assets_type` (`id`, `name`, `level`, `pid`, `order`, `create_time`, `update_time`) VALUES ('1', '计算机类', '1', '0', '1', '2017-04-29 19:59:20', '2017-04-29 19:59:20');
+INSERT INTO `assets_type` (`id`, `name`, `pid`, `order`, `create_time`, `update_time`) VALUES ('1', '计算机类', '0', '1', '2017-04-29 19:59:20', '2017-04-29 19:59:20');
 
 -- ----------------------------
 -- Records of system_dictionary
