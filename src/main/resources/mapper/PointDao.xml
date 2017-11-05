@@ -80,30 +80,6 @@
         ORDER BY p.`order` ASC
     </select>
 
-    <select id="getById" resultType="Point">
-        SELECT p.* FROM point p WHERE p.id = #{id}
-    </select>
-
-    <select id="getPointByIds" resultType="Point">
-        SELECT
-        p.*
-        FROM point p
-        WHERE p.id IN
-        <foreach collection="ids" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
-
-    <select id="getPointByPids" resultType="Point">
-        SELECT
-        p.*
-        FROM point p
-        WHERE p.pid IN
-        <foreach collection="pids" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
-
     <select id="getAllPoint" resultType="Point">
         SELECT p.* FROM point p
     </select>

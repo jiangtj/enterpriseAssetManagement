@@ -200,13 +200,6 @@
                 this.fromModalData.submit = this.getSubmitFunc(Server.point.update);
                 this.fromModal.show();
             },
-            getPointMapById:function (id) {
-                let self;
-                Server.point.getMapByPid.param("pid",id).setAsync(false).execute((data) => {
-                    self = data.object;
-                });
-                return self;
-            },
             updateTree:function () {
                 let self = this;
                 Server.point.getPointTree.execute(data => {

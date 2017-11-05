@@ -19,11 +19,5 @@ public interface PointDao extends BaseDao<Point,PointDto>{
 
     List<KeyValue> getMapByPid(@Param("pid") Long pid);
 
-    Point getById(@Param("id") Long id);
-
-    List<Point> getPointByIds(@Param("ids") List<Long> pointIdList);
-
-    List<Point> getPointByPids(@Param("pids") List<Long> pointIdList);
-
     List<Point> getAllPoint();
 }
