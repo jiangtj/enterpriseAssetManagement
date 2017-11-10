@@ -9,7 +9,6 @@ import com.jtj.web.entity.KeyValue;
 import com.jtj.web.entity.StockTake;
 import com.jtj.web.entity.StockTakeItem;
 import com.jtj.web.service.StockTakeService;
-import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +65,8 @@ public class StockTakeController {
     @PutMapping("/updateAmount")
     @RequiresPermissions("stockTake:updateAmount")
     public ResultDto<StockTake> updateAmount(@RequestBody Map<String,Object> map) {
-        return stockTakeService.updateAmount(MapUtils.getLong(map,"id"));
+
+        return stockTakeService.updateAmount((Long) map.get("id"));
     }
 
     @GetMapping("/getItemList")
@@ -78,13 +78,13 @@ public class StockTakeController {
     @PutMapping("/updateToAbnormal")
     @RequiresPermissions("stockTake:updateToAbnormal")
     public ResultDto<Object> updateToAbnormal(@RequestBody Map<String,Object> map) throws AssetException {
-        return stockTakeService.updateToAbnormal(MapUtils.getLong(map,"id"));
+        return stockTakeService.updateToAbnormal((Long) map.get("id"));
     }
 
     @PostMapping("/close")
     @RequiresPermissions("stockTake:close")
     public ResultDto<StockTake> close(@RequestBody Map<String,Object> map) throws AssetException {
-        return stockTakeService.close(MapUtils.getLong(map,"id"));
+        return stockTakeService.close((Long) map.get("id"));
     }
 
 }
