@@ -77,14 +77,14 @@ public class StockTakeController {
 
     @PutMapping("/updateToAbnormal")
     @RequiresPermissions("stockTake:updateToAbnormal")
-    public ResultDto<Object> updateToAbnormal(@RequestBody Map<String,Object> map) throws AssetException {
-        return stockTakeService.updateToAbnormal((Long) map.get("id"));
+    public ResultDto<Object> updateToAbnormal(@RequestBody Map<String,String> body) throws AssetException {
+        return stockTakeService.updateToAbnormal(Long.parseLong(body.get("id")));
     }
 
     @PostMapping("/close")
     @RequiresPermissions("stockTake:close")
-    public ResultDto<StockTake> close(@RequestBody Map<String,Object> map) throws AssetException {
-        return stockTakeService.close((Long) map.get("id"));
+    public ResultDto<StockTake> close(@RequestBody Map<String,String> body) throws AssetException {
+        return stockTakeService.close(Long.parseLong(body.get("id")));
     }
 
 }

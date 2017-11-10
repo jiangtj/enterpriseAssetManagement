@@ -53,10 +53,10 @@ public class RoleController {
     }
 
     @PutMapping("/updatePermission")
-    public ResultDto<Object> updatePermission(@RequestBody Map<String,Object> map){
-        List<Long> longs = Arrays.stream(String.valueOf(map.get("permissionIds")).split(","))
+    public ResultDto<Object> updatePermission(@RequestBody Map<String,String> body){
+        List<Long> longs = Arrays.stream(body.get("permissionIds").split(","))
                 .map(Long::parseLong).collect(Collectors.toList());
-        return roleService.updatePermission((Long) map.get("roleId"),
+        return roleService.updatePermission(Long.parseLong(body.get("roleId")),
                 longs.toArray(new Long[longs.size()]));
     }
 

@@ -74,7 +74,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public ResultDto<Object> updatePermission(Long roleId, Long[] permissionIds) {
-        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS);
+        ResultDto<Object> result = new ResultDto<>(ResultCode.SUCCESS_PUT);
         //清除权限
         roleDao.clearPermission(roleId);
         //添加权限
