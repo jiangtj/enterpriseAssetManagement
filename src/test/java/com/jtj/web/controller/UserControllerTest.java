@@ -1,10 +1,14 @@
 package com.jtj.web.controller;
 
+import com.jtj.web.common.utils.JacksonUtils;
+import com.jtj.web.entity.User;
+import org.hamcrest.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.ManualRestDocumentation;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -17,15 +21,15 @@ import java.lang.reflect.Method;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/11/19 17:57 End.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerTest extends AbstractTestNGSpringContextTests {
+public class UserControllerTest extends AbstractTransactionalTestNGSpringContextTests {
 
 
     private final ManualRestDocumentation restDocumentation = new ManualRestDocumentation("target/generated-snippets");
@@ -48,7 +52,18 @@ public class UserControllerTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    @Rollback
     public void add() throws Exception {
+        User user = new User();
+        user.setName("test-001");
+        user.setPassword("123456");
+        user.setPointId(1L);
+        user.setRoleId(1L);
+        user.setDescription("TestNG测试帐号");
+        this.mockMvc.perform(post("/user/add").contentType(MediaType.APPLICATION_JSON).content(JacksonUtils.toJson(user)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(document("user-add"));
     }
 
     @Test
@@ -64,7 +79,8 @@ public class UserControllerTest extends AbstractTestNGSpringContextTests {
         this.mockMvc.perform(get("/user/list?begin=0&offset=10"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andDo(document("sample"));
+                .andExpect(jsonPath("object.count", Matchers.equalTo(1)))
+                .andDo(document("user-list"));
     }
 
 }

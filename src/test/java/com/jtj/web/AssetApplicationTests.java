@@ -1,12 +1,12 @@
 package com.jtj.web;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-@SpringBootTest
-public class AssetApplicationTests extends AbstractTestNGSpringContextTests {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class AssetApplicationTests extends AbstractTransactionalTestNGSpringContextTests {
 
 	@Test
 	public void contextLoads() {
