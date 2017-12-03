@@ -1,32 +1,24 @@
 = 接口文档
 Mr.J;
+:toc: left
+:toc-title: 接口文档
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
 :self-dir: user-list
 
-[[index]]
+include::user/user-list.adoc[]
+
+== 例子
+
+才打死
+
+说到底是
 
 简单的接口文档使用 Spring REST Docs 和 TestNG.
 
-link:user-list.html[用户列表接口]
-
 `SampleTestNgApplicationTests` makes a call to a very simple service and produces three
 documentation snippets.
-
-One showing how to make a request using cURL:
-
-include::{snippets}/{self-dir}/curl-request.adoc[]
-
-One showing the HTTP request:
-
-include::{snippets}/{self-dir}/http-request.adoc[]
-
-And one showing the HTTP response:
-
-include::{snippets}/{self-dir}/http-response.adoc[]
-
-链接：<<index,回到开头>>
 
 用户添加:
 
@@ -35,3 +27,7 @@ include::{snippets}/user-add/curl-request.adoc[]
 用户添加响应:
 
 include::{snippets}/user-add/http-response.adoc[]
+
+=== 三级标题
+
+恩恩恩

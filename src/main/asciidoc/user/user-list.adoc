@@ -1,21 +1,15 @@
-= 用户列表接口
-Mr.J;
-:doctype: book
-:icons: font
-:source-highlighter: highlightjs
+== 用户列表接口
 :interface-name: 用户列表接口
 :interface-dir: user-list
 
-简单的接口文档使用 Spring REST Docs 和 TestNG.
-
 cURL:
 
-include::{snippets}/{interface-dir}/curl-request.adoc[]
+include::../{snippets}/{interface-dir}/curl-request.adoc[]
 
 HTTP request:
 
-include::{snippets}/{interface-dir}/http-request.adoc[]
+include::../{snippets}/{interface-dir}/http-request.adoc[]
 
 HTTP response:
 
-include::{snippets}/{interface-dir}/http-response.adoc[]
+include::../{snippets}/{interface-dir}/http-response.adoc[]
