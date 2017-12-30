@@ -13,3 +13,7 @@ include::../{snippets}/{interface-dir}/http-request.adoc[]
 HTTP response:
 
 include::../{snippets}/{interface-dir}/http-response.adoc[]
+
+Response fields:
+
+include::../{snippets}/{interface-dir}/response-fields.adoc[]

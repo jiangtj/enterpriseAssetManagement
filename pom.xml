@@ -162,10 +162,7 @@
 							<backend>html</backend>
 							<doctype>book</doctype>
 							<sourceDocumentName>index.adoc</sourceDocumentName>
-							<!--<attributes>
-								<toc>left</toc>
-								<toc-title>接口文档</toc-title>
-							</attributes>-->
+							<sourceHighlighter>highlight.js</sourceHighlighter>
 						</configuration>
 					</execution>
 				</executions>
