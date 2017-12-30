@@ -30,7 +30,7 @@ public class StockTakeController {
 
     @PostMapping("/add")
     @RequiresPermissions("stockTake:add")
-    public ResultDto<Object> add(@RequestBody StockTake stockTake){
+    public ResultDto<StockTake> add(@RequestBody StockTake stockTake){
         return stockTakeService.add(stockTake);
     }
 
@@ -42,7 +42,7 @@ public class StockTakeController {
 
     @PutMapping("/update")
     @RequiresPermissions("stockTake:update")
-    public ResultDto<Object> update(@RequestBody StockTake stockTake) {
+    public ResultDto<StockTake> update(@RequestBody StockTake stockTake) {
         return stockTakeService.update(stockTake);
     }
 

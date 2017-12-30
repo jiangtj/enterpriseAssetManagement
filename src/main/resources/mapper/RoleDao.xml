@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jtj.web.dao.RoleDao">
 
-    <insert id="add">
+    <insert id="add" keyProperty="id">
         INSERT INTO auth_role(name, status)
         VALUES (#{name},#{status})
     </insert>

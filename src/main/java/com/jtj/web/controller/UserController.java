@@ -24,7 +24,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/add")
-    public ResultDto<Object> add(@RequestBody User user){
+    public ResultDto<User> add(@RequestBody User user){
         return userService.add(user);
     }
 
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResultDto<Object> update(@RequestBody User user) {
+    public ResultDto<User> update(@RequestBody User user) {
         return userService.update(user);
     }
 

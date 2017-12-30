@@ -77,7 +77,7 @@
         </where>
     </select>
 
-    <insert id="add">
+    <insert id="add" keyProperty="id">
         INSERT INTO auth_user(name, password, description,role_id,point_id)
         VALUES (#{name},#{password},#{description},#{roleId},#{pointId})
     </insert>

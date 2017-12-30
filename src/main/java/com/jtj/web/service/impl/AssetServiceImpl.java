@@ -33,11 +33,12 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public ResultDto<Object> add(Asset t) {
-        ResultDto<Object> result = new ResultDto<>();
+    public ResultDto<Asset> add(Asset t) {
+        ResultDto<Asset> result = new ResultDto<>();
         String uuid = UUID.randomUUID().toString();
         t.setUuid(uuid);
         assetDao.add(t);
+        result.setObject(t);
         result.setResultCode(ResultCode.SUCCESS_POST);
         assetOperationRecordService.addOperationRecord(uuid, Constant.OperationType.ADD,result.getTitle());
         return result;

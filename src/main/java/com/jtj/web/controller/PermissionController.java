@@ -28,7 +28,7 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @PostMapping("/add")
-    public ResultDto<Object> add(@RequestBody Permission permission){
+    public ResultDto<Permission> add(@RequestBody Permission permission){
         return permissionService.add(permission);
     }
 
@@ -38,7 +38,7 @@ public class PermissionController {
     }
 
     @PutMapping("/update")
-    public ResultDto<Object> update(@RequestBody Permission permission) {
+    public ResultDto<Permission> update(@RequestBody Permission permission) {
         return permissionService.update(permission);
     }
 

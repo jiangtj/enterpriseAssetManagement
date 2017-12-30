@@ -32,7 +32,7 @@ public class PointController {
 
     @ApiOperation(value = "添加网点")
     @PostMapping("/add")
-    public ResultDto<Object> add(@RequestBody Point point){
+    public ResultDto<Point> add(@RequestBody Point point){
         return pointService.add(point);
     }
 
@@ -44,7 +44,7 @@ public class PointController {
 
     @ApiOperation(value = "更新网点")
     @PutMapping("/update")
-    public ResultDto<Object> update(@RequestBody Point point) {
+    public ResultDto<Point> update(@RequestBody Point point) {
         return pointService.update(point);
     }
 

@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public interface StockTakeService extends CurdService<StockTake,StockTakeDto,StockTakeDao> {
 
-    ResultDto<Object> addByAsset(String name, AssetDto dto);
+    ResultDto<StockTake> addByAsset(String name, AssetDto dto);
 
     ResultDto<Object> handleItem(StockTakeItem item);
 

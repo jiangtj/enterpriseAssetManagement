@@ -29,7 +29,7 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/add")
-    public ResultDto<Object> add(@RequestBody Role role){
+    public ResultDto<Role> add(@RequestBody Role role){
         return roleService.add(role);
     }
 
@@ -39,7 +39,7 @@ public class RoleController {
     }
 
     @PutMapping("/update")
-    public ResultDto<Object> update(@RequestBody Role role) {
+    public ResultDto<Role> update(@RequestBody Role role) {
         return roleService.update(role);
     }
 

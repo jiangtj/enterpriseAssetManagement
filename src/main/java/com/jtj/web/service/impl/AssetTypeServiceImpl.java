@@ -58,23 +58,25 @@ public class AssetTypeServiceImpl implements AssetTypeService {
     }
 
     @Override
-    public ResultDto<Object> add(AssetType t) {
-        ResultDto<Object> result = new ResultDto<>();
+    public ResultDto<AssetType> add(AssetType t) {
+        ResultDto<AssetType> result = new ResultDto<>();
         if (t.getPid() == null) {
             t.setPid(0L);
         }
         assetTypeDao.add(t);
         refreshTreeData();
+        result.setObject(t);
         result.setResultCode(ResultCode.SUCCESS_POST);
         result.setMessage("请刷新当前页面！");
         return result;
     }
 
     @Override
-    public ResultDto<Object> update(AssetType t) {
-        ResultDto<Object> result = new ResultDto<>();
+    public ResultDto<AssetType> update(AssetType t) {
+        ResultDto<AssetType> result = new ResultDto<>();
         assetTypeDao.update(t);
         refreshTreeData();
+        result.setObject(t);
         result.setResultCode(ResultCode.SUCCESS_PUT);
         result.setMessage("请刷新当前页面！");
         return result;

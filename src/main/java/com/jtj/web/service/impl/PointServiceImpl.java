@@ -68,12 +68,13 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public ResultDto<Object> add(Point t) {
+    public ResultDto<Point> add(Point t) {
         if (t.getPid() == null) {
             t.setPid(0L);
         }
-        ResultDto<Object> result = new ResultDto<>();
+        ResultDto<Point> result = new ResultDto<>();
         pointDao.add(t);
+        result.setObject(t);
         result.setResultCode(ResultCode.SUCCESS_POST);
         refreshTreeData();
         result.setMessage("请刷新当前页面！");
@@ -81,12 +82,13 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public ResultDto<Object> update(Point t) {
+    public ResultDto<Point> update(Point t) {
         if (t.getPid() == null) {
             t.setPid(0L);
         }
-        ResultDto<Object> result = new ResultDto<>();
+        ResultDto<Point> result = new ResultDto<>();
         pointDao.update(t);
+        result.setObject(t);
         result.setResultCode(ResultCode.SUCCESS_PUT);
         refreshTreeData();
         return result;

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jtj.web.dao.AssetDao">
 
-    <insert id="add">
+    <insert id="add" keyProperty="id">
         INSERT INTO assets_item(uuid, customs_id, name, price, assets_type_id, point_id)
         VALUES (#{uuid},#{customsId},#{name},#{price},#{assetsTypeId},#{pointId})
     </insert>

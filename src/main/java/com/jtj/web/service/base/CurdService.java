@@ -13,10 +13,11 @@ public interface CurdService<E extends BaseEntity,T extends BaseDto,D extends Ba
 
     D getRepository();
 
-    default ResultDto<Object> add(E t) {
+    default ResultDto<E> add(E t) {
         D dao = getRepository();
-        ResultDto<Object> result = new ResultDto<>();
+        ResultDto<E> result = new ResultDto<>();
         dao.add(t);
+        result.setObject(t);
         result.setResultCode(ResultCode.SUCCESS_POST);
         return result;
     }
@@ -36,10 +37,11 @@ public interface CurdService<E extends BaseEntity,T extends BaseDto,D extends Ba
         throw new AssetException(result);
     }
 
-    default ResultDto<Object> update(E t) {
+    default ResultDto<E> update(E t) {
         D dao = getRepository();
-        ResultDto<Object> result = new ResultDto<>();
+        ResultDto<E> result = new ResultDto<>();
         dao.update(t);
+        result.setObject(t);
         result.setResultCode(ResultCode.SUCCESS_PUT);
         return result;
     }

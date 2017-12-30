@@ -45,7 +45,7 @@ public class StockTakeServiceImpl implements StockTakeService{
     }
 
     @Override
-    public ResultDto<Object> addByAsset(String name, AssetDto dto) {
+    public ResultDto<StockTake> addByAsset(String name, AssetDto dto) {
         StockTake stockTake = new StockTake();
         stockTake.setName(name);
 
@@ -58,7 +58,7 @@ public class StockTakeServiceImpl implements StockTakeService{
         User user = (User) session.getAttribute(Constant.SESSION_USER);
         stockTake.setUserId(user.getId());
 
-        ResultDto<Object> result = add(stockTake);
+        ResultDto<StockTake> result = add(stockTake);
 
         if (ResultCode.SUCCESS_POST.getCode().equals(result.getCode())){
             stockTakeDao.addItem(stockTake.getId(),dto);

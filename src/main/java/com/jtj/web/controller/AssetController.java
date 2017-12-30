@@ -7,6 +7,7 @@ import com.jtj.web.dto.AssetAndStockTakeNameDto;
 import com.jtj.web.dto.AssetDto;
 import com.jtj.web.entity.Asset;
 import com.jtj.web.entity.AssetOperationRecord;
+import com.jtj.web.entity.StockTake;
 import com.jtj.web.service.AssetOperationRecordService;
 import com.jtj.web.service.AssetService;
 import com.jtj.web.service.StockTakeService;
@@ -34,7 +35,7 @@ public class AssetController {
 
     @PostMapping("/add")
     @RequiresPermissions("asset:add")
-    public ResultDto<Object> add(@RequestBody Asset asset){
+    public ResultDto<Asset> add(@RequestBody Asset asset){
         return assetService.add(asset);
     }
 
@@ -46,7 +47,7 @@ public class AssetController {
 
     @PutMapping("/update")
     @RequiresPermissions("asset:update")
-    public ResultDto<Object> update(@RequestBody Asset asset) {
+    public ResultDto<Asset> update(@RequestBody Asset asset) {
         return assetService.update(asset);
     }
 
@@ -70,7 +71,7 @@ public class AssetController {
 
     @PostMapping("/addStockTake")
     @RequiresPermissions("asset:stockTake:add")
-    public ResultDto<Object> addStockTake(@RequestBody AssetAndStockTakeNameDto dto) {
+    public ResultDto<StockTake> addStockTake(@RequestBody AssetAndStockTakeNameDto dto) {
         return stockTakeService.addByAsset(dto.getName(),dto.getConditions());
     }
 

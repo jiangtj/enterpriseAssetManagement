@@ -28,7 +28,7 @@ public class AssetTypeController {
 
     @PostMapping("/add")
     @RequiresPermissions("sys:assetType:add")
-    public ResultDto<Object> add(@RequestBody AssetType type){
+    public ResultDto<AssetType> add(@RequestBody AssetType type){
         return assetTypeService.add(type);
     }
 
@@ -46,7 +46,7 @@ public class AssetTypeController {
 
     @PutMapping("/update")
     @RequiresPermissions("sys:assetType:update")
-    public ResultDto<Object> update(@RequestBody AssetType type) {
+    public ResultDto<AssetType> update(@RequestBody AssetType type) {
         return assetTypeService.update(type);
     }
 
