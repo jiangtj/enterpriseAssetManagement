@@ -5,7 +5,7 @@
 
 
 ### 环境
-- JDK环境：jdk 8+
+- JDK环境：jdk 8
 - 数据库：mysql 5.7.14
 - 服务器：tomcat
 - 系统：window/linux
@@ -14,14 +14,14 @@
 ### 框架  
 
 #### 后台：
-- spring boot
+- spring boot(version 2.0)
 - mybatis
 - apache shiro  
 
 #### 前端：
 - spring thymeleaf
-- vue.js
-- jQuery  
+- vue.js(version 2.0)
+- jQuery(version 2.1)
 
 #### 其他：
 - swagger2  
