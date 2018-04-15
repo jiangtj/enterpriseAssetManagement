@@ -1,19 +1,18 @@
 = 接口文档
 Mr.J;
-:toc: left
-:toc-title: 接口文档
+:toc2:
+:toc-title: 目录
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
-:self-dir: user-list
+:docinfo: shared-head
+
+
+include::readme.adoc[]
 
 include::user/user-list.adoc[]
 
 == 例子
-
-才打死
-
-说到底是
 
 简单的接口文档使用 Spring REST Docs 和 TestNG.
 

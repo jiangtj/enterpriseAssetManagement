@@ -1,0 +1,34 @@
+== 说明
+:imagesdir: images
+
+asciidoc的写作向导:http://asciidoctor.org/docs/asciidoc-writers-guide/
+
+文档的使用主要有以下两种方式
+
+=== 生成静态文档
+1. `mvn test`执行maven测试
+2. 打开`generated-docs`下生成index.html
+
+=== asciidoctor:http
+1. 添加一个maven运行配置
+2. 选择工作目录
+3. 添加maven命令行`asciidoctor:http -X -Dasciidoctor.backend=html5 -Dasciidoctor.sourceDocumentName=index.adoc -Dasciidoctor.sourceHighlighter=highlight.js`
+4. 运行该maven配置命令，打开http://localhost:2000，可查看当前的文档
+5. 控制台输入refresh，重新渲染
+
+image::asciidoctor.png[]
+
+asciidoctor:http方式查看文档，暂时存在一个"缺陷"，只允许localhost访问，但可通过该方式快速预览与修改文档
+
+
+=== pdf
+
+需要 linux & ruby （windows10下建议安装linux子系统）
+
+1. gem install asciidoctor
+2. gem install asciidoctor-pdf-cjk-kai_gen_gothic
+3. asciidoctor-pdf-cjk-kai_gen_gothic-install 需翻墙，不行的话 https://github.com/chloerei/asciidoctor-pdf-cjk-kai_gen_gothic/releases/tag/v0.1.0-fonts[下载字体] 并放入安装目录的data/fonts
+4. 进入文档目录
+5. asciidoctor-pdf -r asciidoctor-pdf-cjk-kai_gen_gothic -a pdf-style=KaiGenGothicCN -a snippets=../../../target/generated-snippets index.adoc
+
+
