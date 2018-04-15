@@ -5,7 +5,7 @@
 
 
 ### 环境
-- JDK环境：jdk 8+
+- JDK环境：jdk 8
 - 数据库：mysql 5.7.14
 - 服务器：tomcat
 - 系统：window/linux
@@ -14,14 +14,14 @@
 ### 框架  
 
 #### 后台：
-- spring boot
+- spring boot(version 2.0)
 - mybatis
 - apache shiro  
 
 #### 前端：
 - spring thymeleaf
-- vue.js
-- jQuery  
+- vue.js(version 2.0)
+- jQuery(version 2.1)
 
 #### 其他：
 - swagger2  
@@ -34,7 +34,7 @@
 
 ### 注意
 - 需java运行环境
-- 第一次启动，需添加`--spring.datasource.initialize=true`参数，以初始化数据库（*目前仍处于开发阶段，数据库结构可能存在调整，且不提供版本更新sql，数据库文件放在resources目录下*）
+- 第一次启动，需添加`--spring.datasource.initialization-mode=always`参数，以初始化数据库（*目前仍处于开发阶段，数据库结构可能存在调整，且不提供版本更新sql，数据库文件放在resources目录下*）
 - 默认user-id 为 1 的用户拥有最大权限，必要时修改数据库中用户id
 - 后台运行方式，linux 使用`nohup`，windows 使用`javaw`代替`java`
 - 若要支持ie，需修改所有js中es6语法为es5，理论上支持ie9+
@@ -47,10 +47,25 @@ docker  run -p 80:8080 \
    -e 'SPRING_DATASOURCE_URL=jdbc:mysql://192.169.2.2:3306/asset?useUnicode=true&characterEncoding=utf-8&useSSL=false' \
    -e 'SPRING_DATASOURCE_USERNAME=root' \
    -e 'SPRING_DATASOURCE_PASSWORD=pw' \
-   -e 'SPRING_DATASOURCE_INITIALIZE=true' \
+   -e 'SPRING_DATASOURCE_INITIALIZATION_MODE=always' \
    kurome/asset-run  
 ```  
 - 在网页端，输入docker虚拟环境ip地址即可  
 
+### 不再维护！！
+很遗憾告诉您这个消息，该项目部分功能实现超出我的能力范围（如果要做到好用，
+需与打印机等硬件交互）。同时，在项目架构设计时也存在一些缺陷：
+1. 前后端未能实现分离  
+2. 前后端代码留有许多个人习惯，并且部分地方过度封装，导致他人维护成本较高   
 
+#### 一些琐事
+1. 前端：vue的是个非常不错的前端框架，很灵活，很有意思。但相应的由于其太过于灵活，
+架构设计很难设计完美，导致后续的维护成本增加。建议重构该项目的前端框架，angular或许是
+个不错的选择。
+2. 持久层框架：Mybatis与Spring Data Jpa。这两个框架各有各的优势，但对于开源项目
+来说，Jpa更适合开源协作（无需关心数据库），而Mybatis更适合企业内部系统使用
+（一般而言，企业内部有专门维护数据库的人员）。我后续的开源项目，将更多的采用
+Jpa框架。
+
+最后，感谢您的关注与收藏
 

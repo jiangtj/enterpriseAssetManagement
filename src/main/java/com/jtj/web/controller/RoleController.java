@@ -6,7 +6,6 @@ import com.jtj.web.common.exception.AssetException;
 import com.jtj.web.dto.RoleDto;
 import com.jtj.web.entity.Role;
 import com.jtj.web.service.RoleService;
-import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,10 +53,10 @@ public class RoleController {
     }
 
     @PutMapping("/updatePermission")
-    public ResultDto<Object> updatePermission(@RequestBody Map<String,Object> map){
-        List<Long> longs = Arrays.stream(MapUtils.getString(map,"permissionIds").split(","))
+    public ResultDto<Object> updatePermission(@RequestBody Map<String,String> body){
+        List<Long> longs = Arrays.stream(body.get("permissionIds").split(","))
                 .map(Long::parseLong).collect(Collectors.toList());
-        return roleService.updatePermission(MapUtils.getLong(map,"roleId"),
+        return roleService.updatePermission(Long.parseLong(body.get("roleId")),
                 longs.toArray(new Long[longs.size()]));
     }
 

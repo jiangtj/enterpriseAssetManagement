@@ -18,7 +18,7 @@ build:maven:
   artifacts:
     paths:
       - target/asset.jar
-    expire_in: 1 mo
+  #   expire_in: 1 mo
   only:
     - master
 
