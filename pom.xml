@@ -25,6 +25,7 @@
 		<mybatis-spring-boot.version>1.3.1</mybatis-spring-boot.version>
 		<shiro-spring.version>1.3.2</shiro-spring.version>
 		<swagger2.version>2.7.0</swagger2.version>
+		<jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
 	</properties>
 
 	<dependencies>
@@ -93,6 +94,13 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${swagger2.version}</version>
+		</dependency>
+
+		<!-- support jdk9+ -->
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>${jaxb-runtime.version}</version>
 		</dependency>
 
 	</dependencies>

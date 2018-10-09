@@ -2,10 +2,10 @@
 企业固定资产管理系统  
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/10b70ef4eea14dad9280115ec3b5d44d)](https://www.codacy.com/app/116749895/enterpriseAssetManagement?utm_source=github.com&utm_medium=referral&utm_content=JiangTJ/enterpriseAssetManagement&utm_campaign=badger)
 [![build status](https://gitlab.com/JiangTJ/enterpriseAssetManagement/badges/master/build.svg)](https://gitlab.com/JiangTJ/enterpriseAssetManagement/commits/master)
-
+![status](https://img.shields.io/badge/status-unmaintenanced-red.svg)
 
 ### 环境
-- JDK环境：jdk 8
+- JDK环境：jdk 8/11
 - 数据库：mysql 5.7.14
 - 服务器：tomcat
 - 系统：window/linux
@@ -57,15 +57,6 @@ docker  run -p 80:8080 \
 需与打印机等硬件交互）。同时，在项目架构设计时也存在一些缺陷：
 1. 前后端未能实现分离  
 2. 前后端代码留有许多个人习惯，并且部分地方过度封装，导致他人维护成本较高   
-
-#### 一些琐事
-1. 前端：vue的是个非常不错的前端框架，很灵活，很有意思。但相应的由于其太过于灵活，
-架构设计很难设计完美，导致后续的维护成本增加。建议重构该项目的前端框架，angular或许是
-个不错的选择。
-2. 持久层框架：Mybatis与Spring Data Jpa。这两个框架各有各的优势，但对于开源项目
-来说，Jpa更适合开源协作（无需关心数据库），而Mybatis更适合企业内部系统使用
-（一般而言，企业内部有专门维护数据库的人员）。我后续的开源项目，将更多的采用
-Jpa框架。
 
 最后，感谢您的关注与收藏
 
